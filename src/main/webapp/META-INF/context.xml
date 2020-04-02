@@ -1,0 +1,9 @@
+<Context allowCasualMultipartParsing="true">
+    <Resource name="jdbc/railway_system" auth="Container"
+              type="javax.sql.DataSource" maxActive="100"
+              maxIdle="30" maxWait="10000"
+              username="postgres"
+              password="admin"
+              driverClassName="org.postgresql.Driver"
+              url="jdbc:postgresql://localhost:5432/final_project?useUnicode=true&amp;characterEncoding=UTF-8"/>
+</Context>
