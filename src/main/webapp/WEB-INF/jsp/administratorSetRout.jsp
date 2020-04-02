@@ -43,7 +43,7 @@
     </p>
 </form>
 <p>
-<form action="home" method="GET">
+<form action="administrator_account" method="GET">
     <input type="submit" value="<fmt:message key="back"/>">
 </form>
 </p>
