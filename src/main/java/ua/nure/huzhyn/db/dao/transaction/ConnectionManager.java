@@ -3,7 +3,7 @@ package ua.nure.huzhyn.db.dao.transaction;
 
 import java.sql.Connection;
 
-public class ConnectionManager {
+public class ConnectionManager {  
 
     private static ThreadLocal<Connection> connections = new ThreadLocal<>();
 
