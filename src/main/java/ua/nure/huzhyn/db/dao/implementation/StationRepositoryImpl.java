@@ -92,7 +92,7 @@ public class StationRepositoryImpl implements StationRepository {
     }
 
     private Station extract(ResultSet rs) throws SQLException {
-
+// TODO next elem
         Station station = new Station();
         station.setStationId(rs.getString("station_id"));
         station.setStation(rs.getString("station"));

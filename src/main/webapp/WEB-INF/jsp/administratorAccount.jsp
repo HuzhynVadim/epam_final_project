@@ -10,10 +10,6 @@
     <title><fmt:message key="admin.account"/></title>
 </head>
 <body>
-<div align="right">
-    <fmt:message key="enterRole"></fmt:message>
-    <mrt:role role="${user.role}"></mrt:role>
-</div>
 <center>
     <fmt:message key="account"></fmt:message>
 </center>
@@ -35,7 +31,7 @@
             <td>${rout.routNumber}</td>
             <td>${rout.trainNumber}</td>
             <td>
-                <form action="administrator_set_rout" method="GET">
+                <form action="administrator_details_set_rout" method="GET">
                     <input type="hidden" name="rout" value="${rout.routsId}">
                     <input type="submit" name="details" value="<fmt:message key="admin.details"/>">
                 </form>
