@@ -276,6 +276,7 @@
     <tr>
         <th><fmt:message key="order.user.information"/></th>
         <th><fmt:message key="order.train.number"/></th>
+        <th><fmt:message key="rout.name"/></th>
         <th><fmt:message key="order.car.type"/></th>
         <th><fmt:message key="order.car.number"/></th>
         <th><fmt:message key="order.count.of.seats"/></th>
@@ -293,31 +294,31 @@
     </thead>
     <tbody class="text-center">
     <c:forEach items="${order_list}" var="order">
-        <tr>
-            <td>${order.user.firstName} ${order.user.lastName}</td>
-            <td>${order.trainNumber}</td>
-            <td>${order.carType}</td>
-            <td>${order.carNumber}</td>
-            <td>${order.countOfSeats}</td>
-<%--            <td>${order.seatsNumber}</td>--%>
-            <td></td>
-            <td>${order.price}</td>
-            <td>${order.dispatchStation}</td>
-            <td>${order.arrivalDate}</td>
-            <td>${order.travelTime}</td>
-            <td>${order.arrivalStation}</td>
-            <td>${order.dispatchDate}</td>
-            <td>${order.orderDate}</td>
-            <td>${order.orderStatus}</td>
-            <td>
-                <form action="administrator_edit_info_order" method="GET">
-                    <input type="hidden" name="order_id" value="${order.orderId}">
-                    <input type="submit" class="btn btn-info" name="edit_info_order"
-                           value="<fmt:message key="admin.editInformation"/>">
-                </form>
-            </td>
-        </tr>
-    </c:forEach>
+            <tr>
+                <td>${order.user.firstName} ${order.user.lastName}</td>
+                <td>${order.trainNumber}</td>
+                <td>${order.routsId}</td>
+                <td>${order.carType}</td>
+                <td>${order.carNumber}</td>
+                <td>${order.countOfSeats}</td>
+                <td>${order.seatNumber}</td>
+                <td>${order.price}</td>
+                <td>${order.dispatchStation}</td>
+                <td>${order.arrivalDate}</td>
+                <td>${order.travelTime}</td>
+                <td>${order.arrivalStation}</td>
+                <td>${order.dispatchDate}</td>
+                <td>${order.orderDate}</td>
+                <td>${order.orderStatus}</td>
+                <td>
+                    <form action="administrator_edit_info_order" method="GET">
+                        <input type="hidden" name="order_id" value="${order.orderId}">
+                        <input type="submit" class="btn btn-info" name="edit_info_order"
+                               value="<fmt:message key="admin.editInformation"/>">
+                    </form>
+                </td>
+            </tr>
+        </c:forEach>
     </tbody>
 </table>
 <p>

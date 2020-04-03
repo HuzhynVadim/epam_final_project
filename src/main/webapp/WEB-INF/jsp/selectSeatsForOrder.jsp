@@ -55,7 +55,7 @@
     <table class="table table-bordered table-hover text-center" border="1" style="width: auto">
         <thead class="thead-light text-center">
         <tr>
-            <c:forEach  begin="1" end="${count_of_seats}">
+            <c:forEach begin="1" end="${count_of_seats}">
                 <th><fmt:message key="order.seats.number"/></th>
             </c:forEach>
             <th><fmt:message key="order.make.order"/></th>
@@ -65,7 +65,6 @@
         <tr>
             <c:forEach begin="1" end="${count_of_seats}">
                 <td><select class="btn btn-info dropdown-toggle" name="seats_number">
-                    <option value=""> </option>
                     <c:forEach items="${seat_list}" var="seat">
                         <option value="${seat.seatId}"><c:out value="${seat.seatNumber}"/></option>
                     </c:forEach>

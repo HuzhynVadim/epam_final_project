@@ -63,7 +63,6 @@
         <tbody>
         <tr>
             <td><select class="btn btn-info dropdown-toggle" name="car_id">
-                <option value=""> </option>
                 <c:forEach items="${car_list}" var="carList">
                     <option value="${carList.carId}"><c:out value="${carList.carNumber}"/></option>
                 </c:forEach>

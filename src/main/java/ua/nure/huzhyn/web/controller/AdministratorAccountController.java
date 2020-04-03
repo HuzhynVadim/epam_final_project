@@ -2,19 +2,9 @@ package ua.nure.huzhyn.web.controller;
 
 import ua.nure.huzhyn.db.dao.dto.CarDto;
 import ua.nure.huzhyn.db.dao.dto.RoutInfoDto;
-import ua.nure.huzhyn.model.entity.Order;
-import ua.nure.huzhyn.model.entity.RoutToStationMapping;
-import ua.nure.huzhyn.model.entity.Station;
-import ua.nure.huzhyn.model.entity.Train;
-import ua.nure.huzhyn.model.entity.User;
+import ua.nure.huzhyn.model.entity.*;
 import ua.nure.huzhyn.model.entity.enums.UserRole;
-import ua.nure.huzhyn.services.CarService;
-import ua.nure.huzhyn.services.OrderService;
-import ua.nure.huzhyn.services.RoutService;
-import ua.nure.huzhyn.services.RoutMappingService;
-import ua.nure.huzhyn.services.StationService;
-import ua.nure.huzhyn.services.TrainService;
-import ua.nure.huzhyn.services.UserService;
+import ua.nure.huzhyn.services.*;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 
 import javax.servlet.ServletConfig;
@@ -40,6 +30,10 @@ public class AdministratorAccountController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         List<Order> orderList = orderService.getAllOrderList();
+        for (int i = 0; i <= orderList.size() - 1; i++) {
+            RoutInfoDto routInfoDto = routService.getRoutById(orderList.get(i).getRoutsId());
+            orderList.get(i).setRoutsId(routInfoDto.getRoutName());
+        }
         request.setAttribute("order_list", orderList);
         List<User> userInfoList = userService.getUserInfo(UserRole.USER.name());
         request.setAttribute("user_list", userInfoList);

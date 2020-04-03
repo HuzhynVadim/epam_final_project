@@ -52,9 +52,9 @@
     <fmt:message key="enterRole"></fmt:message>
     <mrt:role role="${user.role}"></mrt:role>
 </div>
-<center class="h2">
+<div class="h2" style="text-align: center;">
     <fmt:message key="account"></fmt:message>
-</center>
+</div>
 <p class="h4">
     <h12><fmt:message key="user.order.information"/></h12>
 </p>
@@ -62,10 +62,11 @@
     <thead class="thead-light text-center">
     <tr>
         <th><fmt:message key="order.train.number"/></th>
+        <th><fmt:message key="rout.name"/></th>
         <th><fmt:message key="order.car.type"/></th>
         <th><fmt:message key="order.car.number"/></th>
-        <th><fmt:message key="order.seats.number"/></th>
         <th><fmt:message key="order.count.of.seats"/></th>
+        <th><fmt:message key="order.seats.number"/></th>
         <th><fmt:message key="order.price"/></th>
         <th><fmt:message key="order.dispatch.station"/></th>
         <th><fmt:message key="order.dispatch.date"/></th>
@@ -81,10 +82,11 @@
     <c:forEach items="${order_list}" var="order">
         <tr>
             <td>${order.trainNumber}</td>
+            <td>${order.routsId}</td>
             <td>${order.carType}</td>
             <td>${order.carNumber}</td>
-            <td>${order.seatNumber}</td>
             <td>${order.countOfSeats}</td>
+            <td>${order.seatNumber}</td>
             <td>${order.price}</td>
             <td>${order.dispatchStation}</td>
             <td>${order.arrivalDate}</td>
@@ -105,10 +107,8 @@
     </c:forEach>
     </tbody>
 </table>
-<p>
 <form action="home" method="GET">
     <input type="submit" class="btn btn-primary" value="<fmt:message key="back"/>">
 </form>
-</p>
 </body>
 </html>
