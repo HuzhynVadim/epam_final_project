@@ -41,6 +41,7 @@ public class AdministratorSetRoutController extends HttpServlet {
             routToStationMapping.setOrder(request.getParameter("station_order"));
             routToStationMappingValidator.isValidRoutToStationMapping(routToStationMapping);
             routToStationMappingService.addRoutToStationMapping(routToStationMapping);
+
         } catch (NumberFormatException e) {
             LOGGER.error("Incorrect data entered");
             throw new IncorrectDataException("Incorrect data entered", e);

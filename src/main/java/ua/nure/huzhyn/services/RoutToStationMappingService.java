@@ -6,4 +6,6 @@ public interface RoutToStationMappingService {
     void updateRoutToStationMapping(RoutToStationMapping routToStationMapping);
 
     void addRoutToStationMapping(RoutToStationMapping routToStationMapping);
+
+    void removeRoutToStationMapping(String routsMId);
 }

@@ -28,4 +28,12 @@ public class RoutToStationMappingServiceImpl implements RoutToStationMappingServ
             return null;
         });
     }
+
+    @Override
+    public void removeRoutToStationMapping(String routsMId) {
+        transactionManager.execute(() -> {
+            routToStationMappingRepository.delete(routsMId);
+            return null;
+        });
+    }
 }
