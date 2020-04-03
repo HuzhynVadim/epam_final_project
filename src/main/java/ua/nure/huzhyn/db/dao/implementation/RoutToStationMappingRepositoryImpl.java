@@ -16,7 +16,7 @@ import java.util.UUID;
 
 public class RoutToStationMappingRepositoryImpl implements RoutToStationMappingRepository {
     private static final Logger LOGGER = Logger.getLogger(RoutsRepositoryImpl.class);
-    private static final String ADD_ROUT_MAPPINGS = "INSERT INTO final_project.railway_system.rout_to_station_mapping as rm (routs_m_id, station_arrival_date, station_dispatch_data, station_id, routs_id, \"order\") VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String ADD_ROUT_MAPPINGS = "INSERT INTO final_project.railway_system.rout_to_station_mapping as rm (routs_m_id, station_arrival_date, station_dispatch_data, station_id, routs_id, \"order\") VALUES (? , ?, ?, ?, ?, ?)";
     private static final String GET_ROUT_MAPPING_BY_ID = "SELECT * FROM final_project.railway_system.rout_to_station_mapping WHERE routs_m_id = ?";
     private static final String UPDATE_ROUT_MAPPING = "UPDATE final_project.railway_system.rout_to_station_mapping SET station_id = ?, routs_id = ?, station_arrival_date = ?, station_dispatch_data = ?, \"order\" = ? WHERE routs_m_id = ?";
     private static final String DELETE_ROUT_MAPPING = "DELETE FROM final_project.railway_system.rout_to_station_mapping WHERE routs_m_id = ?";

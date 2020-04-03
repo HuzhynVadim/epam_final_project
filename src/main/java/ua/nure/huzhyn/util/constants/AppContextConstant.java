@@ -8,6 +8,7 @@ public class AppContextConstant {
     public static final String STATION_SERVICE = "station_service";
     public static final String ROUT_SERVICE = "route_service";
     public static final String TRAIN_SERVICE = "train_service";
+    public static final String ROUT_TO_STATION_MAPPING_SERVICE = "rout_to_station_mapping";
 
     public static final String LOCALE_EN = "en";
     public static final String LOCALE_RU = "ru";

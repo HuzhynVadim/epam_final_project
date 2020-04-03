@@ -17,7 +17,7 @@
             <th><fmt:message key="delete"/></th>
         </tr>
         <tr>
-            <td><input name="station_order" type=""></td>
+            <td><input name="station_order"></td>
             <td><select name="station_station">
                 <c:forEach items="${stationList}" var="station">
                     <option value="${station.stationId}"><c:out value="${station.station}"/></option>
@@ -27,7 +27,7 @@
             <td><input name="station_dispatch_date" type="datetime-local"></td>
             <td>
                 <form action="rout_delete" method="POST">
-                    <input type="hidden" name="station_mapping" value="${station_mapping.routsId}">
+                    <input type="hidden" name="station_mapping" value="${station_mapping.routsMId}">
                     <input type="submit" name="remove_rout_mapping" value="<fmt:message key="admin.remove"/>">
                 </form>
             </td>
@@ -38,7 +38,7 @@
     </table>
     <p>
     <td>
-        <input type="submit" name="add_new_station_mapping" value="<fmt:message key="confirm"/>">
+        <input type="submit" name="add_rout_to_station_mapping" value="<fmt:message key="confirm"/>">
     </td>
     </p>
 </form>
