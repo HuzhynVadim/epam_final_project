@@ -1,9 +1,11 @@
 package ua.nure.huzhyn.web.controller;
 
 import org.apache.log4j.Logger;
+import ua.nure.huzhyn.db.dao.dto.RoutInfoDto;
 import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.model.entity.RoutToStationMapping;
 import ua.nure.huzhyn.model.entity.Station;
+import ua.nure.huzhyn.services.RoutService;
 import ua.nure.huzhyn.services.RoutToStationMappingService;
 import ua.nure.huzhyn.services.StationService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
@@ -25,15 +27,15 @@ public class AdministratorSetRoutController extends HttpServlet {
 
     private StationService stationService;
     private RoutToStationMappingService routToStationMappingService;
+    private RoutService routService;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RoutToStationMappingValidator routToStationMappingValidator = new RoutToStationMappingValidator();
         RoutToStationMapping routToStationMapping = new RoutToStationMapping();
         try {
 
-            routToStationMapping.setRoutsMId(request.getParameter("rout_m_id"));
-            routToStationMapping.setOrder(request.getParameter("station_station"));
-            routToStationMapping.setStationId(request.getParameter("routs_id"));
+            routToStationMapping.setStationId(request.getParameter("station_station"));
+            routToStationMapping.setRoutsId(request.getParameter("routs_id"));
             routToStationMapping.setStationArrivalDate(LocalDateTime.parse(request.getParameter("station_arrival_date")));
             routToStationMapping.setStationDispatchData(LocalDateTime.parse(request.getParameter("station_dispatch_date")));
             routToStationMapping.setOrder(request.getParameter("station_order"));
@@ -49,10 +51,9 @@ public class AdministratorSetRoutController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-//        String routsId = request.getParameter("rout");
-//        RoutInfoDto rout = routService.getRoutById(routsId);
-//        request.setAttribute("current_rout", rout);
-
+        String routsId = request.getParameter("rout");
+        RoutInfoDto rout = routService.getRoutById(routsId);
+        request.setAttribute("current_rout", rout);
         List<Station> stationList = stationService.getAllStationList();
         request.setAttribute("stationList", stationList);
         request.getRequestDispatcher("WEB-INF/jsp/administratorSetRout.jsp").forward(request, response);
@@ -61,6 +62,7 @@ public class AdministratorSetRoutController extends HttpServlet {
     @Override
     public void init(ServletConfig config) {
         stationService = (StationService) config.getServletContext().getAttribute(AppContextConstant.STATION_SERVICE);
+        routService = (RoutService) config.getServletContext().getAttribute(AppContextConstant.ROUT_SERVICE);
         routToStationMappingService = (RoutToStationMappingService) config.getServletContext().getAttribute(AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE);
 
     }

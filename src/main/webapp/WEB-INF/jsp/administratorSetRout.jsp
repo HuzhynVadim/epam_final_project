@@ -17,6 +17,7 @@
             <th><fmt:message key="delete"/></th>
         </tr>
         <tr>
+            <input type="hidden" name="routs_id" value="${current_rout.routsId}">
             <td><input name="station_order"></td>
             <td><select name="station_station">
                 <c:forEach items="${stationList}" var="station">
