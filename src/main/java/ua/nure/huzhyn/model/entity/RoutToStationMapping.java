@@ -10,6 +10,7 @@ public class RoutToStationMapping {
     private LocalDateTime stationArrivalDate;
     private LocalDateTime stationDispatchData;
     private String order;
+    private String routsMId;
 
 
     public String getStationId() {
@@ -20,6 +21,7 @@ public class RoutToStationMapping {
         this.stationId = stationId;
     }
 
+
     public String getRoutsId() {
         return routsId;
     }
@@ -27,6 +29,7 @@ public class RoutToStationMapping {
     public void setRoutsId(String routsId) {
         this.routsId = routsId;
     }
+
 
     public LocalDateTime getStationArrivalDate() {
         return stationArrivalDate;
@@ -36,6 +39,7 @@ public class RoutToStationMapping {
         this.stationArrivalDate = stationArrivalDate;
     }
 
+
     public LocalDateTime getStationDispatchData() {
         return stationDispatchData;
     }
@@ -44,12 +48,22 @@ public class RoutToStationMapping {
         this.stationDispatchData = stationDispatchData;
     }
 
+
     public String getOrder() {
         return order;
     }
 
     public void setOrder(String order) {
         this.order = order;
+    }
+
+
+    public String getRoutsMId() {
+        return routsMId;
+    }
+
+    public void setRoutsMId(String routsMId) {
+        this.routsMId = routsMId;
     }
 
 }

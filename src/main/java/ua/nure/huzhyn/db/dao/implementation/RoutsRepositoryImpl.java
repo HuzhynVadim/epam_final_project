@@ -25,7 +25,7 @@ public class RoutsRepositoryImpl implements RoutsRepository {
     private static final String DELETE_ROUT = "DELETE FROM final_project.railway_system.rout WHERE routs_id = ?";
     private static final String GET_ALL_ROUT = "SELECT r.routs_id, r.train_id, r.rout_name, r.rout_number, t.train_number FROM final_project.railway_system.rout as r JOIN final_project.railway_system.train as t on r.train_id = t.train_id";
     private static final String UPDATE_ROUT = "UPDATE final_project.railway_system.rout SET rout_name = ?, rout_number = ?, train_id = ? WHERE routs_id = ?";
-//    private static final String ADD_ROUT_MAPPINGS = "INSERT INTO final_project.railway_system.rout_to_station_mapping (station_arrival_date, station_dispatch_data, station_id, routs_id, \"order\") VALUES (?,?,?,?,?);";
+
 //    private static final String GET_ROUT_BY_ID = "SELECT * FROM final_project.railway_system.rout as r JOIN final_project.railway_system.rout_to_station_mapping as rm on r.routs_id = rm.routs_id WHERE r.routs_id = ?";
 
 
