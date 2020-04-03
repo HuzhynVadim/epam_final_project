@@ -17,7 +17,7 @@ import java.util.List;
 @WebServlet("/user_account")
 public class UserAccountController extends HttpServlet {
 
-    private static final Logger LOGGER = Logger.getLogger(ua.nure.huzhyn.web.controller.AdministratorAccountController.class);
+    private static final Logger LOGGER = Logger.getLogger(UserAccountController.class);
     private OrderService orderService;
 
 

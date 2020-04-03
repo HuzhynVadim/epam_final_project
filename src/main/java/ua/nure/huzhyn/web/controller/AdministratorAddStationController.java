@@ -17,7 +17,7 @@ import java.io.IOException;
 
 @WebServlet("/administrator_add_station")
 public class AdministratorAddStationController extends HttpServlet {
-    private static final Logger LOGGER = Logger.getLogger(AdministratorAccountController.class);
+    private static final Logger LOGGER = Logger.getLogger(AdministratorAddStationController.class);
     private StationService stationService;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -22,7 +22,7 @@ import java.util.List;
 
 @WebServlet("/administrator_edit_info_rout")
 public class AdministratorEditInfoRoutController extends HttpServlet {
-    private static final Logger LOGGER = Logger.getLogger(AdministratorEditInfoStationController.class);
+    private static final Logger LOGGER = Logger.getLogger(AdministratorEditInfoRoutController.class);
     private RoutService routService;
     private TrainService trainService;
 

@@ -15,7 +15,7 @@ import java.io.IOException;
 
 @WebServlet("/remove_rout_mapping")
 public class RoutMappingDeleteController extends HttpServlet {
-    private static final Logger LOGGER = Logger.getLogger(StationDeleteController.class);
+    private static final Logger LOGGER = Logger.getLogger(RoutMappingDeleteController.class);
 
     RoutToStationMappingService routToStationMappingService;
 

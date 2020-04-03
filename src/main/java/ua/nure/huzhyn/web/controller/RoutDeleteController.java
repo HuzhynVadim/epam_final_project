@@ -15,7 +15,7 @@ import java.io.IOException;
 
 @WebServlet("/rout_delete")
 public class RoutDeleteController extends HttpServlet {
-    private static final Logger LOGGER = Logger.getLogger(StationDeleteController.class);
+    private static final Logger LOGGER = Logger.getLogger(RoutDeleteController.class);
 
     RoutService routService;
 

@@ -21,7 +21,7 @@ import java.util.List;
 
 @WebServlet("/administrator_add_rout")
 public class AdministratorAddRoutController extends HttpServlet {
-    private static final Logger LOGGER = Logger.getLogger(AdministratorAccountController.class);
+    private static final Logger LOGGER = Logger.getLogger(AdministratorAddRoutController.class);
     private RoutService routService;
     private TrainService trainService;
 
