@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@WebServlet("/administrator_set_rout")
+@WebServlet("/administrator_set_rout_mapping")
 public class AdministratorSetRoutController extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(AdministratorSetRoutController.class);
 
@@ -46,7 +46,7 @@ public class AdministratorSetRoutController extends HttpServlet {
             LOGGER.error("Incorrect data entered");
             throw new IncorrectDataException("Incorrect data entered", e);
         }
-        response.sendRedirect("administrator_account");
+        response.sendRedirect("administrator_set_rout");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

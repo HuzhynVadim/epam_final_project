@@ -37,8 +37,8 @@
         </tr>
     </c:forEach>
 </table>
-<form action="administrator_set_rout" method="GET">
-    <input type="submit" name="add_rout" value="<fmt:message key="admin.addRout"/>">
+<form action="administrator_set_rout_mapping" method="GET">
+    <input type="submit" name="add_rout_mapping" value="<fmt:message key="admin.addRout"/>">
 </form>
 <p>
 <form action="administrator_account" method="GET">
