@@ -7,7 +7,8 @@
 <fmt:setBundle basename="lang"/>
 <html>
 <body>
-<form action="administrator_set_rout" method="POST">
+
+<form action="administrator_set_rout_mapping" method="POST">
     <table border="1">
         <tr>
             <th><fmt:message key="order"/></th>
@@ -16,7 +17,7 @@
             <th><fmt:message key="dispatchDate"/></th>
         </tr>
         <tr>
-            <input type="hidden" name="routs_id" value="${current_rout.routsMId}">
+            <input type="hidden" name="routs_id" value="${routs_id}">
             <td><input name="station_order"></td>
             <td><select name="station_station">
                 <c:forEach items="${stationList}" var="station">
@@ -24,17 +25,18 @@
                 </c:forEach>
             </select></td>
             <td><input name="station_arrival_date" type="datetime-local"></td>
-            <td><input name="station_dispatch_date" type="datetime-local"></td>
+            <td><input name="station_dispatch_data" type="datetime-local"></td>
         </tr>
     </table>
     <p>
     <td>
-        <input type="submit" name="add_rout_to_station_mapping" value="<fmt:message key="confirm"/>">
+        <input type="submit" name="administrator_set_rout_mapping" value="<fmt:message key="confirm"/>">
     </td>
     </p>
 </form>
 <p>
-<form action="administrator_account" method="GET">
+<form action="administrator_details_set_rout" method="GET">
+<input type="hidden" name="routs_id" value="${routs_id}">
     <input type="submit" value="<fmt:message key="back"/>">
 </form>
 </p>

@@ -18,6 +18,7 @@
     </tr>
     <c:forEach items="${rout_m_list}" var="routM">
         <tr>
+
             <td>${routM.order}</td>
             <td>${routM.stationId}</td>
             <td>${routM.stationArrivalDate}</td>
@@ -25,19 +26,22 @@
             <td>
                 <form action="administrator_edit_details_rout_mapping" method="GET">
                     <input type="hidden" name="routM" value="${routM.routsMId}">
-                    <input type="submit" name="edit_info_rout_mapping" value="<fmt:message key="admin.editInformation"/>">
+                    <input type="submit" name="edit_info_rout_mapping"
+                           value="<fmt:message key="admin.editInformation"/>">
                 </form>
             </td>
             <td>
                 <form action="remove_rout_mapping" method="POST">
                     <input type="hidden" name="routM" value="${routM.routsMId}">
-                    <input type="submit" name="remove_rout_to_station_mapping" value="<fmt:message key="admin.remove"/>">
+                    <input type="submit" name="remove_rout_to_station_mapping"
+                           value="<fmt:message key="admin.remove"/>">
                 </form>
             </td>
         </tr>
     </c:forEach>
 </table>
 <form action="administrator_set_rout_mapping" method="GET">
+    <input type="hidden" name="routs_id" value="${routsId}">
     <input type="submit" name="add_rout_mapping" value="<fmt:message key="admin.addRout"/>">
 </form>
 <p>
