@@ -46,7 +46,7 @@ public class AdministratorEditInfoRoutController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-        String routsId = request.getParameter("rout");
+        String routsId = request.getParameter("routs_id");
         RoutInfoDto rout = routService.getRoutById(routsId);
         request.setAttribute("current_rout", rout);
         List<Train> trainList = trainService.getAllTrain();

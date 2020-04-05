@@ -1,10 +1,8 @@
 package ua.nure.huzhyn.web.controller;
 
 import org.apache.log4j.Logger;
-import ua.nure.huzhyn.db.dao.dto.RoutInfoDto;
+import ua.nure.huzhyn.db.dao.dto.MappingInfoDto;
 import ua.nure.huzhyn.model.entity.RoutToStationMapping;
-import ua.nure.huzhyn.model.entity.Station;
-import ua.nure.huzhyn.services.RoutService;
 import ua.nure.huzhyn.services.RoutToStationMappingService;
 import ua.nure.huzhyn.services.StationService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
@@ -22,20 +20,14 @@ import java.util.List;
 public class AdministratorDetailsSetRoutController extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(AdministratorDetailsSetRoutController.class);
 
-
     private StationService stationService;
-    private RoutService routService;
     private RoutToStationMappingService routToStationMappingService;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String rout = request.getParameter("rout");
-        RoutInfoDto routList = routService.getRoutById(rout);
-        request.setAttribute("routsId", rout);
-        List<Station> stationList = stationService.getAllStationList();
-        request.setAttribute("station_list", stationList);
-        request.setAttribute("rout_list", routList);
-        List<RoutToStationMapping> routToStationMappingList = routToStationMappingService.getAllRoutToStationMappingList();
-        request.setAttribute("rout_m_list", routToStationMappingList);
+        String routsId = request.getParameter("routs_id");
+        request.setAttribute("routs_id", routsId);
+        List<MappingInfoDto> AllRoutToStationMappingListById = routToStationMappingService.getAllRoutToStationMappingListById(routsId);
+        request.setAttribute("rout_m_list", AllRoutToStationMappingListById);
         request.getRequestDispatcher("WEB-INF/jsp/administratorDetailsSetRout.jsp").forward(request, response);
     }
 
@@ -43,7 +35,6 @@ public class AdministratorDetailsSetRoutController extends HttpServlet {
     public void init(ServletConfig config) {
 
         stationService = (StationService) config.getServletContext().getAttribute((AppContextConstant.STATION_SERVICE));
-        routService = (RoutService) config.getServletContext().getAttribute((AppContextConstant.ROUT_SERVICE));
         routToStationMappingService = (RoutToStationMappingService) config.getServletContext().getAttribute((AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE));
 
     }

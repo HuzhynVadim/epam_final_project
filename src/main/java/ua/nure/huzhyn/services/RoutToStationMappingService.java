@@ -1,5 +1,6 @@
 package ua.nure.huzhyn.services;
 
+import ua.nure.huzhyn.db.dao.dto.MappingInfoDto;
 import ua.nure.huzhyn.model.entity.RoutToStationMapping;
 
 import java.util.List;
@@ -9,7 +10,9 @@ public interface RoutToStationMappingService {
 
     void addRoutToStationMapping(RoutToStationMapping routToStationMapping);
 
-    void removeRoutToStationMapping(String routsMId);
+    void removeRoutToStationMapping(String routsId, String stationId);
 
     List<RoutToStationMapping> getAllRoutToStationMappingList();
+
+    List<MappingInfoDto> getAllRoutToStationMappingListById(String routsId);
 }

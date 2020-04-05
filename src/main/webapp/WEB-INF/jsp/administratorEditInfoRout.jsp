@@ -18,7 +18,7 @@
     </tr>
     <tr>
         <form action="administrator_edit_info_rout" method="POST">
-            <input type="hidden" name="rout_id" value="${current_rout.routsId}">
+            <input type="hidden" name="routs_id" value="${current_rout.routsId}">
             <td><input name="rout_name" value="${current_rout.routName}"></td>
             <td><input name="rout_number" value="${current_rout.routNumber}"></td>
             <td><select name="train_number">

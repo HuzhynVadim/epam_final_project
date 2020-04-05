@@ -4,7 +4,7 @@ import java.util.Optional;
 
 public interface CRUD<EntityType, IDType> {
 
-    String create(EntityType entity);
+    IDType create(EntityType entity);
 
     Optional<EntityType> read(IDType id);
 

@@ -21,13 +21,13 @@ public class RoutDeleteController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            String routsId = request.getParameter("rout");
+            String routsId = request.getParameter("routs_id");
             routService.removeRout(routsId);
         } catch (NumberFormatException e) {
             LOGGER.error("Incorrect rout ID. Rout ID = " + request.getParameter("routsId"));
             throw new IncorrectDataException("Incorrect rout ID", e);
         }
-        response.sendRedirect("administrator_account");
+        response.sendRedirect("administrator_account/" );
     }
 
     @Override

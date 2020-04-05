@@ -32,19 +32,19 @@
             <td>${rout.trainNumber}</td>
             <td>
                 <form action="administrator_details_set_rout" method="GET">
-                    <input type="hidden" name="rout" value="${rout.routsId}">
+                    <input type="hidden" name="routs_id" value="${rout.routsId}">
                     <input type="submit" name="details" value="<fmt:message key="admin.details"/>">
                 </form>
             </td>
             <td>
                 <form action="administrator_edit_info_rout" method="GET">
-                    <input type="hidden" name="rout" value="${rout.routsId}">
+                    <input type="hidden" name="routs_id" value="${rout.routsId}">
                     <input type="submit" name="edit_info_rout" value="<fmt:message key="admin.editInformation"/>">
                 </form>
             </td>
             <td>
                 <form action="rout_delete" method="POST">
-                    <input type="hidden" name="rout" value="${rout.routsId}">
+                    <input type="hidden" name="routs_id" value="${rout.routsId}">
                     <input type="submit" name="remove_rout" value="<fmt:message key="admin.remove"/>">
                 </form>
             </td>
@@ -116,13 +116,13 @@
             <td>${order.orderStatus}</td>
             <td>
                 <form action="order_delete" method="POST">
-                    <input type="hidden" name="order" value="${order.orderId}">
+                    <input type="hidden" name="order_id" value="${order.orderId}">
                     <input type="submit" name="remove_order" value="<fmt:message key="admin.remove"/>">
                 </form>
             </td>
             <td>
                 <form action="administrator_edit_info_order" method="GET">
-                    <input type="hidden" name="order" value="${order.orderId}">
+                    <input type="hidden" name="order_id" value="${order.orderId}">
                     <input type="submit" name="edit_info_order" value="<fmt:message key="admin.editInformation"/>">
                 </form>
             </td>

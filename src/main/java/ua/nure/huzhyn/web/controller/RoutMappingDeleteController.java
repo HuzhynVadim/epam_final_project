@@ -1,7 +1,6 @@
 package ua.nure.huzhyn.web.controller;
 
 import org.apache.log4j.Logger;
-import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.services.RoutToStationMappingService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 
@@ -17,17 +16,14 @@ import java.io.IOException;
 public class RoutMappingDeleteController extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(RoutMappingDeleteController.class);
 
-    RoutToStationMappingService routToStationMappingService;
+    private RoutToStationMappingService routToStationMappingService;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            String routsMId = request.getParameter("routM");
-            routToStationMappingService.removeRoutToStationMapping(routsMId);
-        } catch (NumberFormatException e) {
-            LOGGER.error("Incorrect rout ID. Rout ID = " + request.getParameter("routsMId"));
-            throw new IncorrectDataException("Incorrect rout ID", e);
-        }
-        response.sendRedirect("administrator_account");
+        String routsId = request.getParameter("routs_id");
+        String stationId = request.getParameter("station_id");
+        routToStationMappingService.removeRoutToStationMapping(routsId, stationId);
+
+        response.sendRedirect("administrator_details_set_rout?routs_id=" + routsId);
     }
 
     @Override

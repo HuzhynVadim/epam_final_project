@@ -7,8 +7,6 @@ public class Station {
 
     private String stationId;
     private String station;
-    private LocalDateTime arrivalDate;
-    private LocalDateTime dispatchDate;
     private int order;
 
 
@@ -26,22 +24,6 @@ public class Station {
 
     public void setStation(String station) {
         this.station = station;
-    }
-
-    public LocalDateTime getArrivalDate() {
-        return arrivalDate;
-    }
-
-    public void setArrivalDate(LocalDateTime arrivalDate) {
-        this.arrivalDate = arrivalDate;
-    }
-
-    public LocalDateTime getDispatchDate() {
-        return dispatchDate;
-    }
-
-    public void setDispatchDate(LocalDateTime dispatchDate) {
-        this.dispatchDate = dispatchDate;
     }
 
     public int getOrder() {

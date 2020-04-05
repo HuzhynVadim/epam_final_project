@@ -7,7 +7,6 @@
 <fmt:setBundle basename="lang"/>
 <html>
 <body>
-
 <form action="administrator_set_rout_mapping" method="POST">
     <table border="1">
         <tr>
@@ -20,7 +19,7 @@
             <input type="hidden" name="routs_id" value="${routs_id}">
             <td><input name="station_order"></td>
             <td><select name="station_station">
-                <c:forEach items="${stationList}" var="station">
+                <c:forEach items="${station_list}" var="station">
                     <option value="${station.stationId}"><c:out value="${station.station}"/></option>
                 </c:forEach>
             </select></td>
@@ -30,14 +29,17 @@
     </table>
     <p>
     <td>
-        <input type="submit" name="administrator_set_rout_mapping" value="<fmt:message key="confirm"/>">
+        <form action="administrator_set_rout_mapping" method="GET">
+            <input type="hidden" name="routs_id" value="${routs_id}">
+            <input type="submit" name="add_rout_mapping" value="<fmt:message key="admin.addRout"/>">
+        </form>
     </td>
     </p>
 </form>
 <p>
 <form action="administrator_details_set_rout" method="GET">
-<input type="hidden" name="routs_id" value="${routs_id}">
-    <input type="submit" value="<fmt:message key="back"/>">
+    <input type="hidden" name="routs_id" value="${routs_id}">
+    <input type="submit"  value="<fmt:message key="back"/>">
 </form>
 </p>
 </body>

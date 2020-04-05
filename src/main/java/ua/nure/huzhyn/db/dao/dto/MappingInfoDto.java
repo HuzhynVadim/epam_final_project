@@ -1,16 +1,15 @@
-package ua.nure.huzhyn.model.entity;
-
+package ua.nure.huzhyn.db.dao.dto;
 
 import java.time.LocalDateTime;
 
-public class RoutToStationMapping {
+public class MappingInfoDto {
 
     private String stationId;
+    private String station;
+    private String order;
     private String routsId;
     private LocalDateTime stationArrivalDate;
     private LocalDateTime stationDispatchData;
-    private String order;
-
 
     public String getStationId() {
         return stationId;
@@ -20,33 +19,13 @@ public class RoutToStationMapping {
         this.stationId = stationId;
     }
 
-
-    public String getRoutsId() {
-        return routsId;
+    public String getStation() {
+        return station;
     }
 
-    public void setRoutsId(String routsId) {
-        this.routsId = routsId;
+    public void setStation(String station) {
+        this.station = station;
     }
-
-
-    public LocalDateTime getStationArrivalDate() {
-        return stationArrivalDate;
-    }
-
-    public void setStationArrivalDate(LocalDateTime stationArrivalDate) {
-        this.stationArrivalDate = stationArrivalDate;
-    }
-
-
-    public LocalDateTime getStationDispatchData() {
-        return stationDispatchData;
-    }
-
-    public void setStationDispatchData(LocalDateTime stationDispatchData) {
-        this.stationDispatchData = stationDispatchData;
-    }
-
 
     public String getOrder() {
         return order;
@@ -56,5 +35,27 @@ public class RoutToStationMapping {
         this.order = order;
     }
 
+    public String getRoutsId() {
+        return routsId;
+    }
 
+    public void setRoutsId(String routsId) {
+        this.routsId = routsId;
+    }
+
+    public LocalDateTime getStationArrivalDate() {
+        return stationArrivalDate;
+    }
+
+    public void setStationArrivalDate(LocalDateTime stationArrivalDate) {
+        this.stationArrivalDate = stationArrivalDate;
+    }
+
+    public LocalDateTime getStationDispatchData() {
+        return stationDispatchData;
+    }
+
+    public void setStationDispatchData(LocalDateTime stationDispatchData) {
+        this.stationDispatchData = stationDispatchData;
+    }
 }

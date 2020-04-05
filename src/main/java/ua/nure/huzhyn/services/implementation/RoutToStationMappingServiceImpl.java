@@ -1,6 +1,7 @@
 package ua.nure.huzhyn.services.implementation;
 
 import ua.nure.huzhyn.db.dao.RoutToStationMappingRepository;
+import ua.nure.huzhyn.db.dao.dto.MappingInfoDto;
 import ua.nure.huzhyn.db.dao.transaction.TransactionManager;
 import ua.nure.huzhyn.model.entity.RoutToStationMapping;
 import ua.nure.huzhyn.services.RoutToStationMappingService;
@@ -31,12 +32,19 @@ public class RoutToStationMappingServiceImpl implements RoutToStationMappingServ
         });
     }
 
+
     @Override
-    public void removeRoutToStationMapping(String routsMId) {
+    public void removeRoutToStationMapping(String routsId, String stationId) {
         transactionManager.execute(() -> {
-            routToStationMappingRepository.delete(routsMId);
+            routToStationMappingRepository.delete(routsId,stationId);
             return null;
         });
+    }
+
+
+    @Override
+    public List<MappingInfoDto> getAllRoutToStationMappingListById(String routsId) {
+        return transactionManager.execute(() -> routToStationMappingRepository.getAllRoutToStationMappingListById(routsId));
     }
 
     @Override

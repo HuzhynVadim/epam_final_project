@@ -16,23 +16,24 @@
         <th><fmt:message key="edit"/></th>
         <th><fmt:message key="delete"/></th>
     </tr>
-    <c:forEach items="${rout_m_list}" var="routM">
+    <c:forEach items="${rout_m_list}" var="item">
         <tr>
 
-            <td>${routM.order}</td>
-            <td>${routM.stationId}</td>
-            <td>${routM.stationArrivalDate}</td>
-            <td>${routM.stationDispatchData}</td>
+            <td>${item.order}</td>
+            <td>${item.station}</td>
+            <td>${item.stationArrivalDate}</td>
+            <td>${item.stationDispatchData}</td>
             <td>
                 <form action="administrator_edit_details_rout_mapping" method="GET">
-                    <input type="hidden" name="routM" value="${routM.routsMId}">
+                    <input type="hidden" name="routs_id" value="${item.routsId}">
                     <input type="submit" name="edit_info_rout_mapping"
                            value="<fmt:message key="admin.editInformation"/>">
                 </form>
             </td>
             <td>
                 <form action="remove_rout_mapping" method="POST">
-                    <input type="hidden" name="routM" value="${routM.routsMId}">
+                    <input type="hidden" name="routs_id" value="${item.routsId}">
+                    <input type="hidden" name="station_id" value="${item.stationId}">
                     <input type="submit" name="remove_rout_to_station_mapping"
                            value="<fmt:message key="admin.remove"/>">
                 </form>
@@ -41,7 +42,7 @@
     </c:forEach>
 </table>
 <form action="administrator_set_rout_mapping" method="GET">
-    <input type="hidden" name="routs_id" value="${routsId}">
+    <input type="hidden" name="routs_id" value="${routs_id}">
     <input type="submit" name="add_rout_mapping" value="<fmt:message key="admin.addRout"/>">
 </form>
 <p>
