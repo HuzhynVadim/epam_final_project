@@ -2,9 +2,7 @@ package ua.nure.huzhyn.web.controller;
 
 import org.apache.log4j.Logger;
 import ua.nure.huzhyn.db.dao.dto.MappingInfoDto;
-import ua.nure.huzhyn.model.entity.RoutToStationMapping;
 import ua.nure.huzhyn.services.RoutToStationMappingService;
-import ua.nure.huzhyn.services.StationService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 
 import javax.servlet.ServletConfig;
@@ -20,7 +18,6 @@ import java.util.List;
 public class AdministratorDetailsSetRoutController extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(AdministratorDetailsSetRoutController.class);
 
-    private StationService stationService;
     private RoutToStationMappingService routToStationMappingService;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,7 +31,6 @@ public class AdministratorDetailsSetRoutController extends HttpServlet {
     @Override
     public void init(ServletConfig config) {
 
-        stationService = (StationService) config.getServletContext().getAttribute((AppContextConstant.STATION_SERVICE));
         routToStationMappingService = (RoutToStationMappingService) config.getServletContext().getAttribute((AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE));
 
     }

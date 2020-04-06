@@ -15,4 +15,5 @@ public interface RoutToStationMappingService {
     List<RoutToStationMapping> getAllRoutToStationMappingList();
 
     List<MappingInfoDto> getAllRoutToStationMappingListById(String routsId);
+
 }

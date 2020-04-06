@@ -102,7 +102,6 @@ public class RoutToStationMappingRepositoryImpl implements RoutToStationMappingR
 //            return null;
 //        }
         RoutToStationMapping routToStationMapping = new RoutToStationMapping();
-
         routToStationMapping.setStationId(resultSet.getString("station_id"));
         routToStationMapping.setRoutsId(resultSet.getString("routs_id"));
         routToStationMapping.setStationArrivalDate(resultSet.getObject("station_arrival_date", LocalDateTime.class));

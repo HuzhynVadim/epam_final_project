@@ -1,5 +1,6 @@
 package ua.nure.huzhyn.services;
 
+import ua.nure.huzhyn.db.dao.dto.MappingInfoDto;
 import ua.nure.huzhyn.db.dao.dto.RoutInfoDto;
 import ua.nure.huzhyn.model.entity.Rout;
 
@@ -16,5 +17,7 @@ public interface RoutService {
     void updateRout(Rout rout);
 
     RoutInfoDto getRoutById(String routsId);
+
+
 }
 

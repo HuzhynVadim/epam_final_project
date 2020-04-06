@@ -18,5 +18,6 @@ public interface RoutToStationMappingRepository {
     boolean delete(String routsId, String stationId);
 
     List<MappingInfoDto> getAllRoutToStationMappingListById(String routsId);
+
 }
 

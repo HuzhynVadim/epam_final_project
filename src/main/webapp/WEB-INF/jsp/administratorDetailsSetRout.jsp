@@ -24,7 +24,7 @@
             <td>${item.stationArrivalDate}</td>
             <td>${item.stationDispatchData}</td>
             <td>
-                <form action="administrator_edit_details_rout_mapping" method="GET">
+                <form action="administrator_edit_info_details_set_rout" method="GET">
                     <input type="hidden" name="routs_id" value="${item.routsId}">
                     <input type="submit" name="edit_info_rout_mapping"
                            value="<fmt:message key="admin.editInformation"/>">

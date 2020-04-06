@@ -36,11 +36,10 @@ public class RoutToStationMappingServiceImpl implements RoutToStationMappingServ
     @Override
     public void removeRoutToStationMapping(String routsId, String stationId) {
         transactionManager.execute(() -> {
-            routToStationMappingRepository.delete(routsId,stationId);
+            routToStationMappingRepository.delete(routsId, stationId);
             return null;
         });
     }
-
 
     @Override
     public List<MappingInfoDto> getAllRoutToStationMappingListById(String routsId) {

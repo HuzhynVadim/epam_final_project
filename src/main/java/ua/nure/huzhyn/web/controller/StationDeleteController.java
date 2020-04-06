@@ -18,7 +18,7 @@ public class StationDeleteController extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(StationDeleteController.class);
 
-    StationService stationService;
+    private StationService stationService;
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
