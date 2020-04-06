@@ -13,11 +13,12 @@ public interface RoutToStationMappingRepository {
 
     Optional<RoutToStationMapping> read(String id);
 
-    boolean update(RoutToStationMapping entity);
+    boolean update(RoutToStationMapping entity, String stationId);
 
     boolean delete(String routsId, String stationId);
 
     List<MappingInfoDto> getAllRoutToStationMappingListById(String routsId);
 
+    MappingInfoDto getMappingInfo(String routsId, String stationId);
 }
 

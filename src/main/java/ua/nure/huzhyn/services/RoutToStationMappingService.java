@@ -6,7 +6,7 @@ import ua.nure.huzhyn.model.entity.RoutToStationMapping;
 import java.util.List;
 
 public interface RoutToStationMappingService {
-    void updateRoutToStationMapping(RoutToStationMapping routToStationMapping);
+    void updateRoutToStationMapping(RoutToStationMapping routToStationMapping, String stationId);
 
     void addRoutToStationMapping(RoutToStationMapping routToStationMapping);
 
@@ -15,5 +15,7 @@ public interface RoutToStationMappingService {
     List<RoutToStationMapping> getAllRoutToStationMappingList();
 
     List<MappingInfoDto> getAllRoutToStationMappingListById(String routsId);
+
+    MappingInfoDto getMappingInfo(String routsId, String stationId);
 
 }

@@ -18,14 +18,15 @@
     </tr>
     <tr>
         <form action="administrator_edit_info_details_set_rout" method="POST">
-            <input type="hidden" name="routs_id" value="${current_rout.routsId}">
+            <input type="hidden" name="routs_id" value="${routs_id}">
+            <input type="hidden" name="stationn_id" value="${station_id}">
             <td><input name="station_order" value="${current_rout.order}"></td>
             <td><select name="station_station">
                 <c:set var="station_id" value="${current_rout.stationId}"/>
                 <c:forEach items="${station_list}" var="station">
                     <option
                             <c:choose>
-                                <c:when test="${station.trainId eq station_id}">
+                                <c:when test="${station.stationId eq station_id}">
                                     selected
                                 </c:when>
                             </c:choose>
@@ -35,9 +36,11 @@
                 </c:forEach>
             </select>
             </td>
-            <td><input name="station_arrival_date" type="datetime-local"></td>
-            <td><input name="station_dispatch_data" type="datetime-local"></td>
+            <td><input name="station_arrival_date" type="datetime-local" value="${current_rout.stationArrivalDate}"></td>
+            <td><input name="station_dispatch_data" type="datetime-local" value="${current_rout.stationDispatchData}"></td>
             <td>
+                <input type="hidden" name="routs_id" value="${routs_id}">
+                <input type="hidden" name="station_current_id" value="${station_id}">
                 <input type="submit" name="save_edit_information" value="<fmt:message key="admin.saveInformation"/>">
             </td>
         </form>

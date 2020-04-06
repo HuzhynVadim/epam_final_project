@@ -22,6 +22,8 @@ public class AdministratorDetailsSetRoutController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String routsId = request.getParameter("routs_id");
+        String stationId = request.getParameter("station_id");
+        request.setAttribute("station_id", stationId);
         request.setAttribute("routs_id", routsId);
         List<MappingInfoDto> AllRoutToStationMappingListById = routToStationMappingService.getAllRoutToStationMappingListById(routsId);
         request.setAttribute("rout_m_list", AllRoutToStationMappingListById);

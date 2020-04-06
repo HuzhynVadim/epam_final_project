@@ -31,24 +31,30 @@ public class AdministratorEditInfoDetailsSetRout extends HttpServlet {
         RoutToStationMappingValidator routToStationMappingValidator = new RoutToStationMappingValidator();
         RoutToStationMapping routToStationMapping = new RoutToStationMapping();
         String routsId = request.getParameter("routs_id");
+        String stationId = request.getParameter("station_current_id");
         routToStationMapping.setRoutsId(routsId);
+        routToStationMapping.setStationId(stationId);
         routToStationMapping.setStationId(request.getParameter("station_station"));
         routToStationMapping.setStationArrivalDate(LocalDateTime.parse(request.getParameter("station_arrival_date")));
         routToStationMapping.setStationDispatchData(LocalDateTime.parse(request.getParameter("station_dispatch_data")));
         routToStationMapping.setOrder(request.getParameter("station_order"));
         routToStationMappingValidator.isValidRoutToStationMapping(routToStationMapping);
-        routToStationMappingService.updateRoutToStationMapping(routToStationMapping);
+        routToStationMappingService.updateRoutToStationMapping(routToStationMapping, stationId);
         response.sendRedirect("administrator_details_set_rout?routs_id=" + routsId);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String routsId = request.getParameter("routs_id");
-        request.setAttribute("routs_id", routsId);
-        List<MappingInfoDto> AllRoutToStationMappingListById = routToStationMappingService.getAllRoutToStationMappingListById(routsId);
-        request.setAttribute("rout_m_list", AllRoutToStationMappingListById);
+        String stationId = request.getParameter("station_id");
         List<Station> stationList = stationService.getAllStationList();
+        MappingInfoDto MappingInfo = routToStationMappingService.getMappingInfo(routsId, stationId);
+        request.setAttribute("routs_id", routsId);
+        request.setAttribute("station_id", stationId);
+        request.setAttribute("current_rout", MappingInfo);
         request.setAttribute("station_list", stationList);
+
+
 
         request.getRequestDispatcher("WEB-INF/jsp/administratorEditInfoDetailsSetRout.jsp").forward(request, response);
     }

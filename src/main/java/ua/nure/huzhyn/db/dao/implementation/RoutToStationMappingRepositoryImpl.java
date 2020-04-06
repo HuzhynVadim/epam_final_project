@@ -3,6 +3,7 @@ package ua.nure.huzhyn.db.dao.implementation;
 import org.apache.log4j.Logger;
 import ua.nure.huzhyn.db.dao.RoutToStationMappingRepository;
 import ua.nure.huzhyn.db.dao.dto.MappingInfoDto;
+import ua.nure.huzhyn.db.dao.dto.RoutInfoDto;
 import ua.nure.huzhyn.db.dao.transaction.ConnectionManager;
 import ua.nure.huzhyn.exception.DBException;
 import ua.nure.huzhyn.exception.DataBaseException;
@@ -13,7 +14,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,10 +24,11 @@ public class RoutToStationMappingRepositoryImpl implements RoutToStationMappingR
     private static final Logger LOGGER = Logger.getLogger(RoutsRepositoryImpl.class);
     private static final String ADD_ROUT_MAPPINGS = "INSERT INTO final_project.railway_system.rout_to_station_mapping as rm (station_id, routs_id, station_arrival_date, station_dispatch_data, \"order\") VALUES (?, ?, ?, ?, ?)";
     private static final String GET_ROUT_MAPPING_BY_ID = "SELECT * FROM final_project.railway_system.rout_to_station_mapping WHERE routs_id = ?";
-    private static final String UPDATE_ROUT_MAPPING = "UPDATE final_project.railway_system.rout_to_station_mapping SET station_id = ?, station_arrival_date = ?, station_dispatch_data = ?, \"order\" = ? WHERE routs_id = ?";
+    private static final String UPDATE_ROUT_MAPPING = "UPDATE final_project.railway_system.rout_to_station_mapping SET station_id = ?, station_arrival_date = ?, station_dispatch_data = ?, \"order\" = ?  WHERE routs_id = ? AND station_id= ? ";
     private static final String DELETE_ROUT_MAPPING = "DELETE FROM final_project.railway_system.rout_to_station_mapping WHERE routs_id = ? AND station_id  = ?";
     private static final String GET_ALL_ROUT_MAPPING = "SELECT * FROM final_project.railway_system.rout_to_station_mapping";
     private static final String GET_ROUT_MAPPING_BY_ROUT_ID = "SELECT * FROM final_project.railway_system.rout_to_station_mapping as rm JOIN final_project.railway_system.station as s ON rm.station_id = s.station_id WHERE routs_id = ? ORDER BY \"order\" ASC";
+    private static final String GET_ROUT_MAPPING_BY_STATION_AND_ROUT_ID = "SELECT * FROM final_project.railway_system.rout_to_station_mapping as rm JOIN final_project.railway_system.station as s ON rm.station_id = s.station_id WHERE rm.routs_id = ? AND rm.station_id = ? ORDER BY \"order\" ASC";
 
 
     @Override
@@ -60,15 +64,17 @@ public class RoutToStationMappingRepositoryImpl implements RoutToStationMappingR
     }
 
     @Override
-    public boolean update(RoutToStationMapping entity) {
-        boolean result = false;
+    public boolean update(RoutToStationMapping entity, String stationId) {
+         boolean result = false;
         Connection connection = ConnectionManager.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(UPDATE_ROUT_MAPPING)) {
             ps.setString(1, entity.getStationId());
-            ps.setString(2, entity.getRoutsId());
-            ps.setObject(3, entity.getStationArrivalDate());
-            ps.setObject(4, entity.getStationDispatchData());
-            ps.setString(5, entity.getOrder());
+            ps.setObject(2, entity.getStationArrivalDate());
+            ps.setObject(3, entity.getStationDispatchData());
+            ps.setString(4, entity.getOrder());
+
+            ps.setString(5, entity.getRoutsId());
+            ps.setString(6, stationId);
             if (ps.executeUpdate() > 0) {
                 result = true;
             }
@@ -112,7 +118,7 @@ public class RoutToStationMappingRepositoryImpl implements RoutToStationMappingR
 
     @Override
     public List<MappingInfoDto> getAllRoutToStationMappingListById(String routsId) {
-        List<MappingInfoDto> routs = new ArrayList<MappingInfoDto>();
+        List<MappingInfoDto> routs = new ArrayList<>();
         Connection connection = ConnectionManager.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(GET_ROUT_MAPPING_BY_ROUT_ID)) {
             ps.setString(1, routsId);
@@ -128,6 +134,26 @@ public class RoutToStationMappingRepositoryImpl implements RoutToStationMappingR
         }
         return routs;
     }
+
+    public MappingInfoDto getMappingInfo(String routsId, String stationId) {
+        MappingInfoDto mapping = new MappingInfoDto();
+        Connection connection = ConnectionManager.getConnection();
+        try (PreparedStatement ps = connection.prepareStatement(GET_ROUT_MAPPING_BY_STATION_AND_ROUT_ID)) {
+            ps.setString(1, routsId);
+            ps.setString(2, stationId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                mapping = extractStationInfo(rs);
+            }
+            connection.commit();
+        } catch (SQLException e) {
+            String message = "Can't get rout";
+            LOGGER.error(message, e);
+            throw new DataBaseException(message);
+        }
+        return mapping;
+    }
+
 
 
     @Override

@@ -20,8 +20,8 @@ public class RoutToStationMappingServiceImpl implements RoutToStationMappingServ
 
 
     @Override
-    public void updateRoutToStationMapping(RoutToStationMapping routToStationMapping) {
-        transactionManager.execute(() -> routToStationMappingRepository.update(routToStationMapping));
+    public void updateRoutToStationMapping(RoutToStationMapping routToStationMapping, String stationId) {
+        transactionManager.execute(() -> routToStationMappingRepository.update(routToStationMapping, stationId));
     }
 
     @Override
@@ -39,6 +39,11 @@ public class RoutToStationMappingServiceImpl implements RoutToStationMappingServ
             routToStationMappingRepository.delete(routsId, stationId);
             return null;
         });
+    }
+
+    @Override
+    public MappingInfoDto getMappingInfo(String routsId, String stationId) {
+        return transactionManager.execute(() -> routToStationMappingRepository.getMappingInfo(routsId, stationId));
     }
 
     @Override
