@@ -8,4 +8,5 @@ public interface OrderService {
 
     List<Order> getAllOrderList();
 
+    Order getOrderById(String orderId);
 }

@@ -22,9 +22,9 @@ import java.util.UUID;
 public class OrderRepositoryImpl implements OrderRepository {
     private static final Logger LOGGER = Logger.getLogger(OrderRepositoryImpl.class);
     private static final String ADD_ORDER = "INSERT INTO final_project.railway_system.order (order_id, train_number,car_number, car_type, price, arrival_date, dispatch_date, user_id, order_date, order_status) VALUES (?,?,?,?,?,?,?,?,?,?)";
-    private static final String GET_ORDER_BY_ID = "SELECT * FROM final_project.railway_system.order WHERE order_id = ?";
-    private static final String UPDATE_ORDER = "UPDATE final_project.railway_system.order SET train_number = ?, car_number = ?, car_type = ?, price = ?, arrival_date = ?, dispatch_date = ?,user_id = ?, order_date = ?, order_status = ? WHERE  order_id = ?";
-    private static final String GET_ALL_ORDER = "SELECT * FROM final_project.railway_system.order";
+    private static final String GET_ORDER_BY_ID = "SELECT * FROM final_project.railway_system.order as o JOIN final_project.railway_system.user as u on o.user_id = u.user_id WHERE order_id = ?";
+    private static final String UPDATE_ORDER = "UPDATE final_project.railway_system.order as o SET order_status = ? FROM final_project.railway_system.user as u WHERE o.user_id = u.user_id AND order_id = ?";
+    private static final String GET_ALL_ORDER = "SELECT * FROM final_project.railway_system.order as o JOIN final_project.railway_system.user as u on o.user_id = u.user_id";
 
 
     @Override
@@ -70,32 +70,25 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public boolean update(Order entity) {
-        boolean result = false;
-        Connection connection = ConnectionManager.getConnection();
-        try (PreparedStatement ps = connection.prepareStatement(UPDATE_ORDER)) {
-            ps.setString(1, entity.getTrainNumber());
-            ps.setString(2, entity.getCarNumber());
-            ps.setString(3, entity.getCarType());
-            ps.setString(4, entity.getPrice());
-            ps.setObject(5, entity.getArrivalDate());
-            ps.setObject(6, entity.getDispatchDate());
-            ps.setObject(7, entity.getUser());
-            ps.setObject(8, entity.getOrderDate());
-            ps.setString(9, entity.getOrderStatus().toString());
-            if (ps.executeUpdate() > 0) {
-                result = true;
-            }
-        } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DBException("Update order " + entity.getOrderId(), e);
-        }
-        return result;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean delete(String id) {
         LOGGER.error("Unsupported operation exception");
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void updateOrderStatus(String orderId, OrderStatus status) {
+        Connection connection = ConnectionManager.getConnection();
+        try (PreparedStatement ps = connection.prepareStatement(UPDATE_ORDER)) {
+            ps.setString(1, status.toString());
+            ps.setString(2, orderId);
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DBException("Update order " + orderId, e);
+        }
     }
 
     private Order extract(ResultSet rs) throws SQLException {
@@ -114,22 +107,40 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public List<Order> getAllOrder() {
-        List<Order> Order = new ArrayList<Order>();
+    public List<Order> getAllOrderList() {
+        List<Order> order = new ArrayList<>();
         Connection connection = ConnectionManager.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(GET_ALL_ORDER)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Order.add(extract(rs));
+                order.add(extract(rs));
             }
             connection.commit();
         } catch (SQLException e) {
-            String message = String.format("Can't get order");
+            String message = "Can't get order";
             LOGGER.error(message, e);
             throw new DataBaseException(message);
         }
-        return Order;
+        return order;
     }
 
+    @Override
+    public Order getOrderById(String orderId) {
+        Order order = new Order();
+        Connection connection = ConnectionManager.getConnection();
 
+        try (PreparedStatement ps = connection.prepareStatement(GET_ORDER_BY_ID)) {
+            ps.setString(1, orderId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                order = extract(rs);
+            }
+            connection.commit();
+        } catch (SQLException e) {
+            String message = String.format("Can't get order by id. Id = %s", orderId);
+            LOGGER.error(message, e);
+            throw new DataBaseException(message);
+        }
+        return order;
+    }
 }

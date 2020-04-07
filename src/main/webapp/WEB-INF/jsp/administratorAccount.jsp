@@ -99,13 +99,12 @@
         <th><fmt:message key="order.dispatch.date"/></th>
         <th><fmt:message key="order.date"/></th>
         <th><fmt:message key="order.status"/></th>
-        <th><fmt:message key="admin.remove"/></th>
         <th><fmt:message key="admin.editInformation"/></th>
     </tr>
     <c:forEach items="${order_list}" var="order">
         <tr>
             <td>${order.orderId}</td>
-            <td>${order.user}</td>
+            <td>${order.user.firstName} ${order.user.lastName}</td>
             <td>${order.trainNumber}</td>
             <td>${order.carNumber}</td>
             <td>${order.carType}</td>
@@ -114,12 +113,6 @@
             <td>${order.dispatchDate}</td>
             <td>${order.orderDate}</td>
             <td>${order.orderStatus}</td>
-            <td>
-                <form action="order_delete" method="POST">
-                    <input type="hidden" name="order_id" value="${order.orderId}">
-                    <input type="submit" name="remove_order" value="<fmt:message key="admin.remove"/>">
-                </form>
-            </td>
             <td>
                 <form action="administrator_edit_info_order" method="GET">
                     <input type="hidden" name="order_id" value="${order.orderId}">

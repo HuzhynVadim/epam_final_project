@@ -17,7 +17,7 @@
     </div>
 </form>
 <center>
-    <form action="ticket_order" method="POST">
+    <form action="selection_of_the_route_for_ordering" method="GET">
         <p><b><fmt:message key="rout.from"/></b><br>
             <input name="departure station" type="text">
         </p>
@@ -38,7 +38,7 @@
 <%--            </select>--%>
 <%--        </p>--%>
         <p><b></b><br>
-            <input type="submit" name="rout_select" value="<fmt:message key="rout.select"/>">
+            <input type="submit" name="route_search" value="<fmt:message key="rout.search"/>">
         </p>
     </form>
     <c:choose>

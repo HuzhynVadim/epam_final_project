@@ -3,7 +3,6 @@ package ua.nure.huzhyn.db.dao.implementation;
 import org.apache.log4j.Logger;
 import ua.nure.huzhyn.db.dao.RoutToStationMappingRepository;
 import ua.nure.huzhyn.db.dao.dto.MappingInfoDto;
-import ua.nure.huzhyn.db.dao.dto.RoutInfoDto;
 import ua.nure.huzhyn.db.dao.transaction.ConnectionManager;
 import ua.nure.huzhyn.exception.DBException;
 import ua.nure.huzhyn.exception.DataBaseException;
@@ -14,9 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 

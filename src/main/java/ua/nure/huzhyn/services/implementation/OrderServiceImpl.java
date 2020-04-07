@@ -20,7 +20,12 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
+    public Order getOrderById(String orderId) {
+        return transactionManager.execute(() -> orderRepository.getOrderById(orderId));
+    }
+
+    @Override
     public List<Order> getAllOrderList() {
-        return transactionManager.execute(() -> orderRepository.getAllOrder());
+        return transactionManager.execute(() -> orderRepository.getAllOrderList());
     }
 }
