@@ -9,6 +9,9 @@
     <title><fmt:message key="admin.editInformation"/></title>
 </head>
 <body>
+${current_order.orderStatus}*******
+
+
 <table border="1">
     <tr>
         <th><fmt:message key="order.status"/></th>
@@ -16,7 +19,20 @@
     </tr>
     <tr>
         <form action="administrator_edit_info_order" method="POST">
-            <td><input name="rout_name" value="${current_rout.routName}"></td>
+            <input type="hidden" name="order_id" value="${current_order.orderId}">
+            <td><select name="order_status">
+                <c:set var="current_order_status" value="${current_order.orderStatus}"/>
+                <c:forEach items="${statusList}" var="status">
+                    <option
+                            <c:choose>
+                                <c:when test="${status eq current_order_status}">
+                                    selected
+                                </c:when>
+                            </c:choose>
+                            value="${status}"><c:out value="${status}"/>
+                    </option>
+                </c:forEach>
+            </select></td>
             <td>
                 <input type="submit" name="save_edit_information" value="<fmt:message key="admin.saveInformation"/>">
             </td>

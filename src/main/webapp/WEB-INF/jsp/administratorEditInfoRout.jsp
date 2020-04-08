@@ -32,7 +32,6 @@
                             </c:choose>
                             value="${train.trainId}"><c:out value="${train.trainNumber}"/>
                     </option>
-                    >
                 </c:forEach>
             </select>
             </td>

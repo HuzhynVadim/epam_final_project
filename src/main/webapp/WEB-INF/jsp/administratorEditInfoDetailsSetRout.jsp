@@ -19,7 +19,7 @@
     <tr>
         <form action="administrator_edit_info_details_set_rout" method="POST">
             <input type="hidden" name="routs_id" value="${routs_id}">
-            <input type="hidden" name="stationn_id" value="${station_id}">
+            <input type="hidden" name="station_current_id" value="${station_id}">
             <td><input name="station_order" value="${current_rout.order}"></td>
             <td><select name="station_station">
                 <c:set var="station_id" value="${current_rout.stationId}"/>
