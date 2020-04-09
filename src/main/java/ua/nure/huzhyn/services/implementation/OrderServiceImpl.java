@@ -21,11 +21,8 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public void updateOrderStatus(String orderId, OrderStatus status) {
-        transactionManager.execute(() -> {
-            orderRepository.updateOrderStatus(orderId, status);
-            return null;
-        });
+    public boolean updateOrderStatus(String orderId, OrderStatus status) {
+        return transactionManager.execute(() -> orderRepository.updateOrderStatus(orderId, status));
     }
 
     @Override

@@ -11,5 +11,5 @@ public interface OrderService {
 
     Order getOrderById(String orderId);
 
-    void updateOrderStatus(String orderId, OrderStatus status);
+    boolean updateOrderStatus(String orderId, OrderStatus status);
 }

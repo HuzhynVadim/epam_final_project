@@ -80,15 +80,20 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public void updateOrderStatus(String orderId, OrderStatus status) {
+    public boolean updateOrderStatus(String orderId, OrderStatus status) {
         Connection connection = ConnectionManager.getConnection();
+        boolean result = false;
         try (PreparedStatement ps = connection.prepareStatement(UPDATE_ORDER)) {
             ps.setString(1, status.toString());
             ps.setString(2, orderId);
+            if (ps.executeUpdate() > 0) {
+                result = true;
+            }
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DBException("Update order " + orderId, e);
         }
+        return result;
     }
 
     private Order extract(ResultSet rs) throws SQLException {

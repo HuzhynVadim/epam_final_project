@@ -29,7 +29,7 @@ public class AdministratorEditInfoOrderController extends HttpServlet {
         Order order = new Order();
         try {
             String orderId = request.getParameter("order_id");
-            OrderStatus status = request.getParameter("order_status"); //todo wtf , how fix ???
+            OrderStatus status = OrderStatus.valueOf(request.getParameter("order_status")); //todo wtf , how fix ???
             orderValidator.isValidOrder(order);
             orderService.updateOrderStatus(orderId, status);  //todo updateOrderStatus;
         } catch (NumberFormatException e) {

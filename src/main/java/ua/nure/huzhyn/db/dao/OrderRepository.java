@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface OrderRepository extends CRUD<Order, String> {
 
-    void updateOrderStatus(String orderId, OrderStatus status);
+    boolean updateOrderStatus(String orderId, OrderStatus status);
 
     List<Order> getAllOrderList();
 
