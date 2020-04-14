@@ -12,5 +12,7 @@ public interface RoutsRepository extends CRUD<Rout, String> {
 
     RoutInfoDto getRoutById(String routsId);
 
+    List<Rout> getRouteListWithParameters(String departureStation, String arrivalStation, String departureDate);
 }
+
 

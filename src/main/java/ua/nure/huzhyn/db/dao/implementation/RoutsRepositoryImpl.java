@@ -148,6 +148,26 @@ public class RoutsRepositoryImpl implements RoutsRepository {
 
 
     @Override
+    public List<Rout> getRouteListWithParameters(String departureStation, String arrivalStation, String departureDate) {
+//        List<Rout> routs = new ArrayList<>();
+//        Connection connection = ConnectionManager.getConnection();
+//        try (PreparedStatement ps = connection.prepareStatement(GET_ALL_ROUT)) {
+//            ResultSet rs = ps.executeQuery();
+//            while (rs.next()) {
+//                routs.add(extractRoutInfo(rs));
+//            }
+//            connection.commit();
+//        } catch (SQLException e) {
+//            String message = "Can't get rout";
+//            LOGGER.error(message, e);
+//            throw new DataBaseException(message);
+//        }
+//        return routs;
+        return null; // todo need create this method;
+    }
+
+
+    @Override
     public RoutInfoDto getRoutById(String routsId) {
         RoutInfoDto rout = new RoutInfoDto();
         Connection connection = ConnectionManager.getConnection();

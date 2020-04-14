@@ -18,6 +18,6 @@ public interface RoutService {
 
     RoutInfoDto getRoutById(String routsId);
 
-
+    List<Rout> getRouteListWithParameters(String departureStation, String arrivalStation, String departureDate);
 }
 

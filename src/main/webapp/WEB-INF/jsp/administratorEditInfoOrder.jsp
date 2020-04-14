@@ -9,9 +9,6 @@
     <title><fmt:message key="admin.editInformation"/></title>
 </head>
 <body>
-${current_order.orderStatus}*******
-
-
 <table border="1">
     <tr>
         <th><fmt:message key="order.status"/></th>

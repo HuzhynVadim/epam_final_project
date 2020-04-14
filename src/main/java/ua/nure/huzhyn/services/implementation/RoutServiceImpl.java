@@ -30,6 +30,11 @@ public class RoutServiceImpl implements RoutService {
 
 
     @Override
+    public List<Rout> getRouteListWithParameters(String departureStation, String arrivalStation, String departureDate) {
+        return transactionManager.execute(() -> routsRepository.getRouteListWithParameters(departureStation, arrivalStation, departureDate));
+    }
+
+    @Override
     public RoutInfoDto getRoutById(String routsId) {
         return transactionManager.execute(() -> routsRepository.getRoutById(routsId));
     }

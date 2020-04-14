@@ -18,17 +18,9 @@
         <th>dateArrival</th>
         <th>dateDispatch</th>
         <th>travelTime</th>
-        <th>typeCar</th>
-        <th>seats</th>
-        <th>price</th>
-        <th>count</th>
     </tr>
 <%--    <c:forEach items="${}" var="">--%>
         <tr>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
             <td> </td>
             <td> </td>
             <td> </td>

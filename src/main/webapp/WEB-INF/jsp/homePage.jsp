@@ -26,17 +26,9 @@
 
         </p>
         <p><b><fmt:message key="rout.when"/></b><br>
-            <input name="departure date" type="date">
+            <input name="departure date" type="datetime-local">
 
         </p>
-<%--        <p><b><fmt:message key="rout.car_type"/></b><br>--%>
-<%--            <select name="car type[]">--%>
-<%--                <option><fmt:message key="selectCarType"/></option>--%>
-<%--                <option><fmt:message key="car.type.compartment"/></option>--%>
-<%--                <option><fmt:message key="car.type.reserved_seat"/></option>--%>
-<%--                <option><fmt:message key="car.type.common"/></option>--%>
-<%--            </select>--%>
-<%--        </p>--%>
         <p><b></b><br>
             <input type="submit" name="route_search" value="<fmt:message key="rout.search"/>">
         </p>
@@ -44,13 +36,14 @@
     <c:choose>
         <c:when test="${role == 'ADMIN'}">
             <form action="administrator_account" method="GET">
-                <input type="submit" name="order" value="<fmt:message key="admin.account"/>">
+                <input type="hidden" name="user_id" value="${user.userId}">
+                <input type="submit" name="account" value="<fmt:message key="admin.account"/>">
             </form>
         </c:when>
         <c:when test="${role == 'USER'}">
             <form action="user_account" method="GET">
                 <input type="hidden" name="user_id" value="${user.userId}">
-                <input type="submit" name="order" value="<fmt:message key="user.account"/>">
+                <input type="submit" name="account" value="<fmt:message key="user.account"/>">
             </form>
         </c:when>
     </c:choose>
