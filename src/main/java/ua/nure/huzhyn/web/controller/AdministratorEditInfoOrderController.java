@@ -29,9 +29,9 @@ public class AdministratorEditInfoOrderController extends HttpServlet {
         Order order = new Order();
         try {
             String orderId = request.getParameter("order_id");
-            OrderStatus status = OrderStatus.valueOf(request.getParameter("order_status")); //todo wtf , how fix ???
+            OrderStatus status = OrderStatus.valueOf(request.getParameter("order_status"));
             orderValidator.isValidOrder(order);
-            orderService.updateOrderStatus(orderId, status);  //todo updateOrderStatus;
+            orderService.updateOrderStatus(orderId, status);
         } catch (NumberFormatException e) {
             LOGGER.error("Incorrect data entered");
             throw new IncorrectDataException("Incorrect data entered", e);

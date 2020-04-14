@@ -27,7 +27,7 @@ public class RoutDeleteController extends HttpServlet {
             LOGGER.error("Incorrect rout ID. Rout ID = " + request.getParameter("routsId"));
             throw new IncorrectDataException("Incorrect rout ID", e);
         }
-        response.sendRedirect("administrator_account/");
+        response.sendRedirect("administrator_account");
     }
 
     @Override

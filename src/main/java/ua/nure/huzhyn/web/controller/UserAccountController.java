@@ -22,8 +22,9 @@ public class UserAccountController extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        List<Order> orderList = orderService.getAllOrderList();
+        String userId = request.getParameter("user_id");
+        request.setAttribute("user_id", userId);
+        List<Order> orderList = orderService.getOrderByUserId(userId);
         request.setAttribute("order_list", orderList);
 
         request.getRequestDispatcher("WEB-INF/jsp/userAccount.jsp").forward(request, response);

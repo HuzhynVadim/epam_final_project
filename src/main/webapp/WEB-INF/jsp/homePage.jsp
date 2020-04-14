@@ -49,6 +49,7 @@
         </c:when>
         <c:when test="${role == 'USER'}">
             <form action="user_account" method="GET">
+                <input type="hidden" name="user_id" value="${user.userId}">
                 <input type="submit" name="order" value="<fmt:message key="user.account"/>">
             </form>
         </c:when>

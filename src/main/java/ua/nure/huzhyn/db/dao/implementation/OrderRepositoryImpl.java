@@ -25,6 +25,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     private static final String GET_ORDER_BY_ID = "SELECT * FROM final_project.railway_system.order as o JOIN final_project.railway_system.user as u on o.user_id = u.user_id WHERE order_id = ?";
     private static final String UPDATE_ORDER = "UPDATE final_project.railway_system.order as o SET order_status = ? FROM final_project.railway_system.user as u WHERE o.user_id = u.user_id AND order_id = ?";
     private static final String GET_ALL_ORDER = "SELECT * FROM final_project.railway_system.order as o JOIN final_project.railway_system.user as u on o.user_id = u.user_id";
+    private static final String GET_ORDER_BY_USER_ID = "SELECT * FROM final_project.railway_system.order as o JOIN final_project.railway_system.user as u on o.user_id = u.user_id WHERE o.user_id = ?";
 
 
     @Override
@@ -130,6 +131,24 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
 
+    @Override
+    public List<Order> getOrderByUserId(String userId) {
+        List<Order> order = new ArrayList<>();
+        Connection connection = ConnectionManager.getConnection();
+        try (PreparedStatement ps = connection.prepareStatement(GET_ORDER_BY_USER_ID)) {
+            ps.setString(1, userId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                order.add(extract(rs));
+            }
+            connection.commit();
+        } catch (SQLException e) {
+            String message = "Can't get order";
+            LOGGER.error(message, e);
+            throw new DataBaseException(message);
+        }
+        return order;
+    }
 
     @Override
     public Order getOrderById(String orderId) {

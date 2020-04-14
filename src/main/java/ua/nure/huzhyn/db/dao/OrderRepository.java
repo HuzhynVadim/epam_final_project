@@ -13,4 +13,5 @@ public interface OrderRepository extends CRUD<Order, String> {
 
     Order getOrderById(String orderId);
 
+    List<Order> getOrderByUserId(String userId);
 }

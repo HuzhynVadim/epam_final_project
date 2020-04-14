@@ -21,6 +21,11 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
+    public List<Order> getOrderByUserId(String userId) {
+        return transactionManager.execute(() -> orderRepository.getOrderByUserId(userId));
+    }
+
+    @Override
     public boolean updateOrderStatus(String orderId, OrderStatus status) {
         return transactionManager.execute(() -> orderRepository.updateOrderStatus(orderId, status));
     }
