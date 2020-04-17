@@ -2,7 +2,6 @@ package ua.nure.huzhyn.web.controller;
 
 import org.apache.log4j.Logger;
 import ua.nure.huzhyn.db.dao.dto.RoutInfoDto;
-import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.model.entity.Rout;
 import ua.nure.huzhyn.model.entity.Train;
 import ua.nure.huzhyn.services.RoutService;
@@ -29,17 +28,12 @@ public class AdministratorEditInfoRoutController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RoutValidator routValidator = new RoutValidator();
         Rout rout = new Rout();
-        try {
-            rout.setRoutsId(request.getParameter("rout_id"));
-            rout.setRoutName(request.getParameter("rout_name"));
-            rout.setRoutNumber(request.getParameter("rout_number"));
-            rout.setTrainId(request.getParameter("train_number"));
-            routValidator.isValidRout(rout);
-            routService.updateRout(rout);
-        } catch (NumberFormatException e) {
-            LOGGER.error("Incorrect data entered");
-            throw new IncorrectDataException("Incorrect data entered", e);
-        }
+        rout.setRoutsId(request.getParameter("rout_id"));
+        rout.setRoutName(request.getParameter("rout_name"));
+        rout.setRoutNumber(request.getParameter("rout_number"));
+        rout.setTrainId(request.getParameter("train_number"));
+        routValidator.isValidRout(rout);
+        routService.updateRout(rout);
         response.sendRedirect("administrator_account");
     }
 

@@ -20,6 +20,22 @@ public class CarServiceImpl implements CarService {
 
 
     @Override
+    public void addCar(Car car) {
+        transactionManager.execute(() -> {
+            carRepository.create(car);
+            return null;
+        });
+    }
+
+    @Override
+    public void removeCar(String carId) {
+        transactionManager.execute(() -> {
+            carRepository.delete(carId);
+            return null;
+        });
+    }
+
+    @Override
     public List<CarDto> getAllCarList() {
         return transactionManager.execute(() -> carRepository.getAllCarList());
     }

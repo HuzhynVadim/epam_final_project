@@ -24,9 +24,9 @@ public class RegistrationController extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(RegistrationController.class);
 
-    UserService userService;
+    private UserService userService;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         User user = new User();
         RegistrationValidator registrationValidator = new RegistrationValidator();
         HttpSession session = request.getSession();
@@ -45,7 +45,7 @@ public class RegistrationController extends HttpServlet {
             String id = userService.registr(user);
             user.setUserId(String.valueOf(id));
             session.setAttribute(AppContextConstant.SESSION_USER, user);
-        } catch (NumberFormatException e) {
+        } catch (IllegalArgumentException e) {
             LOGGER.error("Incorrect data entered");
             throw new IncorrectDataException("Incorrect data entered", e);
         }
@@ -53,7 +53,7 @@ public class RegistrationController extends HttpServlet {
     }
 
     @Override
-    public void init(ServletConfig config) throws ServletException {
+    public void init(ServletConfig config) {
         userService = (UserService) config.getServletContext().getAttribute(AppContextConstant.USER_SERVICE);
     }
 }

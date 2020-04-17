@@ -1,7 +1,6 @@
 package ua.nure.huzhyn.web.controller;
 
 import org.apache.log4j.Logger;
-import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.model.entity.Order;
 import ua.nure.huzhyn.model.entity.enums.OrderStatus;
 import ua.nure.huzhyn.services.OrderService;
@@ -27,15 +26,10 @@ public class AdministratorEditInfoOrderController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OrderValidator orderValidator = new OrderValidator();
         Order order = new Order();
-        try {
-            String orderId = request.getParameter("order_id");
-            OrderStatus status = OrderStatus.valueOf(request.getParameter("order_status"));
-            orderValidator.isValidOrder(order);
-            orderService.updateOrderStatus(orderId, status);
-        } catch (NumberFormatException e) {
-            LOGGER.error("Incorrect data entered");
-            throw new IncorrectDataException("Incorrect data entered", e);
-        }
+        String orderId = request.getParameter("order_id");
+        OrderStatus status = OrderStatus.valueOf(request.getParameter("order_status"));
+        orderValidator.isValidOrder(order);
+        orderService.updateOrderStatus(orderId, status);
         response.sendRedirect("administrator_account");
     }
 

@@ -2,7 +2,6 @@ package ua.nure.huzhyn.web.controller;
 
 
 import org.apache.log4j.Logger;
-import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.services.UserService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 
@@ -22,15 +21,9 @@ public class UserBlockController extends HttpServlet {
     private UserService userService;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        try {
-            String userId = String.valueOf(request.getParameter("user_id"));
-            boolean blockStatus = Boolean.parseBoolean(request.getParameter("block_status"));
-            userService.updateBlocked(userId, blockStatus);
-
-        } catch (NumberFormatException e) {
-            LOGGER.error("Incorrect data received");
-            throw new IncorrectDataException("Incorrect data received");
-        }
+        String userId = request.getParameter("user_id");
+        boolean blockStatus = Boolean.parseBoolean(request.getParameter("block_status"));
+        userService.updateBlocked(userId, blockStatus);
         response.sendRedirect("administrator_account");
     }
 

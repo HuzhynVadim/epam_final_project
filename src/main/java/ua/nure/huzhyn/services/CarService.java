@@ -7,4 +7,8 @@ import java.util.List;
 
 public interface CarService {
     List<CarDto> getAllCarList();
+
+    void removeCar(String carId);
+
+    void addCar(Car car);
 }

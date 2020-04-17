@@ -2,7 +2,6 @@ package ua.nure.huzhyn.web.controller;
 
 
 import org.apache.log4j.Logger;
-import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.model.entity.Station;
 import ua.nure.huzhyn.services.StationService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
@@ -24,16 +23,11 @@ public class AdministratorEditInfoStationController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         StationValidator stationValidator = new StationValidator();
         Station station = new Station();
-        try {
-            station.setStationId(request.getParameter("station_id"));
-            station.setStation(request.getParameter("station"));
+        station.setStationId(request.getParameter("station_id"));
+        station.setStation(request.getParameter("station"));
 
-            stationValidator.isValidStation(station);
-            stationService.updateStation(station);
-        } catch (NumberFormatException e) {
-            LOGGER.error("Incorrect data entered");
-            throw new IncorrectDataException("Incorrect data entered", e);
-        }
+        stationValidator.isValidStation(station);
+        stationService.updateStation(station);
         response.sendRedirect("administrator_account");
     }
 

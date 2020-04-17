@@ -1,7 +1,6 @@
 package ua.nure.huzhyn.web.controller;
 
 import org.apache.log4j.Logger;
-import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.services.StationService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 
@@ -22,13 +21,8 @@ public class StationDeleteController extends HttpServlet {
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            String stationId = request.getParameter("station");
-            stationService.removeStation(stationId);
-        } catch (NumberFormatException e) {
-            LOGGER.error("Incorrect station ID. Station ID = " + request.getParameter("station"));
-            throw new IncorrectDataException("Incorrect station ID", e);
-        }
+        String stationId = request.getParameter("station");
+        stationService.removeStation(stationId);
         response.sendRedirect("administrator_account");
     }
 

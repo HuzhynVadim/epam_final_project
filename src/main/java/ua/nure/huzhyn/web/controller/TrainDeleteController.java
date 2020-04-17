@@ -1,7 +1,6 @@
 package ua.nure.huzhyn.web.controller;
 
 import org.apache.log4j.Logger;
-import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.services.TrainService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 
@@ -19,13 +18,8 @@ public class TrainDeleteController extends HttpServlet {
     private TrainService trainService;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            String trainId = request.getParameter("train_id");
-            trainService.removeTrain(trainId);
-        } catch (NumberFormatException e) {
-            LOGGER.error("Incorrect train ID. train ID = " + request.getParameter("trainId"));
-            throw new IncorrectDataException("Incorrect train ID", e);
-        }
+        String trainId = request.getParameter("train_id");
+        trainService.removeTrain(trainId);
         response.sendRedirect("administrator_account");
     }
 

@@ -23,7 +23,7 @@ public class TrainRepositoryImpl implements TrainRepository {
     private static final String GET_TRAIN_BY_ID = "SELECT * FROM final_project.railway_system.train WHERE train_id = ?";
     private static final String DELETE_TRAIN = "DELETE FROM final_project.railway_system.train WHERE train_id = ?";
     private static final String UPDATE_TRAIN = "UPDATE final_project.railway_system.train SET train_number = ? WHERE train_id = ?";
-    private static final String GET_ALL_TRAIN_NUMBER = "SELECT * FROM final_project.railway_system.train";
+    private static final String GET_ALL_TRAIN_NUMBER = "SELECT * FROM final_project.railway_system.train ORDER BY train_number ASC";
 
 
     @Override

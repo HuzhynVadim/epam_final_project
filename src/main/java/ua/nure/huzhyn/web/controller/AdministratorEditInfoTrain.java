@@ -1,7 +1,6 @@
 package ua.nure.huzhyn.web.controller;
 
 import org.apache.log4j.Logger;
-import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.model.entity.Train;
 import ua.nure.huzhyn.services.TrainService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
@@ -23,17 +22,11 @@ public class AdministratorEditInfoTrain extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         TrainValidator trainValidator = new TrainValidator();
         Train train = new Train();
-        try {
-            train.setTrainId(request.getParameter("train_id"));
-            train.setTrainNumber(request.getParameter("train_number"));
+        train.setTrainId(request.getParameter("train_id"));
+        train.setTrainNumber(request.getParameter("train_number"));
 
-
-            trainValidator.isValidTrain(train);
-            trainService.updateTrain(train);
-        } catch (NumberFormatException e) {
-            LOGGER.error("Incorrect data entered");
-            throw new IncorrectDataException("Incorrect data entered", e);
-        }
+        trainValidator.isValidTrain(train);
+        trainService.updateTrain(train);
         response.sendRedirect("administrator_account");
     }
 

@@ -1,7 +1,7 @@
 package ua.nure.huzhyn.web.controller;
 
 import org.apache.log4j.Logger;
-import ua.nure.huzhyn.model.entity.Rout;
+import ua.nure.huzhyn.db.dao.dto.RoutsOrderDto;
 import ua.nure.huzhyn.services.OrderService;
 import ua.nure.huzhyn.services.RoutService;
 import ua.nure.huzhyn.services.RoutToStationMappingService;
@@ -16,11 +16,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @WebServlet("/selection_of_the_route_for_ordering")
-public class selectionOfTheRouteForOrdering extends HttpServlet {
-    private static final Logger LOGGER = Logger.getLogger(selectionOfTheRouteForOrdering.class);
+public class selectionOfTheRouteForOrderingController extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(selectionOfTheRouteForOrderingController.class);
     private OrderService orderService;
     private UserService userService;
     private StationService stationService;
@@ -32,8 +33,8 @@ public class selectionOfTheRouteForOrdering extends HttpServlet {
 
         String departureStation = request.getParameter("departure_station");
         String arrivalStation = request.getParameter("arrival_station");
-        String departureDate = request.getParameter("departure_date");
-        List<Rout> routList = routService.getRouteListWithParameters(departureStation, arrivalStation, departureDate);
+        LocalDateTime departureDate = LocalDateTime.parse(request.getParameter("departure_date"));
+        List<RoutsOrderDto> routList = routService.getRouteListWithParameters(departureStation, arrivalStation, departureDate);
         request.setAttribute("routList", routList);
         request.getRequestDispatcher("WEB-INF/jsp/selectionOfTheRouteForOrdering.jsp").forward(request, response);
     }

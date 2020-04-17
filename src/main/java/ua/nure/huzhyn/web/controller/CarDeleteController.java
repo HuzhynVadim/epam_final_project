@@ -1,7 +1,7 @@
 package ua.nure.huzhyn.web.controller;
 
 import org.apache.log4j.Logger;
-import ua.nure.huzhyn.services.RoutService;
+import ua.nure.huzhyn.services.CarService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 
 import javax.servlet.ServletConfig;
@@ -12,21 +12,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/rout_delete")
-public class RoutDeleteController extends HttpServlet {
-    private static final Logger LOGGER = Logger.getLogger(RoutDeleteController.class);
+@WebServlet("/car_delete")
+public class CarDeleteController extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(CarDeleteController.class);
 
-    private RoutService routService;
+    private CarService carService;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String routsId = request.getParameter("routs_id");
-        routService.removeRout(routsId);
+        String carId = request.getParameter("car_id");
+        carService.removeCar(carId);
         response.sendRedirect("administrator_account");
     }
 
     @Override
     public void init(ServletConfig config) {
-        routService = (RoutService) config.getServletContext().getAttribute(AppContextConstant.ROUT_SERVICE);
+        carService = (CarService) config.getServletContext().getAttribute(AppContextConstant.CARS_SERVICE);
 
     }
 }
+
+
