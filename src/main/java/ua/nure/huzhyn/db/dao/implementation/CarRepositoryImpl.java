@@ -3,6 +3,7 @@ package ua.nure.huzhyn.db.dao.implementation;
 import org.apache.log4j.Logger;
 import ua.nure.huzhyn.db.dao.CarRepository;
 import ua.nure.huzhyn.db.dao.dto.CarDto;
+import ua.nure.huzhyn.db.dao.dto.RoutInfoDto;
 import ua.nure.huzhyn.db.dao.transaction.ConnectionManager;
 import ua.nure.huzhyn.exception.DBException;
 import ua.nure.huzhyn.exception.DataBaseException;
@@ -70,6 +71,7 @@ public class CarRepositoryImpl implements CarRepository {
             ps.setString(3, entity.getTrainId());
             ps.setInt(4, entity.getSeats());
             ps.setBigDecimal(5, entity.getPrice());
+            ps.setString(6, entity.getCarId());
             if (ps.executeUpdate() > 0) {
                 result = true;
             }
@@ -116,6 +118,25 @@ public class CarRepositoryImpl implements CarRepository {
         car.setSeats(resultSet.getInt("seats"));
         car.setPrice(resultSet.getBigDecimal("price"));
         car.setTrainNumber(resultSet.getString("train_number"));
+        return car;
+    }
+
+    @Override
+    public Car getCarById(String carId) {
+        Car car = new Car();
+        Connection connection = ConnectionManager.getConnection();
+        try (PreparedStatement ps = connection.prepareStatement(GET_CAR_BY_ID)) {
+            ps.setString(1, carId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                car = extract(rs);
+            }
+            connection.commit();
+        } catch (SQLException e) {
+            String message = String.format("Can't get car by id. Id = %s", carId);
+            LOGGER.error(message, e);
+            throw new DataBaseException(message);
+        }
         return car;
     }
 

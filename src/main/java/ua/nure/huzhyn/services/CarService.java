@@ -11,4 +11,9 @@ public interface CarService {
     void removeCar(String carId);
 
     void addCar(Car car);
+
+    Car getCarById(String carId);
+
+    void updateCar(Car car);
+
 }

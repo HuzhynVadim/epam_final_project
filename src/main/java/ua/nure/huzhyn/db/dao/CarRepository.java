@@ -8,4 +8,6 @@ import java.util.List;
 public interface CarRepository extends CRUD<Car, String> {
 
     List<CarDto> getAllCarList();
+
+    Car getCarById(String carId);
 }

@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-
 @WebServlet("/administrator_edit_info_rout")
 public class AdministratorEditInfoRoutController extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(AdministratorEditInfoRoutController.class);
