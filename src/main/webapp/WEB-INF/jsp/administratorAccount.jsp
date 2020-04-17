@@ -84,12 +84,83 @@
 <form action="administrator_add_station" method="GET">
     <input type="submit" name="add_station" value="<fmt:message key="admin.addStation"/>">
 </form>
+
+
+<p>
+    <h12><fmt:message key="admin.car.information"/></h12>
+</p>
+<table border="1">
+    <tr>
+        <th><fmt:message key="train.number"/></th>
+        <th><fmt:message key="car.type"/></th>
+        <th><fmt:message key="car.number"/></th>
+        <th><fmt:message key="car.seats"/></th>
+        <th><fmt:message key="car.price"/></th>
+        <th><fmt:message key="edit"/></th>
+        <th><fmt:message key="delete"/></th>
+    </tr>
+    <c:forEach items="${car_list}" var="car">
+        <tr>
+            <td>${car.trainNumber}</td>
+            <td>${car.carType}</td>
+            <td>${car.carNumber}</td>
+            <td>${car.seats}</td>
+            <td>${car.price}</td>
+            <td>
+                <form action="administrator_edit_info_car" method="GET">
+                    <input type="hidden" name="car_id" value="${car.carId}">
+                    <input type="submit" name="edit_info_car" value="<fmt:message key="admin.editInformation"/>">
+                </form>
+            </td>
+            <td>
+                <form action="car_delete" method="POST">
+                    <input type="hidden" name="car_id" value="${car.carId}">
+                    <input type="submit" name="remove_car" value="<fmt:message key="admin.remove"/>">
+                </form>
+            </td>
+        </tr>
+    </c:forEach>
+</table>
+<form action="administrator_add_car" method="GET">
+    <input type="submit" name="add_car" value="<fmt:message key="admin.addCar"/>">
+</form>
+
+
+<p>
+    <h12><fmt:message key="admin.train.information"/></h12>
+</p>
+<table border="1">
+    <tr>
+        <th><fmt:message key="train.number"/></th>
+        <th><fmt:message key="edit"/></th>
+        <th><fmt:message key="delete"/></th>
+    </tr>
+    <c:forEach items="${train_list}" var="train">
+        <tr>
+            <td>${train.trainNumber}</td>
+            <td>
+                <form action="administrator_edit_info_train" method="GET">
+                    <input type="hidden" name="train_id" value="${train.trainId}">
+                    <input type="submit" name="edit_info_train" value="<fmt:message key="admin.editInformation"/>">
+                </form>
+            </td>
+            <td>
+                <form action="train_delete" method="POST">
+                    <input type="hidden" name="train_id" value="${train.trainId}">
+                    <input type="submit" name="remove_train" value="<fmt:message key="admin.remove"/>">
+                </form>
+            </td>
+        </tr>
+    </c:forEach>
+</table>
+<form action="administrator_add_train" method="GET">
+    <input type="submit" name="add_train" value="<fmt:message key="admin.addTrain"/>">
+</form>
 <p>
     <h12><fmt:message key="admin.order.information"/></h12>
 </p>
 <table border="1">
     <tr>
-        <th><fmt:message key="order.id"/></th>
         <th><fmt:message key="order.user.information"/></th>
         <th><fmt:message key="order.train.number"/></th>
         <th><fmt:message key="order.car.number"/></th>
@@ -103,7 +174,6 @@
     </tr>
     <c:forEach items="${order_list}" var="order">
         <tr>
-            <td>${order.orderId}</td>
             <td>${order.user.firstName} ${order.user.lastName}</td>
             <td>${order.trainNumber}</td>
             <td>${order.carNumber}</td>

@@ -19,7 +19,33 @@ public class TrainServiceImpl implements TrainService {
 
 
     @Override
-    public List<Train> getAllTrain() {
-        return transactionManager.execute(() -> trainRepository.getAllTrain());
+    public Train getTrainById(String trainId) {
+        return transactionManager.execute(() -> trainRepository.getStationById(trainId));
+    }
+
+    @Override
+    public void updateTrain(Train train) {
+        transactionManager.execute(() -> trainRepository.update(train));
+    }
+
+    @Override
+    public void addTrain(Train train) {
+        transactionManager.execute(() -> {
+            trainRepository.create(train);
+            return null;
+        });
+    }
+
+    @Override
+    public List<Train> getAllTrainList() {
+        return transactionManager.execute(() -> trainRepository.getAllTrainList());
+    }
+
+    @Override
+    public void removeTrain(String trainId) {
+        transactionManager.execute(() -> {
+            trainRepository.delete(trainId);
+            return null;
+        });
     }
 }

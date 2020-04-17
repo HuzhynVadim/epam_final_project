@@ -49,7 +49,7 @@ public class AdministratorEditInfoRoutController extends HttpServlet {
         String routsId = request.getParameter("routs_id");
         RoutInfoDto rout = routService.getRoutById(routsId);
         request.setAttribute("current_rout", rout);
-        List<Train> trainList = trainService.getAllTrain();
+        List<Train> trainList = trainService.getAllTrainList();
         request.setAttribute("trainList", trainList);
         request.getRequestDispatcher("WEB-INF/jsp/administratorEditInfoRout.jsp").forward(request, response);
     }

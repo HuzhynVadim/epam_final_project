@@ -3,12 +3,14 @@ package ua.nure.huzhyn.web.listener;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+import ua.nure.huzhyn.db.dao.CarRepository;
 import ua.nure.huzhyn.db.dao.OrderRepository;
 import ua.nure.huzhyn.db.dao.RoutToStationMappingRepository;
 import ua.nure.huzhyn.db.dao.RoutsRepository;
 import ua.nure.huzhyn.db.dao.StationRepository;
 import ua.nure.huzhyn.db.dao.TrainRepository;
 import ua.nure.huzhyn.db.dao.UserRepository;
+import ua.nure.huzhyn.db.dao.implementation.CarRepositoryImpl;
 import ua.nure.huzhyn.db.dao.implementation.OrderRepositoryImpl;
 import ua.nure.huzhyn.db.dao.implementation.RoutToStationMappingRepositoryImpl;
 import ua.nure.huzhyn.db.dao.implementation.RoutsRepositoryImpl;
@@ -17,12 +19,14 @@ import ua.nure.huzhyn.db.dao.implementation.TrainRepositoryImpl;
 import ua.nure.huzhyn.db.dao.implementation.UserRepositoryImpl;
 import ua.nure.huzhyn.db.dao.transaction.TransactionManager;
 import ua.nure.huzhyn.exception.DataBaseException;
+import ua.nure.huzhyn.services.CarService;
 import ua.nure.huzhyn.services.OrderService;
 import ua.nure.huzhyn.services.RoutService;
 import ua.nure.huzhyn.services.RoutToStationMappingService;
 import ua.nure.huzhyn.services.StationService;
 import ua.nure.huzhyn.services.TrainService;
 import ua.nure.huzhyn.services.UserService;
+import ua.nure.huzhyn.services.implementation.CarServiceImpl;
 import ua.nure.huzhyn.services.implementation.OrderServiceImpl;
 import ua.nure.huzhyn.services.implementation.RoutServiceImpl;
 import ua.nure.huzhyn.services.implementation.RoutToStationMappingServiceImpl;
@@ -56,9 +60,11 @@ public class ApplicationContextListener implements ServletContextListener {
         StationRepository stationRepository = new StationRepositoryImpl();
         RoutsRepository routsRepository = new RoutsRepositoryImpl();
         TrainRepository trainRepository = new TrainRepositoryImpl();
+        CarRepository carRepository = new CarRepositoryImpl();
         RoutToStationMappingRepository routToStationMappingRepository = new RoutToStationMappingRepositoryImpl();
 
 
+        CarService carService = new CarServiceImpl(carRepository, transactionManager);
         UserService userService = new UserServiceImpl(userRepository, transactionManager);
         OrderService orderService = new OrderServiceImpl(orderRepository, transactionManager);
         StationService stationService = new StationServiceImpl(stationRepository, transactionManager);
@@ -71,6 +77,7 @@ public class ApplicationContextListener implements ServletContextListener {
         sce.getServletContext().setAttribute(AppContextConstant.STATION_SERVICE, stationService);
         sce.getServletContext().setAttribute(AppContextConstant.ROUT_SERVICE, routService);
         sce.getServletContext().setAttribute(AppContextConstant.TRAIN_SERVICE, trainService);
+        sce.getServletContext().setAttribute(AppContextConstant.CARS_SERVICE, carService);
         sce.getServletContext().setAttribute(AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE, routToStationMappingService);
 
 

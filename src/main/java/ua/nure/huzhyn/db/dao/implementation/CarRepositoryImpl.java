@@ -1,9 +1,11 @@
 package ua.nure.huzhyn.db.dao.implementation;
 
 import org.apache.log4j.Logger;
-import ua.nure.huzhyn.db.dao.CarsRepository;
+import ua.nure.huzhyn.db.dao.CarRepository;
+import ua.nure.huzhyn.db.dao.dto.CarDto;
 import ua.nure.huzhyn.db.dao.transaction.ConnectionManager;
 import ua.nure.huzhyn.exception.DBException;
+import ua.nure.huzhyn.exception.DataBaseException;
 import ua.nure.huzhyn.model.entity.Car;
 import ua.nure.huzhyn.model.entity.enums.CarType;
 
@@ -11,15 +13,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class CarsRepositoryImpl implements CarsRepository {
-    private static final Logger LOGGER = Logger.getLogger(CarsRepositoryImpl.class);
+public class CarRepositoryImpl implements CarRepository {
+    private static final Logger LOGGER = Logger.getLogger(CarRepositoryImpl.class);
     private static final String ADD_CAR = "INSERT INTO final_project.railway_system.car (car_id, car_type, car_number, train_id, seats, price) VALUES (?,?,?,?,?,?);";
     private static final String GET_CAR_BY_ID = "SELECT * FROM final_project.railway_system.car WHERE car_id = ?";
     private static final String DELETE_CAR = "DELETE FROM final_project.railway_system.car WHERE car_id = ?";
     private static final String UPDATE_CAR = "UPDATE final_project.railway_system.car SET car_type = ?, car_number = ?, train_id = ?, seats = ?, price = ? WHERE car_id = ?";
+    private static final String GET_ALL_CAR = "SELECT * FROM final_project.railway_system.car as c LEFT OUTER JOIN final_project.railway_system.train as t ON c.train_id = t.train_id ORDER BY train_number, car_number ASC";
 
     @Override
     public String create(Car entity) {
@@ -100,5 +105,35 @@ public class CarsRepositoryImpl implements CarsRepository {
         car.setSeats(resultSet.getInt("seats"));
         car.setPrice(resultSet.getBigDecimal("price"));
         return car;
+    }
+
+    private CarDto extractCarDto(ResultSet resultSet) throws SQLException {
+        CarDto car = new CarDto();
+        car.setCarId(resultSet.getString("car_id"));
+        car.setCarType(CarType.valueOf(resultSet.getString("car_type")));
+        car.setCarNumber(resultSet.getString("car_number"));
+        car.setTrainId(resultSet.getString("train_id"));
+        car.setSeats(resultSet.getInt("seats"));
+        car.setPrice(resultSet.getBigDecimal("price"));
+        car.setTrainNumber(resultSet.getString("train_number"));
+        return car;
+    }
+
+    @Override
+    public List<CarDto> getAllCarList() {
+        List<CarDto> Car = new ArrayList<CarDto>();
+        Connection connection = ConnectionManager.getConnection();
+        try (PreparedStatement ps = connection.prepareStatement(GET_ALL_CAR)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Car.add(extractCarDto(rs));
+            }
+            connection.commit();
+        } catch (SQLException e) {
+            String message = String.format("Can't get Car");
+            LOGGER.error(message, e);
+            throw new DataBaseException(message);
+        }
+        return Car;
     }
 }

@@ -19,14 +19,14 @@
 <center>
     <form action="selection_of_the_route_for_ordering" method="GET">
         <p><b><fmt:message key="rout.from"/></b><br>
-            <input name="departure station" type="text">
+            <input name="departure_station" type="text">
         </p>
         <p><b><fmt:message key="rout.to"/></b><br>
-            <input name="arrival station" type="text">
+            <input name="arrival_station" type="text">
 
         </p>
         <p><b><fmt:message key="rout.when"/></b><br>
-            <input name="departure date" type="datetime-local">
+            <input name="departure_date" type="datetime-local">
 
         </p>
         <p><b></b><br>

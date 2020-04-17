@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface TrainRepository extends CRUD<Train, String> {
 
-    List<Train> getAllTrain();
+    List<Train> getAllTrainList();
 
+    Train getStationById(String trainId);
 }

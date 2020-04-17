@@ -1,9 +1,10 @@
 package ua.nure.huzhyn.services;
 
-import ua.nure.huzhyn.db.dao.dto.MappingInfoDto;
 import ua.nure.huzhyn.db.dao.dto.RoutInfoDto;
+import ua.nure.huzhyn.db.dao.dto.RoutsOrderDto;
 import ua.nure.huzhyn.model.entity.Rout;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface RoutService {
@@ -18,6 +19,6 @@ public interface RoutService {
 
     RoutInfoDto getRoutById(String routsId);
 
-    List<Rout> getRouteListWithParameters(String departureStation, String arrivalStation, String departureDate);
+    List<RoutsOrderDto> getRouteListWithParameters(String departureStation, String arrivalStation, LocalDateTime departureDate);
 }
 

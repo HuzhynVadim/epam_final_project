@@ -5,6 +5,7 @@ import ua.nure.huzhyn.db.dao.TrainRepository;
 import ua.nure.huzhyn.db.dao.transaction.ConnectionManager;
 import ua.nure.huzhyn.exception.DBException;
 import ua.nure.huzhyn.exception.DataBaseException;
+import ua.nure.huzhyn.model.entity.Station;
 import ua.nure.huzhyn.model.entity.Train;
 
 import java.sql.Connection;
@@ -62,8 +63,8 @@ public class TrainRepositoryImpl implements TrainRepository {
         boolean result = false;
         Connection connection = ConnectionManager.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(UPDATE_TRAIN)) {
-            ps.setString(1, entity.getTrainId());
-            ps.setString(2, entity.getTrainNumber());
+            ps.setString(1, entity.getTrainNumber());
+            ps.setString(2, entity.getTrainId());
             if (ps.executeUpdate() > 0) {
                 result = true;
             }
@@ -98,7 +99,27 @@ public class TrainRepositoryImpl implements TrainRepository {
     }
 
     @Override
-    public List<Train> getAllTrain() {
+    public Train getStationById(String trainId) {
+        Train train = new Train();
+        Connection connection = ConnectionManager.getConnection();
+
+        try (PreparedStatement ps = connection.prepareStatement(GET_TRAIN_BY_ID)) {
+            ps.setString(1, trainId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                train = extract(rs);
+            }
+            connection.commit();
+        } catch (SQLException e) {
+            String message = String.format("Can't get train by id. Id = %s", trainId);
+            LOGGER.error(message, e);
+            throw new DataBaseException(message);
+        }
+        return train;
+    }
+
+    @Override
+    public List<Train> getAllTrainList() {
         List<Train> Train = new ArrayList<Train>();
         Connection connection = ConnectionManager.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(GET_ALL_TRAIN_NUMBER)) {

@@ -1,8 +1,6 @@
 package ua.nure.huzhyn.model.entity;
 
 
-import java.time.LocalDateTime;
-
 public class Station {
 
     private String stationId;

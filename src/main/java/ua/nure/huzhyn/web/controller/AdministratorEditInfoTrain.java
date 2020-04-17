@@ -1,14 +1,11 @@
 package ua.nure.huzhyn.web.controller;
 
-
 import org.apache.log4j.Logger;
 import ua.nure.huzhyn.exception.IncorrectDataException;
-import ua.nure.huzhyn.model.entity.Rout;
 import ua.nure.huzhyn.model.entity.Train;
-import ua.nure.huzhyn.services.RoutService;
 import ua.nure.huzhyn.services.TrainService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
-import ua.nure.huzhyn.validator.RoutValidator;
+import ua.nure.huzhyn.validator.TrainValidator;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -17,23 +14,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet("/administrator_add_rout")
-public class AdministratorAddRoutController extends HttpServlet {
-    private static final Logger LOGGER = Logger.getLogger(AdministratorAddRoutController.class);
-    private RoutService routService;
+@WebServlet("/administrator_edit_info_train")
+public class AdministratorEditInfoTrain extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(AdministratorEditInfoTrain.class);
     private TrainService trainService;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RoutValidator routValidator = new RoutValidator();
-        Rout rout = new Rout();
+        TrainValidator trainValidator = new TrainValidator();
+        Train train = new Train();
         try {
-            rout.setRoutName(request.getParameter("rout_name"));
-            rout.setRoutNumber(request.getParameter("rout_number"));
-            rout.setTrainId(request.getParameter("train_number"));
-            routValidator.isValidRout(rout);
-            routService.addRout(rout);
+            train.setTrainId(request.getParameter("train_id"));
+            train.setTrainNumber(request.getParameter("train_number"));
+
+
+            trainValidator.isValidTrain(train);
+            trainService.updateTrain(train);
         } catch (NumberFormatException e) {
             LOGGER.error("Incorrect data entered");
             throw new IncorrectDataException("Incorrect data entered", e);
@@ -42,14 +38,18 @@ public class AdministratorAddRoutController extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Train> trainList = trainService.getAllTrainList();
-        request.setAttribute("trainList", trainList);
-        request.getRequestDispatcher("WEB-INF/jsp/administratorAddRout.jsp").forward(request, response);
+
+        String trainId = request.getParameter("train_id");
+        Train train = trainService.getTrainById(trainId);
+        request.setAttribute("current_train", train);
+        request.getRequestDispatcher("WEB-INF/jsp/administratorEditInfoTrain.jsp").forward(request, response);
     }
 
+    @Override
     public void init(ServletConfig config) {
-        routService = (RoutService) config.getServletContext().getAttribute(AppContextConstant.ROUT_SERVICE);
         trainService = (TrainService) config.getServletContext().getAttribute(AppContextConstant.TRAIN_SERVICE);
 
     }
 }
+
+
