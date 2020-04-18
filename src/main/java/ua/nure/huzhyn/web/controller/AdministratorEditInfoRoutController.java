@@ -27,7 +27,7 @@ public class AdministratorEditInfoRoutController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RoutValidator routValidator = new RoutValidator();
         Rout rout = new Rout();
-        rout.setRoutsId(request.getParameter("rout_id"));
+        rout.setRoutsId(request.getParameter("routs_id"));
         rout.setRoutName(request.getParameter("rout_name"));
         rout.setRoutNumber(request.getParameter("rout_number"));
         rout.setTrainId(request.getParameter("train_number"));

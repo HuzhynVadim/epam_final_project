@@ -36,6 +36,7 @@
             </select>
             </td>
             <td>
+                <input type="hidden" name="routs_id" value="${current_rout.routsId}">
                 <input type="submit" name="save_edit_information" value="<fmt:message key="admin.saveInformation"/>">
             </td>
         </form>

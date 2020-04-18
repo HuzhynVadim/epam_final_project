@@ -1,10 +1,8 @@
 package ua.nure.huzhyn.web.controller;
 
 import org.apache.log4j.Logger;
-import ua.nure.huzhyn.db.dao.dto.RoutInfoDto;
 import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.model.entity.Car;
-import ua.nure.huzhyn.model.entity.Rout;
 import ua.nure.huzhyn.model.entity.Train;
 import ua.nure.huzhyn.model.entity.enums.CarType;
 import ua.nure.huzhyn.services.CarService;
@@ -12,7 +10,6 @@ import ua.nure.huzhyn.services.RoutService;
 import ua.nure.huzhyn.services.TrainService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 import ua.nure.huzhyn.validator.CarValidator;
-import ua.nure.huzhyn.validator.RoutValidator;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -29,7 +26,6 @@ import java.util.List;
 @WebServlet("/administrator_edit_info_car")
 public class AdministratorEditInfoCarController extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(AdministratorEditInfoCarController.class);
-    private RoutService routService;
     private CarService carService;
     private TrainService trainService;
 
@@ -66,7 +62,6 @@ public class AdministratorEditInfoCarController extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) {
-        routService = (RoutService) config.getServletContext().getAttribute(AppContextConstant.ROUT_SERVICE);
         trainService = (TrainService) config.getServletContext().getAttribute(AppContextConstant.TRAIN_SERVICE);
         carService = (CarService) config.getServletContext().getAttribute(AppContextConstant.CARS_SERVICE);
     }
