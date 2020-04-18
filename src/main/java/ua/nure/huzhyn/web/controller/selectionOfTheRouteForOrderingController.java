@@ -35,7 +35,7 @@ public class selectionOfTheRouteForOrderingController extends HttpServlet {
         String arrivalStation = request.getParameter("arrival_station");
         LocalDateTime departureDate = LocalDateTime.parse(request.getParameter("departure_date"));
         List<RoutsOrderDto> routList = routService.getRouteListWithParameters(departureStation, arrivalStation, departureDate);
-        request.setAttribute("routList", routList);
+        request.setAttribute("rout_list", routList);
         request.getRequestDispatcher("WEB-INF/jsp/selectionOfTheRouteForOrdering.jsp").forward(request, response);
     }
 

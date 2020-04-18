@@ -3,7 +3,7 @@ package ua.nure.huzhyn.db.dao.implementation;
 import org.apache.log4j.Logger;
 import ua.nure.huzhyn.db.dao.RoutsRepository;
 import ua.nure.huzhyn.db.dao.dto.RoutInfoDto;
-import ua.nure.huzhyn.db.dao.dto.RoutsOrderDto;
+import ua.nure.huzhyn.db.dao.dto.StationDto;
 import ua.nure.huzhyn.db.dao.transaction.ConnectionManager;
 import ua.nure.huzhyn.exception.DBException;
 import ua.nure.huzhyn.exception.DataBaseException;
@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +28,11 @@ public class RoutsRepositoryImpl implements RoutsRepository {
     private static final String GET_ALL_ROUT = "SELECT r.routs_id, r.train_id, r.rout_name, r.rout_number, t.train_number FROM final_project.railway_system.rout as r JOIN final_project.railway_system.train as t on r.train_id = t.train_id ORDER BY t.train_number, r.rout_name ASC";
     private static final String GET_ROUTE_LIST_WITH_PARAMETERS = "SELECT rout_name,\n" +
             "       rout_number,\n" +
+            "       r.routs_id,\n" +
             "       station,\n" +
+            "       s.station_id,\n" +
+            "       train_number,\n" +
+            "       r.train_id,\n" +
             "       station_arrival_date,\n" +
             "       station_dispatch_data,\n" +
             "       \"order\"\n" +
@@ -134,14 +139,18 @@ public class RoutsRepositoryImpl implements RoutsRepository {
         return result;
     }
 
-    private RoutsOrderDto extractRoutsOrder(ResultSet resultSet) throws SQLException {
-        RoutsOrderDto result = new RoutsOrderDto();
-//        result.setRoutsId(resultSet.getString("routs_id"));
-//        result.setTrainId(resultSet.getString("train_id"));
+    private StationDto extractStationDto(ResultSet resultSet) throws SQLException {
+        StationDto result = new StationDto();
+        result.setStationId(resultSet.getString("station_id"));
+        result.setStation(resultSet.getString("station"));
+        result.setOrder(Integer.parseInt(resultSet.getString("order")));
+        result.setStationArrivalDate(resultSet.getObject("station_arrival_date", LocalDateTime.class));
+        result.setStationDispatchData(resultSet.getObject("station_dispatch_data", LocalDateTime.class));
         result.setRoutName(resultSet.getString("rout_name"));
         result.setRoutNumber(resultSet.getString("rout_number"));
-        result.setStations(resultSet.getObject("station", ArrayList.class));
-
+        result.setRoutsId(resultSet.getString("routs_id"));
+        result.setTrainId(resultSet.getString("train_id"));
+        result.setTrainNumber(resultSet.getString("train_number"));
 
         return result;
     }
@@ -167,15 +176,15 @@ public class RoutsRepositoryImpl implements RoutsRepository {
 
 
     @Override
-    public List<RoutsOrderDto> getRouteListWithParameters(String departureStation, String arrivalStation) {
-        List<RoutsOrderDto> routs = new ArrayList<>();
+    public List<StationDto> getRouteListWithParameters(String departureStation, String arrivalStation) {
+        List<StationDto> routs = new ArrayList<>();
         Connection connection = ConnectionManager.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(GET_ROUTE_LIST_WITH_PARAMETERS)) {
             ps.setString(1, departureStation);
             ps.setString(2, arrivalStation);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                routs.add(extractRoutsOrder(rs));
+                routs.add(extractStationDto(rs));
             }
             connection.commit();
         } catch (SQLException e) {

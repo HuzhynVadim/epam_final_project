@@ -6,13 +6,13 @@ import ua.nure.huzhyn.db.dao.dto.RoutsOrderDto;
 import ua.nure.huzhyn.db.dao.dto.StationDto;
 import ua.nure.huzhyn.db.dao.transaction.TransactionManager;
 import ua.nure.huzhyn.model.entity.Rout;
-import ua.nure.huzhyn.model.entity.Station;
 import ua.nure.huzhyn.services.RoutService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class RoutServiceImpl implements RoutService {
@@ -37,14 +37,27 @@ public class RoutServiceImpl implements RoutService {
 
     @Override
     public List<RoutsOrderDto> getRouteListWithParameters(String departureStation, String arrivalStation, LocalDateTime departureDate) {
-        List<RoutsOrderDto> routs = transactionManager.execute(() -> routsRepository.getRouteListWithParameters(departureStation, arrivalStation));
+        List<StationDto> stations = transactionManager.execute(() -> routsRepository.getRouteListWithParameters(departureStation, arrivalStation));
+
+        Map<String, List<StationDto>> routToStationMap = new HashMap<>();
+
+        for (StationDto stationDto : stations) {
+            List<StationDto> routStations = routToStationMap.get(stationDto.getRoutsId());
+
+            if (routStations == null) {
+                routStations = new ArrayList<>();
+                routToStationMap.put(stationDto.getRoutsId(), routStations);
+            }
+
+            routStations.add(stationDto);
+        }
 
         List<RoutsOrderDto> result = new ArrayList<>();
 
-        for (RoutsOrderDto rout : routs) {
+        for (List<StationDto> stationDtos : routToStationMap.values()) {
             StationDto departure = null;
             StationDto arrival = null;
-            for (StationDto station : rout.getStations()) {
+            for (StationDto station : stationDtos) {
                 if (station.getStation().equalsIgnoreCase(departureStation)) {
                     departure = station;
                 }
@@ -58,12 +71,12 @@ public class RoutServiceImpl implements RoutService {
                 continue;
             }
 
-            if (departure.getOrder() < arrival.getOrder()) {
+            if (departure.getOrder() > arrival.getOrder() || departure.getOrder() == arrival.getOrder()) {
                 continue;
             }
 
-            if (departure.getStationArrivalDate().isAfter(departureDate) || departure.getStationArrivalDate().isEqual(departureDate)) {
-                result.add(rout);
+            if (departure.getStationDispatchData().isAfter(departureDate) || departure.getStationDispatchData().isEqual(departureDate)) {
+                result.add(toRoutsOrderDto(stationDtos));
             }
         }
 
@@ -91,6 +104,20 @@ public class RoutServiceImpl implements RoutService {
     @Override
     public List<RoutInfoDto> getAllRoutList() {
         return transactionManager.execute(() -> routsRepository.getAllRoutList());
+    }
+
+    private RoutsOrderDto toRoutsOrderDto(List<StationDto> stationDtos) {
+        RoutsOrderDto routsOrderDto = new RoutsOrderDto();
+        routsOrderDto.setStations(stationDtos);
+
+        StationDto stationDto = stationDtos.get(0);
+        routsOrderDto.setRoutName(stationDto.getRoutName());
+        routsOrderDto.setRoutNumber(stationDto.getRoutNumber());
+        routsOrderDto.setRoutsId(stationDto.getRoutsId());
+        routsOrderDto.setTrainId(stationDto.getTrainId());
+        routsOrderDto.setTrainNumber(stationDto.getTrainNumber());
+
+        return routsOrderDto;
     }
 }
 
