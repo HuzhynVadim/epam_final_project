@@ -3,6 +3,7 @@ package ua.nure.huzhyn.model.entity;
 
 import ua.nure.huzhyn.model.entity.enums.OrderStatus;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class Order {
@@ -11,7 +12,7 @@ public class Order {
     private String trainNumber;
     private String carNumber;
     private String carType;
-    private String price;
+    private BigDecimal price;
     private LocalDateTime arrivalDate;
     private LocalDateTime dispatchDate;
     private User user;
@@ -54,15 +55,13 @@ public class Order {
         this.carType = carType;
     }
 
-
-    public String getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
-
 
     public LocalDateTime getArrivalDate() {
         return arrivalDate;

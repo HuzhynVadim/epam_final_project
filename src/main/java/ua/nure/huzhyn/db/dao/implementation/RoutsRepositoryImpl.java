@@ -22,7 +22,7 @@ import java.util.UUID;
 public class RoutsRepositoryImpl implements RoutsRepository {
 
     private static final Logger LOGGER = Logger.getLogger(RoutsRepositoryImpl.class);
-    private static final String ADD_ROUTS = "INSERT INTO final_project.railway_system.rout (routs_id, train_id, rout_name, rout_number) VALUES (?,?,?,?)";
+    private static final String ADD_ROUTS = "INSERT INTO final_project.railway_system.rout (routs_id, train_id, rout_name, rout_number, common_free_seats_count, compartment_free_seats_count, reserved_free_seats_count) VALUES (?,?,?,?,?,?,?)";
     private static final String GET_ROUT_BY_ID = "SELECT r.routs_id, r.train_id, r.rout_name, r.rout_number, t.train_number FROM final_project.railway_system.rout as r JOIN final_project.railway_system.train as t on r.train_id = t.train_id WHERE r.routs_id = ?";
     private static final String DELETE_ROUT = "DELETE FROM final_project.railway_system.rout WHERE routs_id = ?";
     private static final String GET_ALL_ROUT = "SELECT r.routs_id, r.train_id, r.rout_name, r.rout_number, t.train_number FROM final_project.railway_system.rout as r JOIN final_project.railway_system.train as t on r.train_id = t.train_id ORDER BY t.train_number, r.rout_name ASC";
@@ -55,6 +55,10 @@ public class RoutsRepositoryImpl implements RoutsRepository {
             preparedStatement.setString(2, entity.getTrainId());
             preparedStatement.setString(3, entity.getRoutName());
             preparedStatement.setString(4, entity.getRoutNumber());
+            preparedStatement.setInt(5, entity.getCommonFreeSeatsCount());
+            preparedStatement.setInt(6, entity.getCompartmentFreeSeatsCount());
+            preparedStatement.setInt(7, entity.getReservedFreeSeatsCount());
+
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -124,6 +128,9 @@ public class RoutsRepositoryImpl implements RoutsRepository {
         rout.setTrainId(resultSet.getString("train_id"));
         rout.setRoutName(resultSet.getString("rout_name"));
         rout.setRoutNumber(resultSet.getString("rout_number"));
+        rout.setCommonFreeSeatsCount(resultSet.getInt("common_free_seats_count"));
+        rout.setCompartmentFreeSeatsCount(resultSet.getInt("compartment_free_seats_count"));
+        rout.setReservedFreeSeatsCount(resultSet.getInt("reserved_free_seats_count"));
 
         return rout;
     }

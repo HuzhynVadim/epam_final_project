@@ -9,7 +9,7 @@ public class RoutToStationMapping {
     private String routsId;
     private LocalDateTime stationArrivalDate;
     private LocalDateTime stationDispatchData;
-    private String order;
+    private int order;
 
 
     public String getStationId() {
@@ -47,14 +47,11 @@ public class RoutToStationMapping {
         this.stationDispatchData = stationDispatchData;
     }
 
-
-    public String getOrder() {
+    public int getOrder() {
         return order;
     }
 
-    public void setOrder(String order) {
+    public void setOrder(int order) {
         this.order = order;
     }
-
-
 }

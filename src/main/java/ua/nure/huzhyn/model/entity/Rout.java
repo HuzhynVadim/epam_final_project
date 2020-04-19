@@ -10,6 +10,33 @@ public class Rout {
     private List<Station> stations;
     private String routName;
     private String routNumber;
+    private int commonFreeSeatsCount;
+    private int compartmentFreeSeatsCount;
+    private int reservedFreeSeatsCount;
+
+    public int getCommonFreeSeatsCount() {
+        return commonFreeSeatsCount;
+    }
+
+    public void setCommonFreeSeatsCount(int commonFreeSeatsCount) {
+        this.commonFreeSeatsCount = commonFreeSeatsCount;
+    }
+
+    public int getCompartmentFreeSeatsCount() {
+        return compartmentFreeSeatsCount;
+    }
+
+    public void setCompartmentFreeSeatsCount(int compartmentFreeSeatsCount) {
+        this.compartmentFreeSeatsCount = compartmentFreeSeatsCount;
+    }
+
+    public int getReservedFreeSeatsCount() {
+        return reservedFreeSeatsCount;
+    }
+
+    public void setReservedFreeSeatsCount(int reservedFreeSeatsCount) {
+        this.reservedFreeSeatsCount = reservedFreeSeatsCount;
+    }
 
     public String getRoutNumber() {
         return routNumber;

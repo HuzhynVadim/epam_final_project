@@ -6,7 +6,7 @@ public class MappingInfoDto {
 
     private String stationId;
     private String station;
-    private String order;
+    private int order;
     private String routsId;
     private LocalDateTime stationArrivalDate;
     private LocalDateTime stationDispatchData;
@@ -27,11 +27,11 @@ public class MappingInfoDto {
         this.station = station;
     }
 
-    public String getOrder() {
+    public int getOrder() {
         return order;
     }
 
-    public void setOrder(String order) {
+    public void setOrder(int order) {
         this.order = order;
     }
 

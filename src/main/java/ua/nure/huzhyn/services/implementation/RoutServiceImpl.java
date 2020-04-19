@@ -5,8 +5,12 @@ import ua.nure.huzhyn.db.dao.dto.RoutInfoDto;
 import ua.nure.huzhyn.db.dao.dto.RoutsOrderDto;
 import ua.nure.huzhyn.db.dao.dto.StationDto;
 import ua.nure.huzhyn.db.dao.transaction.TransactionManager;
+import ua.nure.huzhyn.model.entity.Car;
 import ua.nure.huzhyn.model.entity.Rout;
+import ua.nure.huzhyn.model.entity.Train;
+import ua.nure.huzhyn.model.entity.enums.CarType;
 import ua.nure.huzhyn.services.RoutService;
+import ua.nure.huzhyn.services.TrainService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,24 +20,26 @@ import java.util.Map;
 import java.util.Objects;
 
 public class RoutServiceImpl implements RoutService {
+    private TrainService trainService;
     private RoutsRepository routsRepository;
     private TransactionManager transactionManager;
 
 
-    public RoutServiceImpl(RoutsRepository routsRepository, TransactionManager transactionManager) {
+    public RoutServiceImpl(RoutsRepository routsRepository, TrainService trainService, TransactionManager transactionManager) {
         this.routsRepository = routsRepository;
+        this.trainService = trainService;
         this.transactionManager = transactionManager;
     }
 
 
     @Override
     public void addRout(Rout rout) {
+        populateFreeSeatsCount(rout);
         transactionManager.execute(() -> {
             routsRepository.create(rout);
             return null;
         });
     }
-
 
     @Override
     public List<RoutsOrderDto> getRouteListWithParameters(String departureStation, String arrivalStation, LocalDateTime departureDate) {
@@ -90,6 +96,7 @@ public class RoutServiceImpl implements RoutService {
 
     @Override
     public void updateRout(Rout rout) {
+        populateFreeSeatsCount(rout);
         transactionManager.execute(() -> routsRepository.update(rout));
     }
 
@@ -118,6 +125,29 @@ public class RoutServiceImpl implements RoutService {
         routsOrderDto.setTrainNumber(stationDto.getTrainNumber());
 
         return routsOrderDto;
+    }
+
+    private void populateFreeSeatsCount(Rout rout) {
+        Train train = trainService.getTrainById(rout.getTrainId());
+
+        int commonFreeSeatsCount = 0;
+        int compartmentFreeSeatsCount = 0;
+        int reservedFreeSeatsCount = 0;
+        for(Car car : train.getCars()) {
+            if (CarType.COMMON.equals(car.getCarType())) {
+                commonFreeSeatsCount += car.getSeats();
+            }
+            if (CarType.COMPARTMENT.equals(car.getCarType())) {
+                compartmentFreeSeatsCount += car.getSeats();
+            }
+            if (CarType.RESERVED_SEAT.equals(car.getCarType())) {
+                reservedFreeSeatsCount += car.getSeats();
+            }
+        }
+
+        rout.setCommonFreeSeatsCount(commonFreeSeatsCount);
+        rout.setCompartmentFreeSeatsCount(compartmentFreeSeatsCount);
+        rout.setReservedFreeSeatsCount(reservedFreeSeatsCount);
     }
 }
 
