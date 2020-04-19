@@ -35,6 +35,7 @@ public class RoutsRepositoryImpl implements RoutsRepository {
             "       r.train_id,\n" +
             "       station_arrival_date,\n" +
             "       station_dispatch_data,\n" +
+            "      common_free_seats_count, compartment_free_seats_count, reserved_free_seats_count,\n" +
             "       \"order\"\n" +
             "FROM final_project.railway_system.rout as r\n" +
             "         JOIN final_project.railway_system.train as t on r.train_id = t.train_id\n" +
@@ -42,7 +43,7 @@ public class RoutsRepositoryImpl implements RoutsRepository {
             "         JOIN final_project.railway_system.station as s on rm.station_id = s.station_id\n" +
             "WHERE station IN (?, ?)\n" +
             "ORDER BY r.rout_name ASC";
-    private static final String UPDATE_ROUT = "UPDATE final_project.railway_system.rout SET rout_name = ?, rout_number = ?, train_id = ? WHERE routs_id = ?";
+    private static final String UPDATE_ROUT = "UPDATE final_project.railway_system.rout SET rout_name = ?, rout_number = ?, train_id = ?, common_free_seats_count = ?, compartment_free_seats_count = ?, reserved_free_seats_count = ? WHERE routs_id = ?";
 
 
     @Override
@@ -90,7 +91,10 @@ public class RoutsRepositoryImpl implements RoutsRepository {
             ps.setString(1, entity.getRoutName());
             ps.setString(2, entity.getRoutNumber());
             ps.setString(3, entity.getTrainId());
-            ps.setString(4, entity.getRoutsId());
+            ps.setInt(4, entity.getCommonFreeSeatsCount());
+            ps.setInt(5, entity.getCompartmentFreeSeatsCount());
+            ps.setInt(6, entity.getReservedFreeSeatsCount());
+            ps.setString(7, entity.getRoutsId());
             if (ps.executeUpdate() > 0) {
                 result = true;
             }
@@ -158,6 +162,9 @@ public class RoutsRepositoryImpl implements RoutsRepository {
         result.setRoutsId(resultSet.getString("routs_id"));
         result.setTrainId(resultSet.getString("train_id"));
         result.setTrainNumber(resultSet.getString("train_number"));
+        result.setCommonFreeSeatsCount(resultSet.getInt("common_free_seats_count"));
+        result.setCompartmentFreeSeatsCount(resultSet.getInt("compartment_free_seats_count"));
+        result.setReservedFreeSeatsCount(resultSet.getInt("reserved_free_seats_count"));
 
         return result;
     }

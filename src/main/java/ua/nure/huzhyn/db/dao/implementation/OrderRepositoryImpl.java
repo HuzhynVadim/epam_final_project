@@ -38,7 +38,7 @@ public class OrderRepositoryImpl implements OrderRepository {
             preparedStatement.setString(2, entity.getTrainNumber());
             preparedStatement.setString(3, entity.getCarNumber());
             preparedStatement.setString(4, entity.getCarType());
-            preparedStatement.setString(5, entity.getPrice());
+            preparedStatement.setBigDecimal(5, entity.getPrice());
             preparedStatement.setObject(6, entity.getArrivalDate());
             preparedStatement.setObject(7, entity.getDispatchDate());
             preparedStatement.setObject(8, entity.getUser());
@@ -103,7 +103,7 @@ public class OrderRepositoryImpl implements OrderRepository {
         order.setTrainNumber(rs.getString("train_number"));
         order.setCarNumber(rs.getString("car_number"));
         order.setCarType(rs.getString("car_type"));
-        order.setPrice(rs.getString("price"));
+        order.setPrice(rs.getBigDecimal("price"));
         order.setArrivalDate(rs.getObject("arrival_date", LocalDateTime.class));
         order.setDispatchDate(rs.getObject("dispatch_date", LocalDateTime.class));
         order.setUser(DbUtils.extract(rs));

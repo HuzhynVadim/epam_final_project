@@ -25,7 +25,6 @@ public class AdministratorEditInfoStationController extends HttpServlet {
         Station station = new Station();
         station.setStationId(request.getParameter("station_id"));
         station.setStation(request.getParameter("station"));
-
         stationValidator.isValidStation(station);
         stationService.updateStation(station);
         response.sendRedirect("administrator_account");

@@ -7,10 +7,9 @@ import ua.nure.huzhyn.db.dao.dto.StationDto;
 import ua.nure.huzhyn.db.dao.transaction.TransactionManager;
 import ua.nure.huzhyn.model.entity.Car;
 import ua.nure.huzhyn.model.entity.Rout;
-import ua.nure.huzhyn.model.entity.Train;
 import ua.nure.huzhyn.model.entity.enums.CarType;
+import ua.nure.huzhyn.services.CarService;
 import ua.nure.huzhyn.services.RoutService;
-import ua.nure.huzhyn.services.TrainService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,14 +19,14 @@ import java.util.Map;
 import java.util.Objects;
 
 public class RoutServiceImpl implements RoutService {
-    private TrainService trainService;
+    private CarService carService;
     private RoutsRepository routsRepository;
     private TransactionManager transactionManager;
 
 
-    public RoutServiceImpl(RoutsRepository routsRepository, TrainService trainService, TransactionManager transactionManager) {
+    public RoutServiceImpl(RoutsRepository routsRepository, CarService carService, TransactionManager transactionManager) {
         this.routsRepository = routsRepository;
-        this.trainService = trainService;
+        this.carService = carService;
         this.transactionManager = transactionManager;
     }
 
@@ -128,12 +127,10 @@ public class RoutServiceImpl implements RoutService {
     }
 
     private void populateFreeSeatsCount(Rout rout) {
-        Train train = trainService.getTrainById(rout.getTrainId());
-
         int commonFreeSeatsCount = 0;
         int compartmentFreeSeatsCount = 0;
         int reservedFreeSeatsCount = 0;
-        for(Car car : train.getCars()) {
+        for(Car car : carService.getCarByTrainId(rout.getTrainId())) {
             if (CarType.COMMON.equals(car.getCarType())) {
                 commonFreeSeatsCount += car.getSeats();
             }

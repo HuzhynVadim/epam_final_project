@@ -69,7 +69,7 @@ public class ApplicationContextListener implements ServletContextListener {
         OrderService orderService = new OrderServiceImpl(orderRepository, transactionManager);
         StationService stationService = new StationServiceImpl(stationRepository, transactionManager);
         TrainService trainService = new TrainServiceImpl(trainRepository, transactionManager);
-        RoutService routService = new RoutServiceImpl(routsRepository, trainService, transactionManager);
+        RoutService routService = new RoutServiceImpl(routsRepository, carService, transactionManager);
         RoutToStationMappingService routToStationMappingService = new RoutToStationMappingServiceImpl(routToStationMappingRepository, transactionManager);
 
         sce.getServletContext().setAttribute(AppContextConstant.USER_SERVICE, userService);

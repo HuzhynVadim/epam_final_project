@@ -14,7 +14,33 @@ public class StationDto {
     private String routsId;
     private String trainId;
     private String trainNumber;
+    private int commonFreeSeatsCount;
+    private int compartmentFreeSeatsCount;
+    private int reservedFreeSeatsCount;
 
+    public int getCommonFreeSeatsCount() {
+        return commonFreeSeatsCount;
+    }
+
+    public void setCommonFreeSeatsCount(int commonFreeSeatsCount) {
+        this.commonFreeSeatsCount = commonFreeSeatsCount;
+    }
+
+    public int getCompartmentFreeSeatsCount() {
+        return compartmentFreeSeatsCount;
+    }
+
+    public void setCompartmentFreeSeatsCount(int compartmentFreeSeatsCount) {
+        this.compartmentFreeSeatsCount = compartmentFreeSeatsCount;
+    }
+
+    public int getReservedFreeSeatsCount() {
+        return reservedFreeSeatsCount;
+    }
+
+    public void setReservedFreeSeatsCount(int reservedFreeSeatsCount) {
+        this.reservedFreeSeatsCount = reservedFreeSeatsCount;
+    }
 
     public String getTrainId() {
         return trainId;

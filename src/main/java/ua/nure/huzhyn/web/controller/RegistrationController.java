@@ -10,7 +10,6 @@ import ua.nure.huzhyn.util.constants.AppContextConstant;
 import ua.nure.huzhyn.validator.RegistrationValidator;
 
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +35,13 @@ public class RegistrationController extends HttpServlet {
             user.setFirstName(request.getParameter("first_name"));
             user.setLastName(request.getParameter("last_name"));
             user.setPhone(request.getParameter("phone"));
-            Date birthDate = Date.valueOf(request.getParameter("birth_date"));
+            Date birthDate = null;
+            try {
+                birthDate = Date.valueOf(request.getParameter("birth_date"));
+            } catch (IllegalArgumentException e) {
+                LOGGER.error("Incorrect data entered");
+                throw new IncorrectDataException("Incorrect data entered", e);
+            }
             user.setBirthDate(birthDate.toLocalDate());
             user.setRole(UserRole.USER);
             user.setBlocked(false);

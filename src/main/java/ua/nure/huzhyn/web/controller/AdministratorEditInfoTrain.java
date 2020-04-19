@@ -24,7 +24,6 @@ public class AdministratorEditInfoTrain extends HttpServlet {
         Train train = new Train();
         train.setTrainId(request.getParameter("train_id"));
         train.setTrainNumber(request.getParameter("train_number"));
-
         trainValidator.isValidTrain(train);
         trainService.updateTrain(train);
         response.sendRedirect("administrator_account");

@@ -37,7 +37,7 @@ public class RoutToStationMappingRepositoryImpl implements RoutToStationMappingR
             preparedStatement.setString(2, entity.getRoutsId());
             preparedStatement.setObject(3, entity.getStationArrivalDate());
             preparedStatement.setObject(4, entity.getStationDispatchData());
-            preparedStatement.setString(5, entity.getOrder());
+            preparedStatement.setInt(5, entity.getOrder());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -68,7 +68,7 @@ public class RoutToStationMappingRepositoryImpl implements RoutToStationMappingR
             ps.setString(1, entity.getStationId());
             ps.setObject(2, entity.getStationArrivalDate());
             ps.setObject(3, entity.getStationDispatchData());
-            ps.setString(4, entity.getOrder());
+            ps.setInt(4, entity.getOrder());
 
             ps.setString(5, entity.getRoutsId());
             ps.setString(6, stationId);
@@ -101,15 +101,12 @@ public class RoutToStationMappingRepositoryImpl implements RoutToStationMappingR
     }
 
     private RoutToStationMapping extract(ResultSet resultSet) throws SQLException {
-//        if (!resultSet.next()) {
-//            return null;
-//        }
         RoutToStationMapping routToStationMapping = new RoutToStationMapping();
         routToStationMapping.setStationId(resultSet.getString("station_id"));
         routToStationMapping.setRoutsId(resultSet.getString("routs_id"));
         routToStationMapping.setStationArrivalDate(resultSet.getObject("station_arrival_date", LocalDateTime.class));
         routToStationMapping.setStationDispatchData(resultSet.getObject("station_dispatch_data", LocalDateTime.class));
-        routToStationMapping.setOrder(resultSet.getString("order"));
+        routToStationMapping.setOrder(resultSet.getInt("order"));
         return routToStationMapping;
     }
 
@@ -178,7 +175,7 @@ public class RoutToStationMappingRepositoryImpl implements RoutToStationMappingR
         result.setStationArrivalDate(resultSet.getObject("station_arrival_date", LocalDateTime.class));
         result.setStationDispatchData(resultSet.getObject("station_dispatch_data", LocalDateTime.class));
         result.setStation(resultSet.getString("station"));
-        result.setOrder(resultSet.getString("order"));
+        result.setOrder(resultSet.getInt("order"));
 
         return result;
     }

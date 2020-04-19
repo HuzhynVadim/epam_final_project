@@ -10,6 +10,8 @@ public interface CarService {
 
     void removeCar(String carId);
 
+    List<Car> getCarByTrainId(String trainId);
+
     void addCar(Car car);
 
     Car getCarById(String carId);

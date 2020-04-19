@@ -30,6 +30,11 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public List<Car> getCarByTrainId(String trainId) {
+        return transactionManager.execute(() -> carRepository.getCarByTrainId(trainId));
+    }
+
+    @Override
     public void addCar(Car car) {
         transactionManager.execute(() -> {
             carRepository.create(car);

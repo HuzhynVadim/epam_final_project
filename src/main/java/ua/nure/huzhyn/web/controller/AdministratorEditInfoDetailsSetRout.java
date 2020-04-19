@@ -2,6 +2,7 @@ package ua.nure.huzhyn.web.controller;
 
 import org.apache.log4j.Logger;
 import ua.nure.huzhyn.db.dao.dto.MappingInfoDto;
+import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.model.entity.RoutToStationMapping;
 import ua.nure.huzhyn.model.entity.Station;
 import ua.nure.huzhyn.services.RoutService;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @WebServlet("/administrator_edit_info_details_set_rout")
@@ -35,9 +37,14 @@ public class AdministratorEditInfoDetailsSetRout extends HttpServlet {
         routToStationMapping.setRoutsId(routsId);
         routToStationMapping.setStationId(stationId);
         routToStationMapping.setStationId(request.getParameter("station_station"));
-        routToStationMapping.setStationArrivalDate(LocalDateTime.parse(request.getParameter("station_arrival_date")));
-        routToStationMapping.setStationDispatchData(LocalDateTime.parse(request.getParameter("station_dispatch_data")));
-        routToStationMapping.setOrder(request.getParameter("station_order"));
+        try {
+            routToStationMapping.setStationArrivalDate(LocalDateTime.parse(request.getParameter("station_arrival_date")));
+            routToStationMapping.setStationDispatchData(LocalDateTime.parse(request.getParameter("station_dispatch_data")));
+            routToStationMapping.setOrder(Integer.parseInt(request.getParameter("station_order")));
+        } catch (NumberFormatException | DateTimeParseException e) {
+            LOGGER.error("Incorrect data entered");
+            throw new IncorrectDataException("Incorrect data entered", e);
+        }
         routToStationMappingValidator.isValidRoutToStationMapping(routToStationMapping);
         routToStationMappingService.updateRoutToStationMapping(routToStationMapping, stationId);
         response.sendRedirect("administrator_details_set_rout?routs_id=" + routsId);
@@ -53,8 +60,6 @@ public class AdministratorEditInfoDetailsSetRout extends HttpServlet {
         request.setAttribute("station_id", stationId);
         request.setAttribute("current_rout", MappingInfo);
         request.setAttribute("station_list", stationList);
-
-
 
         request.getRequestDispatcher("WEB-INF/jsp/administratorEditInfoDetailsSetRout.jsp").forward(request, response);
     }

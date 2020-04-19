@@ -2,6 +2,7 @@ package ua.nure.huzhyn.web.controller;
 
 import org.apache.log4j.Logger;
 import ua.nure.huzhyn.db.dao.dto.RoutsOrderDto;
+import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.services.OrderService;
 import ua.nure.huzhyn.services.RoutService;
 import ua.nure.huzhyn.services.RoutToStationMappingService;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @WebServlet("/selection_of_the_route_for_ordering")
@@ -33,7 +35,13 @@ public class selectionOfTheRouteForOrderingController extends HttpServlet {
 
         String departureStation = request.getParameter("departure_station");
         String arrivalStation = request.getParameter("arrival_station");
-        LocalDateTime departureDate = LocalDateTime.parse(request.getParameter("departure_date"));
+        LocalDateTime departureDate = null;
+        try {
+            departureDate = LocalDateTime.parse(request.getParameter("departure_date"));
+        } catch (DateTimeParseException e) {
+            LOGGER.error("Incorrect data entered");
+            throw new IncorrectDataException("Incorrect data entered", e);
+        }
         List<RoutsOrderDto> routList = routService.getRouteListWithParameters(departureStation, arrivalStation, departureDate);
         request.setAttribute("rout_list", routList);
         request.getRequestDispatcher("WEB-INF/jsp/selectionOfTheRouteForOrdering.jsp").forward(request, response);
