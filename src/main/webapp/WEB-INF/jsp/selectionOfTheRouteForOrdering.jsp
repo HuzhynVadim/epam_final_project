@@ -1,10 +1,8 @@
-<%@ page import="java.time.Period" %>
-<%@ page import="java.time.LocalDateTime" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="true" %>
-<%@ taglib prefix = "period" uri = "/WEB-INF/tags/custom.tld" %>
+<%@ taglib prefix="period" uri="/WEB-INF/tags/custom.tld" %>
 
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="lang"/>
@@ -13,6 +11,7 @@
     <title><fmt:message key="rout.search"/></title>
 </head>
 <body>
+
 <table border="1">
     <tr>
         <th>nameRout</th>
@@ -20,6 +19,9 @@
         <th>dateDispatch</th>
         <th>dateArrival</th>
         <th>travelTime</th>
+        <th>countCompartment</th>
+        <th>countReserved</th>
+        <th>countCommon</th>
         <th>detail</th>
         <th>order</th>
     </tr>
@@ -32,8 +34,15 @@
             <td>${dispatchTime}</td>
             <td>${arrivalTime}</td>
             <td><period:period dateFrom="${dispatchTime}" dateTo="${arrivalTime}"/></td>
+            <td>${rout.commonFreeSeatsCount}</td>
+            <td>${rout.compartmentFreeSeatsCount}</td>
+            <td>${rout.reservedFreeSeatsCount}</td>
             <td>
-                <form action="details_search_rout" method="GET">
+                <form action="detail_rout" method="GET">
+                    <input type="hidden" name="routs_id" value="${rout.routsId}">
+                    <input type="hidden" name="departure_station" value="${departure_station}">
+                    <input type="hidden" name="arrival_station" value="${arrival_station}">
+                    <input type="hidden" name="departure_date" value="${departure_date}">
                     <input type="submit" name="oder" value="<fmt:message key="details"/>">
                 </form>
             </td>

@@ -1,9 +1,9 @@
 package ua.nure.huzhyn.web.controller;
 
 import org.apache.log4j.Logger;
-import ua.nure.huzhyn.db.dao.dto.RoutsOrderDto;
+import ua.nure.huzhyn.db.dao.dto.MappingInfoDto;
 import ua.nure.huzhyn.exception.IncorrectDataException;
-import ua.nure.huzhyn.services.RoutService;
+import ua.nure.huzhyn.services.RoutToStationMappingService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 
 import javax.servlet.ServletConfig;
@@ -17,12 +17,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
-@WebServlet("/selection_of_the_route_for_ordering")
-public class selectionOfTheRouteForOrderingController extends HttpServlet {
-    private static final Logger LOGGER = Logger.getLogger(selectionOfTheRouteForOrderingController.class);
-    private RoutService routService;
+@WebServlet("/detail_rout")
+public class DetailRout extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(DetailRout.class);
+
+    private RoutToStationMappingService routToStationMappingService;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String routsId = request.getParameter("routs_id");
         String departureStation = request.getParameter("departure_station");
         String arrivalStation = request.getParameter("arrival_station");
         LocalDateTime departureDate = null;
@@ -32,16 +34,19 @@ public class selectionOfTheRouteForOrderingController extends HttpServlet {
             LOGGER.error("Incorrect data entered");
             throw new IncorrectDataException("Incorrect data entered", e);
         }
-        List<RoutsOrderDto> routList = routService.getRouteListWithParameters(departureStation, arrivalStation, departureDate);
-        request.setAttribute("rout_list", routList);
         request.setAttribute("departure_station", departureStation);
         request.setAttribute("arrival_station", arrivalStation);
         request.setAttribute("departure_date", departureDate);
-        request.getRequestDispatcher("WEB-INF/jsp/selectionOfTheRouteForOrdering.jsp").forward(request, response);
+        request.setAttribute("routs_id", routsId);
+        List<MappingInfoDto> AllRoutToStationMappingListById = routToStationMappingService.getAllRoutToStationMappingListById(routsId);
+        request.setAttribute("rout_m_list", AllRoutToStationMappingListById);
+        request.getRequestDispatcher("WEB-INF/jsp/detailRout.jsp").forward(request, response);
     }
 
-
+    @Override
     public void init(ServletConfig config) {
-        routService = (RoutService) config.getServletContext().getAttribute((AppContextConstant.ROUT_SERVICE));
+
+        routToStationMappingService = (RoutToStationMappingService) config.getServletContext().getAttribute((AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE));
+
     }
 }

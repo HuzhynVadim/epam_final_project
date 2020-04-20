@@ -122,6 +122,9 @@ public class RoutServiceImpl implements RoutService {
         routsOrderDto.setRoutsId(stationDto.getRoutsId());
         routsOrderDto.setTrainId(stationDto.getTrainId());
         routsOrderDto.setTrainNumber(stationDto.getTrainNumber());
+        routsOrderDto.setCommonFreeSeatsCount(stationDto.getCommonFreeSeatsCount());
+        routsOrderDto.setCompartmentFreeSeatsCount(stationDto.getCompartmentFreeSeatsCount());
+        routsOrderDto.setReservedFreeSeatsCount(stationDto.getReservedFreeSeatsCount());
 
         return routsOrderDto;
     }
