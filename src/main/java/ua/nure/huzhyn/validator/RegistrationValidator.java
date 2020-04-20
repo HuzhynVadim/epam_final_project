@@ -23,23 +23,23 @@ public class RegistrationValidator {
 
     public void isValidClientRegister(User user) {
         Map<String, String> errors = new HashMap<>();
-        if (StringUtils.isBlank(user.getEmail()) && !Validator.isMatch(EMAIL, user.getEmail())) {
+        if (StringUtils.isBlank(user.getEmail()) && !ValidatorUtils.isMatch(EMAIL, user.getEmail())) {
             errors.put("Incorrect format, type something like \"user@gmail.com\"", user.getEmail());
         }
-        if (StringUtils.isBlank(user.getPassword()) && !Validator.isMatch(PASSWORD, user.getPassword())) {
+        if (StringUtils.isBlank(user.getPassword()) && !ValidatorUtils.isMatch(PASSWORD, user.getPassword())) {
             errors.put("Incorrect format, type something like \"\"", user.getPassword());
         }
-        if (StringUtils.isBlank(user.getFirstName()) && !Validator.isMatch(USER_NAME, user.getFirstName())) {
+        if (StringUtils.isBlank(user.getFirstName()) && !ValidatorUtils.isMatch(USER_NAME, user.getFirstName())) {
             errors.put("Incorrect format, type something like \"Alexandr\"", user.getFirstName());
         }
-        if (StringUtils.isBlank(user.getLastName()) && !Validator.isMatch(USER_SURNAME, user.getLastName())) {
+        if (StringUtils.isBlank(user.getLastName()) && !ValidatorUtils.isMatch(USER_SURNAME, user.getLastName())) {
             errors.put("Incorrect format, type something like \"Petrov\"", user.getLastName());
         }
-        if (Objects.isNull(user.getBirthDate()) && !Validator.isMatch(USER_DATE_OF_BIRTH, String.valueOf(user.getBirthDate()))) {
+        if (Objects.isNull(user.getBirthDate()) && !ValidatorUtils.isMatch(USER_DATE_OF_BIRTH, String.valueOf(user.getBirthDate()))) {
             errors.put("Incorrect format, type something like \"12-01-1993\"", String.valueOf(user.getBirthDate()));
         }
 
-        if (StringUtils.isBlank(user.getPhone()) && !Validator.isMatch(USER_PHONE_NUMBER, user.getPhone())) {
+        if (StringUtils.isBlank(user.getPhone()) && !ValidatorUtils.isMatch(USER_PHONE_NUMBER, user.getPhone())) {
             errors.put("Incorrect format, type something like \"+380965467832\"", user.getPhone());
         }
 

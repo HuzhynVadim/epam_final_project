@@ -14,7 +14,7 @@ public class RoutValidator {
 
     public void isValidRout(Rout rout) {
         Map<String, String> errors = new HashMap<>();
-        if (StringUtils.isBlank(rout.getRoutName()) && !Validator.isMatch(ROUT_NAME, rout.getRoutName())) {
+        if (StringUtils.isBlank(rout.getRoutName()) && !ValidatorUtils.isMatch(ROUT_NAME, rout.getRoutName())) {
             errors.put("Incorrect format, type something like \"Odessa\"", rout.getRoutName());
         }
         if (!errors.isEmpty()) {

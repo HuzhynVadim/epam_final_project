@@ -14,7 +14,7 @@ public class StationValidator {
 
     public void isValidStation(Station station) {
         Map<String, String> errors = new HashMap<>();
-        if (StringUtils.isBlank(station.getStation()) && !Validator.isMatch(STATION_NAME, station.getStation())) {
+        if (StringUtils.isBlank(station.getStation()) && !ValidatorUtils.isMatch(STATION_NAME, station.getStation())) {
             errors.put("Incorrect format, type something like \"Odessa\"", station.getStation());
         }
         if (!errors.isEmpty()) {

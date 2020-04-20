@@ -16,10 +16,10 @@ public class LoginValidator {
 
     public void isValid(String email, String password) {
         Map<String, String> errors = new HashMap<>();
-        if (!Validator.isMatch(EMAIL, email)) {
+        if (!ValidatorUtils.isMatch(EMAIL, email)) {
             errors.put("Incorrect format email entered", email);
         }
-        if (!Validator.isMatch(PASSWORD, password)) {
+        if (!ValidatorUtils.isMatch(PASSWORD, password)) {
             errors.put("Incorrect format password entered", password);
         }
         if (!errors.isEmpty()) {
