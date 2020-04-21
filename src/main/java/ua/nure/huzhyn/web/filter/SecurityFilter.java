@@ -51,7 +51,9 @@ public class SecurityFilter implements Filter {
         adminAvailableEndpoints.add("/administrator_edit_info_train");
         adminAvailableEndpoints.add("/administrator_set_rout_mapping");
         adminAvailableEndpoints.add("/car_delete");
+        adminAvailableEndpoints.add("/detail_rout");
         adminAvailableEndpoints.add("/home");
+        adminAvailableEndpoints.add("/make_order");
         adminAvailableEndpoints.add("/rout_delete");
         adminAvailableEndpoints.add("/remove_rout_mapping");
         adminAvailableEndpoints.add("/selection_of_the_route_for_ordering");
@@ -66,6 +68,9 @@ public class SecurityFilter implements Filter {
         userAvailableEndpoints.add("/home");
         userAvailableEndpoints.add("/user_account");
         userAvailableEndpoints.add("/selection_of_the_route_for_ordering");
+        userAvailableEndpoints.add("/detail_rout");
+        userAvailableEndpoints.add("/make_order");
+
 
         accessMap.put(UserRole.USER, userAvailableEndpoints);
 

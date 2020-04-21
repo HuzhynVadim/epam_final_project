@@ -11,7 +11,6 @@
     <title><fmt:message key="rout.search"/></title>
 </head>
 <body>
-
 <table border="1">
     <tr>
         <th>nameRout</th>
@@ -21,8 +20,11 @@
         <th>travelTime</th>
         <th>dateArrival</th>
         <th>countCompartment</th>
+        <th>priceCompartment</th>
         <th>countReserved</th>
+        <th>priceReserved</th>
         <th>countCommon</th>
+        <th>cpriceCommon</th>
         <th>detail</th>
         <th>order</th>
     </tr>
@@ -37,8 +39,11 @@
             <td><period:period dateFrom="${dispatchTime}" dateTo="${arrivalTime}"/></td>
             <td>${arrival_station} - ${arrivalTime}</td>
             <td>${rout.commonFreeSeatsCount}</td>
+            <td>${carTypeList.get(0).price}</td>
             <td>${rout.compartmentFreeSeatsCount}</td>
+            <td>${carTypeList.get(1).price}</td>
             <td>${rout.reservedFreeSeatsCount}</td>
+            <td>${carTypeList.get(2).price}</td>
             <td>
                 <form action="detail_rout" method="GET">
                     <input type="hidden" name="routs_id" value="${rout.routsId}">

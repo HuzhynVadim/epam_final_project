@@ -3,6 +3,7 @@ package ua.nure.huzhyn.web.controller;
 import org.apache.log4j.Logger;
 import ua.nure.huzhyn.db.dao.dto.RoutsOrderDto;
 import ua.nure.huzhyn.exception.IncorrectDataException;
+import ua.nure.huzhyn.model.entity.enums.CarType;
 import ua.nure.huzhyn.services.RoutService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 
@@ -15,12 +16,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 @WebServlet("/selection_of_the_route_for_ordering")
 public class selectionOfTheRouteForOrderingController extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(selectionOfTheRouteForOrderingController.class);
     private RoutService routService;
+
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String departureStation = request.getParameter("departure_station");
@@ -32,6 +36,9 @@ public class selectionOfTheRouteForOrderingController extends HttpServlet {
             LOGGER.error("Incorrect data entered");
             throw new IncorrectDataException("Incorrect data entered", e);
         }
+
+        List<CarType> carTypeList = new ArrayList<>(EnumSet.allOf(CarType.class));
+        request.setAttribute("carTypeList", carTypeList);
         List<RoutsOrderDto> routList = routService.getRouteListWithParameters(departureStation, arrivalStation, departureDate);
         request.setAttribute("rout_list", routList);
         request.setAttribute("departure_station", departureStation);
