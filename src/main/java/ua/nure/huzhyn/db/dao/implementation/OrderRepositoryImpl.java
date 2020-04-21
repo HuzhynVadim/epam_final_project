@@ -7,6 +7,7 @@ import ua.nure.huzhyn.db.dao.utils.DbUtils;
 import ua.nure.huzhyn.exception.DBException;
 import ua.nure.huzhyn.exception.DataBaseException;
 import ua.nure.huzhyn.model.entity.Order;
+import ua.nure.huzhyn.model.entity.enums.CarType;
 import ua.nure.huzhyn.model.entity.enums.OrderStatus;
 
 import java.sql.Connection;
@@ -21,7 +22,7 @@ import java.util.UUID;
 
 public class OrderRepositoryImpl implements OrderRepository {
     private static final Logger LOGGER = Logger.getLogger(OrderRepositoryImpl.class);
-    private static final String ADD_ORDER = "INSERT INTO final_project.railway_system.order (order_id, train_number,car_number, car_type, price, arrival_date, dispatch_date, user_id, order_date, order_status) VALUES (?,?,?,?,?,?,?,?,?,?)";
+    private static final String ADD_ORDER = "INSERT INTO final_project.railway_system.order (order_id, train_number, car_type, price, arrival_date, dispatch_date, user_id, order_date, order_status, count_of_seats, arrival_station, dispatch_station, travel_time) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String GET_ORDER_BY_ID = "SELECT * FROM final_project.railway_system.order as o JOIN final_project.railway_system.user as u on o.user_id = u.user_id WHERE order_id = ?";
     private static final String UPDATE_ORDER = "UPDATE final_project.railway_system.order as o SET order_status = ? FROM final_project.railway_system.user as u WHERE o.user_id = u.user_id AND order_id = ?";
     private static final String GET_ALL_ORDER = "SELECT * FROM final_project.railway_system.order as o JOIN final_project.railway_system.user as u on o.user_id = u.user_id";
@@ -36,14 +37,18 @@ public class OrderRepositoryImpl implements OrderRepository {
         try (PreparedStatement preparedStatement = connection.prepareStatement(ADD_ORDER)) {
             preparedStatement.setString(1, uid);
             preparedStatement.setString(2, entity.getTrainNumber());
-            preparedStatement.setString(3, entity.getCarNumber());
-            preparedStatement.setString(4, entity.getCarType());
-            preparedStatement.setBigDecimal(5, entity.getPrice());
-            preparedStatement.setObject(6, entity.getArrivalDate());
-            preparedStatement.setObject(7, entity.getDispatchDate());
-            preparedStatement.setObject(8, entity.getUser());
-            preparedStatement.setObject(9, entity.getOrderDate());
-            preparedStatement.setString(10, entity.getOrderStatus().toString());
+            preparedStatement.setString(3, entity.getCarType().name());
+            preparedStatement.setBigDecimal(4, entity.getPrice());
+            preparedStatement.setObject(5, entity.getArrivalDate());
+            preparedStatement.setObject(6, entity.getDispatchDate());
+            preparedStatement.setString(7, entity.getUser().getUserId());
+            preparedStatement.setObject(8, entity.getOrderDate());
+            preparedStatement.setString(9, entity.getOrderStatus().name());
+            preparedStatement.setInt(10, entity.getCountOfSeats());
+            preparedStatement.setString(11, entity.getArrivalStation());
+            preparedStatement.setString(12, entity.getDispatchStation());
+            preparedStatement.setString(13, entity.getTravelTime());
+
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -71,6 +76,7 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public boolean update(Order entity) {
+        LOGGER.error("Unsupported operation exception");
         throw new UnsupportedOperationException();
     }
 
@@ -101,14 +107,17 @@ public class OrderRepositoryImpl implements OrderRepository {
         Order order = new Order();
         order.setOrderId(rs.getString("order_id"));
         order.setTrainNumber(rs.getString("train_number"));
-        order.setCarNumber(rs.getString("car_number"));
-        order.setCarType(rs.getString("car_type"));
+        order.setCarType(CarType.valueOf(rs.getString("car_type")));
         order.setPrice(rs.getBigDecimal("price"));
         order.setArrivalDate(rs.getObject("arrival_date", LocalDateTime.class));
         order.setDispatchDate(rs.getObject("dispatch_date", LocalDateTime.class));
         order.setUser(DbUtils.extract(rs));
         order.setOrderDate(rs.getObject("order_date", LocalDateTime.class));
         order.setOrderStatus(OrderStatus.valueOf(rs.getString("order_status")));
+        order.setCountOfSeats(rs.getInt("count_of_seats"));
+        order.setArrivalStation(rs.getString("arrival_station"));
+        order.setDispatchStation(rs.getString("dispatch_station"));
+        order.setTravelTime(rs.getString("travel_time"));
         return order;
     }
 

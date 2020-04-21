@@ -21,11 +21,11 @@ import java.util.UUID;
 
 public class CarRepositoryImpl implements CarRepository {
     private static final Logger LOGGER = Logger.getLogger(CarRepositoryImpl.class);
-    private static final String ADD_CAR = "INSERT INTO final_project.railway_system.car (car_id, car_type, car_number, train_id, seats, price) VALUES (?,?,?,?,?,?);";
+    private static final String ADD_CAR = "INSERT INTO final_project.railway_system.car (car_id, car_type, car_number, train_id, seats) VALUES (?,?,?,?,?);";
     private static final String GET_CAR_BY_ID = "SELECT * FROM final_project.railway_system.car WHERE car_id = ?";
     private static final String GET_CAR_BY_TRAIN_ID = "SELECT * FROM final_project.railway_system.car WHERE train_id = ?";
     private static final String DELETE_CAR = "DELETE FROM final_project.railway_system.car WHERE car_id = ?";
-    private static final String UPDATE_CAR = "UPDATE final_project.railway_system.car SET car_type = ?, car_number = ?, train_id = ?, seats = ?, price = ? WHERE car_id = ?";
+    private static final String UPDATE_CAR = "UPDATE final_project.railway_system.car SET car_type = ?, car_number = ?, train_id = ?, seats = ? WHERE car_id = ?";
     private static final String GET_ALL_CAR = "SELECT * FROM final_project.railway_system.car as c LEFT OUTER JOIN final_project.railway_system.train as t ON c.train_id = t.train_id ORDER BY train_number, car_number ASC";
 
     @Override
@@ -39,7 +39,7 @@ public class CarRepositoryImpl implements CarRepository {
             preparedStatement.setString(3, entity.getCarNumber());
             preparedStatement.setString(4, entity.getTrainId());
             preparedStatement.setInt(5, entity.getSeats());
-            preparedStatement.setBigDecimal(6, entity.getPrice());
+
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -71,8 +71,7 @@ public class CarRepositoryImpl implements CarRepository {
             ps.setString(2, entity.getCarNumber());
             ps.setString(3, entity.getTrainId());
             ps.setInt(4, entity.getSeats());
-            ps.setBigDecimal(5, entity.getPrice());
-            ps.setString(6, entity.getCarId());
+            ps.setString(5, entity.getCarId());
             if (ps.executeUpdate() > 0) {
                 result = true;
             }
@@ -106,7 +105,6 @@ public class CarRepositoryImpl implements CarRepository {
         car.setCarNumber(resultSet.getString("car_number"));
         car.setTrainId(resultSet.getString("train_id"));
         car.setSeats(resultSet.getInt("seats"));
-        car.setPrice(resultSet.getBigDecimal("price"));
         return car;
     }
 
@@ -117,7 +115,6 @@ public class CarRepositoryImpl implements CarRepository {
         car.setCarNumber(resultSet.getString("car_number"));
         car.setTrainId(resultSet.getString("train_id"));
         car.setSeats(resultSet.getInt("seats"));
-        car.setPrice(resultSet.getBigDecimal("price"));
         car.setTrainNumber(resultSet.getString("train_number"));
         return car;
     }

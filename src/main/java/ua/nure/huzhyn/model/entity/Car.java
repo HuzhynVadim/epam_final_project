@@ -12,7 +12,6 @@ public class Car {
     private String carNumber;
     private String trainId;
     private Integer seats;
-    private BigDecimal price;
 
 
     public String getCarId() {
@@ -58,13 +57,5 @@ public class Car {
         this.seats = seats;
     }
 
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
 
 }

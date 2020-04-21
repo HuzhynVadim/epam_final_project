@@ -15,7 +15,7 @@
         <th><fmt:message key="car.type"/></th>
         <th><fmt:message key="car.number"/></th>
         <th><fmt:message key="car.seats"/></th>
-        <th><fmt:message key="car.price"/></th>
+<%--        <th><fmt:message key="car.price"/></th>--%>
     </tr>
     <tr>
         <form action="administrator_edit_info_car" method="POST">
@@ -50,7 +50,7 @@
             </td>
             <td><input name="car_number" value="${current_car.carNumber}"></td>
             <td><input name="seats" value="${current_car.seats}"></td>
-            <td><input name="price" value="${current_car.price}"></td>
+<%--            <td><input name="price" value="${current_car.price}"></td>--%>
             <td>
                 <input type="hidden" name="car_id" value="${current_car.carId}">
                 <input type="submit" name="save_edit_information" value="<fmt:message key="admin.saveInformation"/>">

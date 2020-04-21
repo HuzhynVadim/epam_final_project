@@ -36,7 +36,6 @@ public class AdministratorEditInfoCarController extends HttpServlet {
             car.setCarId(request.getParameter("car_id"));
             car.setCarType(CarType.valueOf(request.getParameter("car_type")));
             car.setCarNumber(request.getParameter("car_number"));
-            car.setPrice(new BigDecimal(request.getParameter("price")));
             car.setSeats(Integer.valueOf(request.getParameter("seats")));
             String trainId = request.getParameter("train_id");
             car.setTrainId(trainId.equals("TRAIN_NOT_SELECTED") ? null : trainId);

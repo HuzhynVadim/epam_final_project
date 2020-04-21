@@ -16,9 +16,10 @@
     <tr>
         <th>nameRout</th>
         <th>numberRout</th>
+        <th>trainNumber</th>
         <th>dateDispatch</th>
-        <th>dateArrival</th>
         <th>travelTime</th>
+        <th>dateArrival</th>
         <th>countCompartment</th>
         <th>countReserved</th>
         <th>countCommon</th>
@@ -31,9 +32,10 @@
             <c:set var="arrivalTime" value="${rout.stations.get(rout.stations.size() - 1).stationArrivalDate}"/>
             <td>${rout.routName}</td>
             <td>${rout.routNumber}</td>
-            <td>${dispatchTime}</td>
-            <td>${arrivalTime}</td>
+            <td>${rout.trainNumber}</td>
+            <td>${departure_station} - ${dispatchTime}</td>
             <td><period:period dateFrom="${dispatchTime}" dateTo="${arrivalTime}"/></td>
+            <td>${arrival_station} - ${arrivalTime}</td>
             <td>${rout.commonFreeSeatsCount}</td>
             <td>${rout.compartmentFreeSeatsCount}</td>
             <td>${rout.reservedFreeSeatsCount}</td>
@@ -48,6 +50,10 @@
             </td>
             <td>
                 <form action="make_order" method="GET">
+                    <input type="hidden" name="routs_id" value="${rout.routsId}">
+                    <input type="hidden" name="departure_station" value="${departure_station}">
+                    <input type="hidden" name="arrival_station" value="${arrival_station}">
+                    <input type="hidden" name="departure_date" value="${departure_date}">
                     <input type="submit" name="oder" value="<fmt:message key="order"/>">
                 </form>
             </td>

@@ -23,9 +23,9 @@ public class RoutsRepositoryImpl implements RoutsRepository {
 
     private static final Logger LOGGER = Logger.getLogger(RoutsRepositoryImpl.class);
     private static final String ADD_ROUTS = "INSERT INTO final_project.railway_system.rout (routs_id, train_id, rout_name, rout_number, common_free_seats_count, compartment_free_seats_count, reserved_free_seats_count) VALUES (?,?,?,?,?,?,?)";
-    private static final String GET_ROUT_BY_ID = "SELECT r.routs_id, r.train_id, r.rout_name, r.rout_number, t.train_number FROM final_project.railway_system.rout as r JOIN final_project.railway_system.train as t on r.train_id = t.train_id WHERE r.routs_id = ?";
+    private static final String GET_ROUT_BY_ID = "SELECT r.routs_id, r.train_id, r.rout_name, r.rout_number, t.train_number, reserved_free_seats_count, compartment_free_seats_count, common_free_seats_count FROM final_project.railway_system.rout as r JOIN final_project.railway_system.train as t on r.train_id = t.train_id WHERE r.routs_id = ?";
     private static final String DELETE_ROUT = "DELETE FROM final_project.railway_system.rout WHERE routs_id = ?";
-    private static final String GET_ALL_ROUT = "SELECT r.routs_id, r.train_id, r.rout_name, r.rout_number, t.train_number FROM final_project.railway_system.rout as r JOIN final_project.railway_system.train as t on r.train_id = t.train_id ORDER BY t.train_number, r.rout_name ASC";
+    private static final String GET_ALL_ROUT = "SELECT r.routs_id, r.train_id, r.rout_name, r.rout_number, t.train_number, reserved_free_seats_count, common_free_seats_count, compartment_free_seats_count FROM final_project.railway_system.rout as r JOIN final_project.railway_system.train as t on r.train_id = t.train_id ORDER BY t.train_number, r.rout_name ASC";
     private static final String GET_ROUTE_LIST_WITH_PARAMETERS = "SELECT rout_name,\n" +
             "       rout_number,\n" +
             "       r.routs_id,\n" +
@@ -146,6 +146,9 @@ public class RoutsRepositoryImpl implements RoutsRepository {
         result.setTrainNumber(resultSet.getString("train_number"));
         result.setRoutName(resultSet.getString("rout_name"));
         result.setRoutNumber(resultSet.getString("rout_number"));
+        result.setCommonFreeSeatsCount(resultSet.getInt("common_free_seats_count"));
+        result.setCompartmentFreeSeatsCount(resultSet.getInt("compartment_free_seats_count"));
+        result.setReservedFreeSeatsCount(resultSet.getInt("reserved_free_seats_count"));
 
         return result;
     }

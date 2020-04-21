@@ -17,6 +17,8 @@ public interface RoutService {
 
     void updateRout(Rout rout);
 
+    Rout read(String id);
+
     RoutInfoDto getRoutById(String routsId);
 
     List<RoutsOrderDto> getRouteListWithParameters(String departureStation, String arrivalStation, LocalDateTime departureDate);

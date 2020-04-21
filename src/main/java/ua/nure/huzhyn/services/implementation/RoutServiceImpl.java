@@ -89,6 +89,11 @@ public class RoutServiceImpl implements RoutService {
     }
 
     @Override
+    public Rout read(String id) {
+        return transactionManager.execute(() -> routsRepository.read(id).orElse(null));
+    }
+
+    @Override
     public RoutInfoDto getRoutById(String routsId) {
         return transactionManager.execute(() -> routsRepository.getRoutById(routsId));
     }

@@ -16,11 +16,9 @@
             <th><fmt:message key="car.type"/></th>
             <th><fmt:message key="car.number"/></th>
             <th><fmt:message key="car.seats"/></th>
-            <th><fmt:message key="car.price"/></th>
         </tr>
         <tr>
             <td><select name="train_id">
-                <option><c:out value="TRAIN_NOT_SELECTED"/></option>
                 <c:forEach items="${trainList}" var="trainList">
                     <option value="${trainList.trainId}"><c:out value="${trainList.trainNumber}"/></option>
                 </c:forEach>
@@ -32,7 +30,6 @@
             </select></td>
             <td><input name="car_number"></td>
             <td><input name="seats"></td>
-            <td><input name="price"></td>
             <td>
                 <input type="submit" name="add_car" value="<fmt:message key="admin.addCar"/>">
             </td>

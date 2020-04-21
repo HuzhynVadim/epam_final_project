@@ -1,51 +1,30 @@
-package ua.nure.huzhyn.model.entity;
+package ua.nure.huzhyn.db.dao.dto;
 
-
+import ua.nure.huzhyn.model.entity.User;
 import ua.nure.huzhyn.model.entity.enums.CarType;
 import ua.nure.huzhyn.model.entity.enums.OrderStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class Order {
-
-    private String orderId;
+public class OrderDto {
+    private String routsId;
+    private String routName;
+    private String routNumber;
+    private String trainId;
     private String trainNumber;
     private CarType carType;
     private BigDecimal price;
     private LocalDateTime arrivalDate;
     private LocalDateTime dispatchDate;
-    private User user;
+    private String userId;
     private LocalDateTime orderDate;
     private OrderStatus orderStatus;
-    private int countOfSeats;
     private String arrivalStation;
     private String dispatchStation;
     private String travelTime;
+    private int countOfSeats;
 
-    public String getTravelTime() {
-        return travelTime;
-    }
-
-    public void setTravelTime(String travelTime) {
-        this.travelTime = travelTime;
-    }
-
-    public String getArrivalStation() {
-        return arrivalStation;
-    }
-
-    public void setArrivalStation(String arrivalStation) {
-        this.arrivalStation = arrivalStation;
-    }
-
-    public String getDispatchStation() {
-        return dispatchStation;
-    }
-
-    public void setDispatchStation(String dispatchStation) {
-        this.dispatchStation = dispatchStation;
-    }
 
     public int getCountOfSeats() {
         return countOfSeats;
@@ -55,14 +34,37 @@ public class Order {
         this.countOfSeats = countOfSeats;
     }
 
-    public String getOrderId() {
-        return orderId;
+    public String getRoutsId() {
+        return routsId;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setRoutsId(String routsId) {
+        this.routsId = routsId;
     }
 
+    public String getRoutName() {
+        return routName;
+    }
+
+    public void setRoutName(String routName) {
+        this.routName = routName;
+    }
+
+    public String getRoutNumber() {
+        return routNumber;
+    }
+
+    public void setRoutNumber(String routNumber) {
+        this.routNumber = routNumber;
+    }
+
+    public String getTrainId() {
+        return trainId;
+    }
+
+    public void setTrainId(String trainId) {
+        this.trainId = trainId;
+    }
 
     public String getTrainNumber() {
         return trainNumber;
@@ -71,7 +73,6 @@ public class Order {
     public void setTrainNumber(String trainNumber) {
         this.trainNumber = trainNumber;
     }
-
 
     public CarType getCarType() {
         return carType;
@@ -97,7 +98,6 @@ public class Order {
         this.arrivalDate = arrivalDate;
     }
 
-
     public LocalDateTime getDispatchDate() {
         return dispatchDate;
     }
@@ -106,15 +106,13 @@ public class Order {
         this.dispatchDate = dispatchDate;
     }
 
-
-    public User getUser() {
-        return user;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
-
 
     public LocalDateTime getOrderDate() {
         return orderDate;
@@ -124,12 +122,35 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-
     public OrderStatus getOrderStatus() {
         return orderStatus;
     }
 
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public String getArrivalStation() {
+        return arrivalStation;
+    }
+
+    public void setArrivalStation(String arrivalStation) {
+        this.arrivalStation = arrivalStation;
+    }
+
+    public String getDispatchStation() {
+        return dispatchStation;
+    }
+
+    public void setDispatchStation(String dispatchStation) {
+        this.dispatchStation = dispatchStation;
+    }
+
+    public String getTravelTime() {
+        return travelTime;
+    }
+
+    public void setTravelTime(String travelTime) {
+        this.travelTime = travelTime;
     }
 }

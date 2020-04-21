@@ -23,7 +23,6 @@
 <table border="1">
     <tr>
         <th><fmt:message key="order.train.number"/></th>
-        <th><fmt:message key="order.car.number"/></th>
         <th><fmt:message key="order.car.type"/></th>
         <th><fmt:message key="order.price"/></th>
         <th><fmt:message key="order.arrival.date"/></th>
@@ -34,7 +33,6 @@
     <c:forEach items="${order_list}" var="order">
         <tr>
             <td>${order.trainNumber}</td>
-            <td>${order.carNumber}</td>
             <td>${order.carType}</td>
             <td>${order.price}</td>
             <td>${order.arrivalDate}</td>

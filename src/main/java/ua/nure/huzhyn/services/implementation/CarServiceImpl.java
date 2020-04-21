@@ -52,6 +52,14 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<CarDto> getAllCarList() {
-        return transactionManager.execute(() -> carRepository.getAllCarList());
+        List<CarDto> result = transactionManager.execute(() -> carRepository.getAllCarList());
+        for (CarDto car : result) {
+            calculatePrice(car);
+        }
+        return result;
+    }
+
+    private void calculatePrice(CarDto car) {
+        car.setPrice(car.getCarType().getPrice());
     }
 }

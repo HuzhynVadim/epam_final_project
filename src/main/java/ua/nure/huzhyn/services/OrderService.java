@@ -1,5 +1,6 @@
 package ua.nure.huzhyn.services;
 
+import ua.nure.huzhyn.db.dao.dto.OrderDto;
 import ua.nure.huzhyn.model.entity.Order;
 import ua.nure.huzhyn.model.entity.enums.OrderStatus;
 
@@ -14,4 +15,6 @@ public interface OrderService {
     boolean updateOrderStatus(String orderId, OrderStatus status);
 
     List<Order> getOrderByUserId(String userId);
+
+    void addOrder(Order order, String routsId);
 }
