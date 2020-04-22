@@ -1,6 +1,5 @@
 package ua.nure.huzhyn.services;
 
-import ua.nure.huzhyn.db.dao.dto.StationDto;
 import ua.nure.huzhyn.model.entity.Station;
 
 import java.util.List;
@@ -16,7 +15,6 @@ public interface StationService {
     void updateStation(Station station);
 
     Station getStationById(String stationId);
-
 
 
 }

@@ -1,6 +1,5 @@
 package ua.nure.huzhyn.web.controller;
 
-import org.apache.log4j.Logger;
 import ua.nure.huzhyn.model.entity.Order;
 import ua.nure.huzhyn.services.OrderService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
@@ -17,7 +16,6 @@ import java.util.List;
 @WebServlet("/user_account")
 public class UserAccountController extends HttpServlet {
 
-    private static final Logger LOGGER = Logger.getLogger(UserAccountController.class);
     private OrderService orderService;
 
 

@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 import ua.nure.huzhyn.db.dao.OrderRepository;
 import ua.nure.huzhyn.db.dao.transaction.ConnectionManager;
 import ua.nure.huzhyn.db.dao.utils.DbUtils;
-import ua.nure.huzhyn.exception.DBException;
 import ua.nure.huzhyn.exception.DataBaseException;
 import ua.nure.huzhyn.model.entity.Order;
 import ua.nure.huzhyn.model.entity.enums.CarType;
@@ -33,7 +32,6 @@ public class OrderRepositoryImpl implements OrderRepository {
     public String create(Order entity) {
         Connection connection = ConnectionManager.getConnection();
         String uid = UUID.randomUUID().toString();
-
         try (PreparedStatement preparedStatement = connection.prepareStatement(ADD_ORDER)) {
             preparedStatement.setString(1, uid);
             preparedStatement.setString(2, entity.getTrainNumber());
@@ -48,12 +46,10 @@ public class OrderRepositoryImpl implements OrderRepository {
             preparedStatement.setString(11, entity.getArrivalStation());
             preparedStatement.setString(12, entity.getDispatchStation());
             preparedStatement.setString(13, entity.getTravelTime());
-
-
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DBException("", e);
+            throw new DataBaseException("Can't create order.", e);
         }
 
         return uid;
@@ -69,7 +65,7 @@ public class OrderRepositoryImpl implements OrderRepository {
             order = Optional.of(extract(rs));
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DBException("", e);
+            throw new DataBaseException("Can't read car. ID = " + id, e);
         }
         return order;
     }
@@ -98,7 +94,7 @@ public class OrderRepositoryImpl implements OrderRepository {
             }
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DBException("Update order " + orderId, e);
+            throw new DataBaseException("Can`t update order. ID = " + orderId, e);
         }
         return result;
     }
@@ -132,13 +128,11 @@ public class OrderRepositoryImpl implements OrderRepository {
             }
             connection.commit();
         } catch (SQLException e) {
-            String message = "Can't get order";
-            LOGGER.error(message, e);
-            throw new DataBaseException(message);
+            LOGGER.error(e);
+            throw new DataBaseException("Can't get all order list.", e);
         }
         return order;
     }
-
 
     @Override
     public List<Order> getOrderByUserId(String userId) {
@@ -152,9 +146,8 @@ public class OrderRepositoryImpl implements OrderRepository {
             }
             connection.commit();
         } catch (SQLException e) {
-            String message = "Can't get order";
-            LOGGER.error(message, e);
-            throw new DataBaseException(message);
+            LOGGER.error(e);
+            throw new DataBaseException("Can't get order list by user ID. ID = " + userId, e);
         }
         return order;
     }
@@ -163,7 +156,6 @@ public class OrderRepositoryImpl implements OrderRepository {
     public Order getOrderById(String orderId) {
         Order order = new Order();
         Connection connection = ConnectionManager.getConnection();
-
         try (PreparedStatement ps = connection.prepareStatement(GET_ORDER_BY_ID)) {
             ps.setString(1, orderId);
             ResultSet rs = ps.executeQuery();
@@ -172,9 +164,8 @@ public class OrderRepositoryImpl implements OrderRepository {
             }
             connection.commit();
         } catch (SQLException e) {
-            String message = String.format("Can't get order by id. Id = %s", orderId);
-            LOGGER.error(message, e);
-            throw new DataBaseException(message);
+            LOGGER.error(e);
+            throw new DataBaseException("Can't get order by ID. ID = " + orderId, e);
         }
         return order;
     }

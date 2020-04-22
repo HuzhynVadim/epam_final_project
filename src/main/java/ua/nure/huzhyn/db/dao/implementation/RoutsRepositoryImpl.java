@@ -5,7 +5,6 @@ import ua.nure.huzhyn.db.dao.RoutsRepository;
 import ua.nure.huzhyn.db.dao.dto.RoutInfoDto;
 import ua.nure.huzhyn.db.dao.dto.StationDto;
 import ua.nure.huzhyn.db.dao.transaction.ConnectionManager;
-import ua.nure.huzhyn.exception.DBException;
 import ua.nure.huzhyn.exception.DataBaseException;
 import ua.nure.huzhyn.model.entity.Rout;
 
@@ -25,7 +24,7 @@ public class RoutsRepositoryImpl implements RoutsRepository {
     private static final String ADD_ROUTS = "INSERT INTO final_project.railway_system.rout (routs_id, train_id, rout_name, rout_number, common_free_seats_count, compartment_free_seats_count, reserved_free_seats_count) VALUES (?,?,?,?,?,?,?)";
     private static final String GET_ROUT_BY_ID = "SELECT r.routs_id, r.train_id, r.rout_name, r.rout_number, t.train_number, reserved_free_seats_count, compartment_free_seats_count, common_free_seats_count FROM final_project.railway_system.rout as r JOIN final_project.railway_system.train as t on r.train_id = t.train_id WHERE r.routs_id = ?";
     private static final String DELETE_ROUT = "DELETE FROM final_project.railway_system.rout WHERE routs_id = ?";
-    private static final String GET_ALL_ROUT = "SELECT r.routs_id, r.train_id, r.rout_name, r.rout_number, t.train_number, reserved_free_seats_count, common_free_seats_count, compartment_free_seats_count FROM final_project.railway_system.rout as r JOIN final_project.railway_system.train as t on r.train_id = t.train_id ORDER BY t.train_number, r.rout_name ASC";
+    private static final String GET_ALL_ROUT = "SELECT r.routs_id, r.train_id, r.rout_name, r.rout_number, t.train_number, reserved_free_seats_count, common_free_seats_count, compartment_free_seats_count FROM final_project.railway_system.rout as r JOIN final_project.railway_system.train as t on r.train_id = t.train_id ORDER BY t.train_number, r.rout_name";
     private static final String GET_ROUTE_LIST_WITH_PARAMETERS = "SELECT rout_name,\n" +
             "       rout_number,\n" +
             "       r.routs_id,\n" +
@@ -42,7 +41,7 @@ public class RoutsRepositoryImpl implements RoutsRepository {
             "         JOIN final_project.railway_system.rout_to_station_mapping as rm on rm.routs_id = r.routs_id\n" +
             "         JOIN final_project.railway_system.station as s on rm.station_id = s.station_id\n" +
             "WHERE station IN (?, ?)\n" +
-            "ORDER BY r.rout_name ASC";
+            "ORDER BY r.rout_name";
     private static final String UPDATE_ROUT = "UPDATE final_project.railway_system.rout SET rout_name = ?, rout_number = ?, train_id = ?, common_free_seats_count = ?, compartment_free_seats_count = ?, reserved_free_seats_count = ? WHERE routs_id = ?";
 
 
@@ -50,7 +49,6 @@ public class RoutsRepositoryImpl implements RoutsRepository {
     public String create(Rout entity) {
         Connection connection = ConnectionManager.getConnection();
         String uid = UUID.randomUUID().toString();
-
         try (PreparedStatement preparedStatement = connection.prepareStatement(ADD_ROUTS)) {
             preparedStatement.setString(1, uid);
             preparedStatement.setString(2, entity.getTrainId());
@@ -59,11 +57,10 @@ public class RoutsRepositoryImpl implements RoutsRepository {
             preparedStatement.setInt(5, entity.getCommonFreeSeatsCount());
             preparedStatement.setInt(6, entity.getCompartmentFreeSeatsCount());
             preparedStatement.setInt(7, entity.getReservedFreeSeatsCount());
-
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DBException("", e);
+            throw new DataBaseException("Can`t create rout.", e);
         }
         return uid;
     }
@@ -78,7 +75,7 @@ public class RoutsRepositoryImpl implements RoutsRepository {
             rout = Optional.ofNullable(extract(rs));
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DBException("", e);
+            throw new DataBaseException("Can`t read rout. ID = " + id, e);
         }
         return rout;
     }
@@ -100,7 +97,7 @@ public class RoutsRepositoryImpl implements RoutsRepository {
             }
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DBException("Update station " + entity.getRoutsId(), e);
+            throw new DataBaseException("Can`t update rout. ID = " + entity.getRoutsId(), e);
         }
         return result;
     }
@@ -116,17 +113,15 @@ public class RoutsRepositoryImpl implements RoutsRepository {
             }
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DBException("Delete routs " + id, e);
+            throw new DataBaseException("Can`t delete routs. ID = " + id, e);
         }
         return result;
     }
-
 
     private Rout extract(ResultSet resultSet) throws SQLException {
         if (!resultSet.next()) {
             return null;
         }
-
         Rout rout = new Rout();
         rout.setRoutsId(resultSet.getString("routs_id"));
         rout.setTrainId(resultSet.getString("train_id"));
@@ -135,7 +130,6 @@ public class RoutsRepositoryImpl implements RoutsRepository {
         rout.setCommonFreeSeatsCount(resultSet.getInt("common_free_seats_count"));
         rout.setCompartmentFreeSeatsCount(resultSet.getInt("compartment_free_seats_count"));
         rout.setReservedFreeSeatsCount(resultSet.getInt("reserved_free_seats_count"));
-
         return rout;
     }
 
@@ -149,7 +143,6 @@ public class RoutsRepositoryImpl implements RoutsRepository {
         result.setCommonFreeSeatsCount(resultSet.getInt("common_free_seats_count"));
         result.setCompartmentFreeSeatsCount(resultSet.getInt("compartment_free_seats_count"));
         result.setReservedFreeSeatsCount(resultSet.getInt("reserved_free_seats_count"));
-
         return result;
     }
 
@@ -168,10 +161,8 @@ public class RoutsRepositoryImpl implements RoutsRepository {
         result.setCommonFreeSeatsCount(resultSet.getInt("common_free_seats_count"));
         result.setCompartmentFreeSeatsCount(resultSet.getInt("compartment_free_seats_count"));
         result.setReservedFreeSeatsCount(resultSet.getInt("reserved_free_seats_count"));
-
         return result;
     }
-
 
     @Override
     public List<RoutInfoDto> getAllRoutList() {
@@ -184,13 +175,11 @@ public class RoutsRepositoryImpl implements RoutsRepository {
             }
             connection.commit();
         } catch (SQLException e) {
-            String message = "Can't get rout";
-            LOGGER.error(message, e);
-            throw new DataBaseException(message);
+            LOGGER.error(e);
+            throw new DataBaseException("Can't get all rout list.", e);
         }
         return routs;
     }
-
 
     @Override
     public List<StationDto> getRouteListWithParameters(String departureStation, String arrivalStation) {
@@ -205,13 +194,11 @@ public class RoutsRepositoryImpl implements RoutsRepository {
             }
             connection.commit();
         } catch (SQLException e) {
-            String message = "Can't get rout";
-            LOGGER.error(message, e);
-            throw new DataBaseException(message);
+            LOGGER.error(e);
+            throw new DataBaseException("Can't get station " + departureStation + " and station " + arrivalStation + " in rout list", e);
         }
         return routs;
     }
-
 
     @Override
     public RoutInfoDto getRoutById(String routsId) {
@@ -225,9 +212,8 @@ public class RoutsRepositoryImpl implements RoutsRepository {
             }
             connection.commit();
         } catch (SQLException e) {
-            String message = String.format("Can't get rout by id. Id = %s", routsId);
-            LOGGER.error(message, e);
-            throw new DataBaseException(message);
+            LOGGER.error(e);
+            throw new DataBaseException("Can't get rout by id. Id = " + routsId, e);
         }
         return rout;
     }

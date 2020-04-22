@@ -7,6 +7,10 @@
 <fmt:setBundle basename="lang"/>
 <html>
 <body>
+<div align="right">
+    <fmt:message key="enterRole"></fmt:message>
+    <mrt:role role="${user.role}"></mrt:role>
+</div>
 <table border="1">
     <tr>
         <th><fmt:message key="order"/></th>
@@ -44,7 +48,7 @@
 </table>
 <form action="administrator_set_rout_mapping" method="GET">
     <input type="hidden" name="routs_id" value="${routs_id}">
-    <input type="submit" name="add_rout_mapping" value="<fmt:message key="admin.addRout"/>">
+    <input type="submit" name="add_rout_mapping" value="<fmt:message key="admin.addStationMapping"/>">
 </form>
 <p>
 <form action="administrator_account" method="GET">

@@ -1,6 +1,5 @@
 package ua.nure.huzhyn.web.controller;
 
-import org.apache.log4j.Logger;
 import ua.nure.huzhyn.db.dao.dto.MappingInfoDto;
 import ua.nure.huzhyn.services.RoutToStationMappingService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
@@ -16,7 +15,6 @@ import java.util.List;
 
 @WebServlet("/administrator_details_set_rout")
 public class AdministratorDetailsSetRoutController extends HttpServlet {
-    private static final Logger LOGGER = Logger.getLogger(AdministratorDetailsSetRoutController.class);
 
     private RoutToStationMappingService routToStationMappingService;
 

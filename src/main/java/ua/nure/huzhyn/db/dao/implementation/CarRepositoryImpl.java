@@ -3,9 +3,7 @@ package ua.nure.huzhyn.db.dao.implementation;
 import org.apache.log4j.Logger;
 import ua.nure.huzhyn.db.dao.CarRepository;
 import ua.nure.huzhyn.db.dao.dto.CarDto;
-import ua.nure.huzhyn.db.dao.dto.RoutInfoDto;
 import ua.nure.huzhyn.db.dao.transaction.ConnectionManager;
-import ua.nure.huzhyn.exception.DBException;
 import ua.nure.huzhyn.exception.DataBaseException;
 import ua.nure.huzhyn.model.entity.Car;
 import ua.nure.huzhyn.model.entity.enums.CarType;
@@ -26,26 +24,23 @@ public class CarRepositoryImpl implements CarRepository {
     private static final String GET_CAR_BY_TRAIN_ID = "SELECT * FROM final_project.railway_system.car WHERE train_id = ?";
     private static final String DELETE_CAR = "DELETE FROM final_project.railway_system.car WHERE car_id = ?";
     private static final String UPDATE_CAR = "UPDATE final_project.railway_system.car SET car_type = ?, car_number = ?, train_id = ?, seats = ? WHERE car_id = ?";
-    private static final String GET_ALL_CAR = "SELECT * FROM final_project.railway_system.car as c LEFT OUTER JOIN final_project.railway_system.train as t ON c.train_id = t.train_id ORDER BY train_number, car_number ASC";
+    private static final String GET_ALL_CAR = "SELECT * FROM final_project.railway_system.car as c LEFT OUTER JOIN final_project.railway_system.train as t ON c.train_id = t.train_id ORDER BY train_number, car_number";
 
     @Override
     public String create(Car entity) {
         Connection connection = ConnectionManager.getConnection();
         String uid = UUID.randomUUID().toString();
-
         try (PreparedStatement preparedStatement = connection.prepareStatement(ADD_CAR)) {
             preparedStatement.setString(1, uid);
             preparedStatement.setString(2, entity.getCarType().toString());
             preparedStatement.setString(3, entity.getCarNumber());
             preparedStatement.setString(4, entity.getTrainId());
             preparedStatement.setInt(5, entity.getSeats());
-
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DBException("", e);
+            throw new DataBaseException("Can't create car.", e);
         }
-
         return uid;
     }
 
@@ -58,7 +53,7 @@ public class CarRepositoryImpl implements CarRepository {
             return Optional.of(extract(rs));
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DBException("", e);
+            throw new DataBaseException("Can't read car. ID = " + id, e);
         }
     }
 
@@ -77,7 +72,7 @@ public class CarRepositoryImpl implements CarRepository {
             }
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DBException("Update car " + entity.getCarId(), e);
+            throw new DataBaseException("Can`t update car. ID = " + entity.getCarId(), e);
         }
         return result;
     }
@@ -93,7 +88,7 @@ public class CarRepositoryImpl implements CarRepository {
             }
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DBException("Delete car " + id, e);
+            throw new DataBaseException("Can`t delete car. ID = " + id, e);
         }
         return result;
     }
@@ -131,9 +126,8 @@ public class CarRepositoryImpl implements CarRepository {
             }
             connection.commit();
         } catch (SQLException e) {
-            String message = String.format("Can't get car by id. Id = %s", carId);
-            LOGGER.error(message, e);
-            throw new DataBaseException(message);
+            LOGGER.error(e);
+            throw new DataBaseException("Can't get car by ID. ID = " + carId, e);
         }
         return car;
     }
@@ -150,16 +144,15 @@ public class CarRepositoryImpl implements CarRepository {
             }
             connection.commit();
         } catch (SQLException e) {
-            String message = String.format("Can't get car by train id. Id = %s", trainId);
-            LOGGER.error(message, e);
-            throw new DataBaseException(message);
+            LOGGER.error(e);
+            throw new DataBaseException("Can't get car list by train ID. ID = " + trainId, e);
         }
         return cars;
     }
 
     @Override
     public List<CarDto> getAllCarList() {
-        List<CarDto> Car = new ArrayList<CarDto>();
+        List<CarDto> Car = new ArrayList<>();
         Connection connection = ConnectionManager.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(GET_ALL_CAR)) {
             ResultSet rs = ps.executeQuery();
@@ -168,9 +161,8 @@ public class CarRepositoryImpl implements CarRepository {
             }
             connection.commit();
         } catch (SQLException e) {
-            String message = String.format("Can't get Car");
-            LOGGER.error(message, e);
-            throw new DataBaseException(message);
+            LOGGER.error(e);
+            throw new DataBaseException("Can't get cars list.", e);
         }
         return Car;
     }

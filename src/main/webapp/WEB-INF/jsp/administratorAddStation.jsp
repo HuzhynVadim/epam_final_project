@@ -9,6 +9,10 @@
     <title><fmt:message key="admin.addStation"/></title>
 </head>
 <body>
+<div align="right">
+    <fmt:message key="enterRole"></fmt:message>
+    <mrt:role role="${user.role}"></mrt:role>
+</div>
 <form action="administrator_add_station" method="POST">
     <table border="1">
         <tr>

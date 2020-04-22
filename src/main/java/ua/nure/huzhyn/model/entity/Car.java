@@ -3,8 +3,6 @@ package ua.nure.huzhyn.model.entity;
 
 import ua.nure.huzhyn.model.entity.enums.CarType;
 
-import java.math.BigDecimal;
-
 public class Car {
 
     private String carId;

@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 import ua.nure.huzhyn.db.dao.UserRepository;
 import ua.nure.huzhyn.db.dao.transaction.ConnectionManager;
 import ua.nure.huzhyn.db.dao.utils.DbUtils;
-import ua.nure.huzhyn.exception.DBException;
 import ua.nure.huzhyn.exception.DataBaseException;
 import ua.nure.huzhyn.model.entity.User;
 
@@ -24,14 +23,14 @@ public class UserRepositoryImpl implements UserRepository {
     private static final String GET_USER_BY_ID = "SELECT * FROM final_project.railway_system.user WHERE user_id = ?";
     private static final String DELETE_USER = "DELETE FROM final_project.railway_system.user WHERE user_id = ?";
     private static final String UPDATE_USER = "UPDATE final_project.railway_system.user SET email = ?, password = ?, first_name = ?, last_name = ?, phone = ?, birth_date = ?, role = ?, blocked = ? WHERE user_id = ?";
-    private static final String GET_USER_FULL_INFO = "SELECT * FROM final_project.railway_system.user WHERE role = ? ORDER BY email ASC";
+    private static final String GET_USER_FULL_INFO = "SELECT * FROM final_project.railway_system.user WHERE role = ? ORDER BY email";
     private static final String UPDATE_USER_BLOCKED = "UPDATE final_project.railway_system.user SET blocked = ? WHERE user_id = ?";
+
 
     @Override
     public String create(User entity) {
         Connection connection = ConnectionManager.getConnection();
         String uid = UUID.randomUUID().toString();
-
         try (PreparedStatement preparedStatement = connection.prepareStatement(ADD_USER)) {
             preparedStatement.setString(1, uid);
             preparedStatement.setString(2, entity.getEmail());
@@ -45,7 +44,7 @@ public class UserRepositoryImpl implements UserRepository {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DBException("", e);
+            throw new DataBaseException("Can`t create user", e);
         }
         return uid;
     }
@@ -60,7 +59,7 @@ public class UserRepositoryImpl implements UserRepository {
             user = Optional.of(DbUtils.extract(rs));
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DBException("Cannot read user by id. Id = %s.", e);
+            throw new DataBaseException("Can`t read user. ID = " + id, e);
         }
         return user;
     }
@@ -83,7 +82,7 @@ public class UserRepositoryImpl implements UserRepository {
             }
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DBException("Update user " + entity.getUserId(), e);
+            throw new DataBaseException("Can`t update user. ID = " + entity.getUserId(), e);
         }
         return result;
     }
@@ -99,7 +98,7 @@ public class UserRepositoryImpl implements UserRepository {
             }
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DBException("Delete user " + id, e);
+            throw new DataBaseException("Can`t delete user. ID = " + id, e);
         }
         return result;
     }
@@ -108,7 +107,6 @@ public class UserRepositoryImpl implements UserRepository {
     public boolean isUserExist(String email) {
         boolean result = false;
         Connection connection = ConnectionManager.getConnection();
-
         try (PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_EMAIL)) {
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -118,7 +116,7 @@ public class UserRepositoryImpl implements UserRepository {
             connection.commit();
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DBException("User doesn't exist", e);
+            throw new DataBaseException("User doesn't exist. Email = " + email, e);
         }
         return result;
     }
@@ -136,9 +134,8 @@ public class UserRepositoryImpl implements UserRepository {
             }
             connection.commit();
         } catch (SQLException e) {
-            String message = String.format("Cannot get user by email. Email = %s", email);
-            LOGGER.error(message, e);
-            throw new DBException(message, e);
+            LOGGER.error(e);
+            throw new DataBaseException("Can`t get user by email. Email = " + email, e);
         }
         return user;
     }
@@ -147,19 +144,15 @@ public class UserRepositoryImpl implements UserRepository {
     public List<User> getUserInfo(String role) {
         List<User> fullUserList = new ArrayList<>();
         Connection connection = ConnectionManager.getConnection();
-
         try (PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_FULL_INFO)) {
-
             preparedStatement.setString(1, role);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 fullUserList.add(DbUtils.extract(rs));
             }
         } catch (SQLException e) {
-            String message = "Can't get all user information";
-            LOGGER.error(message, e);
-
-            throw new DataBaseException(message);
+            LOGGER.error(e);
+            throw new DataBaseException("Can't get all user information. Role = " + role, e);
         }
         return fullUserList;
     }
@@ -167,16 +160,14 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public void updateBlocked(String idUser, boolean blockStatus) {
         Connection connection = ConnectionManager.getConnection();
-
         try (PreparedStatement ps = connection.prepareStatement(UPDATE_USER_BLOCKED)) {
             ps.setBoolean(1, blockStatus);
             ps.setString(2, idUser);
             ps.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
-            String message = String.format("Can't update blocked in table \"user\"");
-            LOGGER.error(message, e);
-            throw new DataBaseException(message);
+            LOGGER.error(e);
+            throw new DataBaseException("Can't update blocked in table \"user\". ID user = " + idUser + " block status = " + blockStatus, e);
         }
     }
 }

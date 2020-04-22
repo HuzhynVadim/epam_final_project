@@ -1,6 +1,5 @@
 package ua.nure.huzhyn.services;
 
-import ua.nure.huzhyn.db.dao.dto.OrderDto;
 import ua.nure.huzhyn.model.entity.Order;
 import ua.nure.huzhyn.model.entity.enums.OrderStatus;
 

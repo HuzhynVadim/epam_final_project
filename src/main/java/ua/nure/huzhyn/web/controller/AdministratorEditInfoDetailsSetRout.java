@@ -5,7 +5,6 @@ import ua.nure.huzhyn.db.dao.dto.MappingInfoDto;
 import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.model.entity.RoutToStationMapping;
 import ua.nure.huzhyn.model.entity.Station;
-import ua.nure.huzhyn.services.RoutService;
 import ua.nure.huzhyn.services.RoutToStationMappingService;
 import ua.nure.huzhyn.services.StationService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
@@ -25,11 +24,10 @@ import java.util.List;
 @WebServlet("/administrator_edit_info_details_set_rout")
 public class AdministratorEditInfoDetailsSetRout extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(AdministratorEditInfoDetailsSetRout.class);
-    private RoutService routService;
     private RoutToStationMappingService routToStationMappingService;
     private StationService stationService;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         RoutToStationMappingValidator routToStationMappingValidator = new RoutToStationMappingValidator();
         RoutToStationMapping routToStationMapping = new RoutToStationMapping();
         String routsId = request.getParameter("routs_id");
@@ -66,9 +64,7 @@ public class AdministratorEditInfoDetailsSetRout extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) {
-        routService = (RoutService) config.getServletContext().getAttribute(AppContextConstant.ROUT_SERVICE);
         routToStationMappingService = (RoutToStationMappingService) config.getServletContext().getAttribute(AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE);
-
         stationService = (StationService) config.getServletContext().getAttribute((AppContextConstant.STATION_SERVICE));
     }
 }

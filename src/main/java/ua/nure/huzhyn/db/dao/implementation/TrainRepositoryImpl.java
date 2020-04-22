@@ -3,9 +3,7 @@ package ua.nure.huzhyn.db.dao.implementation;
 import org.apache.log4j.Logger;
 import ua.nure.huzhyn.db.dao.TrainRepository;
 import ua.nure.huzhyn.db.dao.transaction.ConnectionManager;
-import ua.nure.huzhyn.exception.DBException;
 import ua.nure.huzhyn.exception.DataBaseException;
-import ua.nure.huzhyn.model.entity.Station;
 import ua.nure.huzhyn.model.entity.Train;
 
 import java.sql.Connection;
@@ -23,7 +21,7 @@ public class TrainRepositoryImpl implements TrainRepository {
     private static final String GET_TRAIN_BY_ID = "SELECT * FROM final_project.railway_system.train WHERE train_id = ?";
     private static final String DELETE_TRAIN = "DELETE FROM final_project.railway_system.train WHERE train_id = ?";
     private static final String UPDATE_TRAIN = "UPDATE final_project.railway_system.train SET train_number = ? WHERE train_id = ?";
-    private static final String GET_ALL_TRAIN_NUMBER = "SELECT * FROM final_project.railway_system.train ORDER BY train_number ASC";
+    private static final String GET_ALL_TRAIN_NUMBER = "SELECT * FROM final_project.railway_system.train ORDER BY train_number";
 
 
     @Override
@@ -37,7 +35,7 @@ public class TrainRepositoryImpl implements TrainRepository {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DBException("", e);
+            throw new DataBaseException("Can`t create train.", e);
         }
 
         return uid;
@@ -53,7 +51,7 @@ public class TrainRepositoryImpl implements TrainRepository {
             train = Optional.of(extract(rs));
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DBException("", e);
+            throw new DataBaseException("Can`t read train. ID = " + id, e);
         }
         return train;
     }
@@ -70,7 +68,7 @@ public class TrainRepositoryImpl implements TrainRepository {
             }
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DBException("Update station " + entity.getTrainId(), e);
+            throw new DataBaseException("Can`t update train. ID = " + entity.getTrainId(), e);
         }
         return result;
     }
@@ -86,23 +84,22 @@ public class TrainRepositoryImpl implements TrainRepository {
             }
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DBException("Delete train " + id, e);
+            throw new DataBaseException("Can`t delete train. ID = " + id, e);
         }
         return result;
     }
 
     private Train extract(ResultSet rs) throws SQLException {
-    Train train = new Train();
-    train.setTrainId(rs.getString("train_id"));
-    train.setTrainNumber(rs.getString("train_number"));
-    return train;
+        Train train = new Train();
+        train.setTrainId(rs.getString("train_id"));
+        train.setTrainNumber(rs.getString("train_number"));
+        return train;
     }
 
     @Override
     public Train getStationById(String trainId) {
         Train train = new Train();
         Connection connection = ConnectionManager.getConnection();
-
         try (PreparedStatement ps = connection.prepareStatement(GET_TRAIN_BY_ID)) {
             ps.setString(1, trainId);
             ResultSet rs = ps.executeQuery();
@@ -111,16 +108,15 @@ public class TrainRepositoryImpl implements TrainRepository {
             }
             connection.commit();
         } catch (SQLException e) {
-            String message = String.format("Can't get train by id. Id = %s", trainId);
-            LOGGER.error(message, e);
-            throw new DataBaseException(message);
+            LOGGER.error(e);
+            throw new DataBaseException("Can't get train by ID. ID = " + trainId, e);
         }
         return train;
     }
 
     @Override
     public List<Train> getAllTrainList() {
-        List<Train> Train = new ArrayList<Train>();
+        List<Train> Train = new ArrayList<>();
         Connection connection = ConnectionManager.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(GET_ALL_TRAIN_NUMBER)) {
             ResultSet rs = ps.executeQuery();
@@ -129,9 +125,8 @@ public class TrainRepositoryImpl implements TrainRepository {
             }
             connection.commit();
         } catch (SQLException e) {
-            String message = String.format("Can't get train");
-            LOGGER.error(message, e);
-            throw new DataBaseException(message);
+            LOGGER.error(e);
+            throw new DataBaseException("Can`t get all train list.", e);
         }
         return Train;
     }

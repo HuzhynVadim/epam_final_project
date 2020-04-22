@@ -1,9 +1,7 @@
 package ua.nure.huzhyn.web.controller;
 
-import org.apache.log4j.Logger;
 import ua.nure.huzhyn.db.dao.dto.CarDto;
 import ua.nure.huzhyn.db.dao.dto.RoutInfoDto;
-import ua.nure.huzhyn.model.entity.Car;
 import ua.nure.huzhyn.model.entity.Order;
 import ua.nure.huzhyn.model.entity.RoutToStationMapping;
 import ua.nure.huzhyn.model.entity.Station;
@@ -30,8 +28,6 @@ import java.util.List;
 
 @WebServlet("/administrator_account")
 public class AdministratorAccountController extends HttpServlet {
-
-    private static final Logger LOGGER = Logger.getLogger(AdministratorAccountController.class);
 
     private OrderService orderService;
     private UserService userService;

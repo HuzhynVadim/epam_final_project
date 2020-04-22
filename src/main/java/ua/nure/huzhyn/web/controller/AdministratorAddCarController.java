@@ -6,7 +6,6 @@ import ua.nure.huzhyn.model.entity.Car;
 import ua.nure.huzhyn.model.entity.Train;
 import ua.nure.huzhyn.model.entity.enums.CarType;
 import ua.nure.huzhyn.services.CarService;
-import ua.nure.huzhyn.services.RoutService;
 import ua.nure.huzhyn.services.TrainService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 import ua.nure.huzhyn.validator.CarValidator;
@@ -18,7 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -26,11 +24,10 @@ import java.util.List;
 @WebServlet("/administrator_add_car")
 public class AdministratorAddCarController extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(AdministratorAddCarController.class);
-    private RoutService routService;
     private CarService carService;
     private TrainService trainService;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         CarValidator carValidator = new CarValidator();
         Car car = new Car();
         try {
@@ -59,7 +56,6 @@ public class AdministratorAddCarController extends HttpServlet {
     }
 
     public void init(ServletConfig config) {
-        routService = (RoutService) config.getServletContext().getAttribute(AppContextConstant.ROUT_SERVICE);
         trainService = (TrainService) config.getServletContext().getAttribute(AppContextConstant.TRAIN_SERVICE);
         carService = (CarService) config.getServletContext().getAttribute(AppContextConstant.CARS_SERVICE);
     }

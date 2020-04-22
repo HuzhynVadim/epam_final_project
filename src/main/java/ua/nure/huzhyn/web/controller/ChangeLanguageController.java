@@ -2,7 +2,6 @@ package ua.nure.huzhyn.web.controller;
 
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +12,7 @@ import java.util.Objects;
 
 @WebServlet("/change_language")
 public class ChangeLanguageController extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         if (!Objects.isNull(request.getParameter("lang"))) {
             if (AppContextConstant.LOCALE_EN.equals(request.getParameter("lang"))) {
@@ -27,9 +26,5 @@ public class ChangeLanguageController extends HttpServlet {
         } else {
             response.sendRedirect(request.getHeader("Referer"));
         }
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }

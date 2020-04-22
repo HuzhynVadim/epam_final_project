@@ -24,7 +24,7 @@ public class AdministratorEditInfoOrderController extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(AdministratorEditInfoOrderController.class);
     private OrderService orderService;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         OrderValidator orderValidator = new OrderValidator();
         Order order = new Order();
         String orderId = request.getParameter("order_id");

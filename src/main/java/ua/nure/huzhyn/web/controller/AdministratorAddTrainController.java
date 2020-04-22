@@ -1,6 +1,5 @@
 package ua.nure.huzhyn.web.controller;
 
-import org.apache.log4j.Logger;
 import ua.nure.huzhyn.model.entity.Train;
 import ua.nure.huzhyn.services.TrainService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
@@ -16,10 +15,9 @@ import java.io.IOException;
 
 @WebServlet("/administrator_add_train")
 public class AdministratorAddTrainController extends HttpServlet {
-    private static final Logger LOGGER = Logger.getLogger(AdministratorAddTrainController.class);
     private TrainService trainService;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         TrainValidator trainValidator = new TrainValidator();
         Train train = new Train();
         train.setTrainNumber(request.getParameter("train_number"));

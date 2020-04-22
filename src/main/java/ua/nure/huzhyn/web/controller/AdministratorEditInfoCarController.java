@@ -6,7 +6,6 @@ import ua.nure.huzhyn.model.entity.Car;
 import ua.nure.huzhyn.model.entity.Train;
 import ua.nure.huzhyn.model.entity.enums.CarType;
 import ua.nure.huzhyn.services.CarService;
-import ua.nure.huzhyn.services.RoutService;
 import ua.nure.huzhyn.services.TrainService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 import ua.nure.huzhyn.validator.CarValidator;
@@ -18,7 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -29,7 +27,7 @@ public class AdministratorEditInfoCarController extends HttpServlet {
     private CarService carService;
     private TrainService trainService;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         CarValidator carValidator = new CarValidator();
         Car car = new Car();
         try {

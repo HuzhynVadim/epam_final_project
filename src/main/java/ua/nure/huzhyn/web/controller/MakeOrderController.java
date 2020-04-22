@@ -10,13 +10,11 @@ import ua.nure.huzhyn.model.entity.Train;
 import ua.nure.huzhyn.model.entity.User;
 import ua.nure.huzhyn.model.entity.enums.CarType;
 import ua.nure.huzhyn.model.entity.enums.OrderStatus;
-import ua.nure.huzhyn.services.CarService;
 import ua.nure.huzhyn.services.OrderService;
 import ua.nure.huzhyn.services.RoutService;
 import ua.nure.huzhyn.services.RoutToStationMappingService;
 import ua.nure.huzhyn.services.StationService;
 import ua.nure.huzhyn.services.TrainService;
-import ua.nure.huzhyn.services.UserService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 import ua.nure.huzhyn.validator.OrderValidator;
 
@@ -39,14 +37,12 @@ public class MakeOrderController extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(MakeOrderController.class);
     private OrderService orderService;
-    private UserService userService;
     private StationService stationService;
     private RoutService routService;
     private TrainService trainService;
-    private CarService carService;
     private RoutToStationMappingService routToStationMappingService;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         OrderValidator orderValidator = new OrderValidator();
         Order order = new Order();
         User user = (User) request.getSession().getAttribute(AppContextConstant.SESSION_USER);
@@ -80,8 +76,6 @@ public class MakeOrderController extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
         String departureStation = request.getParameter("departure_station");
         String arrivalStation = request.getParameter("arrival_station");
         LocalDateTime departureDate = null;
@@ -106,11 +100,9 @@ public class MakeOrderController extends HttpServlet {
     @Override
     public void init(ServletConfig config) {
         orderService = (OrderService) config.getServletContext().getAttribute(AppContextConstant.ORDER_SERVICE);
-        userService = (UserService) config.getServletContext().getAttribute(AppContextConstant.USER_SERVICE);
         stationService = (StationService) config.getServletContext().getAttribute((AppContextConstant.STATION_SERVICE));
         routService = (RoutService) config.getServletContext().getAttribute((AppContextConstant.ROUT_SERVICE));
         routToStationMappingService = (RoutToStationMappingService) config.getServletContext().getAttribute((AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE));
         trainService = (TrainService) config.getServletContext().getAttribute((AppContextConstant.TRAIN_SERVICE));
-        carService = (CarService) config.getServletContext().getAttribute((AppContextConstant.CARS_SERVICE));
     }
 }

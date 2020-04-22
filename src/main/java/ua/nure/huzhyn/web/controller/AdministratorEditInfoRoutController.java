@@ -1,6 +1,5 @@
 package ua.nure.huzhyn.web.controller;
 
-import org.apache.log4j.Logger;
 import ua.nure.huzhyn.db.dao.dto.RoutInfoDto;
 import ua.nure.huzhyn.model.entity.Rout;
 import ua.nure.huzhyn.model.entity.Train;
@@ -20,11 +19,10 @@ import java.util.List;
 
 @WebServlet("/administrator_edit_info_rout")
 public class AdministratorEditInfoRoutController extends HttpServlet {
-    private static final Logger LOGGER = Logger.getLogger(AdministratorEditInfoRoutController.class);
     private RoutService routService;
     private TrainService trainService;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         RoutValidator routValidator = new RoutValidator();
         Rout rout = new Rout();
         rout.setRoutsId(request.getParameter("routs_id"));

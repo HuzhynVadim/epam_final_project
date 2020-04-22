@@ -18,7 +18,6 @@ public class CarServiceImpl implements CarService {
         this.transactionManager = transactionManager;
     }
 
-
     @Override
     public void updateCar(Car car) {
         transactionManager.execute(() -> carRepository.update(car));

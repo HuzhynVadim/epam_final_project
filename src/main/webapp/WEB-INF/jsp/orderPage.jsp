@@ -9,7 +9,6 @@
     <title><fmt:message key="user.makeOrder"/></title>
 </head>
 <body>
-
 <form action="make_order" method="POST">
     <table border="1">
         <tr>

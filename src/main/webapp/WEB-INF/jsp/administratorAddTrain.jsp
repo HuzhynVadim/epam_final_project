@@ -9,6 +9,10 @@
     <title><fmt:message key="admin.addTrain"/></title>
 </head>
 <body>
+<div align="right">
+    <fmt:message key="enterRole"></fmt:message>
+    <mrt:role role="${user.role}"></mrt:role>
+</div>
 <form action="administrator_add_train" method="POST">
     <table border="1">
         <tr>

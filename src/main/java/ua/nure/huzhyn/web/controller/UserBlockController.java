@@ -1,12 +1,10 @@
 package ua.nure.huzhyn.web.controller;
 
 
-import org.apache.log4j.Logger;
 import ua.nure.huzhyn.services.UserService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +13,6 @@ import java.io.IOException;
 
 @WebServlet("/user_block")
 public class UserBlockController extends HttpServlet {
-
-    private static final Logger LOGGER = Logger.getLogger(UserBlockController.class);
 
     private UserService userService;
 
@@ -27,9 +23,8 @@ public class UserBlockController extends HttpServlet {
         response.sendRedirect("administrator_account");
     }
 
-
     @Override
-    public void init(ServletConfig config) throws ServletException {
+    public void init(ServletConfig config) {
         userService = (UserService) config.getServletContext().getAttribute(AppContextConstant.USER_SERVICE);
     }
 }

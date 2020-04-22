@@ -9,7 +9,6 @@ import ua.nure.huzhyn.model.entity.Rout;
 import ua.nure.huzhyn.model.entity.enums.CarType;
 import ua.nure.huzhyn.model.entity.enums.OrderStatus;
 import ua.nure.huzhyn.services.OrderService;
-import ua.nure.huzhyn.services.RoutService;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -31,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void addOrder(Order order, String routsId) {
         order.setPrice(order.getCarType().getPrice().multiply(new BigDecimal(order.getCountOfSeats())));
-        Rout rout = transactionManager.execute(() ->routsRepository.read(routsId).orElseThrow(() -> new IncorrectDataException("")));
+        Rout rout = transactionManager.execute(() -> routsRepository.read(routsId).orElseThrow(() -> new IncorrectDataException("")));
         if (CarType.RESERVED_SEAT == order.getCarType()) {
             int diff = rout.getReservedFreeSeatsCount() - order.getCountOfSeats();
             validateFreeSeats(diff);

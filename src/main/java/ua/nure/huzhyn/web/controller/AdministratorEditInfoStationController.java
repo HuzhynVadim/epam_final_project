@@ -1,7 +1,6 @@
 package ua.nure.huzhyn.web.controller;
 
 
-import org.apache.log4j.Logger;
 import ua.nure.huzhyn.model.entity.Station;
 import ua.nure.huzhyn.services.StationService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
@@ -17,10 +16,9 @@ import java.io.IOException;
 
 @WebServlet("/administrator_edit_info_station")
 public class AdministratorEditInfoStationController extends HttpServlet {
-    private static final Logger LOGGER = Logger.getLogger(AdministratorEditInfoStationController.class);
     private StationService stationService;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         StationValidator stationValidator = new StationValidator();
         Station station = new Station();
         station.setStationId(request.getParameter("station_id"));
