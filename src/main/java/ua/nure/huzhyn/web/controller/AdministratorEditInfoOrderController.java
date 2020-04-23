@@ -28,7 +28,7 @@ public class AdministratorEditInfoOrderController extends HttpServlet {
         OrderValidator orderValidator = new OrderValidator();
         Order order = new Order();
         String orderId = request.getParameter("order_id");
-        OrderStatus status = null;
+        OrderStatus status;
         try {
             status = OrderStatus.valueOf(request.getParameter("order_status"));
         } catch (IllegalArgumentException e) {

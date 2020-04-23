@@ -27,7 +27,7 @@ public class DetailRout extends HttpServlet {
         String routsId = request.getParameter("routs_id");
         String departureStation = request.getParameter("departure_station");
         String arrivalStation = request.getParameter("arrival_station");
-        LocalDateTime departureDate = null;
+        LocalDateTime departureDate;
         try {
             departureDate = LocalDateTime.parse(request.getParameter("departure_date"));
         } catch (DateTimeParseException e) {

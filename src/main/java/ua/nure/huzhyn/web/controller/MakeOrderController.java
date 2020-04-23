@@ -4,17 +4,10 @@ import org.apache.log4j.Logger;
 import ua.nure.huzhyn.db.dao.dto.MappingInfoDto;
 import ua.nure.huzhyn.db.dao.dto.RoutInfoDto;
 import ua.nure.huzhyn.exception.IncorrectDataException;
-import ua.nure.huzhyn.model.entity.Order;
-import ua.nure.huzhyn.model.entity.Station;
-import ua.nure.huzhyn.model.entity.Train;
-import ua.nure.huzhyn.model.entity.User;
+import ua.nure.huzhyn.model.entity.*;
 import ua.nure.huzhyn.model.entity.enums.CarType;
 import ua.nure.huzhyn.model.entity.enums.OrderStatus;
-import ua.nure.huzhyn.services.OrderService;
-import ua.nure.huzhyn.services.RoutService;
-import ua.nure.huzhyn.services.RoutToStationMappingService;
-import ua.nure.huzhyn.services.StationService;
-import ua.nure.huzhyn.services.TrainService;
+import ua.nure.huzhyn.services.*;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 import ua.nure.huzhyn.validator.OrderValidator;
 
@@ -28,9 +21,9 @@ import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @WebServlet("/make_order")
 public class MakeOrderController extends HttpServlet {
@@ -41,6 +34,7 @@ public class MakeOrderController extends HttpServlet {
     private RoutService routService;
     private TrainService trainService;
     private RoutToStationMappingService routToStationMappingService;
+    private CarService carService;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         OrderValidator orderValidator = new OrderValidator();
@@ -78,7 +72,8 @@ public class MakeOrderController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String departureStation = request.getParameter("departure_station");
         String arrivalStation = request.getParameter("arrival_station");
-        LocalDateTime departureDate = null;
+        String trainId = request.getParameter("train_id");
+        LocalDateTime departureDate;
         try {
             departureDate = LocalDateTime.parse(request.getParameter("departure_date"));
         } catch (DateTimeParseException e) {
@@ -91,8 +86,12 @@ public class MakeOrderController extends HttpServlet {
         String routsId = request.getParameter("routs_id");
         List<MappingInfoDto> allRoutToStationMappingListById = routToStationMappingService.getAllRoutToStationMappingListById(routsId);
         request.setAttribute("station_list", allRoutToStationMappingListById);
-        List<CarType> carTypeList = new ArrayList<>(EnumSet.allOf(CarType.class));
-        request.setAttribute("carTypeList", carTypeList);
+        List<Car> allCarList = carService.getCarByTrainId(trainId);
+        Set<CarType> carSet = new HashSet<>();
+        for (Car car : allCarList) {
+            carSet.add(car.getCarType());
+        }
+        request.setAttribute("carTypeList", carSet);
         request.setAttribute("routs_id", routsId);
         request.getRequestDispatcher("WEB-INF/jsp/orderPage.jsp").forward(request, response);
     }
@@ -104,5 +103,6 @@ public class MakeOrderController extends HttpServlet {
         routService = (RoutService) config.getServletContext().getAttribute((AppContextConstant.ROUT_SERVICE));
         routToStationMappingService = (RoutToStationMappingService) config.getServletContext().getAttribute((AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE));
         trainService = (TrainService) config.getServletContext().getAttribute((AppContextConstant.TRAIN_SERVICE));
+        carService = (CarService) config.getServletContext().getAttribute((AppContextConstant.CARS_SERVICE));
     }
 }

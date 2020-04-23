@@ -13,20 +13,20 @@
 <body>
 <table border="1">
     <tr>
-        <th>nameRout</th>
-        <th>numberRout</th>
-        <th>trainNumber</th>
-        <th>dateDispatch</th>
-        <th>travelTime</th>
-        <th>dateArrival</th>
-        <th>countCompartment</th>
-        <th>priceCompartment</th>
-        <th>countReserved</th>
-        <th>priceReserved</th>
-        <th>countCommon</th>
-        <th>cpriceCommon</th>
-        <th>detail</th>
-        <th>order</th>
+        <th><fmt:message key="rout.name"/></th>
+        <th><fmt:message key="rout.number"/></th>
+        <th><fmt:message key="train.number"/></th>
+        <th><fmt:message key="dispatchDate"/></th>
+        <th><fmt:message key="order.travel.time"/></th>
+        <th><fmt:message key="arrivalDate"/></th>
+        <th><fmt:message key="compartment.count"/></th>
+        <th><fmt:message key="price.compartment"/></th>
+        <th><fmt:message key="reserved.count"/></th>
+        <th><fmt:message key="price.reserved"/></th>
+        <th><fmt:message key="common.count"/></th>
+        <th><fmt:message key="price.common"/></th>
+        <th><fmt:message key="details"/></th>
+        <th><fmt:message key="order"/></th>
     </tr>
     <c:forEach items="${rout_list}" var="rout">
         <tr>
@@ -56,6 +56,7 @@
             <td>
                 <form action="make_order" method="GET">
                     <input type="hidden" name="routs_id" value="${rout.routsId}">
+                    <input type="hidden" name="train_id" value="${rout.trainId}">
                     <input type="hidden" name="departure_station" value="${departure_station}">
                     <input type="hidden" name="arrival_station" value="${arrival_station}">
                     <input type="hidden" name="departure_date" value="${departure_date}">
