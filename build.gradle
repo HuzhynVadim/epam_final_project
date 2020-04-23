@@ -14,17 +14,14 @@ repositories {
 
 dependencies {
 
-    // https://mvnrepository.com/artifact/org.postgresql/postgresql
     compile group: 'org.postgresql', name: 'postgresql', version: '42.2.10'
 
     compile group: 'javax.servlet', name: 'jstl', version: '1.2'
 
-    // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
     compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
 
     providedCompile group: 'javax.servlet.jsp', name: 'jsp-api', version: '2.0'
 
-    // https://mvnrepository.com/artifact/log4j/log4j
     compile group: 'log4j', name: 'log4j', version: '1.2.17'
 
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
@@ -33,9 +30,7 @@ dependencies {
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
-    // https://mvnrepository.com/artifact/org.mockito/mockito-core
     testCompile group: 'org.mockito', name: 'mockito-core', version: '2.19.0'
 
-    // https://mvnrepository.com/artifact/org.mockito/mockito-all
     testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
 }

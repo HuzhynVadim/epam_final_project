@@ -41,7 +41,7 @@ public class RoutsRepositoryImpl implements RoutsRepository {
             "         JOIN final_project.railway_system.rout_to_station_mapping as rm on rm.routs_id = r.routs_id\n" +
             "         JOIN final_project.railway_system.station as s on rm.station_id = s.station_id\n" +
             "WHERE station IN (?, ?)\n" +
-            "ORDER BY r.rout_name";
+            "ORDER BY station_dispatch_data, r.rout_name , r.rout_number";
     private static final String UPDATE_ROUT = "UPDATE final_project.railway_system.rout SET rout_name = ?, rout_number = ?, train_id = ?, common_free_seats_count = ?, compartment_free_seats_count = ?, reserved_free_seats_count = ? WHERE routs_id = ?";
 
 
