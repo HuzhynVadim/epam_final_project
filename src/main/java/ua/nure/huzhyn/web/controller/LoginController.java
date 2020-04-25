@@ -27,9 +27,9 @@ public class LoginController extends HttpServlet {
         try {
             String login = request.getParameter("login");
             String password = request.getParameter("password");
+            loginValidator.isValid(login, password);
             User user = userService.isValidUser(login, password);
             HttpSession session = request.getSession();
-            loginValidator.isValid(login, password);
             if (user != (null)) {
                 session.setAttribute(AppContextConstant.SESSION_USER, user);
                 response.sendRedirect("home");

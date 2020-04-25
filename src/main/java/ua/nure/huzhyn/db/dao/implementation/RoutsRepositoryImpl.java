@@ -118,50 +118,66 @@ public class RoutsRepositoryImpl implements RoutsRepository {
         return result;
     }
 
-    private Rout extract(ResultSet resultSet) throws SQLException {
-        if (!resultSet.next()) {
-            return null;
-        }
+    private Rout extract(ResultSet resultSet) {
         Rout rout = new Rout();
-        rout.setRoutsId(resultSet.getString("routs_id"));
-        rout.setTrainId(resultSet.getString("train_id"));
-        rout.setRoutName(resultSet.getString("rout_name"));
-        rout.setRoutNumber(resultSet.getString("rout_number"));
-        rout.setCommonFreeSeatsCount(resultSet.getInt("common_free_seats_count"));
-        rout.setCompartmentFreeSeatsCount(resultSet.getInt("compartment_free_seats_count"));
-        rout.setReservedFreeSeatsCount(resultSet.getInt("reserved_free_seats_count"));
+        try {
+            if (!resultSet.next()) {
+                return null;
+            }
+            rout.setRoutsId(resultSet.getString("routs_id"));
+            rout.setTrainId(resultSet.getString("train_id"));
+            rout.setRoutName(resultSet.getString("rout_name"));
+            rout.setRoutNumber(resultSet.getString("rout_number"));
+            rout.setCommonFreeSeatsCount(resultSet.getInt("common_free_seats_count"));
+            rout.setCompartmentFreeSeatsCount(resultSet.getInt("compartment_free_seats_count"));
+            rout.setReservedFreeSeatsCount(resultSet.getInt("reserved_free_seats_count"));
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DataBaseException("Can`t extract Rout.", e);
+
+        }
         return rout;
     }
 
-    private RoutInfoDto extractRoutInfo(ResultSet resultSet) throws SQLException {
+    private RoutInfoDto extractRoutInfo(ResultSet resultSet) {
         RoutInfoDto result = new RoutInfoDto();
-        result.setRoutsId(resultSet.getString("routs_id"));
-        result.setTrainId(resultSet.getString("train_id"));
-        result.setTrainNumber(resultSet.getString("train_number"));
-        result.setRoutName(resultSet.getString("rout_name"));
-        result.setRoutNumber(resultSet.getString("rout_number"));
-        result.setCommonFreeSeatsCount(resultSet.getInt("common_free_seats_count"));
-        result.setCompartmentFreeSeatsCount(resultSet.getInt("compartment_free_seats_count"));
-        result.setReservedFreeSeatsCount(resultSet.getInt("reserved_free_seats_count"));
+        try {
+            result.setRoutsId(resultSet.getString("routs_id"));
+            result.setTrainId(resultSet.getString("train_id"));
+            result.setTrainNumber(resultSet.getString("train_number"));
+            result.setRoutName(resultSet.getString("rout_name"));
+            result.setRoutNumber(resultSet.getString("rout_number"));
+            result.setCommonFreeSeatsCount(resultSet.getInt("common_free_seats_count"));
+            result.setCompartmentFreeSeatsCount(resultSet.getInt("compartment_free_seats_count"));
+            result.setReservedFreeSeatsCount(resultSet.getInt("reserved_free_seats_count"));
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DataBaseException("Can`t extract RoutInfoDto.", e);
+        }
         return result;
     }
 
-    private StationDto extractStationDto(ResultSet resultSet) throws SQLException {
+    private StationDto extractStationDto(ResultSet resultSet) {
         StationDto result = new StationDto();
-        result.setStationId(resultSet.getString("station_id"));
-        result.setStation(resultSet.getString("station"));
-        result.setOrder(Integer.parseInt(resultSet.getString("order")));
-        result.setStationArrivalDate(resultSet.getObject("station_arrival_date", LocalDateTime.class));
-        result.setStationDispatchData(resultSet.getObject("station_dispatch_data", LocalDateTime.class));
-        result.setRoutName(resultSet.getString("rout_name"));
-        result.setRoutNumber(resultSet.getString("rout_number"));
-        result.setRoutsId(resultSet.getString("routs_id"));
-        result.setTrainId(resultSet.getString("train_id"));
-        result.setTrainNumber(resultSet.getString("train_number"));
-        result.setCommonFreeSeatsCount(resultSet.getInt("common_free_seats_count"));
-        result.setCompartmentFreeSeatsCount(resultSet.getInt("compartment_free_seats_count"));
-        result.setReservedFreeSeatsCount(resultSet.getInt("reserved_free_seats_count"));
-        return result;
+        try {
+            result.setStationId(resultSet.getString("station_id"));
+            result.setStation(resultSet.getString("station"));
+            result.setOrder(Integer.parseInt(resultSet.getString("order")));
+            result.setStationArrivalDate(resultSet.getObject("station_arrival_date", LocalDateTime.class));
+            result.setStationDispatchData(resultSet.getObject("station_dispatch_data", LocalDateTime.class));
+            result.setRoutName(resultSet.getString("rout_name"));
+            result.setRoutNumber(resultSet.getString("rout_number"));
+            result.setRoutsId(resultSet.getString("routs_id"));
+            result.setTrainId(resultSet.getString("train_id"));
+            result.setTrainNumber(resultSet.getString("train_number"));
+            result.setCommonFreeSeatsCount(resultSet.getInt("common_free_seats_count"));
+            result.setCompartmentFreeSeatsCount(resultSet.getInt("compartment_free_seats_count"));
+            result.setReservedFreeSeatsCount(resultSet.getInt("reserved_free_seats_count"));
+            return result;
+        } catch (SQLException | NumberFormatException e) {
+            LOGGER.error(e);
+            throw new DataBaseException("Can`t extract StationDto.", e);
+        }
     }
 
     @Override

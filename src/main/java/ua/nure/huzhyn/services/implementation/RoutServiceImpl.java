@@ -12,11 +12,7 @@ import ua.nure.huzhyn.services.CarService;
 import ua.nure.huzhyn.services.RoutService;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class RoutServiceImpl implements RoutService {
     private CarService carService;
@@ -138,7 +134,7 @@ public class RoutServiceImpl implements RoutService {
         int commonFreeSeatsCount = 0;
         int compartmentFreeSeatsCount = 0;
         int reservedFreeSeatsCount = 0;
-        for(Car car : carService.getCarByTrainId(rout.getTrainId())) {
+        for (Car car : carService.getCarByTrainId(rout.getTrainId())) {
             if (CarType.COMMON.equals(car.getCarType())) {
                 commonFreeSeatsCount += car.getSeats();
             }

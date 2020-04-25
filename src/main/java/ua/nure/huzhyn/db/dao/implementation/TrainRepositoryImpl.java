@@ -28,7 +28,6 @@ public class TrainRepositoryImpl implements TrainRepository {
     public String create(Train entity) {
         Connection connection = ConnectionManager.getConnection();
         String uid = UUID.randomUUID().toString();
-
         try (PreparedStatement preparedStatement = connection.prepareStatement(ADD_TRAIN)) {
             preparedStatement.setString(1, uid);
             preparedStatement.setString(2, entity.getTrainNumber());
@@ -89,10 +88,15 @@ public class TrainRepositoryImpl implements TrainRepository {
         return result;
     }
 
-    private Train extract(ResultSet rs) throws SQLException {
+    private Train extract(ResultSet rs) {
         Train train = new Train();
-        train.setTrainId(rs.getString("train_id"));
-        train.setTrainNumber(rs.getString("train_number"));
+        try {
+            train.setTrainId(rs.getString("train_id"));
+            train.setTrainNumber(rs.getString("train_number"));
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DataBaseException("Can`t extract train.", e);
+        }
         return train;
     }
 

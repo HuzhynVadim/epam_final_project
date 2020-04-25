@@ -51,7 +51,6 @@ public class OrderRepositoryImpl implements OrderRepository {
             LOGGER.error(e);
             throw new DataBaseException("Can't create order.", e);
         }
-
         return uid;
     }
 
@@ -99,21 +98,26 @@ public class OrderRepositoryImpl implements OrderRepository {
         return result;
     }
 
-    private Order extract(ResultSet rs) throws SQLException {
+    private Order extract(ResultSet rs) {
         Order order = new Order();
-        order.setOrderId(rs.getString("order_id"));
-        order.setTrainNumber(rs.getString("train_number"));
-        order.setCarType(CarType.valueOf(rs.getString("car_type")));
-        order.setPrice(rs.getBigDecimal("price"));
-        order.setArrivalDate(rs.getObject("arrival_date", LocalDateTime.class));
-        order.setDispatchDate(rs.getObject("dispatch_date", LocalDateTime.class));
-        order.setUser(DbUtils.extract(rs));
-        order.setOrderDate(rs.getObject("order_date", LocalDateTime.class));
-        order.setOrderStatus(OrderStatus.valueOf(rs.getString("order_status")));
-        order.setCountOfSeats(rs.getInt("count_of_seats"));
-        order.setArrivalStation(rs.getString("arrival_station"));
-        order.setDispatchStation(rs.getString("dispatch_station"));
-        order.setTravelTime(rs.getString("travel_time"));
+        try {
+            order.setOrderId(rs.getString("order_id"));
+            order.setTrainNumber(rs.getString("train_number"));
+            order.setCarType(CarType.valueOf(rs.getString("car_type")));
+            order.setPrice(rs.getBigDecimal("price"));
+            order.setArrivalDate(rs.getObject("arrival_date", LocalDateTime.class));
+            order.setDispatchDate(rs.getObject("dispatch_date", LocalDateTime.class));
+            order.setUser(DbUtils.extract(rs));
+            order.setOrderDate(rs.getObject("order_date", LocalDateTime.class));
+            order.setOrderStatus(OrderStatus.valueOf(rs.getString("order_status")));
+            order.setCountOfSeats(rs.getInt("count_of_seats"));
+            order.setArrivalStation(rs.getString("arrival_station"));
+            order.setDispatchStation(rs.getString("dispatch_station"));
+            order.setTravelTime(rs.getString("travel_time"));
+        } catch (SQLException | IllegalArgumentException e) {
+            LOGGER.error(e);
+            throw new DataBaseException("Can`t extract order.", e);
+        }
         return order;
     }
 

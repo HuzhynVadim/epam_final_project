@@ -96,13 +96,18 @@ public class RoutToStationMappingRepositoryImpl implements RoutToStationMappingR
         return result;
     }
 
-    private RoutToStationMapping extract(ResultSet resultSet) throws SQLException {
+    private RoutToStationMapping extract(ResultSet resultSet) {
         RoutToStationMapping routToStationMapping = new RoutToStationMapping();
-        routToStationMapping.setStationId(resultSet.getString("station_id"));
-        routToStationMapping.setRoutsId(resultSet.getString("routs_id"));
-        routToStationMapping.setStationArrivalDate(resultSet.getObject("station_arrival_date", LocalDateTime.class));
-        routToStationMapping.setStationDispatchData(resultSet.getObject("station_dispatch_data", LocalDateTime.class));
-        routToStationMapping.setOrder(resultSet.getInt("order"));
+        try {
+            routToStationMapping.setStationId(resultSet.getString("station_id"));
+            routToStationMapping.setRoutsId(resultSet.getString("routs_id"));
+            routToStationMapping.setStationArrivalDate(resultSet.getObject("station_arrival_date", LocalDateTime.class));
+            routToStationMapping.setStationDispatchData(resultSet.getObject("station_dispatch_data", LocalDateTime.class));
+            routToStationMapping.setOrder(resultSet.getInt("order"));
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DataBaseException("Can`t extract RoutToStationMapping.", e);
+        }
         return routToStationMapping;
     }
 
@@ -159,14 +164,19 @@ public class RoutToStationMappingRepositoryImpl implements RoutToStationMappingR
         return routs;
     }
 
-    private MappingInfoDto extractStationInfo(ResultSet resultSet) throws SQLException {
+    private MappingInfoDto extractStationInfo(ResultSet resultSet) {
         MappingInfoDto result = new MappingInfoDto();
-        result.setStationId(resultSet.getString("station_id"));
-        result.setRoutsId(resultSet.getString("routs_id"));
-        result.setStationArrivalDate(resultSet.getObject("station_arrival_date", LocalDateTime.class));
-        result.setStationDispatchData(resultSet.getObject("station_dispatch_data", LocalDateTime.class));
-        result.setStation(resultSet.getString("station"));
-        result.setOrder(resultSet.getInt("order"));
+        try {
+            result.setStationId(resultSet.getString("station_id"));
+            result.setRoutsId(resultSet.getString("routs_id"));
+            result.setStationArrivalDate(resultSet.getObject("station_arrival_date", LocalDateTime.class));
+            result.setStationDispatchData(resultSet.getObject("station_dispatch_data", LocalDateTime.class));
+            result.setStation(resultSet.getString("station"));
+            result.setOrder(resultSet.getInt("order"));
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DataBaseException("Can`t extract MappingInfoDto.", e);
+        }
         return result;
     }
 }

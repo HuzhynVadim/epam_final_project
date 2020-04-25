@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class StationRepositoryImpl implements StationRepository {
     private static final Logger LOGGER = Logger.getLogger(StationRepositoryImpl.class);
-    private static final String ADD_STATION = "INSERT INTO final_project.railway_system.station (station_id, station) VALUES (?,?)";
+    private static final String ADD_STATION = "INSERT INTO final_project.railway_system.station as s (station_id, station) VALUES (?,?)";
     private static final String GET_STATION_BY_ID = "SELECT * FROM final_project.railway_system.station WHERE station_id = ?";
     private static final String DELETE_STATION = "DELETE FROM final_project.railway_system.station WHERE  station_id = ?";
     private static final String UPDATE_STATION = "UPDATE final_project.railway_system.station SET station = ? WHERE station_id = ?";
@@ -35,7 +35,6 @@ public class StationRepositoryImpl implements StationRepository {
             LOGGER.error(e);
             throw new DataBaseException("Can`t create station.", e);
         }
-
         return uid;
     }
 
@@ -69,7 +68,6 @@ public class StationRepositoryImpl implements StationRepository {
             throw new DataBaseException("Can`t update station. ID = " + entity.getStationId(), e);
         }
         return result;
-
     }
 
     @Override
@@ -88,10 +86,15 @@ public class StationRepositoryImpl implements StationRepository {
         return result;
     }
 
-    private Station extract(ResultSet rs) throws SQLException {
+    private Station extract(ResultSet rs) {
         Station station = new Station();
-        station.setStationId(rs.getString("station_id"));
-        station.setStation(rs.getString("station"));
+        try {
+            station.setStationId(rs.getString("station_id"));
+            station.setStation(rs.getString("station"));
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DataBaseException("Can`t extract station.", e);
+        }
         return station;
     }
 
@@ -116,7 +119,6 @@ public class StationRepositoryImpl implements StationRepository {
     public Station getStationById(String stationId) {
         Station station = new Station();
         Connection connection = ConnectionManager.getConnection();
-
         try (PreparedStatement ps = connection.prepareStatement(GET_STATION_BY_ID)) {
             ps.setString(1, stationId);
             ResultSet rs = ps.executeQuery();

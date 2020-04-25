@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.DateTimeException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -50,18 +51,23 @@ public class MakeOrderController extends HttpServlet {
         MappingInfoDto arrivalMapping = routToStationMappingService.getMappingInfo(routsId, arrivalStation.getStationId());
         MappingInfoDto dispatchMapping = routToStationMappingService.getMappingInfo(routsId, dispatchStation.getStationId());
         order.setTrainNumber(train.getTrainNumber());
-        order.setCarType(CarType.valueOf(request.getParameter("car_type")));
+        try {
+            order.setCarType(CarType.valueOf(request.getParameter("car_type")));
+            order.setCountOfSeats(Integer.parseInt(request.getParameter("count_of_seats")));
+            Duration duration = Duration.between(arrivalMapping.getStationArrivalDate(), dispatchMapping.getStationDispatchData());
+            order.setTravelTime(String.format("Days: %s Hours: %s Minutes: %s", duration.toDays(),
+                    duration.toHours() % 24, duration.toMinutes() % 60));
+        } catch (IllegalArgumentException | ArithmeticException | DateTimeException e) {
+            LOGGER.error(e);
+            throw new IncorrectDataException("Incorrect data entered", e);
+        }
         order.setArrivalDate(arrivalMapping.getStationArrivalDate());
         order.setDispatchDate(dispatchMapping.getStationDispatchData());
         order.setUser(user);
         order.setOrderDate(LocalDateTime.now());
         order.setOrderStatus(OrderStatus.ORDER_PROCESSING);
-        order.setCountOfSeats(Integer.parseInt(request.getParameter("count_of_seats")));
         order.setArrivalStation(dispatchStation.getStation());
         order.setDispatchStation(arrivalStation.getStation());
-        Duration duration = Duration.between(arrivalMapping.getStationArrivalDate(), dispatchMapping.getStationDispatchData());
-        order.setTravelTime(String.format("Days: %s Hours: %s Minutes: %s", duration.toDays(),
-                duration.toHours() % 24, duration.toMinutes() % 60));
         orderValidator.isValidOrder(order);
         orderService.addOrder(order, routsId);
         String userId = user.getUserId();

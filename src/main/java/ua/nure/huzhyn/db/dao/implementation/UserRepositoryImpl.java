@@ -57,7 +57,7 @@ public class UserRepositoryImpl implements UserRepository {
             preparedStatement.setString(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             user = Optional.of(DbUtils.extract(rs));
-        } catch (SQLException e) {
+        } catch (SQLException | NullPointerException e) {
             LOGGER.error(e);
             throw new DataBaseException("Can`t read user. ID = " + id, e);
         }
@@ -125,7 +125,6 @@ public class UserRepositoryImpl implements UserRepository {
     public User getByEmail(String email) {
         User user = new User();
         Connection connection = ConnectionManager.getConnection();
-
         try (PreparedStatement ps = connection.prepareStatement(GET_USER_BY_EMAIL)) {
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();

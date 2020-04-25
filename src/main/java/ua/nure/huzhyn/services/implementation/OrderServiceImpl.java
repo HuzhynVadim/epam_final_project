@@ -1,7 +1,9 @@
 package ua.nure.huzhyn.services.implementation;
 
+import org.apache.log4j.Logger;
 import ua.nure.huzhyn.db.dao.OrderRepository;
 import ua.nure.huzhyn.db.dao.RoutsRepository;
+import ua.nure.huzhyn.db.dao.implementation.OrderRepositoryImpl;
 import ua.nure.huzhyn.db.dao.transaction.TransactionManager;
 import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.model.entity.Order;
@@ -14,11 +16,10 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
-
+    private static final Logger LOGGER = Logger.getLogger(OrderServiceImpl.class);
     private OrderRepository orderRepository;
     private RoutsRepository routsRepository;
     private TransactionManager transactionManager;
-
 
     public OrderServiceImpl(OrderRepository orderRepository, TransactionManager transactionManager, RoutsRepository routsRepository) {
         this.orderRepository = orderRepository;
@@ -26,11 +27,16 @@ public class OrderServiceImpl implements OrderService {
         this.routsRepository = routsRepository;
     }
 
-
     @Override
     public void addOrder(Order order, String routsId) {
+        OrderRepository orderRepository = new OrderRepositoryImpl();
+
         order.setPrice(order.getCarType().getPrice().multiply(new BigDecimal(order.getCountOfSeats())));
-        Rout rout = transactionManager.execute(() -> routsRepository.read(routsId).orElseThrow(() -> new IncorrectDataException("")));
+        Rout rout = transactionManager.execute(() -> routsRepository.read(routsId).orElseThrow(() -> {
+            IncorrectDataException e = new IncorrectDataException("Сan`t create an order because can't find the route");
+            LOGGER.error(e);
+            return e;
+        }));
         if (CarType.RESERVED_SEAT == order.getCarType()) {
             int diff = rout.getReservedFreeSeatsCount() - order.getCountOfSeats();
             validateFreeSeats(diff);
@@ -56,7 +62,9 @@ public class OrderServiceImpl implements OrderService {
 
     private void validateFreeSeats(int freeSeatsCount) {
         if (freeSeatsCount < 0) {
-            throw new IncorrectDataException("");
+            IncorrectDataException e = new IncorrectDataException("Can`t create an order because no free places");
+            LOGGER.error(e);
+            throw e;
         }
     }
 

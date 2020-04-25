@@ -31,13 +31,12 @@ public class AdministratorAddCarController extends HttpServlet {
         CarValidator carValidator = new CarValidator();
         Car car = new Car();
         try {
-
             car.setCarType(CarType.valueOf(request.getParameter("car_type")));
             car.setCarNumber(request.getParameter("car_number"));
             car.setSeats(Integer.valueOf(request.getParameter("seats")));
             String trainId = request.getParameter("train_id");
             car.setTrainId(trainId.equals("TRAIN_NOT_SELECTED") ? null : trainId);
-            carValidator.isValidRout(car);
+            carValidator.isValidCar(car);
             carService.addCar(car);
         } catch (IllegalArgumentException e) {
             LOGGER.error("Incorrect data entered");

@@ -6,6 +6,7 @@ import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.model.entity.enums.CarType;
 import ua.nure.huzhyn.services.RoutService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
+import ua.nure.huzhyn.validator.SearchValidator;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -27,6 +28,7 @@ public class selectionOfTheRouteForOrderingController extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        SearchValidator searchValidator = new SearchValidator();
         String departureStation = request.getParameter("departure_station");
         String arrivalStation = request.getParameter("arrival_station");
         LocalDateTime departureDate;
@@ -36,8 +38,8 @@ public class selectionOfTheRouteForOrderingController extends HttpServlet {
             LOGGER.error("Incorrect data entered");
             throw new IncorrectDataException("Incorrect data entered", e);
         }
-
         List<CarType> carTypeList = new ArrayList<>(EnumSet.allOf(CarType.class));
+        searchValidator.isValidSearch(departureStation,arrivalStation);
         request.setAttribute("carTypeList", carTypeList);
         List<RoutsOrderDto> routList = routService.getRouteListWithParameters(departureStation, arrivalStation, departureDate);
         request.setAttribute("rout_list", routList);

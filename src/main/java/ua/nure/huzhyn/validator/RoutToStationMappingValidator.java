@@ -1,5 +1,6 @@
 package ua.nure.huzhyn.validator;
 
+import org.apache.log4j.Logger;
 import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.model.entity.RoutToStationMapping;
 
@@ -10,7 +11,7 @@ import java.util.Objects;
 import static java.util.stream.Collectors.joining;
 
 public class RoutToStationMappingValidator {
-
+    private static final Logger LOGGER = Logger.getLogger(RoutToStationMappingValidator.class);
     private static final String STATION_ARRIVAL_DATE = "^(19|20)\\d\\d-(0[1-9]|1[012])-([012]\\d|3[01])T([01]\\d|2[0-3]):([0-5]\\d)$";
     private static final String STATION_DISPATCH_DATA = "^(19|20)\\d\\d-(0[1-9]|1[012])-([012]\\d|3[01])T([01]\\d|2[0-3]):([0-5]\\d)$";
     private static final String STATION_ORDER = "[0-9]+$";
@@ -31,10 +32,11 @@ public class RoutToStationMappingValidator {
 
         if (!errors.isEmpty()) {
             String message = errors.entrySet().stream()
-                    .map(entry -> entry.getKey() + ". Entered data: " + entry.getValue())
-                    .collect(joining("\n"));
-
-            throw new IncorrectDataException(message);
+                    .map(entry -> entry.getKey() + ". Entered data:&nbsp;" + entry.getValue() + ";")
+                    .collect(joining("<br/>\n"));
+            IncorrectDataException e = new IncorrectDataException(message);
+            LOGGER.error(e);
+            throw e;
         }
     }
 }

@@ -93,24 +93,34 @@ public class CarRepositoryImpl implements CarRepository {
         return result;
     }
 
-    private Car extract(ResultSet resultSet) throws SQLException {
+    private Car extract(ResultSet resultSet) {
         Car car = new Car();
-        car.setCarId(resultSet.getString("car_id"));
-        car.setCarType(CarType.valueOf(resultSet.getString("car_type")));
-        car.setCarNumber(resultSet.getString("car_number"));
-        car.setTrainId(resultSet.getString("train_id"));
-        car.setSeats(resultSet.getInt("seats"));
+        try {
+            car.setCarId(resultSet.getString("car_id"));
+            car.setCarType(CarType.valueOf(resultSet.getString("car_type")));
+            car.setCarNumber(resultSet.getString("car_number"));
+            car.setTrainId(resultSet.getString("train_id"));
+            car.setSeats(resultSet.getInt("seats"));
+        } catch (IllegalArgumentException | SQLException e) {
+            LOGGER.error(e);
+            throw new DataBaseException("Can`t extract car", e);
+        }
         return car;
     }
 
-    private CarDto extractCarDto(ResultSet resultSet) throws SQLException {
+    private CarDto extractCarDto(ResultSet resultSet) {
         CarDto car = new CarDto();
-        car.setCarId(resultSet.getString("car_id"));
-        car.setCarType(CarType.valueOf(resultSet.getString("car_type")));
-        car.setCarNumber(resultSet.getString("car_number"));
-        car.setTrainId(resultSet.getString("train_id"));
-        car.setSeats(resultSet.getInt("seats"));
-        car.setTrainNumber(resultSet.getString("train_number"));
+        try {
+            car.setCarId(resultSet.getString("car_id"));
+            car.setCarType(CarType.valueOf(resultSet.getString("car_type")));
+            car.setCarNumber(resultSet.getString("car_number"));
+            car.setTrainId(resultSet.getString("train_id"));
+            car.setSeats(resultSet.getInt("seats"));
+            car.setTrainNumber(resultSet.getString("train_number"));
+        } catch (IllegalArgumentException | SQLException e) {
+            LOGGER.error(e);
+            throw new DataBaseException("Can`t extract CarDto", e);
+        }
         return car;
     }
 

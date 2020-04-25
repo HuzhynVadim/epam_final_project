@@ -1,6 +1,7 @@
 package ua.nure.huzhyn.validator;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.model.entity.Car;
 
@@ -10,27 +11,21 @@ import java.util.Map;
 import static java.util.stream.Collectors.joining;
 
 public class CarValidator {
-
-
+    private static final Logger LOGGER = Logger.getLogger(CarValidator.class);
     private static final String CAR_NUMBER = "[0-9]+$";
-    private static final String SEATS = "[0-9]+$";
 
-
-    public void isValidRout(Car car) {
+    public void isValidCar(Car car) {
         Map<String, String> errors = new HashMap<>();
-        if (StringUtils.isBlank(car.getCarNumber()) && !ValidatorUtils.isMatch(CAR_NUMBER, car.getCarNumber())) {
+        if (StringUtils.isBlank(car.getCarNumber()) || !ValidatorUtils.isMatch(CAR_NUMBER, car.getCarNumber())) {
             errors.put("Incorrect format, type something like \"123\"", car.getCarNumber());
         }
-        if (StringUtils.isBlank(String.valueOf(car.getSeats())) && !ValidatorUtils.isMatch(SEATS, String.valueOf(car.getSeats()))) {
-            errors.put("Incorrect format, type something like \"123\"", String.valueOf(car.getSeats()));
-        }
-
         if (!errors.isEmpty()) {
             String message = errors.entrySet().stream()
-                    .map(entry -> entry.getKey() + ". Entered data: " + entry.getValue())
-                    .collect(joining("\n"));
-
-            throw new IncorrectDataException(message);
+                    .map(entry -> entry.getKey() + ". Entered data:&nbsp;" + entry.getValue() + ";")
+                    .collect(joining("<br/>\n"));
+            IncorrectDataException e = new IncorrectDataException(message);
+            LOGGER.error(e);
+            throw e;
         }
     }
 }

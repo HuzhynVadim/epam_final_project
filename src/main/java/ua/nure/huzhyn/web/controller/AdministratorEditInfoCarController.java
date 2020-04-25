@@ -37,7 +37,7 @@ public class AdministratorEditInfoCarController extends HttpServlet {
             car.setSeats(Integer.valueOf(request.getParameter("seats")));
             String trainId = request.getParameter("train_id");
             car.setTrainId(trainId.equals("TRAIN_NOT_SELECTED") ? null : trainId);
-            carValidator.isValidRout(car);
+            carValidator.isValidCar(car);
             carService.updateCar(car);
         } catch (IllegalArgumentException e) {
             LOGGER.error("Incorrect data entered");
