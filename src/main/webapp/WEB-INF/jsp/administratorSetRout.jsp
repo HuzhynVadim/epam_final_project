@@ -14,6 +14,7 @@
 <form action="administrator_set_rout_mapping" method="POST">
     <table border="1">
         <tr>
+
             <th><fmt:message key="order"/></th>
             <th><fmt:message key="station.name"/></th>
             <th><fmt:message key="arrivalDate"/></th>
