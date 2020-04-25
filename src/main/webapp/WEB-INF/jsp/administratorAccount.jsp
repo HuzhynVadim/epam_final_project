@@ -8,19 +8,53 @@
 <html>
 <head>
     <title><fmt:message key="admin.account"/></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f5f5f5;
+        }
+
+        table {
+            table-layout: fixed;
+            width: auto;
+            height: auto;
+            text-align: center;
+        }
+
+        tr {
+            width: auto;
+            height: auto;
+            text-align: center;
+
+        }
+
+        td {
+            width: auto;
+            text-align: center;
+
+        }
+    </style>
 </head>
 <body>
-<div align="right">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<div class="h5" align="right">
     <fmt:message key="enterRole"></fmt:message>
     <mrt:role role="${user.role}"></mrt:role>
 </div>
-<center>
-    <fmt:message key="account"></fmt:message>
-</center>
-<p>
+<p class="h4">
     <h12><fmt:message key="admin.rout.information"/></h12>
 </p>
-<table border="1">
+<table class="table table-bordered table-hover text-center" border="1" style="width: auto">
+    <thead class="thead-light text-center">
     <tr>
         <th><fmt:message key="rout.name"/></th>
         <th><fmt:message key="rout.number"/></th>
@@ -29,6 +63,8 @@
         <th><fmt:message key="admin.editInformation"/></th>
         <th><fmt:message key="delete"/></th>
     </tr>
+    </thead>
+    <tbody class="text-center">
     <c:forEach items="${rout_list}" var="rout">
         <tr>
             <td>${rout.routName}</td>
@@ -37,63 +73,71 @@
             <td>
                 <form action="administrator_details_set_rout" method="GET">
                     <input type="hidden" name="routs_id" value="${rout.routsId}">
-                    <input type="submit" name="details" value="<fmt:message key="admin.details"/>">
+                    <input type="submit" class="btn btn-info" name="details" value="<fmt:message key="admin.details"/>">
                 </form>
             </td>
             <td>
                 <form action="administrator_edit_info_rout" method="GET">
                     <input type="hidden" name="routs_id" value="${rout.routsId}">
-                    <input type="submit" name="edit_info_rout" value="<fmt:message key="admin.editInformation"/>">
+                    <input type="submit" class="btn btn-info" name="edit_info_rout"
+                           value="<fmt:message key="admin.editInformation"/>">
                 </form>
             </td>
             <td>
                 <form action="rout_delete" method="POST">
                     <input type="hidden" name="routs_id" value="${rout.routsId}">
-                    <input type="submit" name="remove_rout" value="<fmt:message key="admin.remove"/>">
+                    <input type="submit" class="btn btn-danger" name="remove_rout"
+                           value="<fmt:message key="admin.remove"/>">
                 </form>
             </td>
         </tr>
     </c:forEach>
+    </tbody>
 </table>
 <form action="administrator_add_rout" method="GET">
-    <input type="submit" name="add_rout" value="<fmt:message key="admin.addRout"/>">
+    <input type="submit" class="btn btn-success" name="add_rout" value="<fmt:message key="admin.addRout"/>">
 </form>
-<p>
+<p class="h4">
     <h12><fmt:message key="admin.station.information"/></h12>
 </p>
-<table border="1">
+<table class="table table-bordered table-hover" border="1" style="width: auto">
+    <thead class="thead-light">
     <tr>
         <th><fmt:message key="station"/></th>
         <th><fmt:message key="edit"/></th>
         <th><fmt:message key="delete"/></th>
     </tr>
+    </thead>
+    <tbody>
     <c:forEach items="${station_list}" var="station">
         <tr>
             <td>${station.station}</td>
             <td>
                 <form action="administrator_edit_info_station" method="GET">
                     <input type="hidden" name="station" value="${station.stationId}">
-                    <input type="submit" name="edit_info_station" value="<fmt:message key="admin.editInformation"/>">
+                    <input type="submit" class="btn btn-info" name="edit_info_station"
+                           value="<fmt:message key="admin.editInformation"/>">
                 </form>
             </td>
             <td>
                 <form action="station_delete" method="POST">
                     <input type="hidden" name="station" value="${station.stationId}">
-                    <input type="submit" name="remove_station" value="<fmt:message key="admin.remove"/>">
+                    <input type="submit" class="btn btn-danger" name="remove_station"
+                           value="<fmt:message key="admin.remove"/>">
                 </form>
             </td>
         </tr>
     </c:forEach>
+    </tbody>
 </table>
 <form action="administrator_add_station" method="GET">
-    <input type="submit" name="add_station" value="<fmt:message key="admin.addStation"/>">
+    <input type="submit" class="btn btn-success" name="add_station" value="<fmt:message key="admin.addStation"/>">
 </form>
-
-
-<p>
+<p class="h4">
     <h12><fmt:message key="admin.car.information"/></h12>
 </p>
-<table border="1">
+<table class="table table-bordered table-hover" border="1" style="width: auto">
+    <thead class="thead-light">
     <tr>
         <th><fmt:message key="train.number"/></th>
         <th><fmt:message key="car.type"/></th>
@@ -103,6 +147,8 @@
         <th><fmt:message key="edit"/></th>
         <th><fmt:message key="delete"/></th>
     </tr>
+    </thead>
+    <tbody>
     <c:forEach items="${car_list}" var="car">
         <tr>
             <td>${car.trainNumber}</td>
@@ -113,57 +159,65 @@
             <td>
                 <form action="administrator_edit_info_car" method="GET">
                     <input type="hidden" name="car_id" value="${car.carId}">
-                    <input type="submit" name="edit_info_car" value="<fmt:message key="admin.editInformation"/>">
+                    <input type="submit" class="btn btn-info" name="edit_info_car"
+                           value="<fmt:message key="admin.editInformation"/>">
                 </form>
             </td>
             <td>
                 <form action="car_delete" method="POST">
                     <input type="hidden" name="car_id" value="${car.carId}">
-                    <input type="submit" name="remove_car" value="<fmt:message key="admin.remove"/>">
+                    <input type="submit" class="btn btn-danger" name="remove_car"
+                           value="<fmt:message key="admin.remove"/>">
                 </form>
             </td>
         </tr>
     </c:forEach>
+    </tbody>
 </table>
 <form action="administrator_add_car" method="GET">
-    <input type="submit" name="add_car" value="<fmt:message key="admin.addCar"/>">
+    <input type="submit" class="btn btn-success" name="add_car" value="<fmt:message key="admin.addCar"/>">
 </form>
-
-
-<p>
+<p class="h4">
     <h12><fmt:message key="admin.train.information"/></h12>
 </p>
-<table border="1">
+<table class="table table-bordered table-hover" border="1" style="width: auto">
+    <thead class="thead-light">
     <tr>
         <th><fmt:message key="train.number"/></th>
         <th><fmt:message key="edit"/></th>
         <th><fmt:message key="delete"/></th>
     </tr>
+    </thead>
+    <tbody>
     <c:forEach items="${train_list}" var="train">
         <tr>
             <td>${train.trainNumber}</td>
             <td>
                 <form action="administrator_edit_info_train" method="GET">
                     <input type="hidden" name="train_id" value="${train.trainId}">
-                    <input type="submit" name="edit_info_train" value="<fmt:message key="admin.editInformation"/>">
+                    <input type="submit" class="btn btn-info" name="edit_info_train"
+                           value="<fmt:message key="admin.editInformation"/>">
                 </form>
             </td>
             <td>
                 <form action="train_delete" method="POST">
                     <input type="hidden" name="train_id" value="${train.trainId}">
-                    <input type="submit" name="remove_train" value="<fmt:message key="admin.remove"/>">
+                    <input type="submit" class="btn btn-danger" name="remove_train"
+                           value="<fmt:message key="admin.remove"/>">
                 </form>
             </td>
         </tr>
     </c:forEach>
+    </tbody>
 </table>
 <form action="administrator_add_train" method="GET">
-    <input type="submit" name="add_train" value="<fmt:message key="admin.addTrain"/>">
+    <input type="submit" class="btn btn-success" name="add_train" value="<fmt:message key="admin.addTrain"/>">
 </form>
-<p>
+<p class="h4">
     <h12><fmt:message key="admin.order.information"/></h12>
 </p>
-<table border="1">
+<table class="table table-bordered table-hover text-center" border="1" style="width: auto">
+    <thead class="thead-light text-center">
     <tr>
         <th><fmt:message key="order.user.information"/></th>
         <th><fmt:message key="order.train.number"/></th>
@@ -179,6 +233,8 @@
         <th><fmt:message key="order.status"/></th>
         <th><fmt:message key="admin.editInformation"/></th>
     </tr>
+    </thead>
+    <tbody class="text-center">
     <c:forEach items="${order_list}" var="order">
         <tr>
             <td>${order.user.firstName} ${order.user.lastName}</td>
@@ -196,18 +252,20 @@
             <td>
                 <form action="administrator_edit_info_order" method="GET">
                     <input type="hidden" name="order_id" value="${order.orderId}">
-                    <input type="submit" name="edit_info_order" value="<fmt:message key="admin.editInformation"/>">
+                    <input type="submit" class="btn btn-info" name="edit_info_order"
+                           value="<fmt:message key="admin.editInformation"/>">
                 </form>
             </td>
         </tr>
     </c:forEach>
+    </tbody>
 </table>
-<p>
+<p class="h4">
     <h12><fmt:message key="admin.user.information"/></h12>
 </p>
-<table border="1">
+<table class="table table-bordered table-hover" border="1" style="width: auto">
+    <thead class="thead-light">
     <tr>
-
         <th><fmt:message key="user.email"/></th>
         <th><fmt:message key="user.first_name"/></th>
         <th><fmt:message key="user.last_name"/></th>
@@ -216,6 +274,8 @@
         <th><fmt:message key="admin.blockStatus"/></th>
         <th><fmt:message key="admin.block"/></th>
     </tr>
+    </thead>
+    <tbody>
     <c:forEach items="${user_list}" var="user">
 
         <tr>
@@ -231,24 +291,27 @@
                         <form action="user_block" method="POST">
                             <input type="hidden" name="user_id" value="${user.userId}">
                             <input type="hidden" name="block_status" value="true">
-                            <input type="submit" name="block" value="<fmt:message key="admin.block"/>">
+                            <input type="submit" class="btn btn-warning" name="block"
+                                   value="<fmt:message key="admin.block"/>">
                         </form>
                     </c:when>
                     <c:when test="${user.blocked == true}">
                         <form action="user_block" method="POST">
                             <input type="hidden" name="user_id" value="${user.userId}">
                             <input type="hidden" name="block_status" value="false">
-                            <input type="submit" name="block" value="<fmt:message key="admin.unblock"/>">
+                            <input type="submit" class="btn btn-warning" name="block"
+                                   value="<fmt:message key="admin.unblock"/>">
                         </form>
                     </c:when>
                 </c:choose>
             </td>
         </tr>
     </c:forEach>
+    </tbody>
 </table>
 <p>
 <form action="home" method="GET">
-    <input type="submit" value="<fmt:message key="back"/>">
+    <input type="submit" class="btn btn-primary" value="<fmt:message key="back"/>">
 </form>
 </p>
 </body>

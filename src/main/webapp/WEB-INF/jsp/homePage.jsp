@@ -22,24 +22,18 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-<form>
-    <div align="right">
-        <fmt:message key="enterRole"></fmt:message>
-        <mrt:role role="${user.role}"></mrt:role>
-    </div>
-</form>
 <div class="form-home">
     <form action="selection_of_the_route_for_ordering" method="GET">
         <div class="form-group">
-            <label for="exampleInputRoutFrom"><fmt:message key="rout.from"/></label>
+            <label class="h5" for="exampleInputRoutFrom"> <fmt:message key="rout.from"/></label>
             <input name="departure_station" type="text" class="form-control" id="exampleInputRoutFrom">
         </div>
         <div class="form-group">
-            <label for="exampleInputRoutTo"><fmt:message key="rout.to"/></label>
+            <label class="h5" for="exampleInputRoutTo"><fmt:message key="rout.to"/></label>
             <input name="arrival_station" type="text" class="form-control" id="exampleInputRoutTo">
         </div>
         <div class="form-group">
-            <label for="exampleInputRoutWhen"><fmt:message key="rout.to"/></label>
+            <label class="h5" for="exampleInputRoutWhen"><fmt:message key="rout.to"/></label>
             <input name="departure_date" type="datetime-local" class="form-control" id="exampleInputRoutWhen">
         </div>
         <div>
