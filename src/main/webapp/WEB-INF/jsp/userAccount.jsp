@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="mrt" %>
 
+
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="lang"/>
 <html>
@@ -37,6 +38,7 @@
     </style>
 </head>
 <body>
+<mrt:nav/>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
@@ -88,8 +90,9 @@
             <td>${order.orderDate}</td>
             <td>${order.orderStatus}</td>
             <td>
-                <form action="cancel" method="GET">
+                <form action="cancel_order" method="POST">
                     <input type="hidden" name="order_id" value="${order.orderId}">
+                    <input type="hidden" name="user_id" value="${user_id}">
                     <input type="submit" class="btn btn-info" name="edit_info_order"
                            value="<fmt:message key="submit"/>">
                 </form>

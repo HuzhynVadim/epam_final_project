@@ -13,6 +13,7 @@
     <link href="css/home.css" rel="stylesheet">
 </head>
 <body class="text-center">
+<mrt:nav/>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
@@ -22,7 +23,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-<div class="form-home">
+<div class="form-home form-ere">
     <form action="selection_of_the_route_for_ordering" method="GET">
         <div class="form-group">
             <label class="h5" for="exampleInputRoutFrom"> <fmt:message key="rout.from"/></label>
@@ -47,6 +48,11 @@
                 <input type="hidden" name="user_id" value="${user.userId}">
                 <input class="btn btn-primary btn-block text-down" type="submit" name="account"
                        value="<fmt:message key="admin.account"/>">
+            </form>
+            <form action="user_account" method="GET">
+                <input type="hidden" name="user_id" value="${user.userId}">
+                <input class="btn btn-primary btn-block text-down" type="submit" name="account"
+                       value="<fmt:message key="user.account"/>">
             </form>
         </c:when>
         <c:when test="${role == 'USER'}">

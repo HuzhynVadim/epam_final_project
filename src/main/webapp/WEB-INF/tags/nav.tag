@@ -3,12 +3,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="lang"/>
-<%@ attribute name="role" required="true" %>
 <c:choose>
-    <c:when test="${\"ADMIN\" == role}">
-        <span class="w3-tag w3-red"><fmt:message key="admin"/></span>
+    <c:when test="${\"USER\" == sessionScope.user.role}">
+        <%@include file="../views/user_nav.jspf" %>
     </c:when>
-    <c:when test="${\"USER\" == role}">
-        <span class="w3-tag w3-lime"><fmt:message key="user"/></span>
+    <c:when test="${\"ADMIN\" == sessionScope.user.role}">
+        <%@include file="../views/admin_nav.jspf" %>
     </c:when>
 </c:choose>
