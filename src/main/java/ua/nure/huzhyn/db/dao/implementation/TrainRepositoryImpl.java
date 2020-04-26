@@ -83,7 +83,7 @@ public class TrainRepositoryImpl implements TrainRepository {
             }
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DataBaseException("Can`t delete train. ID = " + id, e);
+            throw new DataBaseException("Can`t delete train because he is on the route. ID = " + id, e);
         }
         return result;
     }

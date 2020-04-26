@@ -6,5 +6,7 @@ public enum OrderStatus {
 
     ORDER_PROCESSING,
 
-    ORDER_ACCEPTED
+    ORDER_ACCEPTED,
+
+    ORDER_CANCELLED
 }
