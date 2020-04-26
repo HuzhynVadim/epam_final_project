@@ -8,6 +8,7 @@ import ua.nure.huzhyn.util.constants.AppContextConstant;
 import ua.nure.huzhyn.validator.LoginValidator;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +39,11 @@ public class LoginController extends HttpServlet {
             LOGGER.error("Incorrect data entered");
             throw new IncorrectDataException("Incorrect data entered");
         }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doGet(req, resp);
     }
 
     @Override

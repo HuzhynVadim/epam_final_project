@@ -57,8 +57,8 @@
             </form>
         </c:when>
     </c:choose>
-    <form action="login.jsp">
-        <input class="btn btn-primary btn-block text-down" type="submit" value="<fmt:message key="back"/>">
+    <form action="logout" method="POST">
+        <input class="btn btn-primary btn-block text-down" type="submit" value="<fmt:message key="logout"/>">
     </form>
 </div>
 </body>
