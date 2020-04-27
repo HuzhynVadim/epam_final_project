@@ -47,7 +47,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-<div class="h5" align="right">
+<div class="h5" align="right" id="1">
     <fmt:message key="enterRole"></fmt:message>
     <mrt:role role="${user.role}"></mrt:role>
 </div>
@@ -98,7 +98,7 @@
 <form action="administrator_add_rout" method="GET">
     <input type="submit" class="btn btn-success" name="add_rout" value="<fmt:message key="admin.addRout"/>">
 </form>
-<p class="h4">
+<p class="h4" id="2">
     <h12><fmt:message key="admin.station.information"/></h12>
 </p>
 <table class="table table-bordered table-hover" border="1" style="width: auto">
@@ -134,7 +134,7 @@
 <form action="administrator_add_station" method="GET">
     <input type="submit" class="btn btn-success" name="add_station" value="<fmt:message key="admin.addStation"/>">
 </form>
-<p class="h4">
+<p class="h4" id="3">
     <h12><fmt:message key="admin.car.information"/></h12>
 </p>
 <table class="table table-bordered table-hover" border="1" style="width: auto">
@@ -178,7 +178,7 @@
 <form action="administrator_add_car" method="GET">
     <input type="submit" class="btn btn-success" name="add_car" value="<fmt:message key="admin.addCar"/>">
 </form>
-<p class="h4">
+<p class="h4" id="4">
     <h12><fmt:message key="admin.train.information"/></h12>
 </p>
 <table class="table table-bordered table-hover" border="1" style="width: auto">
@@ -214,7 +214,7 @@
 <form action="administrator_add_train" method="GET">
     <input type="submit" class="btn btn-success" name="add_train" value="<fmt:message key="admin.addTrain"/>">
 </form>
-<p class="h4">
+<p class="h4" id="5">
     <h12><fmt:message key="admin.order.information"/></h12>
 </p>
 <table class="table table-bordered table-hover text-center" border="1" style="width: auto">
@@ -261,7 +261,7 @@
     </c:forEach>
     </tbody>
 </table>
-<p class="h4">
+<p class="h4" id="6">
     <h12><fmt:message key="admin.user.information"/></h12>
 </p>
 <table class="table table-bordered table-hover" border="1" style="width: auto">
