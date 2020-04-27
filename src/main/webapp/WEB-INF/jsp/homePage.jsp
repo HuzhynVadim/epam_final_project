@@ -23,6 +23,10 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+<div class="h5" align="right">
+    <fmt:message key="enterRole"></fmt:message>
+    <mrt:role role="${user.role}"></mrt:role>
+</div>
 <div class="form-home form-ere">
     <form action="selection_of_the_route_for_ordering" method="GET">
         <div class="form-group">
@@ -38,33 +42,10 @@
             <input name="departure_date" type="datetime-local" class="form-control" id="exampleInputRoutWhen">
         </div>
         <div>
+            <input type="hidden" name="user_id" value="${user.userId}">
             <input class="btn btn-primary btn-block text-down" type="submit" name="route_search"
                    value="<fmt:message key="rout.search"/>">
         </div>
-    </form>
-    <c:choose>
-        <c:when test="${role == 'ADMIN'}">
-            <form action="administrator_account" method="GET">
-                <input type="hidden" name="user_id" value="${user.userId}">
-                <input class="btn btn-primary btn-block text-down" type="submit" name="account"
-                       value="<fmt:message key="admin.account"/>">
-            </form>
-            <form action="user_account" method="GET">
-                <input type="hidden" name="user_id" value="${user.userId}">
-                <input class="btn btn-primary btn-block text-down" type="submit" name="account"
-                       value="<fmt:message key="user.account"/>">
-            </form>
-        </c:when>
-        <c:when test="${role == 'USER'}">
-            <form action="user_account" method="GET">
-                <input type="hidden" name="user_id" value="${user.userId}">
-                <input class="btn btn-primary btn-block text-down" type="submit" name="account"
-                       value="<fmt:message key="user.account"/>">
-            </form>
-        </c:when>
-    </c:choose>
-    <form action="logout" method="POST">
-        <input class="btn btn-primary btn-block text-down" type="submit" value="<fmt:message key="logout"/>">
     </form>
 </div>
 </body>

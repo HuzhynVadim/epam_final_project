@@ -5,7 +5,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="css/home.css" rel="stylesheet">
+    <link href="css/nav.css" rel="stylesheet">
 </head>
 <body>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -27,31 +27,37 @@
             aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <li class="collapse navbar-collapse" id="navbarTogglerDemo02">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+    <div class="collapse navbar-collapse my-auto" id="navbarTogglerDemo02">
+        <ul class="nav navbar-nav mr-auto">
+            <li class="nav-item active my-0 my-lg-0">
                 <a class="btn btn-secondary"
                    href="http://localhost:8080/Gradle___Huzhyn_Vadim___epam_final_project_1_0_SNAPSHOT_war/home"><fmt:message
                         key="homepage"/></a>
-            </li>
-            <form class="form-inline my-2 my-lg-0">
-            <form action="user_account" method="GET">
-                <input type="hidden" name="user_id" value="${user.userId}">
-                <input class="btn btn-secondary btn-block text-down" type="submit" name="account"
-                       value="<fmt:message key="user.account"/>">
-            </form>
-            <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                <form action="change_language" method="POST">
-                    <input type="submit" class="btn btn-secondary" name="lang" value="en">
-                    <input type="submit" class="btn btn-secondary" name="lang" value="ru">
+            <li class="nav-item active my-0 my-lg-0">
+                <form class="form-inline mx-2 my-lg-0" action="user_account" method="GET">
+                    <input type="hidden" name="user_id" value="${user.userId}">
+                    <input class="btn btn-secondary btn-block text-down" type="submit" name="account"
+                           value="<fmt:message key="user.account"/>">
                 </form>
-            </div>
-            <form action="logout" method="POST">
-                <input class="btn btn-secondary" type="submit" value="<fmt:message key="logout"/>">
-            </form>
-            </form>
+            </li>
+            <li class="nav-item active my-0 my-lg-0">
+                <form class="form-inline mx-0 my-lg-0" action="administrator_account" method="GET">
+                    <input type="hidden" name="user_id" value="${user.userId}">
+                    <input class="btn btn-secondary btn-block text-down" type="submit" name="account"
+                           value="<fmt:message key="admin.account"/>">
+                </form>
+            </li>
         </ul>
-    </li>
+        <div class="btn-group btn-group-sm mx-2" role="group" aria-label="Basic example">
+            <form class="form-inline my-2 my-lg-0" action="change_language" method="POST">
+                <input type="submit" class="btn btn-secondary mx-1" name="lang" value="en">
+                <input type="submit" class="btn btn-secondary" name="lang" value="ru">
+            </form>
+        </div>
+        <form class="form-inline my-2 my-lg-0" action="logout" method="POST">
+            <input class="btn btn-secondary my-2 my-lg-0" type="submit" value="<fmt:message key="logout"/>">
+        </form>
+    </div>
 </nav>
 </body>
 </html>

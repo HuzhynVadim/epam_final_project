@@ -48,6 +48,10 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+<div class="h5" align="right">
+    <fmt:message key="enterRole"></fmt:message>
+    <mrt:role role="${user.role}"></mrt:role>
+</div>
 <table class="table table-bordered table-hover text-center" border="1" style="width: auto">
     <thead class="thead-light text-center">
     <tr>
@@ -60,13 +64,13 @@
     </thead>
     <tbody>
     <c:forEach items="${rout_m_list}" var="item">
-    <tr>
-        <td>${item.order}</td>
-        <td>${item.station}</td>
-        <td>${item.stationArrivalDate}</td>
-        <td>${item.stationDispatchData}</td>
-        <td><period:period dateFrom="${item.stationArrivalDate}" dateTo="${item.stationDispatchData}"/></td>
-    </tr>
+        <tr>
+            <td>${item.order}</td>
+            <td>${item.station}</td>
+            <td>${item.stationArrivalDate}</td>
+            <td>${item.stationDispatchData}</td>
+            <td><period:period dateFrom="${item.stationArrivalDate}" dateTo="${item.stationDispatchData}"/></td>
+        </tr>
     </c:forEach>
     </tbody>
 </table>
