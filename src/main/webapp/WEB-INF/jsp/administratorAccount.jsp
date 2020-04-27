@@ -12,6 +12,7 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <style>
         body {
+            width: 100%;
             background-color: #f5f5f5;
         }
 
@@ -47,9 +48,13 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-<div class="h5" align="right" id="1">
+<div id="1"/>
+<div class="h5" align="right">
     <fmt:message key="enterRole"></fmt:message>
     <mrt:role role="${user.role}"></mrt:role>
+</div>
+<div class="h2" style="text-align: center;">
+    <fmt:message key="admin.account"></fmt:message>
 </div>
 <p class="h4">
     <h12><fmt:message key="admin.rout.information"/></h12>
@@ -95,10 +100,10 @@
     </c:forEach>
     </tbody>
 </table>
-<form action="administrator_add_rout" method="GET">
+<form action="administrator_add_rout" method="GET" id="2">
     <input type="submit" class="btn btn-success" name="add_rout" value="<fmt:message key="admin.addRout"/>">
 </form>
-<p class="h4" id="2">
+<p class="h4">
     <h12><fmt:message key="admin.station.information"/></h12>
 </p>
 <table class="table table-bordered table-hover" border="1" style="width: auto">
@@ -131,10 +136,10 @@
     </c:forEach>
     </tbody>
 </table>
-<form action="administrator_add_station" method="GET">
+<form action="administrator_add_station" method="GET" id="3">
     <input type="submit" class="btn btn-success" name="add_station" value="<fmt:message key="admin.addStation"/>">
 </form>
-<p class="h4" id="3">
+<p class="h4">
     <h12><fmt:message key="admin.car.information"/></h12>
 </p>
 <table class="table table-bordered table-hover" border="1" style="width: auto">
@@ -175,10 +180,10 @@
     </c:forEach>
     </tbody>
 </table>
-<form action="administrator_add_car" method="GET">
+<form action="administrator_add_car" method="GET" id="4">
     <input type="submit" class="btn btn-success" name="add_car" value="<fmt:message key="admin.addCar"/>">
 </form>
-<p class="h4" id="4">
+<p class="h4">
     <h12><fmt:message key="admin.train.information"/></h12>
 </p>
 <table class="table table-bordered table-hover" border="1" style="width: auto">
@@ -211,57 +216,10 @@
     </c:forEach>
     </tbody>
 </table>
-<form action="administrator_add_train" method="GET">
+<form action="administrator_add_train" method="GET" id="5">
     <input type="submit" class="btn btn-success" name="add_train" value="<fmt:message key="admin.addTrain"/>">
 </form>
-<p class="h4" id="5">
-    <h12><fmt:message key="admin.order.information"/></h12>
-</p>
-<table class="table table-bordered table-hover text-center" border="1" style="width: auto">
-    <thead class="thead-light text-center">
-    <tr>
-        <th><fmt:message key="order.user.information"/></th>
-        <th><fmt:message key="order.train.number"/></th>
-        <th><fmt:message key="order.car.type"/></th>
-        <th><fmt:message key="order.price"/></th>
-        <th><fmt:message key="order.arrival.station"/></th>
-        <th><fmt:message key="order.arrival.date"/></th>
-        <th><fmt:message key="order.travel.time"/></th>
-        <th><fmt:message key="order.dispatch.station"/></th>
-        <th><fmt:message key="order.dispatch.date"/></th>
-        <th><fmt:message key="order.count.of.seats"/></th>
-        <th><fmt:message key="order.date"/></th>
-        <th><fmt:message key="order.status"/></th>
-        <th><fmt:message key="admin.editInformation"/></th>
-    </tr>
-    </thead>
-    <tbody class="text-center">
-    <c:forEach items="${order_list}" var="order">
-        <tr>
-            <td>${order.user.firstName} ${order.user.lastName}</td>
-            <td>${order.trainNumber}</td>
-            <td>${order.carType}</td>
-            <td>${order.price}</td>
-            <td>${order.arrivalStation}</td>
-            <td>${order.arrivalDate}</td>
-            <td>${order.travelTime}</td>
-            <td>${order.dispatchStation}</td>
-            <td>${order.dispatchDate}</td>
-            <td>${order.countOfSeats}</td>
-            <td>${order.orderDate}</td>
-            <td>${order.orderStatus}</td>
-            <td>
-                <form action="administrator_edit_info_order" method="GET">
-                    <input type="hidden" name="order_id" value="${order.orderId}">
-                    <input type="submit" class="btn btn-info" name="edit_info_order"
-                           value="<fmt:message key="admin.editInformation"/>">
-                </form>
-            </td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
-<p class="h4" id="6">
+<p class="h4">
     <h12><fmt:message key="admin.user.information"/></h12>
 </p>
 <table class="table table-bordered table-hover" border="1" style="width: auto">
@@ -305,6 +263,53 @@
                         </form>
                     </c:when>
                 </c:choose>
+            </td>
+        </tr>
+    </c:forEach>
+    </tbody>
+</table>
+<p class="h4" id="6">
+    <h12><fmt:message key="admin.order.information"/></h12>
+</p>
+<table class="table table-bordered table-hover text-center" border="1" style="width: auto">
+    <thead class="thead-light text-center">
+    <tr>
+        <th><fmt:message key="order.user.information"/></th>
+        <th><fmt:message key="order.train.number"/></th>
+        <th><fmt:message key="order.car.type"/></th>
+        <th><fmt:message key="order.price"/></th>
+        <th><fmt:message key="order.arrival.station"/></th>
+        <th><fmt:message key="order.arrival.date"/></th>
+        <th><fmt:message key="order.travel.time"/></th>
+        <th><fmt:message key="order.dispatch.station"/></th>
+        <th><fmt:message key="order.dispatch.date"/></th>
+        <th><fmt:message key="order.count.of.seats"/></th>
+        <th><fmt:message key="order.date"/></th>
+        <th><fmt:message key="order.status"/></th>
+        <th><fmt:message key="admin.editInformation"/></th>
+    </tr>
+    </thead>
+    <tbody class="text-center">
+    <c:forEach items="${order_list}" var="order">
+        <tr>
+            <td>${order.user.firstName} ${order.user.lastName}</td>
+            <td>${order.trainNumber}</td>
+            <td>${order.carType}</td>
+            <td>${order.price}</td>
+            <td>${order.arrivalStation}</td>
+            <td>${order.arrivalDate}</td>
+            <td>${order.travelTime}</td>
+            <td>${order.dispatchStation}</td>
+            <td>${order.dispatchDate}</td>
+            <td>${order.countOfSeats}</td>
+            <td>${order.orderDate}</td>
+            <td>${order.orderStatus}</td>
+            <td>
+                <form action="administrator_edit_info_order" method="GET">
+                    <input type="hidden" name="order_id" value="${order.orderId}">
+                    <input type="submit" class="btn btn-info" name="edit_info_order"
+                           value="<fmt:message key="admin.editInformation"/>">
+                </form>
             </td>
         </tr>
     </c:forEach>
