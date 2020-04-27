@@ -13,7 +13,7 @@
     <link href="css/home.css" rel="stylesheet">
 </head>
 <body class="text-center">
-<mrt:nav/>
+<mrt:navigation/>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
