@@ -26,7 +26,7 @@
         <form action="login" method="POST">
             <img class="mb-4" src="https://image.flaticon.com/icons/svg/1974/1974098.svg" alt="" width="72"
                  height="72">
-            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="user.signin"/></h1>
             <label for="inputEmail" class="sr-only"><fmt:message key="user.email"/></label>
             <input name="login" id="inputEmail" class="form-control" placeholder="<fmt:message key="user.email"/>"
                    type="email" size="20">
