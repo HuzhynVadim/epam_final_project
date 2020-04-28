@@ -50,13 +50,16 @@ public class SecurityFilter implements Filter {
         adminAvailableEndpoints.add("/administrator_edit_info_station");
         adminAvailableEndpoints.add("/administrator_edit_info_train");
         adminAvailableEndpoints.add("/administrator_set_rout_mapping");
+        adminAvailableEndpoints.add("/cancel_order");
         adminAvailableEndpoints.add("/car_delete");
         adminAvailableEndpoints.add("/detail_rout");
         adminAvailableEndpoints.add("/home");
-        adminAvailableEndpoints.add("/make_order");
+        adminAvailableEndpoints.add("/logout");
         adminAvailableEndpoints.add("/rout_delete");
         adminAvailableEndpoints.add("/remove_rout_mapping");
-        adminAvailableEndpoints.add("/selection_of_the_route_for_ordering");
+        adminAvailableEndpoints.add("/search_rout_for_order");
+        adminAvailableEndpoints.add("/select_cars_and_seats_for_order");
+        adminAvailableEndpoints.add("/select_station_and_car_type_for_order");
         adminAvailableEndpoints.add("/station_delete");
         adminAvailableEndpoints.add("/train_delete");
         adminAvailableEndpoints.add("/user_account");
@@ -67,10 +70,10 @@ public class SecurityFilter implements Filter {
         Set<String> userAvailableEndpoints = new HashSet<>();
         userAvailableEndpoints.add("/home");
         userAvailableEndpoints.add("/user_account");
-        userAvailableEndpoints.add("/selection_of_the_route_for_ordering");
+        userAvailableEndpoints.add("/search_rout_for_order");
+        userAvailableEndpoints.add("/select_cars_and_seats_for_order");
+        userAvailableEndpoints.add("/select_station_and_car_type_for_order");
         userAvailableEndpoints.add("/detail_rout");
-        userAvailableEndpoints.add("/make_order");
-
 
         accessMap.put(UserRole.USER, userAvailableEndpoints);
 

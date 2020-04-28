@@ -18,8 +18,8 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @WebServlet("/detail_rout")
-public class DetailRout extends HttpServlet {
-    private static final Logger LOGGER = Logger.getLogger(DetailRout.class);
+public class DetailRoutController extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(DetailRoutController.class);
 
     private RoutMappingService routMappingService;
 

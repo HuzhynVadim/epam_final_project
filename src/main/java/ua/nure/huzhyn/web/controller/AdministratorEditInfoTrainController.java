@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/administrator_edit_info_train")
-public class AdministratorEditInfoTrain extends HttpServlet {
+public class AdministratorEditInfoTrainController extends HttpServlet {
     private TrainService trainService;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

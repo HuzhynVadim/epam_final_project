@@ -22,8 +22,8 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @WebServlet("/administrator_edit_info_details_set_rout")
-public class AdministratorEditInfoDetailsSetRout extends HttpServlet {
-    private static final Logger LOGGER = Logger.getLogger(AdministratorEditInfoDetailsSetRout.class);
+public class AdministratorEditInfoDetailsSetRoutController extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(AdministratorEditInfoDetailsSetRoutController.class);
     private RoutMappingService routMappingService;
     private StationService stationService;
 
