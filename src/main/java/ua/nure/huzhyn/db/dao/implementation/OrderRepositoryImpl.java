@@ -21,7 +21,7 @@ import java.util.UUID;
 
 public class OrderRepositoryImpl implements OrderRepository {
     private static final Logger LOGGER = Logger.getLogger(OrderRepositoryImpl.class);
-    private static final String ADD_ORDER = "INSERT INTO final_project.railway_system.order (order_id, train_number, car_type, price, arrival_date, dispatch_date, user_id, order_date, order_status, count_of_seats, arrival_station, dispatch_station, travel_time) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String ADD_ORDER = "INSERT INTO final_project.railway_system.order (order_id, train_number, car_type, price, arrival_date, dispatch_date, user_id, order_date, order_status, count_of_seats, arrival_station, dispatch_station, travel_time, routs_id, car_number) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String GET_ORDER_BY_ID = "SELECT * FROM final_project.railway_system.order as o JOIN final_project.railway_system.user as u on o.user_id = u.user_id WHERE order_id = ?";
     private static final String UPDATE_ORDER = "UPDATE final_project.railway_system.order as o SET order_status = ? FROM final_project.railway_system.user as u WHERE o.user_id = u.user_id AND order_id = ?";
     private static final String GET_ALL_ORDER = "SELECT * FROM final_project.railway_system.order as o JOIN final_project.railway_system.user as u on o.user_id = u.user_id";
@@ -46,6 +46,8 @@ public class OrderRepositoryImpl implements OrderRepository {
             preparedStatement.setString(11, entity.getArrivalStation());
             preparedStatement.setString(12, entity.getDispatchStation());
             preparedStatement.setString(13, entity.getTravelTime());
+            preparedStatement.setString(14, entity.getRoutsId());
+            preparedStatement.setString(15, entity.getCarNumber());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -114,6 +116,8 @@ public class OrderRepositoryImpl implements OrderRepository {
             order.setArrivalStation(rs.getString("arrival_station"));
             order.setDispatchStation(rs.getString("dispatch_station"));
             order.setTravelTime(rs.getString("travel_time"));
+            order.setRoutsId(rs.getString("routs_id"));
+            order.setCarNumber(rs.getString("car_number"));
         } catch (SQLException | IllegalArgumentException e) {
             LOGGER.error(e);
             throw new DataBaseException("Can`t extract order.", e);

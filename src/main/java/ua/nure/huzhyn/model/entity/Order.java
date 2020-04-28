@@ -22,6 +22,24 @@ public class Order {
     private String arrivalStation;
     private String dispatchStation;
     private String travelTime;
+    private String routsId;
+    private String carNumber;
+
+    public String getCarNumber() {
+        return carNumber;
+    }
+
+    public void setCarNumber(String carNumber) {
+        this.carNumber = carNumber;
+    }
+
+    public String getRoutsId() {
+        return routsId;
+    }
+
+    public void setRoutsId(String routsId) {
+        this.routsId = routsId;
+    }
 
     public String getTravelTime() {
         return travelTime;

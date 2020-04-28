@@ -8,5 +8,5 @@ public enum OrderStatus {
 
     ORDER_ACCEPTED,
 
-    ORDER_CANCELLED
+    ORDER_CANCELED
 }

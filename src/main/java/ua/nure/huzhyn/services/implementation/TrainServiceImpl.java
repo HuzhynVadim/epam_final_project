@@ -48,4 +48,9 @@ public class TrainServiceImpl implements TrainService {
             return null;
         });
     }
+
+    @Override
+    public Train getTrainId(String trainNumber) {
+        return transactionManager.execute(() -> trainRepository.getTrainId(trainNumber));
+    }
 }

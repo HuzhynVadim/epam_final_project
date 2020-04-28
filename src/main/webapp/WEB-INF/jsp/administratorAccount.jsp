@@ -277,13 +277,15 @@
         <th><fmt:message key="order.user.information"/></th>
         <th><fmt:message key="order.train.number"/></th>
         <th><fmt:message key="order.car.type"/></th>
+        <th><fmt:message key="order.car.number"/></th>
+        <th><fmt:message key="order.count.of.seats"/></th>
+        <th><fmt:message key="order.seats.number"/></th>
         <th><fmt:message key="order.price"/></th>
-        <th><fmt:message key="order.arrival.station"/></th>
-        <th><fmt:message key="order.arrival.date"/></th>
-        <th><fmt:message key="order.travel.time"/></th>
         <th><fmt:message key="order.dispatch.station"/></th>
         <th><fmt:message key="order.dispatch.date"/></th>
-        <th><fmt:message key="order.count.of.seats"/></th>
+        <th><fmt:message key="order.travel.time"/></th>
+        <th><fmt:message key="order.arrival.station"/></th>
+        <th><fmt:message key="order.arrival.date"/></th>
         <th><fmt:message key="order.date"/></th>
         <th><fmt:message key="order.status"/></th>
         <th><fmt:message key="admin.editInformation"/></th>
@@ -295,13 +297,16 @@
             <td>${order.user.firstName} ${order.user.lastName}</td>
             <td>${order.trainNumber}</td>
             <td>${order.carType}</td>
+            <td>${order.carNumber}</td>
+            <td>${order.countOfSeats}</td>
+<%--            <td>${order.seatsNumber}</td>--%>
+            <td></td>
             <td>${order.price}</td>
-            <td>${order.arrivalStation}</td>
+            <td>${order.dispatchStation}</td>
             <td>${order.arrivalDate}</td>
             <td>${order.travelTime}</td>
-            <td>${order.dispatchStation}</td>
+            <td>${order.arrivalStation}</td>
             <td>${order.dispatchDate}</td>
-            <td>${order.countOfSeats}</td>
             <td>${order.orderDate}</td>
             <td>${order.orderStatus}</td>
             <td>

@@ -15,4 +15,7 @@ public interface TrainService {
     void updateTrain(Train train);
 
     Train getTrainById(String trainId);
+
+    Train getTrainId(String trainNumber);
 }
+

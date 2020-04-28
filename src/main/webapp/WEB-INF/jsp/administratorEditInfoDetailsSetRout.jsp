@@ -78,7 +78,6 @@
                             </c:choose>
                             value="${station.stationId}"><c:out value="${station.station}"/>
                     </option>
-                    >
                 </c:forEach>
             </select>
             </td>

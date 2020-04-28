@@ -1,7 +1,8 @@
 <%@ page import="ua.nure.huzhyn.exception.ServiceException" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isErrorPage='true' %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<fmt:setBundle basename="messages"/>
 <html>
 <head>
     <title>Error page</title>
@@ -29,21 +30,30 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-<center>
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Circle-icons-train.svg" width="35" height="35"
+             class="d-inline-block align-top" alt="">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
+<div style="text-align: center;">
     <h1 class="h1 text-center ccc" style="height:100px; width: 100%">
         HTTP STATUS CODE: <%out.print(((ServiceException) exception).getHttpStatusCode());%>
     </h1>
-</center>
-
+</div>
 <br/>
 <br/>
 <br/>
-
-<center>
+<div style="text-align: center;">
     <h3 class="h3 text-center ccc" style="height:100px; width: 100%">
         <%out.print(exception.getMessage());%>
     </h3>
-</center>
-
+</div>
 </body>
 </html>
+
+

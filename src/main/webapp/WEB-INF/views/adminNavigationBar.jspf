@@ -15,6 +15,7 @@
                 <a class="btn btn-secondary"
                    href="http://localhost:8080/Gradle___Huzhyn_Vadim___epam_final_project_1_0_SNAPSHOT_war/home"><fmt:message
                         key="homepage"/></a>
+            </li>
             <li class="nav-item active my-0 my-lg-0">
                 <form class="form-inline mx-2 my-lg-0" action="user_account" method="GET">
                     <input type="hidden" name="user_id" value="${user.userId}">
@@ -32,43 +33,43 @@
                     <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#1">
+                    <div class="dropdown-menu" style="background-color: rgb(108, 117, 125)">
+                        <a class="dropdown-item" href="#1" style="background-color: rgb(108, 117, 125)">
                             <form class="form-inline mx-0 my-lg-0" action="administrator_account#1" method="GET">
                                 <input type="hidden" name="user_id" value="${user.userId}">
                                 <input class="btn btn-secondary btn-block text-down" type="submit" name="account"
                                        value="<fmt:message key="admin.rout.information"/>">
                             </form>
                         </a>
-                        <a class="dropdown-item" href="#2">
+                        <a class="dropdown-item" href="#2" style="background-color: rgb(108, 117, 125)">
                             <form class="form-inline mx-0 my-lg-0" action="administrator_account#2" method="GET">
                                 <input type="hidden" name="user_id" value="${user.userId}">
                                 <input class="btn btn-secondary btn-block text-down" type="submit" name="account"
                                        value="<fmt:message key="admin.station.information"/>">
                             </form>
                         </a>
-                        <a class="dropdown-item" href="#3">
+                        <a class="dropdown-item" href="#3" style="background-color: rgb(108, 117, 125)">
                             <form class="form-inline mx-0 my-lg-0" action="administrator_account#3" method="GET">
                                 <input type="hidden" name="user_id" value="${user.userId}">
                                 <input class="btn btn-secondary btn-block text-down" type="submit" name="account"
                                        value="<fmt:message key="admin.car.information"/>">
                             </form>
                         </a>
-                        <a class="dropdown-item" href="#4">
+                        <a class="dropdown-item" href="#4" style="background-color: rgb(108, 117, 125)">
                             <form class="form-inline mx-0 my-lg-0" action="administrator_account#4" method="GET">
                                 <input type="hidden" name="user_id" value="${user.userId}">
                                 <input class="btn btn-secondary btn-block text-down" type="submit" name="account"
                                        value="<fmt:message key="admin.train.information"/>">
                             </form>
                         </a>
-                        <a class="dropdown-item" href="#5">
+                        <a class="dropdown-item" href="#5" style="background-color: rgb(108, 117, 125)">
                             <form class="form-inline mx-0 my-lg-0" action="administrator_account#5" method="GET">
                                 <input type="hidden" name="user_id" value="${user.userId}">
                                 <input class="btn btn-secondary btn-block text-down" type="submit" name="account"
                                        value="<fmt:message key="admin.user.information"/>">
                             </form>
                         </a>
-                        <a class="dropdown-item" href="#6">
+                        <a class="dropdown-item" href="#6" style="background-color: rgb(108, 117, 125)">
                             <form class="form-inline mx-0 my-lg-0" action="administrator_account#6" method="GET">
                                 <input type="hidden" name="user_id" value="${user.userId}">
                                 <input class="btn btn-secondary btn-block text-down" type="submit" name="account"

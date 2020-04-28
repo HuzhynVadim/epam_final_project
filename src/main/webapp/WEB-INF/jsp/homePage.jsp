@@ -38,7 +38,7 @@
             <input name="arrival_station" type="text" class="form-control" id="exampleInputRoutTo">
         </div>
         <div class="form-group">
-            <label class="h5" for="exampleInputRoutWhen"><fmt:message key="rout.to"/></label>
+            <label class="h5" for="exampleInputRoutWhen"><fmt:message key="rout.when"/></label>
             <input name="departure_date" type="datetime-local" class="form-control" id="exampleInputRoutWhen">
         </div>
         <div>

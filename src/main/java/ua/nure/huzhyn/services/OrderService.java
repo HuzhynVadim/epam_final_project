@@ -16,4 +16,6 @@ public interface OrderService {
     List<Order> getOrderByUserId(String userId);
 
     void addOrder(Order order, String routsId);
+
+    void cancelOrder(String orderId);
 }

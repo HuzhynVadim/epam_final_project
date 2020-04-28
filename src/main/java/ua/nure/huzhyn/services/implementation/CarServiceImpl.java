@@ -42,6 +42,11 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public List<Car> getCarByTrainIdAndCarType(String trainId, String carType) {
+        return transactionManager.execute(() -> carRepository.getCarByTrainIdAndCarType(trainId,carType));
+    }
+
+    @Override
     public void removeCar(String carId) {
         transactionManager.execute(() -> {
             carRepository.delete(carId);

@@ -22,6 +22,7 @@ public class TrainRepositoryImpl implements TrainRepository {
     private static final String DELETE_TRAIN = "DELETE FROM final_project.railway_system.train WHERE train_id = ?";
     private static final String UPDATE_TRAIN = "UPDATE final_project.railway_system.train SET train_number = ? WHERE train_id = ?";
     private static final String GET_ALL_TRAIN_NUMBER = "SELECT * FROM final_project.railway_system.train ORDER BY train_number";
+    private static final String GET_TRAIN_ID = "SELECT * FROM final_project.railway_system.train WHERE train_number = ?";
 
 
     @Override
@@ -133,5 +134,23 @@ public class TrainRepositoryImpl implements TrainRepository {
             throw new DataBaseException("Can`t get all train list.", e);
         }
         return Train;
+    }
+
+    @Override
+    public Train getTrainId(String trainNumber) {
+        Train train = new Train();
+        Connection connection = ConnectionManager.getConnection();
+        try (PreparedStatement ps = connection.prepareStatement(GET_TRAIN_ID)) {
+            ps.setString(1, trainNumber);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                train = extract(rs);
+            }
+            connection.commit();
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DataBaseException("Can't get train ID. Train number = " + trainNumber, e);
+        }
+        return train;
     }
 }

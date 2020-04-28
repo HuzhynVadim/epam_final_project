@@ -15,6 +15,7 @@
                 <a class="btn btn-secondary"
                    href="http://localhost:8080/Gradle___Huzhyn_Vadim___epam_final_project_1_0_SNAPSHOT_war/home"><fmt:message
                         key="homepage"/></a>
+            </li>
             <li class="nav-item active my-0 my-lg-0">
                 <form class="form-inline mx-2 my-lg-0" action="user_account" method="GET">
                     <input type="hidden" name="user_id" value="${user.userId}">

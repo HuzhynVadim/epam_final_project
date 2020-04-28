@@ -12,4 +12,6 @@ public interface CarRepository extends CRUD<Car, String> {
     List<CarDto> getAllCarList();
 
     Car getCarById(String carId);
+
+    List<Car> getCarByTrainIdAndCarType(String trainId, String carType);
 }
