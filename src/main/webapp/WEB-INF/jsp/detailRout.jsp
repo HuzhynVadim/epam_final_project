@@ -75,7 +75,7 @@
     </tbody>
 </table>
 <p>
-<form action="selection_of_the_route_for_ordering" method="GET">
+<form action="search_rout_for_order" method="GET">
     <input type="hidden" name="departure_station" value="${departure_station}">
     <input type="hidden" name="arrival_station" value="${arrival_station}">
     <input type="hidden" name="departure_date" value="${departure_date}">

@@ -6,7 +6,7 @@ import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.model.entity.Car;
 import ua.nure.huzhyn.model.entity.enums.CarType;
 import ua.nure.huzhyn.services.CarService;
-import ua.nure.huzhyn.services.RoutToStationMappingService;
+import ua.nure.huzhyn.services.RoutMappingService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 
 import javax.servlet.ServletConfig;
@@ -22,11 +22,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@WebServlet("/make_order")
-public class MakeOrderController extends HttpServlet {
+@WebServlet("/select_station_and_car_type_for_order")
+public class SelectStationAndCarTypeForOrderController extends HttpServlet {
 
-    private static final Logger LOGGER = Logger.getLogger(MakeOrderController.class);
-    private RoutToStationMappingService routToStationMappingService;
+    private static final Logger LOGGER = Logger.getLogger(SelectStationAndCarTypeForOrderController.class);
+    private RoutMappingService routMappingService;
     private CarService carService;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,7 +44,7 @@ public class MakeOrderController extends HttpServlet {
         request.setAttribute("arrival_station", arrivalStation);
         request.setAttribute("departure_date", departureDate);
         String routsId = request.getParameter("routs_id");
-        List<MappingInfoDto> allRoutToStationMappingListById = routToStationMappingService.getAllRoutToStationMappingListById(routsId);
+        List<MappingInfoDto> allRoutToStationMappingListById = routMappingService.getAllRoutToStationMappingListById(routsId);
         request.setAttribute("station_list", allRoutToStationMappingListById);
         List<Car> allCarList = carService.getCarByTrainId(trainId);
         Set<CarType> carSet = new HashSet<>();
@@ -54,12 +54,12 @@ public class MakeOrderController extends HttpServlet {
         request.setAttribute("train_id", trainId);
         request.setAttribute("carTypeList", carSet);
         request.setAttribute("routs_id", routsId);
-        request.getRequestDispatcher("WEB-INF/jsp/orderPage.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/jsp/selectStationAndCarTypeForOrder.jsp").forward(request, response);
     }
 
     @Override
     public void init(ServletConfig config) {
-        routToStationMappingService = (RoutToStationMappingService) config.getServletContext().getAttribute((AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE));
+        routMappingService = (RoutMappingService) config.getServletContext().getAttribute((AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE));
         carService = (CarService) config.getServletContext().getAttribute((AppContextConstant.CARS_SERVICE));
     }
 }

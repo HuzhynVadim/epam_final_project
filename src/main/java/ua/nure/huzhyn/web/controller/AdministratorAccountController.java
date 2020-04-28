@@ -11,7 +11,7 @@ import ua.nure.huzhyn.model.entity.enums.UserRole;
 import ua.nure.huzhyn.services.CarService;
 import ua.nure.huzhyn.services.OrderService;
 import ua.nure.huzhyn.services.RoutService;
-import ua.nure.huzhyn.services.RoutToStationMappingService;
+import ua.nure.huzhyn.services.RoutMappingService;
 import ua.nure.huzhyn.services.StationService;
 import ua.nure.huzhyn.services.TrainService;
 import ua.nure.huzhyn.services.UserService;
@@ -35,7 +35,7 @@ public class AdministratorAccountController extends HttpServlet {
     private RoutService routService;
     private TrainService trainService;
     private CarService carService;
-    private RoutToStationMappingService routToStationMappingService;
+    private RoutMappingService routMappingService;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -47,7 +47,7 @@ public class AdministratorAccountController extends HttpServlet {
         request.setAttribute("station_list", stationList);
         List<RoutInfoDto> routList = routService.getAllRoutList();
         request.setAttribute("rout_list", routList);
-        List<RoutToStationMapping> routToStationMappingList = routToStationMappingService.getAllRoutToStationMappingList();
+        List<RoutToStationMapping> routToStationMappingList = routMappingService.getAllRoutToStationMappingList();
         request.setAttribute("rout_m_list", routToStationMappingList);
         List<Train> trainList = trainService.getAllTrainList();
         request.setAttribute("train_list", trainList);
@@ -63,7 +63,7 @@ public class AdministratorAccountController extends HttpServlet {
         userService = (UserService) config.getServletContext().getAttribute(AppContextConstant.USER_SERVICE);
         stationService = (StationService) config.getServletContext().getAttribute((AppContextConstant.STATION_SERVICE));
         routService = (RoutService) config.getServletContext().getAttribute((AppContextConstant.ROUT_SERVICE));
-        routToStationMappingService = (RoutToStationMappingService) config.getServletContext().getAttribute((AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE));
+        routMappingService = (RoutMappingService) config.getServletContext().getAttribute((AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE));
         trainService = (TrainService) config.getServletContext().getAttribute((AppContextConstant.TRAIN_SERVICE));
         carService = (CarService) config.getServletContext().getAttribute((AppContextConstant.CARS_SERVICE));
     }

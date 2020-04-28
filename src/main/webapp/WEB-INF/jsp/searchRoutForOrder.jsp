@@ -99,7 +99,7 @@
                 </form>
             </td>
             <td>
-                <form action="make_order" method="GET">
+                <form action="select_station_and_car_type_for_order" method="GET">
                     <input type="hidden" name="routs_id" value="${rout.routsId}">
                     <input type="hidden" name="train_id" value="${rout.trainId}">
                     <input type="hidden" name="departure_station" value="${departure_station}">

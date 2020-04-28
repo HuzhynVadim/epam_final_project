@@ -37,7 +37,7 @@ public class ApplicationContextListener implements ServletContextListener {
         RoutsRepository routsRepository = new RoutsRepositoryImpl();
         TrainRepository trainRepository = new TrainRepositoryImpl();
         CarRepository carRepository = new CarRepositoryImpl();
-        RoutToStationMappingRepository routToStationMappingRepository = new RoutToStationMappingRepositoryImpl();
+        RoutMappingRepository routMappingRepository = new RoutMappingRepositoryImpl();
 
 
         CarService carService = new CarServiceImpl(carRepository, transactionManager);
@@ -46,7 +46,7 @@ public class ApplicationContextListener implements ServletContextListener {
         OrderService orderService = new OrderServiceImpl(orderRepository, transactionManager, routsRepository);
         StationService stationService = new StationServiceImpl(stationRepository, transactionManager);
         TrainService trainService = new TrainServiceImpl(trainRepository, transactionManager);
-        RoutToStationMappingService routToStationMappingService = new RoutToStationMappingServiceImpl(routToStationMappingRepository, transactionManager);
+        RoutMappingService routMappingService = new RoutMappingServiceImpl(routMappingRepository, transactionManager);
         LogoutService logoutService = new LogoutService();
 
         sce.getServletContext().setAttribute(AppContextConstant.USER_SERVICE, userService);
@@ -55,7 +55,7 @@ public class ApplicationContextListener implements ServletContextListener {
         sce.getServletContext().setAttribute(AppContextConstant.ROUT_SERVICE, routService);
         sce.getServletContext().setAttribute(AppContextConstant.TRAIN_SERVICE, trainService);
         sce.getServletContext().setAttribute(AppContextConstant.CARS_SERVICE, carService);
-        sce.getServletContext().setAttribute(AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE, routToStationMappingService);
+        sce.getServletContext().setAttribute(AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE, routMappingService);
         sce.getServletContext().setAttribute(AppContextConstant.LOGOUT_SERVICE, logoutService);
 
     }

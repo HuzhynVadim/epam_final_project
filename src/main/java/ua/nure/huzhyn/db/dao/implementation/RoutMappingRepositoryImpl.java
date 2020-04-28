@@ -1,7 +1,7 @@
 package ua.nure.huzhyn.db.dao.implementation;
 
 import org.apache.log4j.Logger;
-import ua.nure.huzhyn.db.dao.RoutToStationMappingRepository;
+import ua.nure.huzhyn.db.dao.RoutMappingRepository;
 import ua.nure.huzhyn.db.dao.dto.MappingInfoDto;
 import ua.nure.huzhyn.db.dao.transaction.ConnectionManager;
 import ua.nure.huzhyn.exception.DataBaseException;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class RoutToStationMappingRepositoryImpl implements RoutToStationMappingRepository {
+public class RoutMappingRepositoryImpl implements RoutMappingRepository {
     private static final Logger LOGGER = Logger.getLogger(RoutsRepositoryImpl.class);
     private static final String ADD_ROUT_MAPPINGS = "INSERT INTO final_project.railway_system.rout_to_station_mapping as rm (station_id, routs_id, station_arrival_date, station_dispatch_data, \"order\") VALUES (?, ?, ?, ?, ?)";
     private static final String GET_ROUT_MAPPING_BY_ID = "SELECT * FROM final_project.railway_system.rout_to_station_mapping WHERE routs_id = ?";

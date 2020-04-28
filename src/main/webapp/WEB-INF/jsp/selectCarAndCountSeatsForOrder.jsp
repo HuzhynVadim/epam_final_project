@@ -51,66 +51,42 @@
     <fmt:message key="enterRole"></fmt:message>
     <mrt:role role="${user.role}"></mrt:role>
 </div>
-<form action="cars_and_place_make_order" method="GET">
+<form action="select_cars_and_seats_for_order" method="POST">
     <table class="table table-bordered table-hover text-center" border="1" style="width: auto">
         <thead class="thead-light text-center">
         <tr>
-            <th><fmt:message key="station.dispatch"/></th>
-            <th><fmt:message key="station.arrival"/></th>
-            <th><fmt:message key="car.type"/></th>
+            <th><fmt:message key="car.number"/></th>
+            <th><fmt:message key="count.of.seats"/></th>
             <th><fmt:message key="order.make.order"/></th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td><select class="btn btn-info dropdown-toggle" name="departure_station">
-                <c:set var="departure_station" value="${departure_station}"/>
-                <c:forEach items="${station_list}" var="stationList">
-                    <option
-                            <c:choose>
-                                <c:when test="${departure_station eq stationList.station}">
-                                    selected
-                                </c:when>
-                            </c:choose>
-                            value="${stationList.stationId}"><c:out value="${stationList.station}"/>
-                    </option>
-                </c:forEach>
-            </select>
-            </td>
-            <td><select class="btn btn-info dropdown-toggle" name="arrival_station">
-                <c:set var="arrival_station" value="${arrival_station}"/>
-                <c:forEach items="${station_list}" var="stationList">
-                    <option
-                            <c:choose>
-                                <c:when test="${arrival_station eq stationList.station}">
-                                    selected
-                                </c:when>
-                            </c:choose>
-                            value="${stationList.stationId}"><c:out value="${stationList.station}"/>
-                    </option>
+            <td><select class="btn btn-info dropdown-toggle" name="car_number">
+                <c:forEach items="${car_list}" var="carList">
+                    <option value="${carList.carNumber}"><c:out value="${carList.carNumber}"/></option>
                 </c:forEach>
             </select></td>
-            <td><select class="btn btn-info dropdown-toggle" name="car_type">
-                <c:forEach items="${carTypeList}" var="car_type">
-                    <option value="${car_type}"><c:out value="${car_type}"/></option>
-                </c:forEach>
-            </select></td>
+            <td><input class="form-control" name="count_of_seats"></td>
             <td>
                 <input type="hidden" name="routs_id" value="${routs_id}">
                 <input type="hidden" name="departure_station" value="${departure_station}">
                 <input type="hidden" name="arrival_station" value="${arrival_station}">
                 <input type="hidden" name="departure_date" value="${departure_date}">
-                <input type="hidden" name="train_id" value="${train_id}">
+                <input type="hidden" name="car_type" value="${car_type}">
                 <input type="submit" class="btn btn-success" name="add_order"
-                       value="<fmt:message key="next"/>">
+                       value="<fmt:message key="order.make.order"/>">
             </td>
         </tr>
     </table>
 </form>
-<form action="selection_of_the_route_for_ordering" method="GET">
-    <input type="hidden" name="departure_station" value="${departure_station}">
-    <input type="hidden" name="arrival_station" value="${arrival_station}">
+
+<form action="select_station_and_car_type_for_order" method="GET">
+    <input type="hidden" name="routs_id" value="${routs_id}">
+    <input type="hidden" name="departure_station" value="${departure_station_name}">
+    <input type="hidden" name="arrival_station" value="${arrival_station_name}">
     <input type="hidden" name="departure_date" value="${departure_date}">
+    <input type="hidden" name="train_id" value="${train_id}">
     <input type="submit" class="btn btn-primary" value="<fmt:message key="back"/>">
 </form>
 </body>

@@ -1,33 +1,33 @@
 package ua.nure.huzhyn.services.implementation;
 
-import ua.nure.huzhyn.db.dao.RoutToStationMappingRepository;
+import ua.nure.huzhyn.db.dao.RoutMappingRepository;
 import ua.nure.huzhyn.db.dao.dto.MappingInfoDto;
 import ua.nure.huzhyn.db.dao.transaction.TransactionManager;
 import ua.nure.huzhyn.model.entity.RoutToStationMapping;
-import ua.nure.huzhyn.services.RoutToStationMappingService;
+import ua.nure.huzhyn.services.RoutMappingService;
 
 import java.util.List;
 
-public class RoutToStationMappingServiceImpl implements RoutToStationMappingService {
-    private RoutToStationMappingRepository routToStationMappingRepository;
+public class RoutMappingServiceImpl implements RoutMappingService {
+    private RoutMappingRepository routMappingRepository;
     private TransactionManager transactionManager;
 
 
-    public RoutToStationMappingServiceImpl(RoutToStationMappingRepository routToStationMappingRepository, TransactionManager transactionManager) {
-        this.routToStationMappingRepository = routToStationMappingRepository;
+    public RoutMappingServiceImpl(RoutMappingRepository routMappingRepository, TransactionManager transactionManager) {
+        this.routMappingRepository = routMappingRepository;
         this.transactionManager = transactionManager;
     }
 
 
     @Override
     public void updateRoutToStationMapping(RoutToStationMapping routToStationMapping, String stationId) {
-        transactionManager.execute(() -> routToStationMappingRepository.update(routToStationMapping, stationId));
+        transactionManager.execute(() -> routMappingRepository.update(routToStationMapping, stationId));
     }
 
     @Override
     public void addRoutToStationMapping(RoutToStationMapping routToStationMapping) {
         transactionManager.execute(() -> {
-            routToStationMappingRepository.create(routToStationMapping);
+            routMappingRepository.create(routToStationMapping);
             return null;
         });
     }
@@ -36,23 +36,23 @@ public class RoutToStationMappingServiceImpl implements RoutToStationMappingServ
     @Override
     public void removeRoutToStationMapping(String routsId, String stationId) {
         transactionManager.execute(() -> {
-            routToStationMappingRepository.delete(routsId, stationId);
+            routMappingRepository.delete(routsId, stationId);
             return null;
         });
     }
 
     @Override
     public MappingInfoDto getMappingInfo(String routsId, String stationId) {
-        return transactionManager.execute(() -> routToStationMappingRepository.getMappingInfo(routsId, stationId));
+        return transactionManager.execute(() -> routMappingRepository.getMappingInfo(routsId, stationId));
     }
 
     @Override
     public List<MappingInfoDto> getAllRoutToStationMappingListById(String routsId) {
-        return transactionManager.execute(() -> routToStationMappingRepository.getAllRoutToStationMappingListById(routsId));
+        return transactionManager.execute(() -> routMappingRepository.getAllRoutToStationMappingListById(routsId));
     }
 
     @Override
     public List<RoutToStationMapping> getAllRoutToStationMappingList() {
-        return transactionManager.execute(() -> routToStationMappingRepository.getAllRoutToStationMappingList());
+        return transactionManager.execute(() -> routMappingRepository.getAllRoutToStationMappingList());
     }
 }

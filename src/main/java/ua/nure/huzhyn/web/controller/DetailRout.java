@@ -3,7 +3,7 @@ package ua.nure.huzhyn.web.controller;
 import org.apache.log4j.Logger;
 import ua.nure.huzhyn.db.dao.dto.MappingInfoDto;
 import ua.nure.huzhyn.exception.IncorrectDataException;
-import ua.nure.huzhyn.services.RoutToStationMappingService;
+import ua.nure.huzhyn.services.RoutMappingService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 
 import javax.servlet.ServletConfig;
@@ -21,7 +21,7 @@ import java.util.List;
 public class DetailRout extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(DetailRout.class);
 
-    private RoutToStationMappingService routToStationMappingService;
+    private RoutMappingService routMappingService;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String routsId = request.getParameter("routs_id");
@@ -38,7 +38,7 @@ public class DetailRout extends HttpServlet {
         request.setAttribute("arrival_station", arrivalStation);
         request.setAttribute("departure_date", departureDate);
         request.setAttribute("routs_id", routsId);
-        List<MappingInfoDto> AllRoutToStationMappingListById = routToStationMappingService.getAllRoutToStationMappingListById(routsId);
+        List<MappingInfoDto> AllRoutToStationMappingListById = routMappingService.getAllRoutToStationMappingListById(routsId);
         request.setAttribute("rout_m_list", AllRoutToStationMappingListById);
         request.getRequestDispatcher("WEB-INF/jsp/detailRout.jsp").forward(request, response);
     }
@@ -46,7 +46,7 @@ public class DetailRout extends HttpServlet {
     @Override
     public void init(ServletConfig config) {
 
-        routToStationMappingService = (RoutToStationMappingService) config.getServletContext().getAttribute((AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE));
+        routMappingService = (RoutMappingService) config.getServletContext().getAttribute((AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE));
 
     }
 }

@@ -24,15 +24,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
-@WebServlet("/cars_and_place_make_order")
-public class SelectionOfCarsAndPlacesForOrderingController extends HttpServlet {
+@WebServlet("/select_cars_and_seats_for_order")
+public class SelectCarAndCountSeatsForOrderController extends HttpServlet {
 
-    private static final Logger LOGGER = Logger.getLogger(MakeOrderController.class);
+    private static final Logger LOGGER = Logger.getLogger(SelectStationAndCarTypeForOrderController.class);
     private OrderService orderService;
     private StationService stationService;
     private RoutService routService;
     private TrainService trainService;
-    private RoutToStationMappingService routToStationMappingService;
+    private RoutMappingService routMappingService;
     private CarService carService;
 
 
@@ -48,8 +48,8 @@ public class SelectionOfCarsAndPlacesForOrderingController extends HttpServlet {
         String carNumber = request.getParameter("car_number");
         Station dispatchStation = stationService.getStationById(stationIdA);
         Station arrivalStation = stationService.getStationById(stationIdD);
-        MappingInfoDto arrivalMapping = routToStationMappingService.getMappingInfo(routsId, arrivalStation.getStationId());
-        MappingInfoDto dispatchMapping = routToStationMappingService.getMappingInfo(routsId, dispatchStation.getStationId());
+        MappingInfoDto arrivalMapping = routMappingService.getMappingInfo(routsId, arrivalStation.getStationId());
+        MappingInfoDto dispatchMapping = routMappingService.getMappingInfo(routsId, dispatchStation.getStationId());
         order.setTrainNumber(train.getTrainNumber());
         try {
             order.setCarType(CarType.valueOf(request.getParameter("car_type")));
@@ -102,14 +102,14 @@ public class SelectionOfCarsAndPlacesForOrderingController extends HttpServlet {
         request.setAttribute("car_list", carList);
         request.setAttribute("departure_station_name", departureStationName.getStation());
         request.setAttribute("arrival_station_name", arrivalStationName.getStation());
-        request.getRequestDispatcher("WEB-INF/jsp/selectionCarAndSeatsForOrder.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/jsp/selectCarAndCountSeatsForOrder.jsp").forward(request, response);
     }
 
     public void init(ServletConfig config) {
         orderService = (OrderService) config.getServletContext().getAttribute(AppContextConstant.ORDER_SERVICE);
         stationService = (StationService) config.getServletContext().getAttribute((AppContextConstant.STATION_SERVICE));
         routService = (RoutService) config.getServletContext().getAttribute((AppContextConstant.ROUT_SERVICE));
-        routToStationMappingService = (RoutToStationMappingService) config.getServletContext().getAttribute((AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE));
+        routMappingService = (RoutMappingService) config.getServletContext().getAttribute((AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE));
         trainService = (TrainService) config.getServletContext().getAttribute((AppContextConstant.TRAIN_SERVICE));
         carService = (CarService) config.getServletContext().getAttribute((AppContextConstant.CARS_SERVICE));
     }

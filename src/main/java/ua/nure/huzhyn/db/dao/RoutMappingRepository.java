@@ -6,7 +6,7 @@ import ua.nure.huzhyn.model.entity.RoutToStationMapping;
 import java.util.List;
 import java.util.Optional;
 
-public interface RoutToStationMappingRepository {
+public interface RoutMappingRepository {
     List<RoutToStationMapping> getAllRoutToStationMappingList();
 
     void create(RoutToStationMapping entity);

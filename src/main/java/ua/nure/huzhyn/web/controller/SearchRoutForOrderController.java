@@ -21,9 +21,9 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-@WebServlet("/selection_of_the_route_for_ordering")
-public class selectionOfTheRouteForOrderingController extends HttpServlet {
-    private static final Logger LOGGER = Logger.getLogger(selectionOfTheRouteForOrderingController.class);
+@WebServlet("/search_rout_for_order" )
+public class SearchRoutForOrderController extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(SearchRoutForOrderController.class);
     private RoutService routService;
 
 
@@ -46,7 +46,7 @@ public class selectionOfTheRouteForOrderingController extends HttpServlet {
         request.setAttribute("departure_station", departureStation);
         request.setAttribute("arrival_station", arrivalStation);
         request.setAttribute("departure_date", departureDate);
-        request.getRequestDispatcher("WEB-INF/jsp/selectionOfTheRouteForOrdering.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/jsp/searchRoutForOrder.jsp").forward(request, response);
     }
 
 

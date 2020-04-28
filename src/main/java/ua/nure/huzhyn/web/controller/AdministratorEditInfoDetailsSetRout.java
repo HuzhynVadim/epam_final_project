@@ -5,10 +5,10 @@ import ua.nure.huzhyn.db.dao.dto.MappingInfoDto;
 import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.model.entity.RoutToStationMapping;
 import ua.nure.huzhyn.model.entity.Station;
-import ua.nure.huzhyn.services.RoutToStationMappingService;
+import ua.nure.huzhyn.services.RoutMappingService;
 import ua.nure.huzhyn.services.StationService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
-import ua.nure.huzhyn.validator.RoutToStationMappingValidator;
+import ua.nure.huzhyn.validator.RoutMappingValidator;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -24,11 +24,11 @@ import java.util.List;
 @WebServlet("/administrator_edit_info_details_set_rout")
 public class AdministratorEditInfoDetailsSetRout extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(AdministratorEditInfoDetailsSetRout.class);
-    private RoutToStationMappingService routToStationMappingService;
+    private RoutMappingService routMappingService;
     private StationService stationService;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        RoutToStationMappingValidator routToStationMappingValidator = new RoutToStationMappingValidator();
+        RoutMappingValidator routMappingValidator = new RoutMappingValidator();
         RoutToStationMapping routToStationMapping = new RoutToStationMapping();
         String routsId = request.getParameter("routs_id");
         String stationId = request.getParameter("station_current_id");
@@ -43,8 +43,8 @@ public class AdministratorEditInfoDetailsSetRout extends HttpServlet {
             LOGGER.error("Incorrect data entered");
             throw new IncorrectDataException("Incorrect data entered", e);
         }
-        routToStationMappingValidator.isValidRoutToStationMapping(routToStationMapping);
-        routToStationMappingService.updateRoutToStationMapping(routToStationMapping, stationId);
+        routMappingValidator.isValidRoutToStationMapping(routToStationMapping);
+        routMappingService.updateRoutToStationMapping(routToStationMapping, stationId);
         response.sendRedirect("administrator_details_set_rout?routs_id=" + routsId);
     }
 
@@ -53,7 +53,7 @@ public class AdministratorEditInfoDetailsSetRout extends HttpServlet {
         String routsId = request.getParameter("routs_id");
         String stationId = request.getParameter("station_id");
         List<Station> stationList = stationService.getAllStationList();
-        MappingInfoDto MappingInfo = routToStationMappingService.getMappingInfo(routsId, stationId);
+        MappingInfoDto MappingInfo = routMappingService.getMappingInfo(routsId, stationId);
         request.setAttribute("routs_id", routsId);
         request.setAttribute("station_id", stationId);
         request.setAttribute("current_rout", MappingInfo);
@@ -64,7 +64,7 @@ public class AdministratorEditInfoDetailsSetRout extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) {
-        routToStationMappingService = (RoutToStationMappingService) config.getServletContext().getAttribute(AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE);
+        routMappingService = (RoutMappingService) config.getServletContext().getAttribute(AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE);
         stationService = (StationService) config.getServletContext().getAttribute((AppContextConstant.STATION_SERVICE));
     }
 }

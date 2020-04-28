@@ -4,10 +4,10 @@ import org.apache.log4j.Logger;
 import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.model.entity.RoutToStationMapping;
 import ua.nure.huzhyn.model.entity.Station;
-import ua.nure.huzhyn.services.RoutToStationMappingService;
+import ua.nure.huzhyn.services.RoutMappingService;
 import ua.nure.huzhyn.services.StationService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
-import ua.nure.huzhyn.validator.RoutToStationMappingValidator;
+import ua.nure.huzhyn.validator.RoutMappingValidator;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -26,10 +26,10 @@ public class AdministratorSetRoutController extends HttpServlet {
 
 
     private StationService stationService;
-    private RoutToStationMappingService routToStationMappingService;
+    private RoutMappingService routMappingService;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        RoutToStationMappingValidator routToStationMappingValidator = new RoutToStationMappingValidator();
+        RoutMappingValidator routMappingValidator = new RoutMappingValidator();
         RoutToStationMapping routToStationMapping = new RoutToStationMapping();
         String routsId = request.getParameter("routs_id");
         routToStationMapping.setRoutsId(routsId);
@@ -42,8 +42,8 @@ public class AdministratorSetRoutController extends HttpServlet {
             LOGGER.error("Incorrect data entered");
             throw new IncorrectDataException("Incorrect data entered", e);
         }
-        routToStationMappingValidator.isValidRoutToStationMapping(routToStationMapping);
-        routToStationMappingService.addRoutToStationMapping(routToStationMapping);
+        routMappingValidator.isValidRoutToStationMapping(routToStationMapping);
+        routMappingService.addRoutToStationMapping(routToStationMapping);
 
         response.sendRedirect("administrator_details_set_rout?routs_id=" + routsId);
     }
@@ -62,7 +62,7 @@ public class AdministratorSetRoutController extends HttpServlet {
     public void init(ServletConfig config) {
 
         stationService = (StationService) config.getServletContext().getAttribute((AppContextConstant.STATION_SERVICE));
-        routToStationMappingService = (RoutToStationMappingService) config.getServletContext().getAttribute((AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE));
+        routMappingService = (RoutMappingService) config.getServletContext().getAttribute((AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE));
 
     }
 }

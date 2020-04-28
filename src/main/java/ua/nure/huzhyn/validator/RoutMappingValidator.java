@@ -10,8 +10,8 @@ import java.util.Objects;
 
 import static java.util.stream.Collectors.joining;
 
-public class RoutToStationMappingValidator {
-    private static final Logger LOGGER = Logger.getLogger(RoutToStationMappingValidator.class);
+public class RoutMappingValidator {
+    private static final Logger LOGGER = Logger.getLogger(RoutMappingValidator.class);
     private static final String STATION_ARRIVAL_DATE = "^(19|20)\\d\\d-(0[1-9]|1[012])-([012]\\d|3[01])T([01]\\d|2[0-3]):([0-5]\\d)$";
     private static final String STATION_DISPATCH_DATA = "^(19|20)\\d\\d-(0[1-9]|1[012])-([012]\\d|3[01])T([01]\\d|2[0-3]):([0-5]\\d)$";
     private static final String STATION_ORDER = "[0-9]+$";

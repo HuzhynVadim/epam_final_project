@@ -28,7 +28,7 @@
     <mrt:role role="${user.role}"></mrt:role>
 </div>
 <div class="form-home form-ere">
-    <form action="selection_of_the_route_for_ordering" method="GET">
+    <form action="search_rout_for_order" method="GET">
         <div class="form-group">
             <label class="h5" for="exampleInputRoutFrom"> <fmt:message key="rout.from"/></label>
             <input name="departure_station" type="text" class="form-control" id="exampleInputRoutFrom">

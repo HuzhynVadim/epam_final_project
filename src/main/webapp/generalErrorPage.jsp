@@ -14,7 +14,7 @@
 
         .ccc {
             display: flex;
-            justify-content: center; /*Центрирование по горизонтали*/
+            justify-content: center;
             align-items: center;
         }
     </style>
