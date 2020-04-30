@@ -5,6 +5,8 @@
 -- Dumped from database version 12.2
 -- Dumped by pg_dump version 12.2
 
+-- Started on 2020-04-30 05:25:00
+
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -17,6 +19,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- TOC entry 4 (class 2615 OID 16565)
 -- Name: railway_system; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -26,6 +29,7 @@ CREATE SCHEMA railway_system;
 ALTER SCHEMA railway_system OWNER TO postgres;
 
 --
+-- TOC entry 203 (class 1259 OID 16566)
 -- Name: CarType_carTypeId_seq; Type: SEQUENCE; Schema: railway_system; Owner: postgres
 --
 
@@ -40,6 +44,7 @@ CREATE SEQUENCE railway_system."CarType_carTypeId_seq"
 ALTER TABLE railway_system."CarType_carTypeId_seq" OWNER TO postgres;
 
 --
+-- TOC entry 204 (class 1259 OID 16568)
 -- Name: Cars_carId_seq; Type: SEQUENCE; Schema: railway_system; Owner: postgres
 --
 
@@ -54,6 +59,7 @@ CREATE SEQUENCE railway_system."Cars_carId_seq"
 ALTER TABLE railway_system."Cars_carId_seq" OWNER TO postgres;
 
 --
+-- TOC entry 205 (class 1259 OID 16570)
 -- Name: Order_orderId_seq; Type: SEQUENCE; Schema: railway_system; Owner: postgres
 --
 
@@ -68,6 +74,7 @@ CREATE SEQUENCE railway_system."Order_orderId_seq"
 ALTER TABLE railway_system."Order_orderId_seq" OWNER TO postgres;
 
 --
+-- TOC entry 206 (class 1259 OID 16572)
 -- Name: Rolle_id_seq; Type: SEQUENCE; Schema: railway_system; Owner: postgres
 --
 
@@ -82,6 +89,7 @@ CREATE SEQUENCE railway_system."Rolle_id_seq"
 ALTER TABLE railway_system."Rolle_id_seq" OWNER TO postgres;
 
 --
+-- TOC entry 207 (class 1259 OID 16574)
 -- Name: Routs_id_seq; Type: SEQUENCE; Schema: railway_system; Owner: postgres
 --
 
@@ -96,6 +104,7 @@ CREATE SEQUENCE railway_system."Routs_id_seq"
 ALTER TABLE railway_system."Routs_id_seq" OWNER TO postgres;
 
 --
+-- TOC entry 208 (class 1259 OID 16576)
 -- Name: StationType_id_seq; Type: SEQUENCE; Schema: railway_system; Owner: postgres
 --
 
@@ -110,6 +119,7 @@ CREATE SEQUENCE railway_system."StationType_id_seq"
 ALTER TABLE railway_system."StationType_id_seq" OWNER TO postgres;
 
 --
+-- TOC entry 209 (class 1259 OID 16578)
 -- Name: Stations_id_seq; Type: SEQUENCE; Schema: railway_system; Owner: postgres
 --
 
@@ -124,6 +134,7 @@ CREATE SEQUENCE railway_system."Stations_id_seq"
 ALTER TABLE railway_system."Stations_id_seq" OWNER TO postgres;
 
 --
+-- TOC entry 210 (class 1259 OID 16580)
 -- Name: Trains_id_seq; Type: SEQUENCE; Schema: railway_system; Owner: postgres
 --
 
@@ -138,6 +149,7 @@ CREATE SEQUENCE railway_system."Trains_id_seq"
 ALTER TABLE railway_system."Trains_id_seq" OWNER TO postgres;
 
 --
+-- TOC entry 211 (class 1259 OID 16582)
 -- Name: Trains_id_seq1; Type: SEQUENCE; Schema: railway_system; Owner: postgres
 --
 
@@ -152,6 +164,7 @@ CREATE SEQUENCE railway_system."Trains_id_seq1"
 ALTER TABLE railway_system."Trains_id_seq1" OWNER TO postgres;
 
 --
+-- TOC entry 212 (class 1259 OID 16584)
 -- Name: Users_id_seq; Type: SEQUENCE; Schema: railway_system; Owner: postgres
 --
 
@@ -166,6 +179,7 @@ CREATE SEQUENCE railway_system."Users_id_seq"
 ALTER TABLE railway_system."Users_id_seq" OWNER TO postgres;
 
 --
+-- TOC entry 213 (class 1259 OID 16586)
 -- Name: WayStation_id_seq; Type: SEQUENCE; Schema: railway_system; Owner: postgres
 --
 
@@ -184,6 +198,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- TOC entry 215 (class 1259 OID 16590)
 -- Name: car; Type: TABLE; Schema: railway_system; Owner: postgres
 --
 
@@ -191,14 +206,14 @@ CREATE TABLE railway_system.car (
                                     car_id character varying(64) NOT NULL,
                                     car_type character varying(64) NOT NULL,
                                     car_number character varying(64),
-                                    train_id character varying(64),
-                                    seats integer NOT NULL
+                                    train_id character varying(64)
 );
 
 
 ALTER TABLE railway_system.car OWNER TO postgres;
 
 --
+-- TOC entry 214 (class 1259 OID 16588)
 -- Name: car_car_number_seq; Type: SEQUENCE; Schema: railway_system; Owner: postgres
 --
 
@@ -213,13 +228,7 @@ CREATE SEQUENCE railway_system.car_car_number_seq
 ALTER TABLE railway_system.car_car_number_seq OWNER TO postgres;
 
 --
--- Name: car_car_number_seq; Type: SEQUENCE OWNED BY; Schema: railway_system; Owner: postgres
---
-
-ALTER SEQUENCE railway_system.car_car_number_seq OWNED BY railway_system.car.car_number;
-
-
---
+-- TOC entry 216 (class 1259 OID 16595)
 -- Name: invoices_id_seq; Type: SEQUENCE; Schema: railway_system; Owner: postgres
 --
 
@@ -234,6 +243,7 @@ CREATE SEQUENCE railway_system.invoices_id_seq
 ALTER TABLE railway_system.invoices_id_seq OWNER TO postgres;
 
 --
+-- TOC entry 217 (class 1259 OID 16597)
 -- Name: order; Type: TABLE; Schema: railway_system; Owner: postgres
 --
 
@@ -250,13 +260,16 @@ CREATE TABLE railway_system."order" (
                                         count_of_seats integer NOT NULL,
                                         arrival_station character varying(64) NOT NULL,
                                         dispatch_station character varying(64) NOT NULL,
-                                        travel_time character varying(128) NOT NULL
+                                        travel_time character varying(128) NOT NULL,
+                                        routs_id character varying(64) NOT NULL,
+                                        car_number character varying(64) NOT NULL
 );
 
 
 ALTER TABLE railway_system."order" OWNER TO postgres;
 
 --
+-- TOC entry 218 (class 1259 OID 16605)
 -- Name: prices_id_seq; Type: SEQUENCE; Schema: railway_system; Owner: postgres
 --
 
@@ -271,6 +284,7 @@ CREATE SEQUENCE railway_system.prices_id_seq
 ALTER TABLE railway_system.prices_id_seq OWNER TO postgres;
 
 --
+-- TOC entry 219 (class 1259 OID 16607)
 -- Name: rout; Type: TABLE; Schema: railway_system; Owner: postgres
 --
 
@@ -288,6 +302,7 @@ CREATE TABLE railway_system.rout (
 ALTER TABLE railway_system.rout OWNER TO postgres;
 
 --
+-- TOC entry 220 (class 1259 OID 16612)
 -- Name: rout_to_station_mapping; Type: TABLE; Schema: railway_system; Owner: postgres
 --
 
@@ -303,6 +318,22 @@ CREATE TABLE railway_system.rout_to_station_mapping (
 ALTER TABLE railway_system.rout_to_station_mapping OWNER TO postgres;
 
 --
+-- TOC entry 224 (class 1259 OID 16635)
+-- Name: seat; Type: TABLE; Schema: railway_system; Owner: postgres
+--
+
+CREATE TABLE railway_system.seat (
+                                     seat_id character varying(64) NOT NULL,
+                                     car_id character varying(64),
+                                     seat_number integer NOT NULL,
+                                     busy boolean DEFAULT false NOT NULL
+);
+
+
+ALTER TABLE railway_system.seat OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 16617)
 -- Name: station; Type: TABLE; Schema: railway_system; Owner: postgres
 --
 
@@ -315,6 +346,7 @@ CREATE TABLE railway_system.station (
 ALTER TABLE railway_system.station OWNER TO postgres;
 
 --
+-- TOC entry 222 (class 1259 OID 16622)
 -- Name: train; Type: TABLE; Schema: railway_system; Owner: postgres
 --
 
@@ -327,6 +359,7 @@ CREATE TABLE railway_system.train (
 ALTER TABLE railway_system.train OWNER TO postgres;
 
 --
+-- TOC entry 223 (class 1259 OID 16627)
 -- Name: user; Type: TABLE; Schema: railway_system; Owner: postgres
 --
 
@@ -339,97 +372,125 @@ CREATE TABLE railway_system."user" (
                                        phone character varying(25) NOT NULL,
                                        birth_date date NOT NULL,
                                        role character varying(25) NOT NULL,
-                                       blocked boolean NOT NULL
+                                       blocked boolean DEFAULT false NOT NULL
 );
 
 
 ALTER TABLE railway_system."user" OWNER TO postgres;
 
 --
+-- TOC entry 2907 (class 0 OID 16590)
+-- Dependencies: 215
 -- Data for Name: car; Type: TABLE DATA; Schema: railway_system; Owner: postgres
 --
 
-COPY railway_system.car (car_id, car_type, car_number, train_id, seats) FROM stdin;
-d6374b70-4e5e-4f54-a047-015ea3778fe6	COMPARTMENT	1	f324db20-8812-4f1e-b317-faabba8fb7b4	20
-e486cdb0-138b-4ed2-ab00-b9cc193a878d	COMMON	3	f324db20-8812-4f1e-b317-faabba8fb7b4	30
-2fefe0d1-cc20-485c-83e4-39c9e4802ae2	COMPARTMENT	1	30336920-d115-4d60-b872-eb6e5ebfb1d5	20
-bd3889a9-f185-41ec-b3ba-00c2dbbfb1c8	RESERVED_SEAT	2	f324db20-8812-4f1e-b317-faabba8fb7b4	20
-2960fce8-6fd5-4c0b-b9c2-35923850971f	COMMON	3	30336920-d115-4d60-b872-eb6e5ebfb1d5	30
-98fbf47e-70d5-4417-9169-b676c1b60a29	RESERVED_SEAT	2	30336920-d115-4d60-b872-eb6e5ebfb1d5	20
+COPY railway_system.car (car_id, car_type, car_number, train_id) FROM stdin;
+ea5702a6-179d-4bc2-aa57-d384e19c08a9	COMPARTMENT	1	4d1399a5-1d3e-4e5a-8477-c8665dff638e
 \.
 
 
 --
+-- TOC entry 2909 (class 0 OID 16597)
+-- Dependencies: 217
 -- Data for Name: order; Type: TABLE DATA; Schema: railway_system; Owner: postgres
 --
 
-COPY railway_system."order" (order_id, train_number, car_type, price, arrival_date, dispatch_date, user_id, order_date, order_status, count_of_seats, arrival_station, dispatch_station, travel_time) FROM stdin;
-f5baeb10-7b69-44b8-8333-1376a53e5d7f	1	RESERVED_SEAT	400	2020-04-21 01:01:00	2020-04-21 04:44:00	4123b274-5321-40ed-9765-7a7ebcc8011e	2020-04-21 22:54:16.13	ORDER_ACCEPTED	2	Poltava	Kharkov	Days: 0 Hours: 3 Minutes: 43
-082651ea-5498-4867-b434-9352229f8c5c	1	RESERVED_SEAT	400	2020-04-21 01:01:00	2020-04-21 04:44:00	e7f895e3-61cd-4a6c-ab9e-9bb4e96323ea	2020-04-22 03:53:59.385	ORDER_ACCEPTED	2	Poltava	Kharkov	Days: 0 Hours: 3 Minutes: 43
+COPY railway_system."order" (order_id, train_number, car_type, price, arrival_date, dispatch_date, user_id, order_date, order_status, count_of_seats, arrival_station, dispatch_station, travel_time, routs_id, car_number) FROM stdin;
 \.
 
 
 --
+-- TOC entry 2911 (class 0 OID 16607)
+-- Dependencies: 219
 -- Data for Name: rout; Type: TABLE DATA; Schema: railway_system; Owner: postgres
 --
 
 COPY railway_system.rout (routs_id, train_id, rout_name, rout_number, common_free_seats_count, compartment_free_seats_count, reserved_free_seats_count) FROM stdin;
-42913091-c5b5-4e1e-8767-9929e681bfdc	30336920-d115-4d60-b872-eb6e5ebfb1d5	Travel Ukraine	2	30	18	20
-ee103d9f-d613-4516-bc6c-e5cbabb24bc7	f324db20-8812-4f1e-b317-faabba8fb7b4	Speed Kyiv	1	26	15	16
 \.
 
 
 --
+-- TOC entry 2912 (class 0 OID 16612)
+-- Dependencies: 220
 -- Data for Name: rout_to_station_mapping; Type: TABLE DATA; Schema: railway_system; Owner: postgres
 --
 
 COPY railway_system.rout_to_station_mapping (station_id, routs_id, station_arrival_date, station_dispatch_data, "order") FROM stdin;
-5d5c1243-ba04-4921-8304-20ccb322f4a3	ee103d9f-d613-4516-bc6c-e5cbabb24bc7	2020-04-21 01:01:00	2020-04-21 01:11:00	1
-4da2e815-1b7d-43c6-8b6f-825dedfb8d1a	ee103d9f-d613-4516-bc6c-e5cbabb24bc7	2020-04-21 02:02:00	2020-04-21 02:22:00	2
-53eba105-0885-4c1e-9eff-e6d11aee19e6	ee103d9f-d613-4516-bc6c-e5cbabb24bc7	2020-04-21 03:03:00	2020-04-21 03:33:00	3
-245ea97b-7c80-43b0-a79c-28db48e57d69	ee103d9f-d613-4516-bc6c-e5cbabb24bc7	2020-04-21 04:04:00	2020-04-21 04:44:00	4
-5d5c1243-ba04-4921-8304-20ccb322f4a3	42913091-c5b5-4e1e-8767-9929e681bfdc	2020-04-21 05:04:00	2020-04-21 05:14:00	1
-245ea97b-7c80-43b0-a79c-28db48e57d69	42913091-c5b5-4e1e-8767-9929e681bfdc	2020-04-21 06:01:00	2020-04-21 06:11:00	2
 \.
 
 
 --
+-- TOC entry 2916 (class 0 OID 16635)
+-- Dependencies: 224
+-- Data for Name: seat; Type: TABLE DATA; Schema: railway_system; Owner: postgres
+--
+
+COPY railway_system.seat (seat_id, car_id, seat_number, busy) FROM stdin;
+81cfa4c8-c801-442f-bcde-dcbbef2edc49	ea5702a6-179d-4bc2-aa57-d384e19c08a9	1	f
+87559a93-39df-45ce-8828-98f26b769da5	ea5702a6-179d-4bc2-aa57-d384e19c08a9	2	f
+e79d6ae4-df4c-44d5-a0d2-5ab76f36c83f	ea5702a6-179d-4bc2-aa57-d384e19c08a9	3	f
+1dfa4d59-3c07-4cdb-8422-8b85046a5830	ea5702a6-179d-4bc2-aa57-d384e19c08a9	4	f
+b3c6444f-3efd-400a-b48b-77090709360f	ea5702a6-179d-4bc2-aa57-d384e19c08a9	5	f
+e80347ac-b4cd-49bc-b4b3-1691ff3f33b9	ea5702a6-179d-4bc2-aa57-d384e19c08a9	6	f
+839e0d39-77a2-4657-98a0-52da183ab874	ea5702a6-179d-4bc2-aa57-d384e19c08a9	7	f
+2d07de3f-3dbe-433c-a9e5-7b96141a192b	ea5702a6-179d-4bc2-aa57-d384e19c08a9	8	f
+662cdc6a-843b-414e-9b49-211ca8e00829	ea5702a6-179d-4bc2-aa57-d384e19c08a9	9	f
+a9a2560f-0cbf-4769-9154-36e13a35ad73	ea5702a6-179d-4bc2-aa57-d384e19c08a9	10	f
+09ebb82b-d4a0-4bd5-a4d3-678b98fb88ac	ea5702a6-179d-4bc2-aa57-d384e19c08a9	11	f
+65bb4948-ac95-4567-ba1e-6e61ba692054	ea5702a6-179d-4bc2-aa57-d384e19c08a9	12	f
+990d71a5-35c0-44be-a0bc-c1fc2b72d488	ea5702a6-179d-4bc2-aa57-d384e19c08a9	13	f
+8c837443-08e6-4293-a033-4831b5d24838	ea5702a6-179d-4bc2-aa57-d384e19c08a9	14	f
+55d62005-b01c-4fce-a0f4-5c8cffa81285	ea5702a6-179d-4bc2-aa57-d384e19c08a9	15	f
+af2f775e-937a-418c-ad79-13ed6c9d59c7	ea5702a6-179d-4bc2-aa57-d384e19c08a9	16	f
+933fd4d3-31a2-49fa-a2f0-7de7f96fa967	ea5702a6-179d-4bc2-aa57-d384e19c08a9	17	f
+a56153a4-950f-4a43-80f9-9da4c4e6b414	ea5702a6-179d-4bc2-aa57-d384e19c08a9	18	f
+e2da6078-5736-4d7c-b08d-e695517cfc9e	ea5702a6-179d-4bc2-aa57-d384e19c08a9	19	f
+f7359d03-cb1d-4f9d-a232-c39ec5ba3955	ea5702a6-179d-4bc2-aa57-d384e19c08a9	20	f
+\.
+
+
+--
+-- TOC entry 2913 (class 0 OID 16617)
+-- Dependencies: 221
 -- Data for Name: station; Type: TABLE DATA; Schema: railway_system; Owner: postgres
 --
 
 COPY railway_system.station (station_id, station) FROM stdin;
-5d5c1243-ba04-4921-8304-20ccb322f4a3	Kharkov
-4da2e815-1b7d-43c6-8b6f-825dedfb8d1a	Odessa
-245ea97b-7c80-43b0-a79c-28db48e57d69	Poltava
-8a38b59a-b278-4655-8783-dd2c58b3a400	Lvov
-7758b6e8-f340-4098-a128-bfeb3623afca	Symmu
-53eba105-0885-4c1e-9eff-e6d11aee19e6	Krakov
+d62981f1-f302-470b-8d6c-cc704fe82ee8	Kyiv
+f28b3cd5-98ef-4eb4-bba9-7245db7c6b30	Odessa
+2581d0f0-1741-47e6-8724-e72e305e05e4	Poltava
+c4b774ef-41de-4ecc-a458-76dcf34c68a6	Kharkov
 \.
 
 
 --
+-- TOC entry 2914 (class 0 OID 16622)
+-- Dependencies: 222
 -- Data for Name: train; Type: TABLE DATA; Schema: railway_system; Owner: postgres
 --
 
 COPY railway_system.train (train_id, train_number) FROM stdin;
-f324db20-8812-4f1e-b317-faabba8fb7b4	1
-30336920-d115-4d60-b872-eb6e5ebfb1d5	2
-3536501b-ad85-4851-94d4-ad952d129f6c	3
+4d1399a5-1d3e-4e5a-8477-c8665dff638e	1
+d25160b9-d330-4d12-8da7-33e8a5255740	2
 \.
 
 
 --
+-- TOC entry 2915 (class 0 OID 16627)
+-- Dependencies: 223
 -- Data for Name: user; Type: TABLE DATA; Schema: railway_system; Owner: postgres
 --
 
 COPY railway_system."user" (user_id, email, password, first_name, last_name, phone, birth_date, role, blocked) FROM stdin;
-e7f895e3-61cd-4a6c-ab9e-9bb4e96323ea	admin@mail.com	admin	Admin	Admin	+380969528588	1994-02-18	ADMIN	f
-9123b274-5321-40ed-3232-1e7ebcc8011e	user2@mail.com	user	User2	User2	+380969528586	1998-11-15	USER	f
-4123b274-5321-40ed-9765-7a7ebcc8011e	user@mail.com	user	User	User	+380969528587	1998-11-11	USER	f
+3ef46f73-e7f9-42a8-aa25-568131669766	admin@mail.com	admin	Admin	Admin	+380969528587	1992-04-30	ADMIN	f
+649c24d4-6943-4116-bf27-b3af6a87a436	user@mail.com	user	User	User	+380969528589	1970-12-12	USER	f
+2a9d6e12-95c4-4d49-9a0d-cdbaa9fe9ce8	user2@mail.com	user	User2	User2	+380969528586	1985-12-18	USER	f
 \.
 
 
 --
+-- TOC entry 2922 (class 0 OID 0)
+-- Dependencies: 203
 -- Name: CarType_carTypeId_seq; Type: SEQUENCE SET; Schema: railway_system; Owner: postgres
 --
 
@@ -437,6 +498,8 @@ SELECT pg_catalog.setval('railway_system."CarType_carTypeId_seq"', 1, false);
 
 
 --
+-- TOC entry 2923 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: Cars_carId_seq; Type: SEQUENCE SET; Schema: railway_system; Owner: postgres
 --
 
@@ -444,6 +507,8 @@ SELECT pg_catalog.setval('railway_system."Cars_carId_seq"', 1, false);
 
 
 --
+-- TOC entry 2924 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: Order_orderId_seq; Type: SEQUENCE SET; Schema: railway_system; Owner: postgres
 --
 
@@ -451,6 +516,8 @@ SELECT pg_catalog.setval('railway_system."Order_orderId_seq"', 1, false);
 
 
 --
+-- TOC entry 2925 (class 0 OID 0)
+-- Dependencies: 206
 -- Name: Rolle_id_seq; Type: SEQUENCE SET; Schema: railway_system; Owner: postgres
 --
 
@@ -458,6 +525,8 @@ SELECT pg_catalog.setval('railway_system."Rolle_id_seq"', 1, false);
 
 
 --
+-- TOC entry 2926 (class 0 OID 0)
+-- Dependencies: 207
 -- Name: Routs_id_seq; Type: SEQUENCE SET; Schema: railway_system; Owner: postgres
 --
 
@@ -465,6 +534,8 @@ SELECT pg_catalog.setval('railway_system."Routs_id_seq"', 1, false);
 
 
 --
+-- TOC entry 2927 (class 0 OID 0)
+-- Dependencies: 208
 -- Name: StationType_id_seq; Type: SEQUENCE SET; Schema: railway_system; Owner: postgres
 --
 
@@ -472,6 +543,8 @@ SELECT pg_catalog.setval('railway_system."StationType_id_seq"', 1, false);
 
 
 --
+-- TOC entry 2928 (class 0 OID 0)
+-- Dependencies: 209
 -- Name: Stations_id_seq; Type: SEQUENCE SET; Schema: railway_system; Owner: postgres
 --
 
@@ -479,6 +552,8 @@ SELECT pg_catalog.setval('railway_system."Stations_id_seq"', 1, false);
 
 
 --
+-- TOC entry 2929 (class 0 OID 0)
+-- Dependencies: 210
 -- Name: Trains_id_seq; Type: SEQUENCE SET; Schema: railway_system; Owner: postgres
 --
 
@@ -486,6 +561,8 @@ SELECT pg_catalog.setval('railway_system."Trains_id_seq"', 1, false);
 
 
 --
+-- TOC entry 2930 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: Trains_id_seq1; Type: SEQUENCE SET; Schema: railway_system; Owner: postgres
 --
 
@@ -493,6 +570,8 @@ SELECT pg_catalog.setval('railway_system."Trains_id_seq1"', 1, false);
 
 
 --
+-- TOC entry 2931 (class 0 OID 0)
+-- Dependencies: 212
 -- Name: Users_id_seq; Type: SEQUENCE SET; Schema: railway_system; Owner: postgres
 --
 
@@ -500,6 +579,8 @@ SELECT pg_catalog.setval('railway_system."Users_id_seq"', 1, false);
 
 
 --
+-- TOC entry 2932 (class 0 OID 0)
+-- Dependencies: 213
 -- Name: WayStation_id_seq; Type: SEQUENCE SET; Schema: railway_system; Owner: postgres
 --
 
@@ -507,6 +588,8 @@ SELECT pg_catalog.setval('railway_system."WayStation_id_seq"', 1, false);
 
 
 --
+-- TOC entry 2933 (class 0 OID 0)
+-- Dependencies: 214
 -- Name: car_car_number_seq; Type: SEQUENCE SET; Schema: railway_system; Owner: postgres
 --
 
@@ -514,6 +597,8 @@ SELECT pg_catalog.setval('railway_system.car_car_number_seq', 1, false);
 
 
 --
+-- TOC entry 2934 (class 0 OID 0)
+-- Dependencies: 216
 -- Name: invoices_id_seq; Type: SEQUENCE SET; Schema: railway_system; Owner: postgres
 --
 
@@ -521,6 +606,8 @@ SELECT pg_catalog.setval('railway_system.invoices_id_seq', 1, false);
 
 
 --
+-- TOC entry 2935 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: prices_id_seq; Type: SEQUENCE SET; Schema: railway_system; Owner: postgres
 --
 
@@ -528,6 +615,7 @@ SELECT pg_catalog.setval('railway_system.prices_id_seq', 1, false);
 
 
 --
+-- TOC entry 2747 (class 2606 OID 16594)
 -- Name: car cars_pk; Type: CONSTRAINT; Schema: railway_system; Owner: postgres
 --
 
@@ -536,6 +624,7 @@ ALTER TABLE ONLY railway_system.car
 
 
 --
+-- TOC entry 2749 (class 2606 OID 16604)
 -- Name: order order_pk; Type: CONSTRAINT; Schema: railway_system; Owner: postgres
 --
 
@@ -544,6 +633,7 @@ ALTER TABLE ONLY railway_system."order"
 
 
 --
+-- TOC entry 2753 (class 2606 OID 16616)
 -- Name: rout_to_station_mapping rout_to_station_mapping_pk; Type: CONSTRAINT; Schema: railway_system; Owner: postgres
 --
 
@@ -552,6 +642,7 @@ ALTER TABLE ONLY railway_system.rout_to_station_mapping
 
 
 --
+-- TOC entry 2751 (class 2606 OID 16611)
 -- Name: rout routs_pkey; Type: CONSTRAINT; Schema: railway_system; Owner: postgres
 --
 
@@ -560,6 +651,16 @@ ALTER TABLE ONLY railway_system.rout
 
 
 --
+-- TOC entry 2761 (class 2606 OID 16639)
+-- Name: seat seat_pk; Type: CONSTRAINT; Schema: railway_system; Owner: postgres
+--
+
+ALTER TABLE ONLY railway_system.seat
+    ADD CONSTRAINT seat_pk PRIMARY KEY (seat_id);
+
+
+--
+-- TOC entry 2755 (class 2606 OID 16621)
 -- Name: station stations_pkey; Type: CONSTRAINT; Schema: railway_system; Owner: postgres
 --
 
@@ -568,6 +669,7 @@ ALTER TABLE ONLY railway_system.station
 
 
 --
+-- TOC entry 2757 (class 2606 OID 16626)
 -- Name: train trains_pk; Type: CONSTRAINT; Schema: railway_system; Owner: postgres
 --
 
@@ -576,6 +678,7 @@ ALTER TABLE ONLY railway_system.train
 
 
 --
+-- TOC entry 2759 (class 2606 OID 16634)
 -- Name: user users_pkey; Type: CONSTRAINT; Schema: railway_system; Owner: postgres
 --
 
@@ -584,6 +687,16 @@ ALTER TABLE ONLY railway_system."user"
 
 
 --
+-- TOC entry 2767 (class 2606 OID 16665)
+-- Name: seat car_id; Type: FK CONSTRAINT; Schema: railway_system; Owner: postgres
+--
+
+ALTER TABLE ONLY railway_system.seat
+    ADD CONSTRAINT car_id FOREIGN KEY (car_id) REFERENCES railway_system.car(car_id) MATCH FULL ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 2765 (class 2606 OID 16655)
 -- Name: rout_to_station_mapping routs_id; Type: FK CONSTRAINT; Schema: railway_system; Owner: postgres
 --
 
@@ -592,6 +705,7 @@ ALTER TABLE ONLY railway_system.rout_to_station_mapping
 
 
 --
+-- TOC entry 2766 (class 2606 OID 16660)
 -- Name: rout_to_station_mapping station_id; Type: FK CONSTRAINT; Schema: railway_system; Owner: postgres
 --
 
@@ -600,14 +714,7 @@ ALTER TABLE ONLY railway_system.rout_to_station_mapping
 
 
 --
--- Name: rout train_id; Type: FK CONSTRAINT; Schema: railway_system; Owner: postgres
---
-
-ALTER TABLE ONLY railway_system.rout
-    ADD CONSTRAINT train_id FOREIGN KEY (train_id) REFERENCES railway_system.train(train_id) MATCH FULL ON UPDATE RESTRICT ON DELETE RESTRICT;
-
-
---
+-- TOC entry 2762 (class 2606 OID 16640)
 -- Name: car train_id; Type: FK CONSTRAINT; Schema: railway_system; Owner: postgres
 --
 
@@ -616,6 +723,16 @@ ALTER TABLE ONLY railway_system.car
 
 
 --
+-- TOC entry 2764 (class 2606 OID 16650)
+-- Name: rout train_id; Type: FK CONSTRAINT; Schema: railway_system; Owner: postgres
+--
+
+ALTER TABLE ONLY railway_system.rout
+    ADD CONSTRAINT train_id FOREIGN KEY (train_id) REFERENCES railway_system.train(train_id) MATCH FULL ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 2763 (class 2606 OID 16645)
 -- Name: order user_id; Type: FK CONSTRAINT; Schema: railway_system; Owner: postgres
 --
 
@@ -624,10 +741,14 @@ ALTER TABLE ONLY railway_system."order"
 
 
 --
+-- TOC entry 2894 (class 0 OID 16617)
+-- Dependencies: 221
 -- Name: station; Type: ROW SECURITY; Schema: railway_system; Owner: postgres
 --
 
 ALTER TABLE railway_system.station ENABLE ROW LEVEL SECURITY;
+
+-- Completed on 2020-04-30 05:25:00
 
 --
 -- PostgreSQL database dump complete
