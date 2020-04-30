@@ -9,8 +9,6 @@ public class Car {
     private CarType carType;
     private String carNumber;
     private String trainId;
-    private Integer seats;
-
 
     public String getCarId() {
         return carId;
@@ -19,7 +17,6 @@ public class Car {
     public void setCarId(String carId) {
         this.carId = carId;
     }
-
 
     public CarType getCarType() {
         return carType;
@@ -37,7 +34,6 @@ public class Car {
         this.carNumber = carNumber;
     }
 
-
     public String getTrainId() {
         return trainId;
     }
@@ -45,15 +41,5 @@ public class Car {
     public void setTrainId(String trainId) {
         this.trainId = trainId;
     }
-
-
-    public Integer getSeats() {
-        return seats;
-    }
-
-    public void setSeats(Integer seats) {
-        this.seats = seats;
-    }
-
 
 }

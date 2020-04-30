@@ -1,8 +1,8 @@
 package ua.nure.huzhyn.web.controller;
 
 import org.apache.log4j.Logger;
+import ua.nure.huzhyn.db.dao.dto.CarDto;
 import ua.nure.huzhyn.exception.IncorrectDataException;
-import ua.nure.huzhyn.model.entity.Car;
 import ua.nure.huzhyn.model.entity.Train;
 import ua.nure.huzhyn.model.entity.enums.CarType;
 import ua.nure.huzhyn.services.CarService;
@@ -29,15 +29,15 @@ public class AdministratorAddCarController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         CarValidator carValidator = new CarValidator();
-        Car car = new Car();
+        CarDto carDto = new CarDto();
         try {
-            car.setCarType(CarType.valueOf(request.getParameter("car_type")));
-            car.setCarNumber(request.getParameter("car_number"));
-            car.setSeats(Integer.valueOf(request.getParameter("seats")));
+            carDto.setCarType(CarType.valueOf(request.getParameter("car_type")));
+            carDto.setCarNumber(request.getParameter("car_number"));
+            carDto.setSeats(Integer.valueOf(request.getParameter("seats")));
             String trainId = request.getParameter("train_id");
-            car.setTrainId(trainId.equals("TRAIN_NOT_SELECTED") ? null : trainId);
-            carValidator.isValidCar(car);
-            carService.addCar(car);
+            carDto.setTrainId(trainId.equals("TRAIN_NOT_SELECTED") ? null : trainId);
+            carValidator.isValidCar(carDto);
+            carService.addCar(carDto);
         } catch (IllegalArgumentException e) {
             LOGGER.error("Incorrect data entered");
             throw new IncorrectDataException("Incorrect data entered", e);

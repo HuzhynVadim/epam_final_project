@@ -3,11 +3,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="mrt" %>
 
+
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="lang"/>
 <html>
 <head>
-    <title><fmt:message key="user.makeOrder"/></title>
+    <title>13</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <style>
@@ -51,46 +52,47 @@
     <fmt:message key="enterRole"></fmt:message>
     <mrt:role role="${user.role}"></mrt:role>
 </div>
-<form action="select_seats_for_order" method="GET">
+<center class="h2">
+    <fmt:message key="account"></fmt:message>
+</center>
+<p class="h4">
+    <h12><fmt:message key="user.order.information"/></h12>
+</p>
+<form action="confirm_order" method="POST">
     <table class="table table-bordered table-hover text-center" border="1" style="width: auto">
         <thead class="thead-light text-center">
         <tr>
-            <th><fmt:message key="car.number"/></th>
-            <th><fmt:message key="count.of.seats"/></th>
+            <th><fmt:message key="order.train.number"/></th>
+            <th><fmt:message key="order.car.type"/></th>
+            <th><fmt:message key="order.car.number"/></th>
+            <th><fmt:message key="order.count.of.seats"/></th>
+            <th><fmt:message key="order.seats.number"/></th>
+            <th><fmt:message key="order.dispatch.station"/></th>
+            <th><fmt:message key="order.arrival.station"/></th>
             <th><fmt:message key="order.make.order"/></th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td><select class="btn btn-info dropdown-toggle" name="car_number">
-                <c:forEach items="${car_list}" var="carList">
-                    <option value="${carList.carNumber}"><c:out value="${carList.carNumber}"/></option>
-                </c:forEach>
-            </select></td>
-            <td><input class="form-control" name="count_of_seats"></td>
-            <td>
-                <input type="hidden" name="routs_id" value="${routs_id}">
-                <input type="hidden" name="train_id" value="${train_id}">
-                <input type="hidden" name="departure_station" value="${departure_station}">
-                <input type="hidden" name="arrival_station" value="${arrival_station}">
-                <input type="hidden" name="departure_date" value="${departure_date}">
-                <input type="hidden" name="departure_station_id" value="${departure_station_id}">
-                <input type="hidden" name="arrival_station_id" value="${arrival_station_id}">
-                <input type="hidden" name="car_type" value="${car_type}">
-                <input type="submit" class="btn btn-success" name="add_order"
-                       value="<fmt:message key="order.make.order"/>">
-            </td>
-        </tr>
+            <tr>
+                <td>${train_number}</td>
+                <td>${car_type}</td>
+                <td>${car_number}</td>
+                <td>${count_of_seats}</td>
+                <td>${seats_number}</td>
+                <td>${departure_station}</td>
+                <td>${arrival_station}</td>
+                <td>
+                    <input type="submit" class="btn btn-success" name="add_order"
+                           value="<fmt:message key="order.make.order"/>">
+                </td>
+            </tr>
+        </tbody>
     </table>
 </form>
-
-<form action="select_station_and_car_type_for_order" method="GET">
-    <input type="hidden" name="routs_id" value="${routs_id}">
-    <input type="hidden" name="departure_station" value="${departure_station}">
-    <input type="hidden" name="arrival_station" value="${arrival_station}">
-    <input type="hidden" name="departure_date" value="${departure_date}">
-    <input type="hidden" name="train_id" value="${train_id}">
-    <input type="submit" class="btn btn-primary" value="<fmt:message key="back"/>">
+<p>
+<form action="home" method="GET">
+    <input type="submit" class="btn btn-primary" value="<fmt:message key="no"/>">
 </form>
+</p>
 </body>
 </html>

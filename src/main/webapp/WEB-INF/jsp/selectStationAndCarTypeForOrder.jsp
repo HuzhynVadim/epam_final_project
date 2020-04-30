@@ -63,7 +63,7 @@
         </thead>
         <tbody>
         <tr>
-            <td><select class="btn btn-info dropdown-toggle" name="departure_station">
+            <td><select class="btn btn-info dropdown-toggle" name="departure_station_id">
                 <c:set var="departure_station" value="${departure_station}"/>
                 <c:forEach items="${station_list}" var="stationList">
                     <option
@@ -77,7 +77,7 @@
                 </c:forEach>
             </select>
             </td>
-            <td><select class="btn btn-info dropdown-toggle" name="arrival_station">
+            <td><select class="btn btn-info dropdown-toggle" name="arrival_station_id">
                 <c:set var="arrival_station" value="${arrival_station}"/>
                 <c:forEach items="${station_list}" var="stationList">
                     <option

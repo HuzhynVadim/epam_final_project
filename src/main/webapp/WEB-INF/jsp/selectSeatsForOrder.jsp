@@ -51,23 +51,25 @@
     <fmt:message key="enterRole"></fmt:message>
     <mrt:role role="${user.role}"></mrt:role>
 </div>
-<form action="select_seats_for_order" method="GET">
+<form action="confirm_order" method="GET">
     <table class="table table-bordered table-hover text-center" border="1" style="width: auto">
         <thead class="thead-light text-center">
         <tr>
-            <th><fmt:message key="car.number"/></th>
-            <th><fmt:message key="count.of.seats"/></th>
+            <c:forEach  begin="1" end="${count_of_seats}">
+                <th><fmt:message key="order.seats.number"/></th>
+            </c:forEach>
             <th><fmt:message key="order.make.order"/></th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td><select class="btn btn-info dropdown-toggle" name="car_number">
-                <c:forEach items="${car_list}" var="carList">
-                    <option value="${carList.carNumber}"><c:out value="${carList.carNumber}"/></option>
-                </c:forEach>
-            </select></td>
-            <td><input class="form-control" name="count_of_seats"></td>
+            <c:forEach begin="1" end="${count_of_seats}">
+                <td><select class="btn btn-info dropdown-toggle" name="seats_number">
+                    <c:forEach var="i" begin="1" end="3">
+                        <option value="${i}"><c:out value="${i}"/></option>
+                    </c:forEach>
+                </select></td>
+            </c:forEach>
             <td>
                 <input type="hidden" name="routs_id" value="${routs_id}">
                 <input type="hidden" name="train_id" value="${train_id}">
@@ -77,6 +79,8 @@
                 <input type="hidden" name="departure_station_id" value="${departure_station_id}">
                 <input type="hidden" name="arrival_station_id" value="${arrival_station_id}">
                 <input type="hidden" name="car_type" value="${car_type}">
+                <input type="hidden" name="car_number" value="${car_number}">
+                <input type="hidden" name="count_of_seats" value="${count_of_seats}">
                 <input type="submit" class="btn btn-success" name="add_order"
                        value="<fmt:message key="order.make.order"/>">
             </td>
@@ -84,12 +88,15 @@
     </table>
 </form>
 
-<form action="select_station_and_car_type_for_order" method="GET">
+<form action="select_cars_and_seats_for_order" method="GET">
     <input type="hidden" name="routs_id" value="${routs_id}">
+    <input type="hidden" name="train_id" value="${train_id}">
     <input type="hidden" name="departure_station" value="${departure_station}">
     <input type="hidden" name="arrival_station" value="${arrival_station}">
     <input type="hidden" name="departure_date" value="${departure_date}">
-    <input type="hidden" name="train_id" value="${train_id}">
+    <input type="hidden" name="departure_station_id" value="${departure_station_id}">
+    <input type="hidden" name="arrival_station_id" value="${arrival_station_id}">
+    <input type="hidden" name="car_type" value="${car_type}">
     <input type="submit" class="btn btn-primary" value="<fmt:message key="back"/>">
 </form>
 </body>

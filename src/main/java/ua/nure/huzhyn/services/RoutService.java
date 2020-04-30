@@ -11,13 +11,13 @@ public interface RoutService {
 
     void addRout(Rout rout);
 
-    List<RoutInfoDto> getAllRoutList();
-
     void removeRout(String routsId);
 
     void updateRout(Rout rout);
 
     Rout read(String id);
+
+    List<RoutInfoDto> getAllRoutList();
 
     RoutInfoDto getRoutById(String routsId);
 

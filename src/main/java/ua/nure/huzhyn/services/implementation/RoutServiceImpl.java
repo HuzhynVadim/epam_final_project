@@ -5,9 +5,7 @@ import ua.nure.huzhyn.db.dao.dto.RoutInfoDto;
 import ua.nure.huzhyn.db.dao.dto.RoutsOrderDto;
 import ua.nure.huzhyn.db.dao.dto.StationDto;
 import ua.nure.huzhyn.db.dao.transaction.TransactionManager;
-import ua.nure.huzhyn.model.entity.Car;
 import ua.nure.huzhyn.model.entity.Rout;
-import ua.nure.huzhyn.model.entity.enums.CarType;
 import ua.nure.huzhyn.services.CarService;
 import ua.nure.huzhyn.services.RoutService;
 
@@ -29,7 +27,7 @@ public class RoutServiceImpl implements RoutService {
 
     @Override
     public void addRout(Rout rout) {
-        populateFreeSeatsCount(rout);
+//        populateFreeSeatsCount(rout);
         transactionManager.execute(() -> {
             routsRepository.create(rout);
             return null;
@@ -96,7 +94,7 @@ public class RoutServiceImpl implements RoutService {
 
     @Override
     public void updateRout(Rout rout) {
-        populateFreeSeatsCount(rout);
+//        populateFreeSeatsCount(rout);
         transactionManager.execute(() -> routsRepository.update(rout));
     }
 
@@ -130,25 +128,25 @@ public class RoutServiceImpl implements RoutService {
         return routsOrderDto;
     }
 
-    private void populateFreeSeatsCount(Rout rout) {
-        int commonFreeSeatsCount = 0;
-        int compartmentFreeSeatsCount = 0;
-        int reservedFreeSeatsCount = 0;
-        for (Car car : carService.getCarByTrainId(rout.getTrainId())) {
-            if (CarType.COMMON.equals(car.getCarType())) {
-                commonFreeSeatsCount += car.getSeats();
-            }
-            if (CarType.COMPARTMENT.equals(car.getCarType())) {
-                compartmentFreeSeatsCount += car.getSeats();
-            }
-            if (CarType.RESERVED_SEAT.equals(car.getCarType())) {
-                reservedFreeSeatsCount += car.getSeats();
-            }
-        }
-
-        rout.setCommonFreeSeatsCount(commonFreeSeatsCount);
-        rout.setCompartmentFreeSeatsCount(compartmentFreeSeatsCount);
-        rout.setReservedFreeSeatsCount(reservedFreeSeatsCount);
-    }
+//    private void populateFreeSeatsCount(Rout rout) {
+//        int commonFreeSeatsCount = 0;
+//        int compartmentFreeSeatsCount = 0;
+//        int reservedFreeSeatsCount = 0;
+//        for (Car car : carService.getCarByTrainId(rout.getTrainId())) {
+//            if (CarType.COMMON.equals(car.getCarType())) {
+//                commonFreeSeatsCount += car.getSeats();
+//            }
+//            if (CarType.COMPARTMENT.equals(car.getCarType())) {
+//                compartmentFreeSeatsCount += car.getSeats();
+//            }
+//            if (CarType.RESERVED_SEAT.equals(car.getCarType())) {
+//                reservedFreeSeatsCount += car.getSeats();
+//            }
+//        }
+//
+//        rout.setCommonFreeSeatsCount(commonFreeSeatsCount);
+//        rout.setCompartmentFreeSeatsCount(compartmentFreeSeatsCount);
+//        rout.setReservedFreeSeatsCount(reservedFreeSeatsCount);
+//    }
 }
 

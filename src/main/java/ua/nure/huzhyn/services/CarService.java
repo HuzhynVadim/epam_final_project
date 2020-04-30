@@ -12,11 +12,11 @@ public interface CarService {
 
     List<Car> getCarByTrainId(String trainId);
 
-    void addCar(Car car);
+    void addCar(CarDto carDto);
 
     Car getCarById(String carId);
 
-    void updateCar(Car car);
+    void updateCar(CarDto carDto);
 
     List<Car> getCarByTrainIdAndCarType(String trainId, String carType);
 }

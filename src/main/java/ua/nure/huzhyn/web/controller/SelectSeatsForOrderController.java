@@ -1,9 +1,7 @@
 package ua.nure.huzhyn.web.controller;
 
 import org.apache.log4j.Logger;
-import ua.nure.huzhyn.db.dao.dto.RoutInfoDto;
 import ua.nure.huzhyn.exception.IncorrectDataException;
-import ua.nure.huzhyn.model.entity.Car;
 import ua.nure.huzhyn.services.*;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 
@@ -16,10 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.List;
 
-@WebServlet("/select_cars_and_seats_for_order")
-public class SelectCarAndCountSeatsForOrderController extends HttpServlet {
+@WebServlet("/select_seats_for_order")
+public class SelectSeatsForOrderController extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(SelectStationAndCarTypeForOrderController.class);
     private OrderService orderService;
@@ -37,6 +34,8 @@ public class SelectCarAndCountSeatsForOrderController extends HttpServlet {
         String arrivalStationId = request.getParameter("arrival_station_id");
         String carType = request.getParameter("car_type");
         String trainId = request.getParameter("train_id");
+        String carNumber = request.getParameter("car_number");
+        String countOfSeats = request.getParameter("count_of_seats");
         LocalDateTime departureDate;
         try {
             departureDate = LocalDateTime.parse(request.getParameter("departure_date"));
@@ -53,12 +52,9 @@ public class SelectCarAndCountSeatsForOrderController extends HttpServlet {
         request.setAttribute("routs_id", routsId);
         request.setAttribute("car_type", carType);
         request.setAttribute("train_id", trainId);
-
-        RoutInfoDto routInfoDto = routService.getRoutById(routsId);
-        List<Car> carList = carService.getCarByTrainIdAndCarType(routInfoDto.getTrainId(), carType);
-        request.setAttribute("car_list", carList);
-
-        request.getRequestDispatcher("WEB-INF/jsp/selectCarAndCountSeatsForOrder.jsp").forward(request, response);
+        request.setAttribute("car_number", carNumber);
+        request.setAttribute("count_of_seats", countOfSeats);
+        request.getRequestDispatcher("WEB-INF/jsp/selectSeatsForOrder.jsp").forward(request, response);
     }
 
     public void init(ServletConfig config) {

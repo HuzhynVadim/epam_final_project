@@ -74,6 +74,7 @@ public class SecurityFilter implements Filter {
         userAvailableEndpoints.add("/select_cars_and_seats_for_order");
         userAvailableEndpoints.add("/select_station_and_car_type_for_order");
         userAvailableEndpoints.add("/detail_rout");
+        userAvailableEndpoints.add("/logout");
 
         accessMap.put(UserRole.USER, userAvailableEndpoints);
 

@@ -94,7 +94,7 @@
             </select>
             </td>
             <td><input name="car_number" class="form-control" value="${current_car.carNumber}"></td>
-            <td><input name="seats" class="form-control" value="${current_car.seats}"></td>
+            <td><input name="seats" class="form-control" value="${countSeat}"></td>
             <td>
                 <input type="hidden" name="car_id" value="${current_car.carId}">
                 <input type="submit" class="btn btn-success" name="save_edit_information"
