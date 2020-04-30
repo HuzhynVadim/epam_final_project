@@ -5,6 +5,7 @@ import ua.nure.huzhyn.db.dao.dto.RoutsOrderDto;
 import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.model.entity.enums.CarType;
 import ua.nure.huzhyn.services.RoutService;
+import ua.nure.huzhyn.services.StationService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 import ua.nure.huzhyn.validator.SearchValidator;
 
@@ -21,10 +22,11 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-@WebServlet("/search_rout_for_order" )
+@WebServlet("/search_rout_for_order")
 public class SearchRoutForOrderController extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(SearchRoutForOrderController.class);
     private RoutService routService;
+    private StationService stationService;
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,7 +41,7 @@ public class SearchRoutForOrderController extends HttpServlet {
             throw new IncorrectDataException("Incorrect data entered", e);
         }
         List<CarType> carTypeList = new ArrayList<>(EnumSet.allOf(CarType.class));
-        searchValidator.isValidSearch(departureStation,arrivalStation);
+        searchValidator.isValidSearch(departureStation, arrivalStation);
         request.setAttribute("carTypeList", carTypeList);
         List<RoutsOrderDto> routList = routService.getRouteListWithParameters(departureStation, arrivalStation, departureDate);
         request.setAttribute("rout_list", routList);
@@ -52,5 +54,7 @@ public class SearchRoutForOrderController extends HttpServlet {
 
     public void init(ServletConfig config) {
         routService = (RoutService) config.getServletContext().getAttribute((AppContextConstant.ROUT_SERVICE));
+        stationService = (StationService) config.getServletContext().getAttribute((AppContextConstant.STATION_SERVICE));
+
     }
 }

@@ -26,6 +26,7 @@ public class CarRepositoryImpl implements CarRepository {
     private static final String UPDATE_CAR = "UPDATE final_project.railway_system.car SET car_type = ?, car_number = ?, train_id = ? WHERE car_id = ?";
     private static final String GET_ALL_CAR = "SELECT * FROM final_project.railway_system.car as c LEFT OUTER JOIN final_project.railway_system.train as t ON c.train_id = t.train_id  ORDER BY train_number, car_number";
     private static final String GET_CAR_BY_TRAIN_ID_AND_CAR_TYPE = "SELECT * FROM final_project.railway_system.car WHERE train_id = ? AND car_type = ?";
+    private static final String GET_CAR_BY_TRAIN_ID_AND_CAR_TYPE_AND_CAR_NUMBER = "SELECT * FROM final_project.railway_system.car WHERE train_id = ? AND car_type = ? AND car_number = ?";
 
     @Override
     public String create(Car entity) {
@@ -193,5 +194,23 @@ public class CarRepositoryImpl implements CarRepository {
         return cars;
     }
 
-
+    @Override
+    public Car getCarIdByTrainIdAndCarTypeAndCarNumber(String trainId, String carType, String carNumber) {
+        Car car = new Car();
+        Connection connection = ConnectionManager.getConnection();
+        try (PreparedStatement ps = connection.prepareStatement(GET_CAR_BY_TRAIN_ID_AND_CAR_TYPE_AND_CAR_NUMBER)) {
+            ps.setString(1, trainId);
+            ps.setString(2, carType);
+            ps.setString(3, carNumber);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                car = extract(rs);
+            }
+            connection.commit();
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DataBaseException("Can't get car by ID and car type and car number . Train ID = " + trainId + " car type = " + carType + " car number = " + carNumber, e);
+        }
+        return car;
+    }
 }

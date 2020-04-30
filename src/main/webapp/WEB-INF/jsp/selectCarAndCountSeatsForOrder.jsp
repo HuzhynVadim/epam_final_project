@@ -62,9 +62,9 @@
         </thead>
         <tbody>
         <tr>
-            <td><select class="btn btn-info dropdown-toggle" name="car_number">
+            <td><select class="btn btn-info dropdown-toggle" name="car_id">
                 <c:forEach items="${car_list}" var="carList">
-                    <option value="${carList.carNumber}"><c:out value="${carList.carNumber}"/></option>
+                    <option value="${carList.carId}"><c:out value="${carList.carNumber}"/></option>
                 </c:forEach>
             </select></td>
             <td><input class="form-control" name="count_of_seats"></td>
@@ -72,10 +72,10 @@
                 <input type="hidden" name="routs_id" value="${routs_id}">
                 <input type="hidden" name="train_id" value="${train_id}">
                 <input type="hidden" name="departure_station" value="${departure_station}">
-                <input type="hidden" name="arrival_station" value="${arrival_station}">
-                <input type="hidden" name="departure_date" value="${departure_date}">
                 <input type="hidden" name="departure_station_id" value="${departure_station_id}">
                 <input type="hidden" name="arrival_station_id" value="${arrival_station_id}">
+                <input type="hidden" name="arrival_station" value="${arrival_station}">
+                <input type="hidden" name="departure_date" value="${departure_date}">
                 <input type="hidden" name="car_type" value="${car_type}">
                 <input type="submit" class="btn btn-success" name="add_order"
                        value="<fmt:message key="order.make.order"/>">

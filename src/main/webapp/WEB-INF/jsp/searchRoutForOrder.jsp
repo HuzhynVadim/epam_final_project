@@ -80,9 +80,9 @@
             <td>${rout.routName}</td>
             <td>${rout.routNumber}</td>
             <td>${rout.trainNumber}</td>
-            <td>${departure_station} - ${dispatchTime}</td>
+            <td>${rout.stations.get(0).station} - ${dispatchTime}</td>
             <td><period:period dateFrom="${dispatchTime}" dateTo="${arrivalTime}"/></td>
-            <td>${arrival_station} - ${arrivalTime}</td>
+            <td>${rout.stations.get(1).station} - ${arrivalTime}</td>
             <td>${rout.commonFreeSeatsCount}</td>
             <td>${carTypeList.get(0).price}</td>
             <td>${rout.compartmentFreeSeatsCount}</td>

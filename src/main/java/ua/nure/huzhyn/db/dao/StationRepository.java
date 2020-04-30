@@ -9,4 +9,6 @@ public interface StationRepository extends CRUD<Station, String> {
     List<Station> getAllStationList();
 
     Station getStationById(String stationId);
+
+    Station getStationIdByStationName(String stationName);
 }

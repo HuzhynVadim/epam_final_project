@@ -19,4 +19,6 @@ public interface CarService {
     void updateCar(CarDto carDto);
 
     List<Car> getCarByTrainIdAndCarType(String trainId, String carType);
+
+    Car getCarIdByTrainIdAndCarTypeAndCarNumber(String trainId, String carType, String carNumber);
 }

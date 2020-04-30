@@ -6,8 +6,10 @@ import ua.nure.huzhyn.db.dao.dto.RoutsOrderDto;
 import ua.nure.huzhyn.db.dao.dto.StationDto;
 import ua.nure.huzhyn.db.dao.transaction.TransactionManager;
 import ua.nure.huzhyn.model.entity.Rout;
+import ua.nure.huzhyn.model.entity.enums.CarType;
 import ua.nure.huzhyn.services.CarService;
 import ua.nure.huzhyn.services.RoutService;
+import ua.nure.huzhyn.services.SeatService;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -15,19 +17,20 @@ import java.util.*;
 public class RoutServiceImpl implements RoutService {
     private CarService carService;
     private RoutsRepository routsRepository;
+    private SeatService seatService;
     private TransactionManager transactionManager;
 
 
-    public RoutServiceImpl(RoutsRepository routsRepository, CarService carService, TransactionManager transactionManager) {
+    public RoutServiceImpl(RoutsRepository routsRepository, SeatService seatService, CarService carService, TransactionManager transactionManager) {
         this.routsRepository = routsRepository;
         this.carService = carService;
+        this.seatService = seatService;
         this.transactionManager = transactionManager;
     }
 
 
     @Override
     public void addRout(Rout rout) {
-//        populateFreeSeatsCount(rout);
         transactionManager.execute(() -> {
             routsRepository.create(rout);
             return null;
@@ -56,6 +59,7 @@ public class RoutServiceImpl implements RoutService {
         for (List<StationDto> stationDtos : routToStationMap.values()) {
             StationDto departure = null;
             StationDto arrival = null;
+
             for (StationDto station : stationDtos) {
                 if (station.getStation().equalsIgnoreCase(departureStation)) {
                     departure = station;
@@ -94,7 +98,6 @@ public class RoutServiceImpl implements RoutService {
 
     @Override
     public void updateRout(Rout rout) {
-//        populateFreeSeatsCount(rout);
         transactionManager.execute(() -> routsRepository.update(rout));
     }
 
@@ -121,32 +124,14 @@ public class RoutServiceImpl implements RoutService {
         routsOrderDto.setRoutsId(stationDto.getRoutsId());
         routsOrderDto.setTrainId(stationDto.getTrainId());
         routsOrderDto.setTrainNumber(stationDto.getTrainNumber());
-        routsOrderDto.setCommonFreeSeatsCount(stationDto.getCommonFreeSeatsCount());
-        routsOrderDto.setCompartmentFreeSeatsCount(stationDto.getCompartmentFreeSeatsCount());
-        routsOrderDto.setReservedFreeSeatsCount(stationDto.getReservedFreeSeatsCount());
+        int countSeatCommon = seatService.getCountSeatByCarType(stationDto.getTrainId(), CarType.COMMON);
+        int countSeatReserved = seatService.getCountSeatByCarType(stationDto.getTrainId(), CarType.RESERVED_SEAT);
+        int countSeatCompartment = seatService.getCountSeatByCarType(stationDto.getTrainId(), CarType.COMPARTMENT);
+        routsOrderDto.setCommonFreeSeatsCount(countSeatCommon);
+        routsOrderDto.setCompartmentFreeSeatsCount(countSeatCompartment);
+        routsOrderDto.setReservedFreeSeatsCount(countSeatReserved);
 
         return routsOrderDto;
     }
-
-//    private void populateFreeSeatsCount(Rout rout) {
-//        int commonFreeSeatsCount = 0;
-//        int compartmentFreeSeatsCount = 0;
-//        int reservedFreeSeatsCount = 0;
-//        for (Car car : carService.getCarByTrainId(rout.getTrainId())) {
-//            if (CarType.COMMON.equals(car.getCarType())) {
-//                commonFreeSeatsCount += car.getSeats();
-//            }
-//            if (CarType.COMPARTMENT.equals(car.getCarType())) {
-//                compartmentFreeSeatsCount += car.getSeats();
-//            }
-//            if (CarType.RESERVED_SEAT.equals(car.getCarType())) {
-//                reservedFreeSeatsCount += car.getSeats();
-//            }
-//        }
-//
-//        rout.setCommonFreeSeatsCount(commonFreeSeatsCount);
-//        rout.setCompartmentFreeSeatsCount(compartmentFreeSeatsCount);
-//        rout.setReservedFreeSeatsCount(reservedFreeSeatsCount);
-//    }
 }
 

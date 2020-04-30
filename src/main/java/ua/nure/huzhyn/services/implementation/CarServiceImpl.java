@@ -52,8 +52,6 @@ public class CarServiceImpl implements CarService {
             }
             return null;
         });
-
-
     }
 
     @Override
@@ -109,6 +107,11 @@ public class CarServiceImpl implements CarService {
             carRepository.delete(carId);
             return null;
         });
+    }
+
+    @Override
+    public Car getCarIdByTrainIdAndCarTypeAndCarNumber(String trainId, String carType, String carNumber) {
+        return transactionManager.execute(() -> carRepository.getCarIdByTrainIdAndCarTypeAndCarNumber(trainId, carType, carNumber));
     }
 
     @Override

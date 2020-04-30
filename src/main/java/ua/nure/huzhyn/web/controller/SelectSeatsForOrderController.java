@@ -2,6 +2,7 @@ package ua.nure.huzhyn.web.controller;
 
 import org.apache.log4j.Logger;
 import ua.nure.huzhyn.exception.IncorrectDataException;
+import ua.nure.huzhyn.model.entity.Seat;
 import ua.nure.huzhyn.services.*;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
 @WebServlet("/select_seats_for_order")
 public class SelectSeatsForOrderController extends HttpServlet {
@@ -24,6 +26,7 @@ public class SelectSeatsForOrderController extends HttpServlet {
     private RoutService routService;
     private TrainService trainService;
     private RoutMappingService routMappingService;
+    private SeatService seatService;
     private CarService carService;
 
 
@@ -34,7 +37,7 @@ public class SelectSeatsForOrderController extends HttpServlet {
         String arrivalStationId = request.getParameter("arrival_station_id");
         String carType = request.getParameter("car_type");
         String trainId = request.getParameter("train_id");
-        String carNumber = request.getParameter("car_number");
+        String carId = request.getParameter("car_id");
         String countOfSeats = request.getParameter("count_of_seats");
         LocalDateTime departureDate;
         try {
@@ -52,8 +55,10 @@ public class SelectSeatsForOrderController extends HttpServlet {
         request.setAttribute("routs_id", routsId);
         request.setAttribute("car_type", carType);
         request.setAttribute("train_id", trainId);
-        request.setAttribute("car_number", carNumber);
+        request.setAttribute("car_id", carId);
         request.setAttribute("count_of_seats", countOfSeats);
+        List<Seat> seatList = seatService.getSeatByCarId(carId);
+        request.setAttribute("seat_list", seatList);
         request.getRequestDispatcher("WEB-INF/jsp/selectSeatsForOrder.jsp").forward(request, response);
     }
 
@@ -64,5 +69,6 @@ public class SelectSeatsForOrderController extends HttpServlet {
         routMappingService = (RoutMappingService) config.getServletContext().getAttribute((AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE));
         trainService = (TrainService) config.getServletContext().getAttribute((AppContextConstant.TRAIN_SERVICE));
         carService = (CarService) config.getServletContext().getAttribute((AppContextConstant.CARS_SERVICE));
+        seatService = (SeatService) config.getServletContext().getAttribute((AppContextConstant.SEAT_SERVICE));
     }
 }

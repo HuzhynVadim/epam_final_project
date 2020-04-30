@@ -16,6 +16,7 @@ public interface StationService {
 
     Station getStationById(String stationId);
 
+    Station getStationIdByStationName(String stationName);
 
 }
 

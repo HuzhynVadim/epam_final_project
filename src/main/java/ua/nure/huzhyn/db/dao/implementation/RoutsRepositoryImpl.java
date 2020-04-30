@@ -21,10 +21,10 @@ import java.util.UUID;
 public class RoutsRepositoryImpl implements RoutsRepository {
 
     private static final Logger LOGGER = Logger.getLogger(RoutsRepositoryImpl.class);
-    private static final String ADD_ROUTS = "INSERT INTO final_project.railway_system.rout (routs_id, train_id, rout_name, rout_number, common_free_seats_count, compartment_free_seats_count, reserved_free_seats_count) VALUES (?,?,?,?,?,?,?)";
-    private static final String GET_ROUT_BY_ID = "SELECT r.routs_id, r.train_id, r.rout_name, r.rout_number, t.train_number, reserved_free_seats_count, compartment_free_seats_count, common_free_seats_count FROM final_project.railway_system.rout as r JOIN final_project.railway_system.train as t on r.train_id = t.train_id WHERE r.routs_id = ?";
+    private static final String ADD_ROUTS = "INSERT INTO final_project.railway_system.rout (routs_id, train_id, rout_name, rout_number) VALUES (?,?,?,?)";
+    private static final String GET_ROUT_BY_ID = "SELECT r.routs_id, r.train_id, r.rout_name, r.rout_number, t.train_number FROM final_project.railway_system.rout as r JOIN final_project.railway_system.train as t on r.train_id = t.train_id WHERE r.routs_id = ?";
     private static final String DELETE_ROUT = "DELETE FROM final_project.railway_system.rout WHERE routs_id = ?";
-    private static final String GET_ALL_ROUT = "SELECT r.routs_id, r.train_id, r.rout_name, r.rout_number, t.train_number, reserved_free_seats_count, common_free_seats_count, compartment_free_seats_count FROM final_project.railway_system.rout as r JOIN final_project.railway_system.train as t on r.train_id = t.train_id ORDER BY t.train_number, r.rout_name";
+    private static final String GET_ALL_ROUT = "SELECT r.routs_id, r.train_id, r.rout_name, r.rout_number, t.train_number FROM final_project.railway_system.rout as r JOIN final_project.railway_system.train as t on r.train_id = t.train_id ORDER BY t.train_number, r.rout_name";
     private static final String GET_ROUTE_LIST_WITH_PARAMETERS = "SELECT rout_name,\n" +
             "       rout_number,\n" +
             "       r.routs_id,\n" +
@@ -34,7 +34,6 @@ public class RoutsRepositoryImpl implements RoutsRepository {
             "       r.train_id,\n" +
             "       station_arrival_date,\n" +
             "       station_dispatch_data,\n" +
-            "      common_free_seats_count, compartment_free_seats_count, reserved_free_seats_count,\n" +
             "       \"order\"\n" +
             "FROM final_project.railway_system.rout as r\n" +
             "         JOIN final_project.railway_system.train as t on r.train_id = t.train_id\n" +
@@ -42,7 +41,7 @@ public class RoutsRepositoryImpl implements RoutsRepository {
             "         JOIN final_project.railway_system.station as s on rm.station_id = s.station_id\n" +
             "WHERE station IN (?, ?)\n" +
             "ORDER BY station_dispatch_data, r.rout_name , r.rout_number";
-    private static final String UPDATE_ROUT = "UPDATE final_project.railway_system.rout SET rout_name = ?, rout_number = ?, train_id = ?, common_free_seats_count = ?, compartment_free_seats_count = ?, reserved_free_seats_count = ? WHERE routs_id = ?";
+    private static final String UPDATE_ROUT = "UPDATE final_project.railway_system.rout SET rout_name = ?, rout_number = ?, train_id = ? WHERE routs_id = ?";
 
 
     @Override
@@ -54,9 +53,6 @@ public class RoutsRepositoryImpl implements RoutsRepository {
             preparedStatement.setString(2, entity.getTrainId());
             preparedStatement.setString(3, entity.getRoutName());
             preparedStatement.setString(4, entity.getRoutNumber());
-            preparedStatement.setInt(5, entity.getCommonFreeSeatsCount());
-            preparedStatement.setInt(6, entity.getCompartmentFreeSeatsCount());
-            preparedStatement.setInt(7, entity.getReservedFreeSeatsCount());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -88,10 +84,7 @@ public class RoutsRepositoryImpl implements RoutsRepository {
             ps.setString(1, entity.getRoutName());
             ps.setString(2, entity.getRoutNumber());
             ps.setString(3, entity.getTrainId());
-            ps.setInt(4, entity.getCommonFreeSeatsCount());
-            ps.setInt(5, entity.getCompartmentFreeSeatsCount());
-            ps.setInt(6, entity.getReservedFreeSeatsCount());
-            ps.setString(7, entity.getRoutsId());
+            ps.setString(4, entity.getRoutsId());
             if (ps.executeUpdate() > 0) {
                 result = true;
             }
@@ -128,9 +121,6 @@ public class RoutsRepositoryImpl implements RoutsRepository {
             rout.setTrainId(resultSet.getString("train_id"));
             rout.setRoutName(resultSet.getString("rout_name"));
             rout.setRoutNumber(resultSet.getString("rout_number"));
-            rout.setCommonFreeSeatsCount(resultSet.getInt("common_free_seats_count"));
-            rout.setCompartmentFreeSeatsCount(resultSet.getInt("compartment_free_seats_count"));
-            rout.setReservedFreeSeatsCount(resultSet.getInt("reserved_free_seats_count"));
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DataBaseException("Can`t extract Rout.", e);
@@ -147,9 +137,6 @@ public class RoutsRepositoryImpl implements RoutsRepository {
             result.setTrainNumber(resultSet.getString("train_number"));
             result.setRoutName(resultSet.getString("rout_name"));
             result.setRoutNumber(resultSet.getString("rout_number"));
-            result.setCommonFreeSeatsCount(resultSet.getInt("common_free_seats_count"));
-            result.setCompartmentFreeSeatsCount(resultSet.getInt("compartment_free_seats_count"));
-            result.setReservedFreeSeatsCount(resultSet.getInt("reserved_free_seats_count"));
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DataBaseException("Can`t extract RoutInfoDto.", e);
@@ -170,9 +157,6 @@ public class RoutsRepositoryImpl implements RoutsRepository {
             result.setRoutsId(resultSet.getString("routs_id"));
             result.setTrainId(resultSet.getString("train_id"));
             result.setTrainNumber(resultSet.getString("train_number"));
-            result.setCommonFreeSeatsCount(resultSet.getInt("common_free_seats_count"));
-            result.setCompartmentFreeSeatsCount(resultSet.getInt("compartment_free_seats_count"));
-            result.setReservedFreeSeatsCount(resultSet.getInt("reserved_free_seats_count"));
             return result;
         } catch (SQLException | NumberFormatException e) {
             LOGGER.error(e);

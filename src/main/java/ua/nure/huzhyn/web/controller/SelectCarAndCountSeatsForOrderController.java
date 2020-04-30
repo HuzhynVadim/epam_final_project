@@ -32,8 +32,8 @@ public class SelectCarAndCountSeatsForOrderController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String departureStation = request.getParameter("departure_station");
-        String arrivalStation = request.getParameter("arrival_station");
         String departureStationId = request.getParameter("departure_station_id");
+        String arrivalStation = request.getParameter("arrival_station");
         String arrivalStationId = request.getParameter("arrival_station_id");
         String carType = request.getParameter("car_type");
         String trainId = request.getParameter("train_id");
@@ -46,14 +46,13 @@ public class SelectCarAndCountSeatsForOrderController extends HttpServlet {
         }
         String routsId = request.getParameter("routs_id");
         request.setAttribute("departure_station", departureStation);
-        request.setAttribute("arrival_station", arrivalStation);
-        request.setAttribute("departure_date", departureDate);
         request.setAttribute("departure_station_id", departureStationId);
+        request.setAttribute("arrival_station", arrivalStation);
         request.setAttribute("arrival_station_id", arrivalStationId);
+        request.setAttribute("departure_date", departureDate);
         request.setAttribute("routs_id", routsId);
         request.setAttribute("car_type", carType);
         request.setAttribute("train_id", trainId);
-
         RoutInfoDto routInfoDto = routService.getRoutById(routsId);
         List<Car> carList = carService.getCarByTrainIdAndCarType(routInfoDto.getTrainId(), carType);
         request.setAttribute("car_list", carList);

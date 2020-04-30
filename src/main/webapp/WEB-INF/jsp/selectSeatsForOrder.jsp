@@ -65,8 +65,8 @@
         <tr>
             <c:forEach begin="1" end="${count_of_seats}">
                 <td><select class="btn btn-info dropdown-toggle" name="seats_number">
-                    <c:forEach var="i" begin="1" end="3">
-                        <option value="${i}"><c:out value="${i}"/></option>
+                    <c:forEach items="${seat_list}" var="seat">
+                        <option value="${seat.seatId}"><c:out value="${seat.seatNumber}"/></option>
                     </c:forEach>
                 </select></td>
             </c:forEach>
