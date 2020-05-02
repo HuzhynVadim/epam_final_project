@@ -14,5 +14,5 @@ public interface UserService {
 
     void updateBlocked(String idUser, boolean blockStatus);
 
-
+    User read(String userId);
 }

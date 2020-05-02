@@ -52,11 +52,13 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public Optional<User> read(String id) {
         Connection connection = ConnectionManager.getConnection();
-        Optional<User> user;
+        Optional<User> user = Optional.empty();
         try (PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_ID)) {
             preparedStatement.setString(1, id);
             ResultSet rs = preparedStatement.executeQuery();
-            user = Optional.of(DbUtils.extract(rs));
+            if (rs.next()) {
+                user = Optional.of(DbUtils.extract(rs));
+            }
         } catch (SQLException | NullPointerException e) {
             LOGGER.error(e);
             throw new DataBaseException("Can`t read user. ID = " + id, e);

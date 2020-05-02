@@ -63,4 +63,9 @@ public class UserServiceImpl implements UserService {
     public List<User> getUserInfo(String userRole) {
         return transactionManager.execute(() -> userRepository.getUserInfo(userRole));
     }
+
+    @Override
+    public User read(String userId) {
+        return transactionManager.execute(() -> userRepository.read(userId).get());
+    }
 }

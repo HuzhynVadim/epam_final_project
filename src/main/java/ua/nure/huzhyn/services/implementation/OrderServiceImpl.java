@@ -2,56 +2,42 @@ package ua.nure.huzhyn.services.implementation;
 
 import org.apache.log4j.Logger;
 import ua.nure.huzhyn.db.dao.OrderRepository;
-import ua.nure.huzhyn.db.dao.RoutsRepository;
+import ua.nure.huzhyn.db.dao.SeatRepository;
 import ua.nure.huzhyn.db.dao.transaction.TransactionManager;
 import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.model.entity.Order;
-import ua.nure.huzhyn.model.entity.Rout;
-import ua.nure.huzhyn.model.entity.enums.CarType;
+import ua.nure.huzhyn.model.entity.Seat;
 import ua.nure.huzhyn.model.entity.enums.OrderStatus;
 import ua.nure.huzhyn.services.OrderService;
+import ua.nure.huzhyn.services.SeatService;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
     private static final Logger LOGGER = Logger.getLogger(OrderServiceImpl.class);
+    private static final String UUID = "([0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12})";
     private OrderRepository orderRepository;
-    private RoutsRepository routsRepository;
+    private SeatRepository seatRepository;
     private TransactionManager transactionManager;
+    private SeatService seatService;
 
-    public OrderServiceImpl(OrderRepository orderRepository, TransactionManager transactionManager, RoutsRepository routsRepository) {
+    public OrderServiceImpl(OrderRepository orderRepository, SeatService seatService, TransactionManager transactionManager, SeatRepository seatRepository) {
         this.orderRepository = orderRepository;
+        this.seatRepository = seatRepository;
         this.transactionManager = transactionManager;
-        this.routsRepository = routsRepository;
+        this.seatService = seatService;
     }
 
     @Override
-    public void addOrder(Order order, String routsId) {
+    public void addOrder(Order order, String routsId, List<Seat> seats) {
         order.setPrice(order.getCarType().getPrice().multiply(new BigDecimal(order.getCountOfSeats())));
-        Rout rout = transactionManager.execute(() -> routsRepository.read(routsId).orElseThrow(() -> {
-            IncorrectDataException e = new IncorrectDataException("Сan`t create an order because can't find the route");
-            LOGGER.error(e);
-            return e;
-        }));
-        if (CarType.RESERVED_SEAT == order.getCarType()) {
-            int diff = rout.getReservedFreeSeatsCount() - order.getCountOfSeats();
-            validateFreeSeats(diff);
-            rout.setReservedFreeSeatsCount(diff);
-        }
-        if (CarType.COMPARTMENT == order.getCarType()) {
-            int diff = rout.getCompartmentFreeSeatsCount() - order.getCountOfSeats();
-            validateFreeSeats(diff);
-            rout.setCompartmentFreeSeatsCount(diff);
-        }
-        if (CarType.COMMON == order.getCarType()) {
-            int diff = rout.getCommonFreeSeatsCount() - order.getCountOfSeats();
-            validateFreeSeats(diff);
-            rout.setCommonFreeSeatsCount(diff);
-        }
         transactionManager.execute(() -> {
-            routsRepository.update(rout);
+            for (int i = 0; i <= seats.size() - 1; i++) {
+                seatRepository.takeTheSeat(seats.get(i).getSeatId());
+            }
             orderRepository.create(order);
             return null;
         });
@@ -61,32 +47,16 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void cancelOrder(String orderId) {
         Order order = getOrderById(orderId);
-        String routsId = order.getRoutsId();
         LocalDateTime now = LocalDateTime.now();
         order.setOrderStatus(OrderStatus.ORDER_CANCELED);
-        Rout rout = transactionManager.execute(() -> routsRepository.read(routsId).orElseThrow(() -> {
-            IncorrectDataException e = new IncorrectDataException("Сan`t create an order because can't find the route");
-            LOGGER.error(e);
-            return e;
-        }));
-        if (CarType.RESERVED_SEAT == order.getCarType()) {
-            int diff = rout.getReservedFreeSeatsCount() + order.getCountOfSeats();
-            validateDate(order, now);
-            rout.setReservedFreeSeatsCount(diff);
-
-        }
-        if (CarType.COMPARTMENT == order.getCarType()) {
-            int diff = rout.getCompartmentFreeSeatsCount() + order.getCountOfSeats();
-            validateDate(order, now);
-            rout.setCompartmentFreeSeatsCount(diff);
-        }
-        if (CarType.COMMON == order.getCarType()) {
-            int diff = rout.getCommonFreeSeatsCount() + order.getCountOfSeats();
-            validateDate(order, now);
-            rout.setCommonFreeSeatsCount(diff);
-        }
+//        validateDate(order, now);
+        String seatNumber = order.getSeatId();
         transactionManager.execute(() -> {
-            routsRepository.update(rout);
+            ArrayList<String> seatsId = seatService.getSeatsId(seatNumber);
+            List<Seat> seatsByIdBatch = seatRepository.getSeatsByIdBatch(seatsId);
+            for (int i = 0; i <= seatsByIdBatch.size() - 1; i++) {
+                seatRepository.updateBusySeat(seatsByIdBatch.get(i).getSeatId());
+            }
             orderRepository.updateOrderStatus(order.getOrderId(), order.getOrderStatus());
             return null;
         });
@@ -100,13 +70,6 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    private void validateFreeSeats(int freeSeatsCount) {
-        if (freeSeatsCount < 0) {
-            IncorrectDataException e = new IncorrectDataException("Can`t create an order because no free places");
-            LOGGER.error(e);
-            throw e;
-        }
-    }
 
     @Override
     public List<Order> getOrderByUserId(String userId) {

@@ -33,6 +33,7 @@ public class SearchRoutForOrderController extends HttpServlet {
         SearchValidator searchValidator = new SearchValidator();
         String departureStation = request.getParameter("departure_station");
         String arrivalStation = request.getParameter("arrival_station");
+        String userId = request.getParameter("user_id");
         LocalDateTime departureDate;
         try {
             departureDate = LocalDateTime.parse(request.getParameter("departure_date"));
@@ -45,6 +46,7 @@ public class SearchRoutForOrderController extends HttpServlet {
         request.setAttribute("carTypeList", carTypeList);
         List<RoutsOrderDto> routList = routService.getRouteListWithParameters(departureStation, arrivalStation, departureDate);
         request.setAttribute("rout_list", routList);
+        request.setAttribute("user_id", userId);
         request.setAttribute("departure_station", departureStation);
         request.setAttribute("arrival_station", arrivalStation);
         request.setAttribute("departure_date", departureDate);

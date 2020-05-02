@@ -92,6 +92,7 @@
             <td>
                 <form action="detail_rout" method="GET">
                     <input type="hidden" name="routs_id" value="${rout.routsId}">
+                    <input type="hidden" name="user_id" value="${user_id}">
                     <input type="hidden" name="departure_station" value="${departure_station}">
                     <input type="hidden" name="arrival_station" value="${arrival_station}">
                     <input type="hidden" name="departure_date" value="${departure_date}">
@@ -102,10 +103,14 @@
                 <form action="select_station_and_car_type_for_order" method="GET">
                     <input type="hidden" name="routs_id" value="${rout.routsId}">
                     <input type="hidden" name="train_id" value="${rout.trainId}">
+                    <input type="hidden" name="station1" value="${rout.stations.get(0).station} - ${dispatchTime}">
+                    <input type="hidden" name="travel_time" value="<period:period dateFrom="${dispatchTime}" dateTo="${arrivalTime}"/>">
+                    <input type="hidden" name="station2" value="${rout.stations.get(1).station} - ${arrivalTime}">
+                    <input type="hidden" name="user_id" value="${user_id}">
                     <input type="hidden" name="departure_station" value="${departure_station}">
                     <input type="hidden" name="arrival_station" value="${arrival_station}">
                     <input type="hidden" name="departure_date" value="${departure_date}">
-                    <input type="submit" class="btn btn-info" name="oder" value="<fmt:message key="order"/>">
+                    <input type="submit" class="btn btn-info" name="oder" value="<fmt:message key="order.make.order"/>">
                 </form>
             </td>
         </tr>

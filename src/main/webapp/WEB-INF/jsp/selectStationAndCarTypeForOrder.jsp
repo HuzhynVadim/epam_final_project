@@ -96,7 +96,11 @@
                 </c:forEach>
             </select></td>
             <td>
+                <input type="hidden" name="station1" value="${station1}">
+                <input type="hidden" name="travel_time" value="${travel_time}">
+                <input type="hidden" name="station2" value="${station2}">
                 <input type="hidden" name="routs_id" value="${routs_id}">
+                <input type="hidden" name="user_id" value="${user_id}">
                 <input type="hidden" name="departure_station" value="${departure_station}">
                 <input type="hidden" name="arrival_station" value="${arrival_station}">
                 <input type="hidden" name="departure_date" value="${departure_date}">
@@ -108,6 +112,7 @@
     </table>
 </form>
 <form action="search_rout_for_order" method="GET">
+    <input type="hidden" name="user_id" value="${user_id}">
     <input type="hidden" name="departure_station" value="${departure_station}">
     <input type="hidden" name="arrival_station" value="${arrival_station}">
     <input type="hidden" name="departure_date" value="${departure_date}">

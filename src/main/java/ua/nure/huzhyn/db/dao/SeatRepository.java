@@ -15,4 +15,10 @@ public interface SeatRepository extends CRUD<Seat, String> {
     int getCountSeatByCarType(String trainId, CarType carType);
 
     List<Seat> getSeatByCarId(String carId);
+
+    List<Seat> getSeatsByIdBatch(List<String> seatsNumber);
+
+    void takeTheSeat(String seatId);
+
+    void updateBusySeat(String seatId);
 }

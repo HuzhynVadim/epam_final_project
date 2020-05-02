@@ -1,7 +1,6 @@
 package ua.nure.huzhyn.db.dao;
 
 import ua.nure.huzhyn.db.dao.dto.RoutInfoDto;
-import ua.nure.huzhyn.db.dao.dto.RoutsOrderDto;
 import ua.nure.huzhyn.db.dao.dto.StationDto;
 import ua.nure.huzhyn.model.entity.Rout;
 

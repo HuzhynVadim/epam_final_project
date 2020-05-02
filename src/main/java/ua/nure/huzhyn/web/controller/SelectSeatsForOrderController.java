@@ -37,7 +37,14 @@ public class SelectSeatsForOrderController extends HttpServlet {
         String arrivalStationId = request.getParameter("arrival_station_id");
         String carType = request.getParameter("car_type");
         String trainId = request.getParameter("train_id");
+        String userId = request.getParameter("user_id");
         String carId = request.getParameter("car_id");
+        String station1 = request.getParameter("station1");
+        String station2 = request.getParameter("station2");
+        String travelTime = request.getParameter("travel_time");
+        request.setAttribute("station1",station1);
+        request.setAttribute("station2",station2);
+        request.setAttribute("travel_time",travelTime);
         String countOfSeats = request.getParameter("count_of_seats");
         LocalDateTime departureDate;
         try {
@@ -55,6 +62,7 @@ public class SelectSeatsForOrderController extends HttpServlet {
         request.setAttribute("routs_id", routsId);
         request.setAttribute("car_type", carType);
         request.setAttribute("train_id", trainId);
+        request.setAttribute("user_id", userId);
         request.setAttribute("car_id", carId);
         request.setAttribute("count_of_seats", countOfSeats);
         List<Seat> seatList = seatService.getSeatByCarId(carId);

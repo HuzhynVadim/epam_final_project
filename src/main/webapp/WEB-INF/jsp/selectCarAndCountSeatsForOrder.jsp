@@ -69,8 +69,12 @@
             </select></td>
             <td><input class="form-control" name="count_of_seats"></td>
             <td>
+                <input type="hidden" name="station1" value="${station1}">
+                <input type="hidden" name="travel_time" value="${travel_time}">
+                <input type="hidden" name="station2" value="${station2}">
                 <input type="hidden" name="routs_id" value="${routs_id}">
                 <input type="hidden" name="train_id" value="${train_id}">
+                <input type="hidden" name="user_id" value="${user_id}">
                 <input type="hidden" name="departure_station" value="${departure_station}">
                 <input type="hidden" name="departure_station_id" value="${departure_station_id}">
                 <input type="hidden" name="arrival_station_id" value="${arrival_station_id}">
@@ -78,14 +82,18 @@
                 <input type="hidden" name="departure_date" value="${departure_date}">
                 <input type="hidden" name="car_type" value="${car_type}">
                 <input type="submit" class="btn btn-success" name="add_order"
-                       value="<fmt:message key="order.make.order"/>">
+                       value="<fmt:message key="next"/>">
             </td>
         </tr>
     </table>
 </form>
 
 <form action="select_station_and_car_type_for_order" method="GET">
+    <input type="hidden" name="station1" value="${station1}">
+    <input type="hidden" name="travel_time" value="${travel_time}">
+    <input type="hidden" name="station2" value="${station2}">
     <input type="hidden" name="routs_id" value="${routs_id}">
+    <input type="hidden" name="user_id" value="${user_id}">
     <input type="hidden" name="departure_station" value="${departure_station}">
     <input type="hidden" name="arrival_station" value="${arrival_station}">
     <input type="hidden" name="departure_date" value="${departure_date}">

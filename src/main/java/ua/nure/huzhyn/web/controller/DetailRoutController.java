@@ -25,6 +25,7 @@ public class DetailRoutController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String routsId = request.getParameter("routs_id");
+        String userId = request.getParameter("user_id");
         String departureStation = request.getParameter("departure_station");
         String arrivalStation = request.getParameter("arrival_station");
         LocalDateTime departureDate;
@@ -37,6 +38,7 @@ public class DetailRoutController extends HttpServlet {
         request.setAttribute("departure_station", departureStation);
         request.setAttribute("arrival_station", arrivalStation);
         request.setAttribute("departure_date", departureDate);
+        request.setAttribute("user_id", userId);
         request.setAttribute("routs_id", routsId);
         List<MappingInfoDto> AllRoutToStationMappingListById = routMappingService.getAllRoutToStationMappingListById(routsId);
         request.setAttribute("rout_m_list", AllRoutToStationMappingListById);

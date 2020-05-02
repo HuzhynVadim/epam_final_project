@@ -33,6 +33,8 @@ public class SelectStationAndCarTypeForOrderController extends HttpServlet {
         String departureStation = request.getParameter("departure_station");
         String arrivalStation = request.getParameter("arrival_station");
         String trainId = request.getParameter("train_id");
+        String userId = request.getParameter("user_id");
+
         LocalDateTime departureDate;
         try {
             departureDate = LocalDateTime.parse(request.getParameter("departure_date"));
@@ -43,6 +45,7 @@ public class SelectStationAndCarTypeForOrderController extends HttpServlet {
         request.setAttribute("departure_station", departureStation);
         request.setAttribute("arrival_station", arrivalStation);
         request.setAttribute("departure_date", departureDate);
+        request.setAttribute("user_id", userId);
         String routsId = request.getParameter("routs_id");
         List<MappingInfoDto> allRoutToStationMappingListById = routMappingService.getAllRoutToStationMappingListById(routsId);
         request.setAttribute("station_list", allRoutToStationMappingListById);
@@ -52,6 +55,12 @@ public class SelectStationAndCarTypeForOrderController extends HttpServlet {
             carSet.add(car.getCarType());
         }
         request.setAttribute("train_id", trainId);
+        String station1 = request.getParameter("station1");
+        String station2 = request.getParameter("station2");
+        String travelTime = request.getParameter("travel_time");
+        request.setAttribute("station1",station1);
+        request.setAttribute("station2",station2);
+        request.setAttribute("travel_time",travelTime);
         request.setAttribute("carTypeList", carSet);
         request.setAttribute("routs_id", routsId);
         request.getRequestDispatcher("WEB-INF/jsp/selectStationAndCarTypeForOrder.jsp").forward(request, response);

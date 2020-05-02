@@ -24,6 +24,24 @@ public class Order {
     private String travelTime;
     private String routsId;
     private String carNumber;
+    private String seatNumber;
+    private String seatId;
+
+    public String getSeatId() {
+        return seatId;
+    }
+
+    public void setSeatId(String seatId) {
+        this.seatId = seatId;
+    }
+
+    public String getSeatNumber() {
+        return seatNumber;
+    }
+
+    public void setSeatNumber(String seatNumber) {
+        this.seatNumber = seatNumber;
+    }
 
     public String getCarNumber() {
         return carNumber;

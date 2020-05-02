@@ -45,7 +45,7 @@ public class ApplicationContextListener implements ServletContextListener {
         CarService carService = new CarServiceImpl(carRepository, seatRepository, transactionManager);
         UserService userService = new UserServiceImpl(userRepository, transactionManager);
         RoutService routService = new RoutServiceImpl(routsRepository, seatService, carService, transactionManager);
-        OrderService orderService = new OrderServiceImpl(orderRepository, transactionManager, routsRepository);
+        OrderService orderService = new OrderServiceImpl(orderRepository, seatService, transactionManager, seatRepository);
         StationService stationService = new StationServiceImpl(stationRepository, transactionManager);
         TrainService trainService = new TrainServiceImpl(trainRepository, transactionManager);
         RoutMappingService routMappingService = new RoutMappingServiceImpl(routMappingRepository, transactionManager);
