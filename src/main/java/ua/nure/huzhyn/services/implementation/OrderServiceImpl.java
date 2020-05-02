@@ -18,7 +18,6 @@ import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
     private static final Logger LOGGER = Logger.getLogger(OrderServiceImpl.class);
-    private static final String UUID = "([0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12})";
     private OrderRepository orderRepository;
     private SeatRepository seatRepository;
     private TransactionManager transactionManager;
@@ -49,7 +48,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = getOrderById(orderId);
         LocalDateTime now = LocalDateTime.now();
         order.setOrderStatus(OrderStatus.ORDER_CANCELED);
-//        validateDate(order, now);
+        validateDate(order, now);
         String seatNumber = order.getSeatId();
         transactionManager.execute(() -> {
             ArrayList<String> seatsId = seatService.getSeatsId(seatNumber);
@@ -78,7 +77,18 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean updateOrderStatus(String orderId, OrderStatus status) {
-        return transactionManager.execute(() -> orderRepository.updateOrderStatus(orderId, status));
+        return transactionManager.execute(() -> {
+            if (status == OrderStatus.ORDER_DECLINED || status == OrderStatus.ORDER_CANCELED) {
+                Order order = orderRepository.getOrderById(orderId);
+                String seatId = order.getSeatId();
+                ArrayList<String> seatsId = seatService.getSeatsId(seatId);
+                List<Seat> seatsByIdBatch = seatRepository.getSeatsByIdBatch(seatsId);
+                for (int i = 0; i <= seatsByIdBatch.size() - 1; i++) {
+                    seatRepository.updateBusySeat(seatsByIdBatch.get(i).getSeatId());
+                }
+            }
+            return orderRepository.updateOrderStatus(orderId, status);
+        });
     }
 
     @Override

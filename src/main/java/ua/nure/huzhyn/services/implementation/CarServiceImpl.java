@@ -14,9 +14,9 @@ import java.util.List;
 
 public class CarServiceImpl implements CarService {
     private static final Logger LOGGER = Logger.getLogger(CarServiceImpl.class);
-    private final CarRepository carRepository;
-    private final SeatRepository seatRepository;
-    private final TransactionManager transactionManager;
+    private CarRepository carRepository;
+    private SeatRepository seatRepository;
+    private TransactionManager transactionManager;
 
     public CarServiceImpl(CarRepository carRepository, SeatRepository seatRepository, TransactionManager transactionManager) {
         this.carRepository = carRepository;

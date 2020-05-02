@@ -83,8 +83,7 @@
             <td>${order.trainNumber}</td>
             <td>${order.carType}</td>
             <td>${order.carNumber}</td>
-                <%--            <td>${order.seatsNumber}</td>--%>
-            <td></td>
+            <td>${order.seatNumber}</td>
             <td>${order.countOfSeats}</td>
             <td>${order.price}</td>
             <td>${order.dispatchStation}</td>

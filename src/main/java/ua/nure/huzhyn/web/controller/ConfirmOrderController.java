@@ -33,7 +33,6 @@ public class ConfirmOrderController extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(SelectStationAndCarTypeForOrderController.class);
     private OrderService orderService;
     private StationService stationService;
-    private RoutService routService;
     private TrainService trainService;
     private RoutMappingService routMappingService;
     private CarService carService;
@@ -55,7 +54,6 @@ public class ConfirmOrderController extends HttpServlet {
         Station arrivalStation = stationService.getStationById(stationIdD);
         MappingInfoDto arrivalMapping = routMappingService.getMappingInfo(routsId, arrivalStation.getStationId());
         MappingInfoDto dispatchMapping = routMappingService.getMappingInfo(routsId, dispatchStation.getStationId());
-
         try {
             order.setCarType(CarType.valueOf(request.getParameter("car_type")));
             order.setCountOfSeats(Integer.parseInt(request.getParameter("count_of_seats")));
@@ -67,8 +65,8 @@ public class ConfirmOrderController extends HttpServlet {
             throw new IncorrectDataException("Incorrect data entered", e);
         }
         order.setRoutsId(routsId);
-        order.setArrivalDate(arrivalMapping.getStationArrivalDate());
-        order.setDispatchDate(dispatchMapping.getStationDispatchData());
+        order.setArrivalDate(arrivalMapping.getStationDispatchData());
+        order.setDispatchDate(dispatchMapping.getStationArrivalDate());
         order.setUser(user);
         order.setTrainNumber(train.getTrainNumber());
         order.setCarNumber(car.getCarNumber());
@@ -161,7 +159,6 @@ public class ConfirmOrderController extends HttpServlet {
     public void init(ServletConfig config) {
         orderService = (OrderService) config.getServletContext().getAttribute(AppContextConstant.ORDER_SERVICE);
         stationService = (StationService) config.getServletContext().getAttribute((AppContextConstant.STATION_SERVICE));
-        routService = (RoutService) config.getServletContext().getAttribute((AppContextConstant.ROUT_SERVICE));
         routMappingService = (RoutMappingService) config.getServletContext().getAttribute((AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE));
         trainService = (TrainService) config.getServletContext().getAttribute((AppContextConstant.TRAIN_SERVICE));
         carService = (CarService) config.getServletContext().getAttribute((AppContextConstant.CARS_SERVICE));

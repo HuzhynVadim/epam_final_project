@@ -21,13 +21,7 @@ import java.util.List;
 public class SelectSeatsForOrderController extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(SelectStationAndCarTypeForOrderController.class);
-    private OrderService orderService;
-    private StationService stationService;
-    private RoutService routService;
-    private TrainService trainService;
-    private RoutMappingService routMappingService;
     private SeatService seatService;
-    private CarService carService;
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -71,12 +65,6 @@ public class SelectSeatsForOrderController extends HttpServlet {
     }
 
     public void init(ServletConfig config) {
-        orderService = (OrderService) config.getServletContext().getAttribute(AppContextConstant.ORDER_SERVICE);
-        stationService = (StationService) config.getServletContext().getAttribute((AppContextConstant.STATION_SERVICE));
-        routService = (RoutService) config.getServletContext().getAttribute((AppContextConstant.ROUT_SERVICE));
-        routMappingService = (RoutMappingService) config.getServletContext().getAttribute((AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE));
-        trainService = (TrainService) config.getServletContext().getAttribute((AppContextConstant.TRAIN_SERVICE));
-        carService = (CarService) config.getServletContext().getAttribute((AppContextConstant.CARS_SERVICE));
         seatService = (SeatService) config.getServletContext().getAttribute((AppContextConstant.SEAT_SERVICE));
     }
 }
