@@ -8,6 +8,6 @@ public interface TrainRepository extends CRUD<Train, String> {
 
     List<Train> getAllTrainList();
 
-    Train getStationById(String trainId);
+    Train getTrainById(String trainId);
 
 }

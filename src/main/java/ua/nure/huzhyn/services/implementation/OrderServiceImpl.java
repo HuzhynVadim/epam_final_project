@@ -7,6 +7,7 @@ import ua.nure.huzhyn.db.dao.transaction.TransactionManager;
 import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.model.entity.Order;
 import ua.nure.huzhyn.model.entity.Seat;
+import ua.nure.huzhyn.model.entity.enums.CarType;
 import ua.nure.huzhyn.model.entity.enums.OrderStatus;
 import ua.nure.huzhyn.services.OrderService;
 import ua.nure.huzhyn.services.SeatService;
@@ -105,5 +106,10 @@ public class OrderServiceImpl implements OrderService {
             order.setPrice(order.getCarType().getPrice());
         }
         return result;
+    }
+
+    @Override
+    public BigDecimal getPrice(String carType, String countOfSeats) {
+        return CarType.valueOf(carType).getPrice().multiply(new BigDecimal(countOfSeats));
     }
 }

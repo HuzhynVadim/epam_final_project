@@ -44,27 +44,28 @@ public class AdministratorAddCarController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         CarValidator carValidator = new CarValidator();
         CarDto carDto = new CarDto();
+        String trainId = request.getParameter("train_id");
+        String trainNotSelected = trainId.equals("TRAIN_NOT_SELECTED") ? null : trainId;
+        carDto.setTrainId(trainNotSelected);
+        Train train = trainService.getTrainById(trainId);
+        List<Car> carByTrainId = carService.getCarByTrainId(train.getTrainId());
+        String carNumber = request.getParameter("car_number");
+
+        if (!contains(carByTrainId, carNumber) || trainId.equals(trainNotSelected)) {
+            carDto.setCarNumber(carNumber);
+        } else {
+            LOGGER.error("Incorrect data entered");
+            throw new IncorrectDataException("Incorrect data entered");
+        }
         try {
             carDto.setCarType(CarType.valueOf(request.getParameter("car_type")));
             carDto.setSeats(Integer.valueOf(request.getParameter("seats")));
-            String trainId = request.getParameter("train_id");
-            carDto.setTrainId(trainId.equals("TRAIN_NOT_SELECTED") ? null : trainId);
-            Train train = trainService.getTrainById(trainId);
-            List<Car> carByTrainId = carService.getCarByTrainId(train.getTrainId());
-            String carNumber = request.getParameter("car_number");
-
-            if (!contains(carByTrainId, carNumber) || trainId == null) {
-                carDto.setCarNumber(carNumber);
-            } else {
-                LOGGER.error("Incorrect data entered");
-                throw new IncorrectDataException("Incorrect data entered");
-            }
-            carValidator.isValidCar(carDto);
-            carService.addCar(carDto);
         } catch (IllegalArgumentException e) {
             LOGGER.error("Incorrect data entered");
             throw new IncorrectDataException("Incorrect data entered", e);
         }
+        carValidator.isValidCar(carDto);
+        carService.addCar(carDto);
         response.sendRedirect("administrator_account");
     }
 

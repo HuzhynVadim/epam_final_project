@@ -4,6 +4,7 @@ import ua.nure.huzhyn.model.entity.Order;
 import ua.nure.huzhyn.model.entity.Seat;
 import ua.nure.huzhyn.model.entity.enums.OrderStatus;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface OrderService {
@@ -18,6 +19,7 @@ public interface OrderService {
 
     void addOrder(Order order, String routsId, List<Seat> seats);
 
-
     void cancelOrder(String orderId);
+
+    BigDecimal getPrice(String carType, String countOfSeats);
 }

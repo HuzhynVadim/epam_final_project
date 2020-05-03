@@ -46,30 +46,29 @@ public class AdministratorEditInfoCarController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         CarValidator carValidator = new CarValidator();
         CarDto carDto = new CarDto();
+        carDto.setCarId(request.getParameter("car_id"));
+        String carNumber = request.getParameter("car_number");
+        String trainId = request.getParameter("train_id");
+        String trainNotSelected = trainId.equals("TRAIN_NOT_SELECTED") ? null : trainId;
+        carDto.setTrainId(trainNotSelected);
+        Train train = trainService.getTrainById(trainId);
+        List<Car> carByTrainId = carService.getCarByTrainId(train.getTrainId());
+        if (!contains(carByTrainId, carNumber) || trainId.equals(trainNotSelected)) {
+            carDto.setCarNumber(carNumber);
+        } else {
+            LOGGER.error("Incorrect data entered");
+            throw new IncorrectDataException("Incorrect data entered");
+        }
         try {
-            carDto.setCarId(request.getParameter("car_id"));
             carDto.setCarType(CarType.valueOf(request.getParameter("car_type")));
-            String carNumber = request.getParameter("car_number");
             carDto.setSeats(Integer.valueOf(request.getParameter("seats")));
-            String trainId = request.getParameter("train_id");
-            carDto.setTrainId(trainId.equals("TRAIN_NOT_SELECTED") ? null : trainId);
 
-            Train train = trainService.getTrainById(trainId);
-            List<Car> carByTrainId = carService.getCarByTrainId(train.getTrainId());
-
-            if (!contains(carByTrainId, carNumber) || trainId == null) {
-                carDto.setCarNumber(carNumber);
-            } else {
-                LOGGER.error("Incorrect data entered");
-                throw new IncorrectDataException("Incorrect data entered");
-            }
-
-            carValidator.isValidCar(carDto);
-            carService.updateCar(carDto);
         } catch (IllegalArgumentException e) {
             LOGGER.error("Incorrect data entered");
             throw new IncorrectDataException("Incorrect data entered", e);
         }
+        carValidator.isValidCar(carDto);
+        carService.updateCar(carDto);
         response.sendRedirect("administrator_account");
     }
 

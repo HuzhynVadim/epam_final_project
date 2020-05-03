@@ -20,7 +20,7 @@ public class TrainServiceImpl implements TrainService {
 
     @Override
     public Train getTrainById(String trainId) {
-        return transactionManager.execute(() -> trainRepository.getStationById(trainId));
+        return transactionManager.execute(() -> trainRepository.getTrainById(trainId));
     }
 
     @Override

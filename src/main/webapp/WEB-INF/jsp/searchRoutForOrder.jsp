@@ -36,6 +36,10 @@
             text-align: center;
 
         }
+
+        .text-justify {
+            text-align: justify;
+        }
     </style>
 </head>
 <body>
@@ -55,7 +59,9 @@
 </div>
 <c:choose>
     <c:when test="${empty rout_list}">
-        <fmt:message key="rout.name"/>
+        <div class="text-xs-center align-middle h3" style="text-align: center;">
+            <fmt:message key="rout.no"/></div>
+
     </c:when>
     <c:otherwise>
         <table class="table table-bordered table-hover text-center" border="1" style="width: auto">
@@ -88,11 +94,11 @@
                     <td>${rout.stations.get(0).station} - ${dispatchTime}</td>
                     <td><period:period dateFrom="${dispatchTime}" dateTo="${arrivalTime}"/></td>
                     <td>${rout.stations.get(1).station} - ${arrivalTime}</td>
-                    <td>${rout.commonFreeSeatsCount}</td>
-                    <td>${carTypeList.get(0).price}</td>
                     <td>${rout.compartmentFreeSeatsCount}</td>
-                    <td>${carTypeList.get(1).price}</td>
+                    <td>${carTypeList.get(0).price}</td>
                     <td>${rout.reservedFreeSeatsCount}</td>
+                    <td>${carTypeList.get(1).price}</td>
+                    <td>${rout.commonFreeSeatsCount}</td>
                     <td>${carTypeList.get(2).price}</td>
                     <td>
                         <form action="detail_rout" method="GET">

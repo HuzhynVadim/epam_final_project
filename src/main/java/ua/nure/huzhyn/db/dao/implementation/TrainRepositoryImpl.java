@@ -100,7 +100,7 @@ public class TrainRepositoryImpl implements TrainRepository {
     }
 
     @Override
-    public Train getStationById(String trainId) {
+    public Train getTrainById(String trainId) {
         Train train = new Train();
         Connection connection = ConnectionManager.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(GET_TRAIN_BY_ID)) {

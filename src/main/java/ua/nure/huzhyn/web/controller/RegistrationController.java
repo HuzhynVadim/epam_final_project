@@ -30,18 +30,18 @@ public class RegistrationController extends HttpServlet {
         User user = new User();
         RegistrationValidator registrationValidator = new RegistrationValidator();
         HttpSession session = request.getSession();
+        user.setEmail(request.getParameter("email"));
+        user.setPassword(request.getParameter("password"));
+        user.setFirstName(request.getParameter("first_name"));
+        user.setLastName(request.getParameter("last_name"));
+        user.setPhone(request.getParameter("phone"));
+        user.setRole(UserRole.USER);
+        user.setBlocked(false);
+        session.setAttribute(AppContextConstant.SESSION_USER, user);
         try {
-            user.setEmail(request.getParameter("email"));
-            user.setPassword(request.getParameter("password"));
-            user.setFirstName(request.getParameter("first_name"));
-            user.setLastName(request.getParameter("last_name"));
-            user.setPhone(request.getParameter("phone"));
             Date birthDate = Date.valueOf(request.getParameter("birth_date"));
             user.setBirthDate(birthDate.toLocalDate());
-            user.setRole(UserRole.USER);
-            user.setBlocked(false);
 
-            session.setAttribute(AppContextConstant.SESSION_USER, user);
         } catch (IllegalArgumentException e) {
             LOGGER.error("Incorrect data entered");
             throw new IncorrectDataException("Incorrect data entered", e);

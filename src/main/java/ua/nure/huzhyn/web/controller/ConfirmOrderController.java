@@ -126,7 +126,7 @@ public class ConfirmOrderController extends HttpServlet {
         String routsId = request.getParameter("routs_id");
         Car car = carService.getCarById(carId);
         String carNumber = car.getCarNumber();
-        BigDecimal price = CarType.valueOf(carType).getPrice().multiply(new BigDecimal(countOfSeats));
+        BigDecimal price = orderService.getPrice(carType, countOfSeats);
         request.setAttribute("price", price);
         request.setAttribute("car_number", carNumber);
         request.setAttribute("departure_station", departureStation);
@@ -157,6 +157,8 @@ public class ConfirmOrderController extends HttpServlet {
         seatValidator.isValidSeat(seats, countOfSeats);
         request.getRequestDispatcher("WEB-INF/jsp/confirmOrder.jsp").forward(request, response);
     }
+
+
 
     public void init(ServletConfig config) {
         orderService = (OrderService) config.getServletContext().getAttribute(AppContextConstant.ORDER_SERVICE);

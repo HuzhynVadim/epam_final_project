@@ -45,11 +45,11 @@ public class AdministratorSetRoutController extends HttpServlet {
         RoutMappingValidator routMappingValidator = new RoutMappingValidator();
         RoutToStationMapping routToStationMapping = new RoutToStationMapping();
         String routsId = request.getParameter("routs_id");
-        int stationOrder = Integer.parseInt(request.getParameter("station_order"));
         routToStationMapping.setRoutsId(routsId);
         routToStationMapping.setStationId(request.getParameter("station_station"));
         List<MappingInfoDto> mappingList = routMappingService.getAllRoutToStationMappingListById(routsId);
         try {
+            int stationOrder = Integer.parseInt(request.getParameter("station_order"));
             routToStationMapping.setStationArrivalDate(LocalDateTime.parse(request.getParameter("station_arrival_date")));
             routToStationMapping.setStationDispatchData(LocalDateTime.parse(request.getParameter("station_dispatch_data")));
             if (!contains(mappingList, stationOrder)) {

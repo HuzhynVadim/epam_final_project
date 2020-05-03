@@ -59,15 +59,16 @@
     <thead class="thead-light text-center">
     <tr>
         <th><fmt:message key="order.user.information"/></th>
+        <th><fmt:message key="rout.name"/></th>
         <th><fmt:message key="order.train.number"/></th>
         <th><fmt:message key="order.car.type"/></th>
         <th><fmt:message key="order.car.number"/></th>
         <th><fmt:message key="order.count.of.seats"/></th>
         <th><fmt:message key="order.seats.number"/></th>
         <th><fmt:message key="order.price"/></th>
-        <th><fmt:message key="order.dispatch.station"/></th>
+        <th><fmt:message key="order.dispatch.station.and.dispatch.time"/></th>
         <th><fmt:message key="order.travel.time"/></th>
-        <th><fmt:message key="order.arrival.station"/></th>
+        <th><fmt:message key="order.arrival.station.and.dispatch.time"/></th>
         <th><fmt:message key="order.make.order"/></th>
         <th><fmt:message key="order.cancel"/></th>
     </tr>
