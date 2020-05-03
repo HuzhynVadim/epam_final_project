@@ -12,7 +12,7 @@ import static java.util.stream.Collectors.joining;
 
 public class StationValidator {
     private static final Logger LOGGER = Logger.getLogger(StationValidator.class);
-    private static final String STATION_NAME = "^[a-zA-Z]{1,25}+$";
+    private static final String STATION_NAME = "^[a-zA-Zа-яА-яёЁ]{4,25}+$";
 
     public void isValidStation(Station station) {
         Map<String, String> errors = new HashMap<>();

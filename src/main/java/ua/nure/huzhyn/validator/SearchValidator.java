@@ -11,8 +11,8 @@ import static java.util.stream.Collectors.joining;
 
 public class SearchValidator {
     private static final Logger LOGGER = Logger.getLogger(SearchValidator.class);
-    private static final String DEPARTURE_STATION = "[a-zA-Z]*";
-    private static final String ARRIVAL_STATION = "[a-zA-Z]*";
+    private static final String DEPARTURE_STATION = "[a-zA-Zа-яА-яёЁ]*";
+    private static final String ARRIVAL_STATION = "[a-zA-Zа-яА-яёЁ]*";
 
     public void isValidSearch(String departureStation, String arrivalStation) {
         Map<String, String> errors = new HashMap<>();

@@ -110,6 +110,7 @@ public class ConfirmOrderController extends HttpServlet {
         String station1 = request.getParameter("station1");
         String station2 = request.getParameter("station2");
         String travelTime = request.getParameter("travel_time");
+
         request.setAttribute("station1", station1);
         request.setAttribute("station2", station2);
         request.setAttribute("travel_time", travelTime);
@@ -137,6 +138,7 @@ public class ConfirmOrderController extends HttpServlet {
         request.setAttribute("car_type", carType);
         request.setAttribute("train_id", trainId);
         request.setAttribute("user_id", userId);
+
         User user = userService.read(userId);
         String firstName = user.getFirstName();
         String lastName = user.getLastName();

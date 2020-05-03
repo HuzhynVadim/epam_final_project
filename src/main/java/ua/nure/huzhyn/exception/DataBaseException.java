@@ -2,8 +2,6 @@ package ua.nure.huzhyn.exception;
 
 public class DataBaseException extends ServiceException {
 
-    private String httpStatusCode;
-
     public DataBaseException() {
         super("500");
     }

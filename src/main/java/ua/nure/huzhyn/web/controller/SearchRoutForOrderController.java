@@ -23,9 +23,10 @@ import java.util.List;
 
 @WebServlet("/search_rout_for_order")
 public class SearchRoutForOrderController extends HttpServlet {
-    private static final Logger LOGGER = Logger.getLogger(SearchRoutForOrderController.class);
-    private RoutService routService;
 
+    private static final Logger LOGGER = Logger.getLogger(SearchRoutForOrderController.class);
+
+    private RoutService routService;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         SearchValidator searchValidator = new SearchValidator();
@@ -50,7 +51,6 @@ public class SearchRoutForOrderController extends HttpServlet {
         request.setAttribute("departure_date", departureDate);
         request.getRequestDispatcher("WEB-INF/jsp/searchRoutForOrder.jsp").forward(request, response);
     }
-
 
     public void init(ServletConfig config) {
         routService = (RoutService) config.getServletContext().getAttribute((AppContextConstant.ROUT_SERVICE));

@@ -12,8 +12,8 @@ import static java.util.stream.Collectors.joining;
 
 public class RoutValidator {
     private static final Logger LOGGER = Logger.getLogger(RoutValidator.class);
-    private static final String ROUT_NAME = "[a-zA-Z]*([ \\-_][a-zA-Z]+)*";
-    private static final String ROUT_NUMBER = "^[\\d-\\/]{1,10}+$";
+    private static final String ROUT_NAME = "[a-zA-Zа-яА-яёЁ]*([ \\-_][a-zA-Zа-яА-яёЁ]+)*";
+    private static final String ROUT_NUMBER = "^(?![-\\/\\\\d])(?<!\\d[.,])0*+([\\d-\\/]*)(?![.,]?\\d)$";
 
     public void isValidRout(Rout rout) {
         Map<String, String> errors = new HashMap<>();

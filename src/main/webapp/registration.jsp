@@ -24,27 +24,27 @@
 <div class="form-signup">
     <form action="registration" method="POST">
         <div class="form-group">
-            <label for="exampleInputEmail1"><fmt:message key="user.email"/></label>
+            <label class="h5" for="exampleInputEmail1"><fmt:message key="user.email"/></label>
             <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
         </div>
         <div class="form-group">
-            <label for="exampleInputPassword"><fmt:message key="user.password"/></label>
+            <label class="h5" for="exampleInputPassword"><fmt:message key="user.password"/></label>
             <input name="password" type="password" class="form-control" id="exampleInputPassword">
         </div>
         <div class="form-group">
-            <label for="exampleInputFirstName"><fmt:message key="user.first_name"/></label>
+            <label class="h5" for="exampleInputFirstName"><fmt:message key="user.first_name"/></label>
             <input name="first_name" type="text" class="form-control" id="exampleInputFirstName">
         </div>
         <div class="form-group">
-            <label for="exampleInputLastName"><fmt:message key="user.last_name"/></label>
+            <label class="h5" for="exampleInputLastName"><fmt:message key="user.last_name"/></label>
             <input name="last_name" type="text" class="form-control" id="exampleInputLastName">
         </div>
         <div class="form-group">
-            <label for="exampleInputDate"><fmt:message key="user.birth_date"/></label>
+            <label class="h5" for="exampleInputDate"><fmt:message key="user.birth_date"/></label>
             <input name="birth_date" type="date" class="form-control" id="exampleInputDate">
         </div>
         <div class="form-group">
-            <label for="exampleInputPhone"><fmt:message key="user.phone"/></label>
+            <label class="h5" for="exampleInputPhone"><fmt:message key="user.phone"/></label>
             <input name="phone" type="text" class="form-control" id="exampleInputPhone">
         </div>
         <div>

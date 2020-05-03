@@ -41,8 +41,6 @@ public class AdministratorEditInfoOrderController extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
         String orderId = request.getParameter("order_id");
         Order order = orderService.getOrderById(orderId);
         request.setAttribute("current_order", order);

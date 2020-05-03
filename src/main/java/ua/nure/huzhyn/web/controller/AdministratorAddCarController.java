@@ -3,6 +3,7 @@ package ua.nure.huzhyn.web.controller;
 import org.apache.log4j.Logger;
 import ua.nure.huzhyn.db.dao.dto.CarDto;
 import ua.nure.huzhyn.exception.IncorrectDataException;
+import ua.nure.huzhyn.model.entity.Car;
 import ua.nure.huzhyn.model.entity.Train;
 import ua.nure.huzhyn.model.entity.enums.CarType;
 import ua.nure.huzhyn.services.CarService;
@@ -27,15 +28,37 @@ public class AdministratorAddCarController extends HttpServlet {
     private CarService carService;
     private TrainService trainService;
 
+    public static boolean contains(final List<Car> array, final String v) {
+
+        boolean result = false;
+
+        for (Car i : array) {
+            if (i.getCarNumber().equals(v)) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         CarValidator carValidator = new CarValidator();
         CarDto carDto = new CarDto();
         try {
             carDto.setCarType(CarType.valueOf(request.getParameter("car_type")));
-            carDto.setCarNumber(request.getParameter("car_number"));
             carDto.setSeats(Integer.valueOf(request.getParameter("seats")));
             String trainId = request.getParameter("train_id");
             carDto.setTrainId(trainId.equals("TRAIN_NOT_SELECTED") ? null : trainId);
+            Train train = trainService.getTrainById(trainId);
+            List<Car> carByTrainId = carService.getCarByTrainId(train.getTrainId());
+            String carNumber = request.getParameter("car_number");
+
+            if (!contains(carByTrainId, carNumber) || trainId == null) {
+                carDto.setCarNumber(carNumber);
+            } else {
+                LOGGER.error("Incorrect data entered");
+                throw new IncorrectDataException("Incorrect data entered");
+            }
             carValidator.isValidCar(carDto);
             carService.addCar(carDto);
         } catch (IllegalArgumentException e) {

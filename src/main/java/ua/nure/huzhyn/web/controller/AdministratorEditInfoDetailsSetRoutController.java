@@ -43,7 +43,7 @@ public class AdministratorEditInfoDetailsSetRoutController extends HttpServlet {
             LOGGER.error("Incorrect data entered");
             throw new IncorrectDataException("Incorrect data entered", e);
         }
-        routMappingValidator.isValidRoutToStationMapping(routToStationMapping);
+        routMappingValidator.isValidUpdateRoutToStationMapping(routToStationMapping);
         routMappingService.updateRoutToStationMapping(routToStationMapping, stationId);
         response.sendRedirect("administrator_details_set_rout?routs_id=" + routsId);
     }

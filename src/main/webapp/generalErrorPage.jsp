@@ -1,4 +1,3 @@
-<%@ page import="ua.nure.huzhyn.exception.ServiceException" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isErrorPage='true' %>
 
@@ -40,10 +39,7 @@
     </button>
 </nav>
 <div style="text-align: center;">
-    <h1 class="h1 text-center ccc" style="height:100px; width: 100%">Something went wrong, please try again
-        later</h1>
-    <%--    HTTP STATUS CODE: <%out.print(((ServiceException) exception).getStackTrace());%>--%>
-    HTTP STATUS CODE: <%out.print(((ServiceException) exception).getHttpStatusCode());%>
+    <h1 class="h1 text-center ccc" style="height:100px; width: 100%">Something went wrong, please try again later</h1>
 </div>
 </body>
 </html>

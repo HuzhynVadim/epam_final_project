@@ -10,5 +10,4 @@ public interface TrainRepository extends CRUD<Train, String> {
 
     Train getStationById(String trainId);
 
-    Train getTrainId(String trainNumber);
 }

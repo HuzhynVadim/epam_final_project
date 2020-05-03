@@ -32,7 +32,6 @@ public class RoutMappingServiceImpl implements RoutMappingService {
         });
     }
 
-
     @Override
     public void removeRoutToStationMapping(String routsId, String stationId) {
         transactionManager.execute(() -> {

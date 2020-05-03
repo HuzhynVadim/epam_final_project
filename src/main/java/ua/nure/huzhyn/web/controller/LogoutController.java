@@ -1,6 +1,6 @@
 package ua.nure.huzhyn.web.controller;
 
-import ua.nure.huzhyn.services.implementation.LogoutService;
+import ua.nure.huzhyn.services.LogoutService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 
 import javax.servlet.ServletConfig;

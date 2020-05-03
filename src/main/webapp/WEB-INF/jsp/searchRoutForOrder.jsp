@@ -53,70 +53,81 @@
     <fmt:message key="enterRole"></fmt:message>
     <mrt:role role="${user.role}"></mrt:role>
 </div>
-<table class="table table-bordered table-hover text-center" border="1" style="width: auto">
-    <thead class="thead-light text-center">
-    <tr>
-        <th><fmt:message key="rout.name"/></th>
-        <th><fmt:message key="rout.number"/></th>
-        <th><fmt:message key="train.number"/></th>
-        <th><fmt:message key="dispatchDate"/></th>
-        <th><fmt:message key="order.travel.time"/></th>
-        <th><fmt:message key="arrivalDate"/></th>
-        <th><fmt:message key="compartment.count"/></th>
-        <th><fmt:message key="price.compartment"/></th>
-        <th><fmt:message key="reserved.count"/></th>
-        <th><fmt:message key="price.reserved"/></th>
-        <th><fmt:message key="common.count"/></th>
-        <th><fmt:message key="price.common"/></th>
-        <th><fmt:message key="details"/></th>
-        <th><fmt:message key="order"/></th>
-    </tr>
-    </thead>
-    <tbody class="text-center">
-    <c:forEach items="${rout_list}" var="rout">
-        <tr>
-            <c:set var="dispatchTime" value="${rout.stations.get(0).stationDispatchData}"/>
-            <c:set var="arrivalTime" value="${rout.stations.get(rout.stations.size() - 1).stationArrivalDate}"/>
-            <td>${rout.routName}</td>
-            <td>${rout.routNumber}</td>
-            <td>${rout.trainNumber}</td>
-            <td>${rout.stations.get(0).station} - ${dispatchTime}</td>
-            <td><period:period dateFrom="${dispatchTime}" dateTo="${arrivalTime}"/></td>
-            <td>${rout.stations.get(1).station} - ${arrivalTime}</td>
-            <td>${rout.commonFreeSeatsCount}</td>
-            <td>${carTypeList.get(0).price}</td>
-            <td>${rout.compartmentFreeSeatsCount}</td>
-            <td>${carTypeList.get(1).price}</td>
-            <td>${rout.reservedFreeSeatsCount}</td>
-            <td>${carTypeList.get(2).price}</td>
-            <td>
-                <form action="detail_rout" method="GET">
-                    <input type="hidden" name="routs_id" value="${rout.routsId}">
-                    <input type="hidden" name="user_id" value="${user_id}">
-                    <input type="hidden" name="departure_station" value="${departure_station}">
-                    <input type="hidden" name="arrival_station" value="${arrival_station}">
-                    <input type="hidden" name="departure_date" value="${departure_date}">
-                    <input type="submit" class="btn btn-info" name="oder" value="<fmt:message key="details"/>">
-                </form>
-            </td>
-            <td>
-                <form action="select_station_and_car_type_for_order" method="GET">
-                    <input type="hidden" name="routs_id" value="${rout.routsId}">
-                    <input type="hidden" name="train_id" value="${rout.trainId}">
-                    <input type="hidden" name="station1" value="${rout.stations.get(0).station} - ${dispatchTime}">
-                    <input type="hidden" name="travel_time" value="<period:period dateFrom="${dispatchTime}" dateTo="${arrivalTime}"/>">
-                    <input type="hidden" name="station2" value="${rout.stations.get(1).station} - ${arrivalTime}">
-                    <input type="hidden" name="user_id" value="${user_id}">
-                    <input type="hidden" name="departure_station" value="${departure_station}">
-                    <input type="hidden" name="arrival_station" value="${arrival_station}">
-                    <input type="hidden" name="departure_date" value="${departure_date}">
-                    <input type="submit" class="btn btn-info" name="oder" value="<fmt:message key="order.make.order"/>">
-                </form>
-            </td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
+<c:choose>
+    <c:when test="${empty rout_list}">
+        <fmt:message key="rout.name"/>
+    </c:when>
+    <c:otherwise>
+        <table class="table table-bordered table-hover text-center" border="1" style="width: auto">
+            <thead class="thead-light text-center">
+            <tr>
+                <th><fmt:message key="rout.name"/></th>
+                <th><fmt:message key="rout.number"/></th>
+                <th><fmt:message key="train.number"/></th>
+                <th><fmt:message key="dispatchDate"/></th>
+                <th><fmt:message key="order.travel.time"/></th>
+                <th><fmt:message key="arrivalDate"/></th>
+                <th><fmt:message key="compartment.count"/></th>
+                <th><fmt:message key="price.compartment"/></th>
+                <th><fmt:message key="reserved.count"/></th>
+                <th><fmt:message key="price.reserved"/></th>
+                <th><fmt:message key="common.count"/></th>
+                <th><fmt:message key="price.common"/></th>
+                <th><fmt:message key="details"/></th>
+                <th><fmt:message key="order"/></th>
+            </tr>
+            </thead>
+            <tbody class="text-center">
+            <c:forEach items="${rout_list}" var="rout">
+                <tr>
+                    <c:set var="dispatchTime" value="${rout.stations.get(0).stationDispatchData}"/>
+                    <c:set var="arrivalTime" value="${rout.stations.get(rout.stations.size() - 1).stationArrivalDate}"/>
+                    <td>${rout.routName}</td>
+                    <td>${rout.routNumber}</td>
+                    <td>${rout.trainNumber}</td>
+                    <td>${rout.stations.get(0).station} - ${dispatchTime}</td>
+                    <td><period:period dateFrom="${dispatchTime}" dateTo="${arrivalTime}"/></td>
+                    <td>${rout.stations.get(1).station} - ${arrivalTime}</td>
+                    <td>${rout.commonFreeSeatsCount}</td>
+                    <td>${carTypeList.get(0).price}</td>
+                    <td>${rout.compartmentFreeSeatsCount}</td>
+                    <td>${carTypeList.get(1).price}</td>
+                    <td>${rout.reservedFreeSeatsCount}</td>
+                    <td>${carTypeList.get(2).price}</td>
+                    <td>
+                        <form action="detail_rout" method="GET">
+                            <input type="hidden" name="routs_id" value="${rout.routsId}">
+                            <input type="hidden" name="user_id" value="${user_id}">
+                            <input type="hidden" name="departure_station" value="${departure_station}">
+                            <input type="hidden" name="arrival_station" value="${arrival_station}">
+                            <input type="hidden" name="departure_date" value="${departure_date}">
+                            <input type="submit" class="btn btn-info" name="oder" value="<fmt:message key="details"/>">
+                        </form>
+                    </td>
+                    <td>
+                        <form action="select_station_and_car_type_for_order" method="GET">
+                            <input type="hidden" name="routs_id" value="${rout.routsId}">
+                            <input type="hidden" name="train_id" value="${rout.trainId}">
+                            <input type="hidden" name="station1"
+                                   value="${rout.stations.get(0).station} - ${dispatchTime}">
+                            <input type="hidden" name="travel_time"
+                                   value="<period:period dateFrom="${dispatchTime}" dateTo="${arrivalTime}"/>">
+                            <input type="hidden" name="station2"
+                                   value="${rout.stations.get(1).station} - ${arrivalTime}">
+                            <input type="hidden" name="user_id" value="${user_id}">
+                            <input type="hidden" name="departure_station" value="${departure_station}">
+                            <input type="hidden" name="arrival_station" value="${arrival_station}">
+                            <input type="hidden" name="departure_date" value="${departure_date}">
+                            <input type="submit" class="btn btn-info" name="oder"
+                                   value="<fmt:message key="order.make.order"/>">
+                        </form>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </c:otherwise>
+</c:choose>
 <form action="home" method="GET">
     <input type="submit" class="btn btn-primary" value="<fmt:message key="back"/>">
 </form>

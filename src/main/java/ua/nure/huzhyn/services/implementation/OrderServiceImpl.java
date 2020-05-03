@@ -17,7 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
+
     private static final Logger LOGGER = Logger.getLogger(OrderServiceImpl.class);
+
     private OrderRepository orderRepository;
     private SeatRepository seatRepository;
     private TransactionManager transactionManager;
@@ -51,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
         validateDate(order, now);
         String seatNumber = order.getSeatId();
         transactionManager.execute(() -> {
-            ArrayList<String> seatsId = seatService.getSeatsId(seatNumber);
+            List<String> seatsId = seatService.getSeatsId(seatNumber);
             List<Seat> seatsByIdBatch = seatRepository.getSeatsByIdBatch(seatsId);
             for (int i = 0; i <= seatsByIdBatch.size() - 1; i++) {
                 seatRepository.updateBusySeat(seatsByIdBatch.get(i).getSeatId());

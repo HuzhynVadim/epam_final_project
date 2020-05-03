@@ -1,6 +1,7 @@
 package ua.nure.huzhyn.web.controller;
 
 import org.apache.log4j.Logger;
+import ua.nure.huzhyn.db.dao.dto.MappingInfoDto;
 import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.model.entity.RoutToStationMapping;
 import ua.nure.huzhyn.model.entity.Station;
@@ -22,25 +23,46 @@ import java.util.List;
 
 @WebServlet("/administrator_set_rout_mapping")
 public class AdministratorSetRoutController extends HttpServlet {
+
     private static final Logger LOGGER = Logger.getLogger(AdministratorSetRoutController.class);
     private StationService stationService;
     private RoutMappingService routMappingService;
+
+    public static boolean contains(final List<MappingInfoDto> array, final int v) {
+
+        boolean result = false;
+
+        for (MappingInfoDto i : array) {
+            if (i.getOrder() == v) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         RoutMappingValidator routMappingValidator = new RoutMappingValidator();
         RoutToStationMapping routToStationMapping = new RoutToStationMapping();
         String routsId = request.getParameter("routs_id");
+        int stationOrder = Integer.parseInt(request.getParameter("station_order"));
         routToStationMapping.setRoutsId(routsId);
         routToStationMapping.setStationId(request.getParameter("station_station"));
+        List<MappingInfoDto> mappingList = routMappingService.getAllRoutToStationMappingListById(routsId);
         try {
             routToStationMapping.setStationArrivalDate(LocalDateTime.parse(request.getParameter("station_arrival_date")));
             routToStationMapping.setStationDispatchData(LocalDateTime.parse(request.getParameter("station_dispatch_data")));
-            routToStationMapping.setOrder(Integer.parseInt(request.getParameter("station_order")));
+            if (!contains(mappingList, stationOrder)) {
+                routToStationMapping.setOrder(stationOrder);
+            } else {
+                LOGGER.error("Incorrect data entered");
+                throw new IncorrectDataException("Incorrect data entered");
+            }
         } catch (NumberFormatException | DateTimeParseException e) {
             LOGGER.error("Incorrect data entered");
             throw new IncorrectDataException("Incorrect data entered", e);
         }
-        routMappingValidator.isValidRoutToStationMapping(routToStationMapping);
+        routMappingValidator.isValidRoutToStationMapping(routToStationMapping, mappingList);
         routMappingService.addRoutToStationMapping(routToStationMapping);
 
         response.sendRedirect("administrator_details_set_rout?routs_id=" + routsId);

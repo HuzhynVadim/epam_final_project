@@ -20,5 +20,4 @@ public interface CarService {
 
     List<Car> getCarByTrainIdAndCarType(String trainId, String carType);
 
-    Car getCarIdByTrainIdAndCarTypeAndCarNumber(String trainId, String carType, String carNumber);
 }

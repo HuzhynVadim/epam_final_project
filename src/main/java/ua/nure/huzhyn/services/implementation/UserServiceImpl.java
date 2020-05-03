@@ -66,6 +66,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User read(String userId) {
-        return transactionManager.execute(() -> userRepository.read(userId).get());
+        User user = transactionManager.execute(() -> userRepository.read(userId));
+        if(user == null) {
+            UnauthorizedException e = new UnauthorizedException("You are not registered");
+            LOGGER.error(e);
+            throw e;
+        }
+        return user;
     }
 }

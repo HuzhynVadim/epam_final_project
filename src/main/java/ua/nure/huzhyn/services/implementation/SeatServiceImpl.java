@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 public class SeatServiceImpl implements SeatService {
     private static final Logger LOGGER = Logger.getLogger(SeatServiceImpl.class);
-    private static final String UUID = "([0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12})";
+    private static final String UUID = "([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})";
     private SeatRepository seatRepository;
     private TransactionManager transactionManager;
 

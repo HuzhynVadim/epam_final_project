@@ -14,10 +14,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public class CarRepositoryImpl implements CarRepository {
+
     private static final Logger LOGGER = Logger.getLogger(CarRepositoryImpl.class);
     private static final String ADD_CAR = "INSERT INTO final_project.railway_system.car (car_id, car_type, car_number, train_id) VALUES (?,?,?,?);";
     private static final String GET_CAR_BY_ID = "SELECT * FROM final_project.railway_system.car WHERE car_id = ?";
@@ -26,7 +26,6 @@ public class CarRepositoryImpl implements CarRepository {
     private static final String UPDATE_CAR = "UPDATE final_project.railway_system.car SET car_type = ?, car_number = ?, train_id = ? WHERE car_id = ?";
     private static final String GET_ALL_CAR = "SELECT * FROM final_project.railway_system.car as c LEFT OUTER JOIN final_project.railway_system.train as t ON c.train_id = t.train_id  ORDER BY train_number, car_number";
     private static final String GET_CAR_BY_TRAIN_ID_AND_CAR_TYPE = "SELECT * FROM final_project.railway_system.car WHERE train_id = ? AND car_type = ?";
-    private static final String GET_CAR_BY_TRAIN_ID_AND_CAR_TYPE_AND_CAR_NUMBER = "SELECT * FROM final_project.railway_system.car WHERE train_id = ? AND car_type = ? AND car_number = ?";
 
     @Override
     public String create(Car entity) {
@@ -46,16 +45,18 @@ public class CarRepositoryImpl implements CarRepository {
     }
 
     @Override
-    public Optional<Car> read(String id) {
+    public Car read(String id) {
         Connection connection = ConnectionManager.getConnection();
+        Car car;
         try (PreparedStatement preparedStatement = connection.prepareStatement(GET_CAR_BY_ID)) {
             preparedStatement.setString(1, id);
             ResultSet rs = preparedStatement.executeQuery();
-            return Optional.of(extract(rs));
+            car = (extract(rs));
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DataBaseException("Can't read car. ID = " + id, e);
         }
+        return car;
     }
 
     @Override
@@ -160,19 +161,19 @@ public class CarRepositoryImpl implements CarRepository {
 
     @Override
     public List<CarDto> getAllCarList() {
-        List<CarDto> Car = new ArrayList<>();
+        List<CarDto> carDtoList = new ArrayList<>();
         Connection connection = ConnectionManager.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(GET_ALL_CAR)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Car.add(extractCarDto(rs));
+                carDtoList.add(extractCarDto(rs));
             }
             connection.commit();
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DataBaseException("Can't get cars list.", e);
         }
-        return Car;
+        return carDtoList;
     }
 
     @Override
@@ -192,25 +193,5 @@ public class CarRepositoryImpl implements CarRepository {
             throw new DataBaseException("Can't get car list by train ID and car type. ID = " + trainId + "CarType = " + carType, e);
         }
         return cars;
-    }
-
-    @Override
-    public Car getCarIdByTrainIdAndCarTypeAndCarNumber(String trainId, String carType, String carNumber) {
-        Car car = new Car();
-        Connection connection = ConnectionManager.getConnection();
-        try (PreparedStatement ps = connection.prepareStatement(GET_CAR_BY_TRAIN_ID_AND_CAR_TYPE_AND_CAR_NUMBER)) {
-            ps.setString(1, trainId);
-            ps.setString(2, carType);
-            ps.setString(3, carNumber);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                car = extract(rs);
-            }
-            connection.commit();
-        } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DataBaseException("Can't get car by ID and car type and car number . Train ID = " + trainId + " car type = " + carType + " car number = " + carNumber, e);
-        }
-        return car;
     }
 }

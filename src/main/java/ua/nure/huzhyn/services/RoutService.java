@@ -15,8 +15,6 @@ public interface RoutService {
 
     void updateRout(Rout rout);
 
-    Rout read(String id);
-
     List<RoutInfoDto> getAllRoutList();
 
     RoutInfoDto getRoutById(String routsId);

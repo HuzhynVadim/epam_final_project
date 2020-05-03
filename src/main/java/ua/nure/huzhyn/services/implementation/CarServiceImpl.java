@@ -12,8 +12,12 @@ import ua.nure.huzhyn.services.CarService;
 
 import java.util.List;
 
+@SuppressWarnings({"ALL", "FieldMayBeFinal"})
 public class CarServiceImpl implements CarService {
+
     private static final Logger LOGGER = Logger.getLogger(CarServiceImpl.class);
+
+    @SuppressWarnings("FieldMayBeFinal")
     private CarRepository carRepository;
     private SeatRepository seatRepository;
     private TransactionManager transactionManager;
@@ -78,23 +82,6 @@ public class CarServiceImpl implements CarService {
         });
     }
 
-    private Seat getSeatFromCarDto(CarDto carDto, int seatNumber) {
-        Seat seat = new Seat();
-        seat.setCarId(carDto.getCarId());
-        seat.setSeatNumber(seatNumber);
-        seat.setBusy(false);
-        return seat;
-    }
-
-    private Car getCarFromCarDto(CarDto carDto) {
-        Car car = new Car();
-        car.setCarId(carDto.getCarId());
-        car.setCarType(carDto.getCarType());
-        car.setCarNumber(carDto.getCarNumber());
-        car.setTrainId(carDto.getTrainId());
-        return car;
-    }
-
     @Override
     public List<Car> getCarByTrainIdAndCarType(String trainId, String carType) {
         return transactionManager.execute(() -> carRepository.getCarByTrainIdAndCarType(trainId, carType));
@@ -110,11 +97,6 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car getCarIdByTrainIdAndCarTypeAndCarNumber(String trainId, String carType, String carNumber) {
-        return transactionManager.execute(() -> carRepository.getCarIdByTrainIdAndCarTypeAndCarNumber(trainId, carType, carNumber));
-    }
-
-    @Override
     public List<CarDto> getAllCarList() {
         List<CarDto> result = transactionManager.execute(carRepository::getAllCarList);
         for (CarDto car : result) {
@@ -123,6 +105,23 @@ public class CarServiceImpl implements CarService {
             calculatePrice(car);
         }
         return result;
+    }
+
+    private Seat getSeatFromCarDto(CarDto carDto, int seatNumber) {
+        Seat seat = new Seat();
+        seat.setCarId(carDto.getCarId());
+        seat.setSeatNumber(seatNumber);
+        seat.setBusy(false);
+        return seat;
+    }
+
+    private Car getCarFromCarDto(CarDto carDto) {
+        Car car = new Car();
+        car.setCarId(carDto.getCarId());
+        car.setCarType(carDto.getCarType());
+        car.setCarNumber(carDto.getCarNumber());
+        car.setTrainId(carDto.getTrainId());
+        return car;
     }
 
     private void calculatePrice(CarDto car) {

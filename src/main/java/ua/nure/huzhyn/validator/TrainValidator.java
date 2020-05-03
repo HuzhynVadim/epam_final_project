@@ -12,12 +12,12 @@ import static java.util.stream.Collectors.joining;
 
 public class TrainValidator {
     private static final Logger LOGGER = Logger.getLogger(TrainValidator.class);
-    private static final String TRAIN_NUMBER = "^[\\d-\\/]{1,10}+$";
+    private static final String TRAIN_NUMBER = "^(?![-\\/\\\\d])(?<!\\d[.,])0*+([\\d-\\/]*)(?![.,]?\\d)$";
 
     public void isValidTrain(Train train) {
         Map<String, String> errors = new HashMap<>();
         if (StringUtils.isBlank(train.getTrainNumber()) || !ValidatorUtils.isMatch(TRAIN_NUMBER, train.getTrainNumber())) {
-            errors.put("Incorrect format, type something like \"1-23 or 1/23 or 123\"", train.getTrainNumber());
+            errors.put("Incorrect format, type something like \"123\"", train.getTrainNumber());
         }
         if (!errors.isEmpty()) {
             String message = errors.entrySet().stream()

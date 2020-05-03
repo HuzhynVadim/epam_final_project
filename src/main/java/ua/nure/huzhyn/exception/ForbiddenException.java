@@ -1,6 +1,7 @@
 package ua.nure.huzhyn.exception;
 
 public class ForbiddenException extends ServiceException {
+
     public ForbiddenException() {
         super("403");
     }

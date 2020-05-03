@@ -1,6 +1,5 @@
 package ua.nure.huzhyn.db.dao.dto;
 
-import ua.nure.huzhyn.model.entity.User;
 import ua.nure.huzhyn.model.entity.enums.CarType;
 import ua.nure.huzhyn.model.entity.enums.OrderStatus;
 

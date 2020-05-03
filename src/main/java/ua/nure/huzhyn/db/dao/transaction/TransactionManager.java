@@ -10,6 +10,7 @@ import java.sql.SQLException;
 public class TransactionManager {
 
     private static final Logger LOGGER = Logger.getLogger(TransactionManager.class);
+
     private DataSource dataSource;
 
     public TransactionManager(DataSource dataSource) {
@@ -29,21 +30,6 @@ public class TransactionManager {
         } catch (SQLException e) {
             LOGGER.error(e);
             rollback(connection);
-        } finally {
-            close(connection);
-        }
-        return result;
-    }
-
-    public <T> T executeWithoutTransaction(Transaction<T> transaction) {
-        Connection connection = null;
-        T result = null;
-        try {
-            connection = dataSource.getConnection();
-            ConnectionManager.setConnection(connection);
-            result = transaction.execute();
-        } catch (SQLException e) {
-            LOGGER.error(e);
         } finally {
             close(connection);
         }

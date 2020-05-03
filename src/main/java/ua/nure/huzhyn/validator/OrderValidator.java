@@ -12,12 +12,12 @@ import static java.util.stream.Collectors.joining;
 
 public class OrderValidator {
     private static final Logger LOGGER = Logger.getLogger(OrderValidator.class);
-    private static final String SEATS = "[0-9]{1,2}";
+    private static final String SEATS = "(?<![-\\d])(?<!\\d[.,])\\d*[0-9](?![.,]?\\d){1,2}";
 
     public void isValidOrder(Order order) {
         Map<String, String> errors = new HashMap<>();
         if (StringUtils.isBlank(String.valueOf(order.getCountOfSeats())) && !ValidatorUtils.isMatch(SEATS, String.valueOf(order.getCountOfSeats()))) {
-            errors.put("Incorrect format, type something like \"user@gmail.com\"", String.valueOf(order.getCountOfSeats()));
+            errors.put("Incorrect format, type something like \"1-20\"", String.valueOf(order.getCountOfSeats()));
         }
         if (!errors.isEmpty()) {
             String message = errors.entrySet().stream()

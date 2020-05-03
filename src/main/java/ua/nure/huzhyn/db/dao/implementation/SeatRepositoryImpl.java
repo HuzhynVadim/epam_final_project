@@ -7,12 +7,16 @@ import ua.nure.huzhyn.exception.DataBaseException;
 import ua.nure.huzhyn.model.entity.Seat;
 import ua.nure.huzhyn.model.entity.enums.CarType;
 
-import java.sql.*;
+import java.sql.Array;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
+@SuppressWarnings("ToArrayCallWithZeroLengthArrayArgument")
 public class SeatRepositoryImpl implements SeatRepository {
 
     private static final Logger LOGGER = Logger.getLogger(SeatRepositoryImpl.class);
@@ -46,14 +50,14 @@ public class SeatRepositoryImpl implements SeatRepository {
     }
 
     @Override
-    public Optional<Seat> read(String id) {
+    public Seat read(String id) {
         Connection connection = ConnectionManager.getConnection();
-        Optional<Seat> seat = Optional.empty();
+        Seat seat = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(GET_SEATS_BY_ID)) {
             preparedStatement.setString(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
-                seat = Optional.of(extract(rs));
+                seat = extract(rs);
             }
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -191,7 +195,7 @@ public class SeatRepositoryImpl implements SeatRepository {
             connection.commit();
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DataBaseException("Can't get car list by train ID. ID = " + carId, e);
+            throw new DataBaseException("Can't get seat list by car ID. ID = " + carId, e);
         }
         return seat;
     }
@@ -210,7 +214,7 @@ public class SeatRepositoryImpl implements SeatRepository {
             connection.commit();
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DataBaseException("Can't get car list by train ID. ID = " + seatsNumber, e);
+            throw new DataBaseException("Can't get seat by ID batch. ID = " + seatsNumber, e);
         }
         return seat;
     }
@@ -227,6 +231,7 @@ public class SeatRepositoryImpl implements SeatRepository {
             throw new DataBaseException("Seat busy" + seatId, e);
         }
     }
+
     @Override
     public void updateBusySeat(String seatId) {
         Connection connection = ConnectionManager.getConnection();
@@ -236,7 +241,7 @@ public class SeatRepositoryImpl implements SeatRepository {
             connection.commit();
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DataBaseException("Seat busy" + seatId, e);
+            throw new DataBaseException("Freed up a seat" + seatId, e);
         }
     }
 }

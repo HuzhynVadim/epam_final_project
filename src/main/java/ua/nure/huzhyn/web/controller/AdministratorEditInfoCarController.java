@@ -30,16 +30,40 @@ public class AdministratorEditInfoCarController extends HttpServlet {
     private TrainService trainService;
     private SeatService seatService;
 
+    public static boolean contains(final List<Car> array, final String v) {
+
+        boolean result = false;
+
+        for (Car i : array) {
+            if (i.getCarNumber().equals(v)) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         CarValidator carValidator = new CarValidator();
         CarDto carDto = new CarDto();
         try {
             carDto.setCarId(request.getParameter("car_id"));
             carDto.setCarType(CarType.valueOf(request.getParameter("car_type")));
-            carDto.setCarNumber(request.getParameter("car_number"));
+            String carNumber = request.getParameter("car_number");
             carDto.setSeats(Integer.valueOf(request.getParameter("seats")));
             String trainId = request.getParameter("train_id");
             carDto.setTrainId(trainId.equals("TRAIN_NOT_SELECTED") ? null : trainId);
+
+            Train train = trainService.getTrainById(trainId);
+            List<Car> carByTrainId = carService.getCarByTrainId(train.getTrainId());
+
+            if (!contains(carByTrainId, carNumber) || trainId == null) {
+                carDto.setCarNumber(carNumber);
+            } else {
+                LOGGER.error("Incorrect data entered");
+                throw new IncorrectDataException("Incorrect data entered");
+            }
+
             carValidator.isValidCar(carDto);
             carService.updateCar(carDto);
         } catch (IllegalArgumentException e) {
@@ -58,7 +82,7 @@ public class AdministratorEditInfoCarController extends HttpServlet {
         List<CarType> carTypeList = new ArrayList<>(EnumSet.allOf(CarType.class));
         request.setAttribute("carTypeList", carTypeList);
         int countSeat = seatService.getCountSeat(carId);
-        request.setAttribute("countSeat",countSeat);
+        request.setAttribute("countSeat", countSeat);
 
         request.getRequestDispatcher("WEB-INF/jsp/administratorEditInfoCar.jsp").forward(request, response);
     }

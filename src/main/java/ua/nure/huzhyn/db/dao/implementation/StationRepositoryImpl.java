@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public class StationRepositoryImpl implements StationRepository {
@@ -22,7 +21,6 @@ public class StationRepositoryImpl implements StationRepository {
     private static final String DELETE_STATION = "DELETE FROM final_project.railway_system.station WHERE  station_id = ?";
     private static final String UPDATE_STATION = "UPDATE final_project.railway_system.station SET station = ? WHERE station_id = ?";
     private static final String GET_ALL_STATION = "SELECT * FROM final_project.railway_system.station";
-    private static final String GET_STATION_ID_BY_STATION_NAME = "SELECT * FROM final_project.railway_system.station WHERE station.station = ?";
 
     @Override
     public String create(Station entity) {
@@ -40,13 +38,13 @@ public class StationRepositoryImpl implements StationRepository {
     }
 
     @Override
-    public Optional<Station> read(String id) {
+    public Station read(String id) {
         Connection connection = ConnectionManager.getConnection();
-        Optional<Station> station;
+        Station station;
         try (PreparedStatement preparedStatement = connection.prepareStatement(GET_STATION_BY_ID)) {
             preparedStatement.setString(1, id);
             ResultSet rs = preparedStatement.executeQuery();
-            station = Optional.of(extract(rs));
+            station = extract(rs);
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DataBaseException("Can`t read station. ID = " + id, e);
@@ -130,24 +128,6 @@ public class StationRepositoryImpl implements StationRepository {
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DataBaseException("Can't get station by ID. ID = " + stationId, e);
-        }
-        return station;
-    }
-
-    @Override
-    public Station getStationIdByStationName(String stationName) {
-        Station station = new Station();
-        Connection connection = ConnectionManager.getConnection();
-        try (PreparedStatement ps = connection.prepareStatement(GET_STATION_ID_BY_STATION_NAME)) {
-            ps.setString(1, stationName);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                station = extract(rs);
-            }
-            connection.commit();
-        } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DataBaseException("Can't get station by station name. Station name = " + stationName, e);
         }
         return station;
     }

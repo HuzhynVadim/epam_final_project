@@ -16,7 +16,6 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public class OrderRepositoryImpl implements OrderRepository {
@@ -59,13 +58,13 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public Optional<Order> read(String id) {
+    public Order read(String id) {
         Connection connection = ConnectionManager.getConnection();
-        Optional<Order> order;
+        Order order;
         try (PreparedStatement preparedStatement = connection.prepareStatement(GET_ORDER_BY_ID)) {
             preparedStatement.setString(1, id);
             ResultSet rs = preparedStatement.executeQuery();
-            order = Optional.of(extract(rs));
+            order = extract(rs);
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DataBaseException("Can't read car. ID = " + id, e);

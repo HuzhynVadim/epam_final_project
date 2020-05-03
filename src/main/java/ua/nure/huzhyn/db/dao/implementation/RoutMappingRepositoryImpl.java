@@ -14,7 +14,6 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class RoutMappingRepositoryImpl implements RoutMappingRepository {
     private static final Logger LOGGER = Logger.getLogger(RoutsRepositoryImpl.class);
@@ -44,13 +43,13 @@ public class RoutMappingRepositoryImpl implements RoutMappingRepository {
     }
 
     @Override
-    public Optional<RoutToStationMapping> read(String id) {
+    public RoutToStationMapping read(String id) { //todo
         Connection connection = ConnectionManager.getConnection();
-        Optional<RoutToStationMapping> routToStationMapping;
+        RoutToStationMapping routToStationMapping;
         try (PreparedStatement preparedStatement = connection.prepareStatement(GET_ROUT_MAPPING_BY_ID)) {
             preparedStatement.setString(1, id);
             ResultSet rs = preparedStatement.executeQuery();
-            routToStationMapping = Optional.of(extract(rs));
+            routToStationMapping = extract(rs);
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DataBaseException("Can't read route in route to station mapping. ID = " + id, e);

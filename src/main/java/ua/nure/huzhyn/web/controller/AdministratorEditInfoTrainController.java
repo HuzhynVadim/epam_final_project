@@ -15,6 +15,7 @@ import java.io.IOException;
 
 @WebServlet("/administrator_edit_info_train")
 public class AdministratorEditInfoTrainController extends HttpServlet {
+
     private TrainService trainService;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -38,7 +39,6 @@ public class AdministratorEditInfoTrainController extends HttpServlet {
     @Override
     public void init(ServletConfig config) {
         trainService = (TrainService) config.getServletContext().getAttribute(AppContextConstant.TRAIN_SERVICE);
-
     }
 }
 

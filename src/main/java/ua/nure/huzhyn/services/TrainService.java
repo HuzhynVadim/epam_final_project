@@ -16,6 +16,5 @@ public interface TrainService {
 
     Train getTrainById(String trainId);
 
-    Train getTrainId(String trainNumber);
 }
 

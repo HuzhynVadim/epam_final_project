@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public class TrainRepositoryImpl implements TrainRepository {
@@ -22,7 +21,6 @@ public class TrainRepositoryImpl implements TrainRepository {
     private static final String DELETE_TRAIN = "DELETE FROM final_project.railway_system.train WHERE train_id = ?";
     private static final String UPDATE_TRAIN = "UPDATE final_project.railway_system.train SET train_number = ? WHERE train_id = ?";
     private static final String GET_ALL_TRAIN_NUMBER = "SELECT * FROM final_project.railway_system.train ORDER BY train_number";
-    private static final String GET_TRAIN_ID = "SELECT * FROM final_project.railway_system.train WHERE train_number = ?";
 
 
     @Override
@@ -42,13 +40,13 @@ public class TrainRepositoryImpl implements TrainRepository {
     }
 
     @Override
-    public Optional<Train> read(String id) {
+    public Train read(String id) {
         Connection connection = ConnectionManager.getConnection();
-        Optional<Train> train;
+        Train train;
         try (PreparedStatement preparedStatement = connection.prepareStatement(GET_TRAIN_BY_ID)) {
             preparedStatement.setString(1, id);
             ResultSet rs = preparedStatement.executeQuery();
-            train = Optional.of(extract(rs));
+            train = extract(rs);
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DataBaseException("Can`t read train. ID = " + id, e);
@@ -114,7 +112,7 @@ public class TrainRepositoryImpl implements TrainRepository {
             connection.commit();
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DataBaseException("Can't get train by ID. ID = " + trainId, e);
+            throw new DataBaseException("Can't get Station by train ID. ID = " + trainId, e);
         }
         return train;
     }
@@ -136,21 +134,4 @@ public class TrainRepositoryImpl implements TrainRepository {
         return Train;
     }
 
-    @Override
-    public Train getTrainId(String trainNumber) {
-        Train train = new Train();
-        Connection connection = ConnectionManager.getConnection();
-        try (PreparedStatement ps = connection.prepareStatement(GET_TRAIN_ID)) {
-            ps.setString(1, trainNumber);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                train = extract(rs);
-            }
-            connection.commit();
-        } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new DataBaseException("Can't get train ID. Train number = " + trainNumber, e);
-        }
-        return train;
-    }
 }

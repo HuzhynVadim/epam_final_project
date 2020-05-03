@@ -3,8 +3,9 @@ package ua.nure.huzhyn.web.controller;
 import org.apache.log4j.Logger;
 import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.model.entity.Seat;
-import ua.nure.huzhyn.services.*;
+import ua.nure.huzhyn.services.SeatService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
+import ua.nure.huzhyn.validator.SeatValidator;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -25,6 +26,7 @@ public class SelectSeatsForOrderController extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        SeatValidator seatValidator = new SeatValidator();
         String departureStation = request.getParameter("departure_station");
         String arrivalStation = request.getParameter("arrival_station");
         String departureStationId = request.getParameter("departure_station_id");
@@ -40,6 +42,7 @@ public class SelectSeatsForOrderController extends HttpServlet {
         request.setAttribute("station2",station2);
         request.setAttribute("travel_time",travelTime);
         String countOfSeats = request.getParameter("count_of_seats");
+        seatValidator.isValidSeat(countOfSeats);
         LocalDateTime departureDate;
         try {
             departureDate = LocalDateTime.parse(request.getParameter("departure_date"));

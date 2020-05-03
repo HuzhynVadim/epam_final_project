@@ -12,8 +12,13 @@ import ua.nure.huzhyn.services.RoutService;
 import ua.nure.huzhyn.services.SeatService;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class RoutServiceImpl implements RoutService {
     private CarService carService;
     private RoutsRepository routsRepository;
@@ -86,10 +91,6 @@ public class RoutServiceImpl implements RoutService {
         return result;
     }
 
-    @Override
-    public Rout read(String id) {
-        return transactionManager.execute(() -> routsRepository.read(id).orElse(null));
-    }
 
     @Override
     public RoutInfoDto getRoutById(String routsId) {

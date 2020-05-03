@@ -30,11 +30,6 @@ public class StationServiceImpl implements StationService {
     }
 
     @Override
-    public Station getStationIdByStationName(String stationName) {
-        return transactionManager.execute(() -> stationRepository.getStationIdByStationName(stationName));
-    }
-
-    @Override
     public Station getStationById(String stationId) {
         return transactionManager.execute(() -> stationRepository.getStationById(stationId));
     }

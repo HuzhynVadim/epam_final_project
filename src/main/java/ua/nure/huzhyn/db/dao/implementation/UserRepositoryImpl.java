@@ -13,7 +13,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public class UserRepositoryImpl implements UserRepository {
@@ -50,14 +49,14 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Optional<User> read(String id) {
+    public User read(String id) {
         Connection connection = ConnectionManager.getConnection();
-        Optional<User> user = Optional.empty();
+        User user = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_ID)) {
             preparedStatement.setString(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
-                user = Optional.of(DbUtils.extract(rs));
+                user = DbUtils.extract(rs);
             }
         } catch (SQLException | NullPointerException e) {
             LOGGER.error(e);
