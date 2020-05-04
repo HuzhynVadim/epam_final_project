@@ -1,0 +1,2 @@
+2020-05-04 03:23:24 ERROR CarValidator:27 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format, type something like "123". Entered data:&nbsp;-99;
+2020-05-04 03:26:59 ERROR SecurityFilter:106 - You are not authorized. Please register to enter the site.
