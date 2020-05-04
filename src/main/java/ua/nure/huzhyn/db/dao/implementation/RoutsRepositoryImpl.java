@@ -20,18 +20,25 @@ import java.util.UUID;
 public class RoutsRepositoryImpl implements RoutsRepository {
 
     private static final Logger LOGGER = Logger.getLogger(RoutsRepositoryImpl.class);
-    private static final String ADD_ROUTS = "INSERT INTO final_project.railway_system.rout (routs_id, train_id, rout_name, rout_number) VALUES (?,?,?,?)";
-    private static final String GET_ROUT_BY_ID = "SELECT r.routs_id, r.train_id, r.rout_name, r.rout_number, t.train_number FROM final_project.railway_system.rout as r JOIN final_project.railway_system.train as t on r.train_id = t.train_id WHERE r.routs_id = ?";
+    private static final String ADD_ROUTS = "INSERT INTO final_project.railway_system.rout" +
+            " (routs_id, train_id, rout_name, rout_number) VALUES (?,?,?,?)";
+    private static final String GET_ROUT_BY_ID = "SELECT r.routs_id, r.train_id, r.rout_name, r.rout_number, " +
+            "t.train_number FROM final_project.railway_system.rout as r " +
+            "JOIN final_project.railway_system.train as t on r.train_id = t.train_id WHERE r.routs_id = ?";
     private static final String DELETE_ROUT = "DELETE FROM final_project.railway_system.rout WHERE routs_id = ?";
-    private static final String GET_ALL_ROUT = "SELECT r.routs_id, r.train_id, r.rout_name, r.rout_number, t.train_number FROM final_project.railway_system.rout as r JOIN final_project.railway_system.train as t on r.train_id = t.train_id ORDER BY t.train_number, r.rout_name";
-    private static final String GET_ROUTE_LIST_WITH_PARAMETERS = "SELECT rout_name, rout_number, r.routs_id, station, s.station_id, train_number, r.train_id, station_arrival_date, station_dispatch_data, \"order\" " +
+    private static final String GET_ALL_ROUT = "SELECT r.routs_id, r.train_id, r.rout_name, r.rout_number, t.train_number " +
+            "FROM final_project.railway_system.rout as r JOIN final_project.railway_system.train as t on r.train_id = t.train_id " +
+            "ORDER BY t.train_number, r.rout_name";
+    private static final String GET_ROUTE_LIST_WITH_PARAMETERS = "SELECT rout_name, rout_number, r.routs_id, station, " +
+            "s.station_id, train_number, r.train_id, station_arrival_date, station_dispatch_data, \"order\" " +
             "FROM final_project.railway_system.rout as r " +
             "JOIN final_project.railway_system.train as t on r.train_id = t.train_id " +
             "JOIN final_project.railway_system.rout_to_station_mapping as rm on rm.routs_id = r.routs_id " +
             "JOIN final_project.railway_system.station as s on rm.station_id = s.station_id " +
             "WHERE station IN (?, ?) " +
             "ORDER BY station_dispatch_data, r.rout_name , r.rout_number";
-    private static final String UPDATE_ROUT = "UPDATE final_project.railway_system.rout SET rout_name = ?, rout_number = ?, train_id = ? WHERE routs_id = ?";
+    private static final String UPDATE_ROUT = "UPDATE final_project.railway_system.rout SET rout_name = ?, " +
+            "rout_number = ?, train_id = ? WHERE routs_id = ?";
 
     @Override
     public String create(Rout entity) {

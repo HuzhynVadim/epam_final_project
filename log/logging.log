@@ -1,51 +1,6 @@
-2020-05-04 03:23:24 ERROR CarValidator:27 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format, type something like "123". Entered data:&nbsp;-99;
-2020-05-04 03:26:59 ERROR SecurityFilter:106 - You are not authorized. Please register to enter the site.
-2020-05-04 03:42:35 ERROR SecurityFilter:116 - Invalid access rights, access denied
-2020-05-04 14:15:13 ERROR CarValidator:59 - ua.nure.huzhyn.exception.IncorrectDataException: This number is already there. Entered data:&nbsp;2;
-2020-05-04 14:15:28 ERROR CarValidator:59 - ua.nure.huzhyn.exception.IncorrectDataException: This number is already there. Entered data:&nbsp;2;
-2020-05-04 14:23:35 ERROR AdministratorEditInfoCarController:59 - Incorrect data entered
-2020-05-04 14:28:11 ERROR AdministratorEditInfoCarController:59 - Incorrect data entered
-2020-05-04 14:28:55 ERROR AdministratorEditInfoCarController:59 - Incorrect data entered
-2020-05-04 14:31:49 ERROR SecurityFilter:106 - You are not authorized. Please register to enter the site.
-2020-05-04 14:33:18 ERROR AdministratorEditInfoCarController:59 - Incorrect data entered
-2020-05-04 14:42:47 ERROR AdministratorEditInfoCarController:59 - Incorrect data entered
-2020-05-04 14:43:27 ERROR AdministratorEditInfoCarController:59 - Incorrect data entered
-2020-05-04 14:50:43 ERROR AdministratorEditInfoCarController:60 - Incorrect data entered
-2020-05-04 14:52:20 ERROR AdministratorEditInfoCarController:60 - Incorrect data entered
-2020-05-04 14:57:11 ERROR AdministratorEditInfoCarController:60 - Incorrect data entered
-2020-05-04 14:57:21 ERROR AdministratorEditInfoCarController:60 - Incorrect data entered
-2020-05-04 16:07:22 ERROR SeatValidator:42 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format, choose different placesEntered data:&nbsp;2;<br/>
+2020-05-04 20:53:17 ERROR LoginValidator:35 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format email enteredEntered data:&nbsp;;<br/>
+Incorrect format password enteredEntered data:&nbsp;;<br/>
 
-2020-05-04 16:09:38 ERROR RoutMappingValidator:67 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format, "time should be different"Entered data:&nbsp;2020-05-04T01:01 = 2020-05-04T01:01;<br/>
+2020-05-04 20:53:31 ERROR LoginValidator:35 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format email enteredEntered data:&nbsp;;<br/>
+Incorrect format password enteredEntered data:&nbsp;;<br/>
 
-2020-05-04 16:09:47 ERROR RoutMappingValidator:67 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format, "time should be different"Entered data:&nbsp;2020-05-05T01:01 > 2020-05-04T01:01;<br/>
-
-2020-05-04 16:10:11 ERROR AdministratorSetRoutController:58 - Incorrect data entered
-2020-05-04 16:10:18 ERROR AdministratorSetRoutController:58 - Incorrect data entered
-2020-05-04 16:10:33 ERROR StationValidator:31 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format, type something like "Odessa"Entered data:&nbsp;23;<br/>
-
-2020-05-04 16:11:19 ERROR AdministratorEditInfoCarController:59 - Incorrect data entered
-2020-05-04 16:11:33 ERROR AdministratorEditInfoCarController:59 - Incorrect data entered
-2020-05-04 16:11:48 ERROR StationRepositoryImpl:84 - org.postgresql.util.PSQLException: ОШИБКА: UPDATE или DELETE в таблице "train" нарушает ограничение внешнего ключа "train_id" таблицы "car"
-  Подробности: На ключ (train_id)=(0c58aef6-d1a6-42f4-99f5-a877c032ea94) всё ещё есть ссылки в таблице "car".
-2020-05-04 16:14:00 ERROR RegistrationValidator:56 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format, type something like "+380965467832"Entered data:&nbsp;+80969528777;<br/>
-
-2020-05-04 16:14:07 ERROR RegistrationValidator:56 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format, type something like "passw0r$4"Entered data:&nbsp;;<br/>
-
-2020-05-04 16:16:03 ERROR SecurityFilter:116 - Invalid access rights, access denied
-2020-05-04 16:16:53 ERROR SecurityFilter:108 - You are not authorized. Please register to enter the site.
-2020-05-04 16:16:57 ERROR SecurityFilter:108 - You are not authorized. Please register to enter the site.
-2020-05-04 16:18:01 ERROR LoginValidator:35 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format password enteredEntered data:&nbsp;qwe123@@;<br/>
-
-2020-05-04 16:32:14 ERROR AdministratorEditInfoCarController:59 - Incorrect data entered
-2020-05-04 16:45:53 ERROR SecurityFilter:108 - You are not authorized. Please register to enter the site.
-2020-05-04 17:26:25 ERROR SecurityFilter:108 - You are not authorized. Please register to enter the site.
-2020-05-04 17:32:34 ERROR SecurityFilter:108 - You are not authorized. Please register to enter the site.
-2020-05-04 17:39:40 ERROR SecurityFilter:108 - You are not authorized. Please register to enter the site.
-2020-05-04 18:00:23 ERROR SecurityFilter:108 - You are not authorized. Please register to enter the site.
-2020-05-04 18:01:26 ERROR SecurityFilter:108 - You are not authorized. Please register to enter the site.
-2020-05-04 19:33:44 ERROR SecurityFilter:108 - You are not authorized. Please register to enter the site.
-2020-05-04 19:36:51 ERROR SecurityFilter:108 - You are not authorized. Please register to enter the site.
-2020-05-04 20:03:57 ERROR SecurityFilter:108 - You are not authorized. Please register to enter the site.
-2020-05-04 20:14:21 ERROR SecurityFilter:108 - You are not authorized. Please register to enter the site.
-2020-05-04 20:41:03 ERROR AdministratorEditInfoCarController:59 - Incorrect data entered

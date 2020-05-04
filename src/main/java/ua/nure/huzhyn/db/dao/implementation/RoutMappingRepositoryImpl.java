@@ -17,13 +17,22 @@ import java.util.List;
 
 public class RoutMappingRepositoryImpl implements RoutMappingRepository {
     private static final Logger LOGGER = Logger.getLogger(RoutsRepositoryImpl.class);
-    private static final String ADD_ROUT_MAPPINGS = "INSERT INTO final_project.railway_system.rout_to_station_mapping as rm (station_id, routs_id, station_arrival_date, station_dispatch_data, \"order\") VALUES (?, ?, ?, ?, ?)";
-    private static final String GET_ROUT_MAPPING_BY_ID = "SELECT * FROM final_project.railway_system.rout_to_station_mapping WHERE routs_id = ?";
-    private static final String UPDATE_ROUT_MAPPING = "UPDATE final_project.railway_system.rout_to_station_mapping SET station_id = ?, station_arrival_date = ?, station_dispatch_data = ?, \"order\" = ?  WHERE routs_id = ? AND station_id= ? ";
-    private static final String DELETE_ROUT_MAPPING = "DELETE FROM final_project.railway_system.rout_to_station_mapping WHERE routs_id = ? AND station_id  = ?";
+    private static final String ADD_ROUT_MAPPINGS = "INSERT INTO final_project.railway_system.rout_to_station_mapping as rm " +
+            "(station_id, routs_id, station_arrival_date, station_dispatch_data, \"order\") VALUES (?, ?, ?, ?, ?)";
+    private static final String GET_ROUT_MAPPING_BY_ID = "SELECT * FROM final_project.railway_system.rout_to_station_mapping" +
+            " WHERE routs_id = ?";
+    private static final String UPDATE_ROUT_MAPPING = "UPDATE final_project.railway_system.rout_to_station_mapping " +
+            "SET station_id = ?, station_arrival_date = ?, station_dispatch_data = ?, \"order\" = ?  WHERE routs_id = ? " +
+            "AND station_id= ? ";
+    private static final String DELETE_ROUT_MAPPING = "DELETE FROM final_project.railway_system.rout_to_station_mapping " +
+            "WHERE routs_id = ? AND station_id  = ?";
     private static final String GET_ALL_ROUT_MAPPING = "SELECT * FROM final_project.railway_system.rout_to_station_mapping";
-    private static final String GET_ROUT_MAPPING_BY_ROUT_ID = "SELECT * FROM final_project.railway_system.rout_to_station_mapping as rm JOIN final_project.railway_system.station as s ON rm.station_id = s.station_id WHERE routs_id = ? ORDER BY \"order\"";
-    private static final String GET_ROUT_MAPPING_BY_STATION_AND_ROUT_ID = "SELECT * FROM final_project.railway_system.rout_to_station_mapping as rm JOIN final_project.railway_system.station as s ON rm.station_id = s.station_id WHERE rm.routs_id = ? AND rm.station_id = ? ORDER BY \"order\"";
+    private static final String GET_ROUT_MAPPING_BY_ROUT_ID = "SELECT * FROM final_project.railway_system.rout_to_station_mapping as rm " +
+            "JOIN final_project.railway_system.station as s ON rm.station_id = s.station_id WHERE routs_id = ? " +
+            "ORDER BY \"order\"";
+    private static final String GET_ROUT_MAPPING_BY_STATION_AND_ROUT_ID = "SELECT * FROM final_project.railway_system.rout_to_station_mapping as rm " +
+            "JOIN final_project.railway_system.station as s ON rm.station_id = s.station_id WHERE rm.routs_id = ? " +
+            "AND rm.station_id = ? ORDER BY \"order\"";
 
 
     @Override

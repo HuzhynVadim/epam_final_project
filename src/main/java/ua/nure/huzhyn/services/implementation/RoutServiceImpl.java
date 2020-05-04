@@ -26,7 +26,8 @@ public class RoutServiceImpl implements RoutService {
     private TransactionManager transactionManager;
 
 
-    public RoutServiceImpl(RoutsRepository routsRepository, SeatService seatService, CarService carService, TransactionManager transactionManager) {
+    public RoutServiceImpl(RoutsRepository routsRepository, SeatService seatService, CarService carService,
+                           TransactionManager transactionManager) {
         this.routsRepository = routsRepository;
         this.carService = carService;
         this.seatService = seatService;
@@ -43,8 +44,10 @@ public class RoutServiceImpl implements RoutService {
     }
 
     @Override
-    public List<RoutsOrderDto> getRouteListWithParameters(String departureStation, String arrivalStation, LocalDateTime departureDate) {
-        List<StationDto> stations = transactionManager.execute(() -> routsRepository.getRouteListWithParameters(departureStation, arrivalStation));
+    public List<RoutsOrderDto> getRouteListWithParameters(String departureStation, String arrivalStation,
+                                                          LocalDateTime departureDate) {
+        List<StationDto> stations = transactionManager.execute(() ->
+                routsRepository.getRouteListWithParameters(departureStation, arrivalStation));
 
         Map<String, List<StationDto>> routToStationMap = new HashMap<>();
 
@@ -83,7 +86,8 @@ public class RoutServiceImpl implements RoutService {
                 continue;
             }
 
-            if (departure.getStationDispatchData().isAfter(departureDate) || departure.getStationDispatchData().isEqual(departureDate)) {
+            if (departure.getStationDispatchData().isAfter(departureDate) || departure.getStationDispatchData()
+                    .isEqual(departureDate)) {
                 result.add(toRoutsOrderDto(stationDtos));
             }
         }

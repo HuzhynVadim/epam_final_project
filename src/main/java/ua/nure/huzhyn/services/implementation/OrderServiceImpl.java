@@ -26,7 +26,8 @@ public class OrderServiceImpl implements OrderService {
     private TransactionManager transactionManager;
     private SeatService seatService;
 
-    public OrderServiceImpl(OrderRepository orderRepository, SeatService seatService, TransactionManager transactionManager, SeatRepository seatRepository) {
+    public OrderServiceImpl(OrderRepository orderRepository, SeatService seatService,
+                            TransactionManager transactionManager, SeatRepository seatRepository) {
         this.orderRepository = orderRepository;
         this.seatRepository = seatRepository;
         this.transactionManager = transactionManager;
@@ -66,7 +67,8 @@ public class OrderServiceImpl implements OrderService {
 
     private void validateDate(Order order, LocalDateTime now) {
         if (now.isAfter(order.getArrivalDate()) || now.isEqual(order.getArrivalDate())) {
-            IncorrectDataException e = new IncorrectDataException("Can`t cancel the order because the cancellation period has been reached");
+            IncorrectDataException e = new IncorrectDataException("Can`t cancel the order because the cancellation " +
+                    "period has been reached");
             LOGGER.error(e);
             throw e;
         }

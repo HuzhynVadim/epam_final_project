@@ -20,18 +20,28 @@ import java.util.UUID;
 public class SeatRepositoryImpl implements SeatRepository {
 
     private static final Logger LOGGER = Logger.getLogger(SeatRepositoryImpl.class);
-    private static final String ADD_SEAT = "INSERT INTO final_project.railway_system.seat (seat_id, car_id, seat_number, busy) VALUES (?,?,?,?)";
+    private static final String ADD_SEAT = "INSERT INTO final_project.railway_system.seat (seat_id, car_id, seat_number, busy) " +
+            "VALUES (?,?,?,?)";
     private static final String GET_SEATS_BY_ID = "SELECT * FROM final_project.railway_system.seat WHERE seat_id = ?";
     private static final String DELETE_SEAT = "DELETE FROM final_project.railway_system.seat WHERE seat_id = ?";
     private static final String DELETE_ALL_SEAT_BY_CAR_ID = "DELETE FROM final_project.railway_system.seat WHERE car_id = ?";
-    private static final String UPDATE_SEAT = "UPDATE final_project.railway_system.seat SET car_id = ?, seat_number = ?, busy = ? WHERE seat_id = ?";
+    private static final String UPDATE_SEAT = "UPDATE final_project.railway_system.seat SET car_id = ?, seat_number = ?, " +
+            "busy = ? WHERE seat_id = ?";
     private static final String GET_COUNT_SEATS = "SELECT COUNT(*) FROM final_project.railway_system.seat WHERE car_id = ?";
-    private static final String GET_COUNT_SEATS_BUSY = "SELECT COUNT(*) FROM final_project.railway_system.seat WHERE car_id = ? AND busy = true";
-    private static final String GET_COUNT_SEATS_BY_TRAIN_ID_AND_CAR_TYPE = "SELECT count(seat_number) FROM final_project.railway_system.car as c JOIN final_project.railway_system.seat as s ON c.car_id = s.car_id JOIN final_project.railway_system.train as t ON c.train_id = t.train_id WHERE c.train_id = ? AND car_type = ? AND busy = false";
-    private static final String GET_SEAT_BY_CAR_ID = "SELECT * FROM final_project.railway_system.seat WHERE car_id = ? AND busy = false ORDER BY seat_number, seat_id";
-    private static final String GET_SEAT_NUMBER_BY_ID_BATCH = "SELECT * FROM final_project.railway_system.seat WHERE seat_id = ANY (?)";
-    private static final String UPDATE_SEAT_BUSY = "UPDATE final_project.railway_system.seat SET busy = true WHERE seat_id = ?";
-    private static final String UPDATE_SEAT_BUSY_CANCEL = "UPDATE final_project.railway_system.seat SET busy = false WHERE seat_id = ?";
+    private static final String GET_COUNT_SEATS_BUSY = "SELECT COUNT(*) FROM final_project.railway_system.seat " +
+            "WHERE car_id = ? AND busy = true";
+    private static final String GET_COUNT_SEATS_BY_TRAIN_ID_AND_CAR_TYPE = "SELECT count(seat_number) " +
+            "FROM final_project.railway_system.car as c JOIN final_project.railway_system.seat as s ON c.car_id = s.car_id " +
+            "JOIN final_project.railway_system.train as t ON c.train_id = t.train_id WHERE c.train_id = ? AND car_type = ? " +
+            "AND busy = false";
+    private static final String GET_SEAT_BY_CAR_ID = "SELECT * FROM final_project.railway_system.seat WHERE car_id = ? " +
+            "AND busy = false ORDER BY seat_number, seat_id";
+    private static final String GET_SEAT_NUMBER_BY_ID_BATCH = "SELECT * FROM final_project.railway_system.seat " +
+            "WHERE seat_id = ANY (?)";
+    private static final String UPDATE_SEAT_BUSY = "UPDATE final_project.railway_system.seat SET busy = true " +
+            "WHERE seat_id = ?";
+    private static final String UPDATE_SEAT_BUSY_CANCEL = "UPDATE final_project.railway_system.seat SET busy = false " +
+            "WHERE seat_id = ?";
 
     @Override
     public String create(Seat entity) {

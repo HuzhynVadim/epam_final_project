@@ -16,7 +16,8 @@ import java.util.UUID;
 
 public class StationRepositoryImpl implements StationRepository {
     private static final Logger LOGGER = Logger.getLogger(StationRepositoryImpl.class);
-    private static final String ADD_STATION = "INSERT INTO final_project.railway_system.station as s (station_id, station) VALUES (?,?)";
+    private static final String ADD_STATION = "INSERT INTO final_project.railway_system.station as s (station_id, station) " +
+            "VALUES (?,?)";
     private static final String GET_STATION_BY_ID = "SELECT * FROM final_project.railway_system.station WHERE station_id = ?";
     private static final String DELETE_STATION = "DELETE FROM final_project.railway_system.station WHERE  station_id = ?";
     private static final String UPDATE_STATION = "UPDATE final_project.railway_system.station SET station = ? WHERE station_id = ?";

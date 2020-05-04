@@ -18,10 +18,12 @@ import java.util.UUID;
 public class UserRepositoryImpl implements UserRepository {
     private static final Logger LOGGER = Logger.getLogger(UserRepositoryImpl.class);
     private static final String GET_USER_BY_EMAIL = "SELECT * FROM final_project.railway_system.user WHERE email = ? LIMIT 1";
-    private static final String ADD_USER = "INSERT INTO final_project.railway_system.user (user_id, email, password, first_name, last_name, phone, birth_date, role, blocked) VALUES (?,?,?,?,?,?,?,?,?)";
+    private static final String ADD_USER = "INSERT INTO final_project.railway_system.user (user_id, email, password," +
+            " first_name, last_name, phone, birth_date, role, blocked) VALUES (?,?,?,?,?,?,?,?,?)";
     private static final String GET_USER_BY_ID = "SELECT * FROM final_project.railway_system.user WHERE user_id = ?";
     private static final String DELETE_USER = "DELETE FROM final_project.railway_system.user WHERE user_id = ?";
-    private static final String UPDATE_USER = "UPDATE final_project.railway_system.user SET email = ?, password = ?, first_name = ?, last_name = ?, phone = ?, birth_date = ?, role = ?, blocked = ? WHERE user_id = ?";
+    private static final String UPDATE_USER = "UPDATE final_project.railway_system.user SET email = ?, password = ?, " +
+            "first_name = ?, last_name = ?, phone = ?, birth_date = ?, role = ?, blocked = ? WHERE user_id = ?";
     private static final String GET_USER_FULL_INFO = "SELECT * FROM final_project.railway_system.user WHERE role = ? ORDER BY email";
     private static final String BLOCK_USER = "UPDATE final_project.railway_system.user SET blocked = ? WHERE user_id = ?";
 
@@ -167,7 +169,8 @@ public class UserRepositoryImpl implements UserRepository {
             connection.commit();
         } catch (SQLException e) {
             LOGGER.error(e);
-            throw new DataBaseException("Can't update blocked in table \"user\". ID user = " + idUser + " block status = " + blockStatus, e);
+            throw new DataBaseException("Can't update blocked in table \"user\". ID user = " + idUser +
+                    " block status = " + blockStatus, e);
         }
     }
 }

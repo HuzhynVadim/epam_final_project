@@ -19,13 +19,19 @@ import java.util.UUID;
 public class CarRepositoryImpl implements CarRepository {
 
     private static final Logger LOGGER = Logger.getLogger(CarRepositoryImpl.class);
-    private static final String ADD_CAR = "INSERT INTO final_project.railway_system.car (car_id, car_type, car_number, train_id) VALUES (?,?,?,?);";
+    private static final String ADD_CAR = "INSERT INTO final_project.railway_system.car " +
+            "(car_id, car_type, car_number, train_id) VALUES (?,?,?,?);";
     private static final String GET_CAR_BY_ID = "SELECT * FROM final_project.railway_system.car WHERE car_id = ?";
-    private static final String GET_CAR_BY_TRAIN_ID = "SELECT * FROM final_project.railway_system.car WHERE train_id = ?";
+    private static final String GET_CAR_BY_TRAIN_ID = "SELECT * FROM final_project.railway_system.car " +
+            "WHERE train_id = ?";
     private static final String DELETE_CAR = "DELETE FROM final_project.railway_system.car WHERE car_id = ?";
-    private static final String UPDATE_CAR = "UPDATE final_project.railway_system.car SET car_type = ?, car_number = ?, train_id = ? WHERE car_id = ?";
-    private static final String GET_ALL_CAR = "SELECT * FROM final_project.railway_system.car as c LEFT OUTER JOIN final_project.railway_system.train as t ON c.train_id = t.train_id  ORDER BY train_number, car_number";
-    private static final String GET_CAR_BY_TRAIN_ID_AND_CAR_TYPE = "SELECT * FROM final_project.railway_system.car WHERE train_id = ? AND car_type = ? ORDER BY car_number";
+    private static final String UPDATE_CAR = "UPDATE final_project.railway_system.car SET car_type = ?, " +
+            "car_number = ?, train_id = ? WHERE car_id = ?";
+    private static final String GET_ALL_CAR = "SELECT * FROM final_project.railway_system.car as c " +
+            "LEFT OUTER JOIN final_project.railway_system.train as t ON c.train_id = t.train_id  " +
+            "ORDER BY train_number, car_number";
+    private static final String GET_CAR_BY_TRAIN_ID_AND_CAR_TYPE = "SELECT * FROM final_project.railway_system.car " +
+            "WHERE train_id = ? AND car_type = ? ORDER BY car_number";
 
     @Override
     public String create(Car entity) {

@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'war'
-//    id 'checkstyle'
+    id 'checkstyle'
 }
 
 group 'Huzhyn_Vadim'
@@ -17,15 +17,15 @@ repositories {
     mavenCentral()
 }
 
-//checkstyle {
-//    // assign the latest checkstyle version explicitly
-//    // default version is very old, likes 5.9
-//    toolVersion = '8.32'
-//    // checkstyle.xml copy from:
-//    // https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-8.6/src/main/resources/google_checks.xml
-//    // the version should be as same as plugin version
-//    configFile = rootProject.file('config/checkstyle/checkstyle.xml')
-//}
+checkstyle {
+    // assign the latest checkstyle version explicitly
+    // default version is very old, likes 5.9
+    toolVersion = '8.32'
+    // checkstyle.xml copy from:
+    // https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-8.6/src/main/resources/google_checks.xml
+    // the version should be as same as plugin version
+    configFile = rootProject.file('config/checkstyle/checkstyle.xml')
+}
 
 dependencies {
 

@@ -20,11 +20,18 @@ import java.util.UUID;
 
 public class OrderRepositoryImpl implements OrderRepository {
     private static final Logger LOGGER = Logger.getLogger(OrderRepositoryImpl.class);
-    private static final String ADD_ORDER = "INSERT INTO final_project.railway_system.order (order_id, train_number, car_type, price, arrival_date, dispatch_date, user_id, order_date, order_status, count_of_seats, arrival_station, dispatch_station, travel_time, routs_id, car_number, seat_number, seats_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    private static final String GET_ORDER_BY_ID = "SELECT * FROM final_project.railway_system.order as o JOIN final_project.railway_system.user as u on o.user_id = u.user_id WHERE order_id = ?";
-    private static final String UPDATE_ORDER_STATUS = "UPDATE final_project.railway_system.order as o SET order_status = ? WHERE order_id = ?";
-    private static final String GET_ALL_ORDER = "SELECT * FROM final_project.railway_system.order as o JOIN final_project.railway_system.user as u on o.user_id = u.user_id";
-    private static final String GET_ORDER_BY_USER_ID = "SELECT * FROM final_project.railway_system.order as o JOIN final_project.railway_system.user as u on o.user_id = u.user_id WHERE o.user_id = ?";
+    private static final String ADD_ORDER = "INSERT INTO final_project.railway_system.order " +
+            "(order_id, train_number, car_type, price, arrival_date, dispatch_date, user_id, order_date, " +
+            "order_status, count_of_seats, arrival_station, dispatch_station, travel_time, routs_id, car_number," +
+            " seat_number, seats_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String GET_ORDER_BY_ID = "SELECT * FROM final_project.railway_system.order as o " +
+            "JOIN final_project.railway_system.user as u on o.user_id = u.user_id WHERE order_id = ?";
+    private static final String UPDATE_ORDER_STATUS = "UPDATE final_project.railway_system.order as o " +
+            "SET order_status = ? WHERE order_id = ?";
+    private static final String GET_ALL_ORDER = "SELECT * FROM final_project.railway_system.order as o " +
+            "JOIN final_project.railway_system.user as u on o.user_id = u.user_id";
+    private static final String GET_ORDER_BY_USER_ID = "SELECT * FROM final_project.railway_system.order as o " +
+            "JOIN final_project.railway_system.user as u on o.user_id = u.user_id WHERE o.user_id = ?";
 
 
     @Override
