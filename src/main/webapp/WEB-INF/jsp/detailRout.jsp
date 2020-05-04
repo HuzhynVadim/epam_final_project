@@ -69,7 +69,7 @@
             <td>${item.station}</td>
             <td>${item.stationArrivalDate}</td>
             <td>${item.stationDispatchData}</td>
-            <td><period:period dateFrom="${item.stationArrivalDate}" dateTo="${item.stationDispatchData}"/></td>
+            <td><period:period dateFrom="${item.stationArrivalDate}" dateTo="${item.stationDispatchData}" locale="${language}"/></td>
         </tr>
     </c:forEach>
     </tbody>

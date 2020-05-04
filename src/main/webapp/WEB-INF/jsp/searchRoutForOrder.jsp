@@ -37,9 +37,6 @@
 
         }
 
-        .text-justify {
-            text-align: justify;
-        }
     </style>
 </head>
 <body>
@@ -92,7 +89,7 @@
                     <td>${rout.routNumber}</td>
                     <td>${rout.trainNumber}</td>
                     <td>${rout.stations.get(0).station} - ${dispatchTime}</td>
-                    <td><period:period dateFrom="${dispatchTime}" dateTo="${arrivalTime}"/></td>
+                    <td><period:period dateFrom="${dispatchTime}" dateTo="${arrivalTime}" locale="${language}"/></td>
                     <td>${rout.stations.get(1).station} - ${arrivalTime}</td>
                     <td>${rout.compartmentFreeSeatsCount}</td>
                     <td>${carTypeList.get(0).price}</td>
@@ -117,7 +114,7 @@
                             <input type="hidden" name="station1"
                                    value="${rout.stations.get(0).station} - ${dispatchTime}">
                             <input type="hidden" name="travel_time"
-                                   value="<period:period dateFrom="${dispatchTime}" dateTo="${arrivalTime}"/>">
+                                   value="<period:period dateFrom="${dispatchTime}" dateTo="${arrivalTime}" locale="${language}"/>">
                             <input type="hidden" name="station2"
                                    value="${rout.stations.get(1).station} - ${arrivalTime}">
                             <input type="hidden" name="user_id" value="${user_id}">

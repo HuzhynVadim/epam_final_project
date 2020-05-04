@@ -23,7 +23,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-<center>
+<div style="text-align: center;">
     <div class="form-signin">
         <form action="login" method="POST">
             <img class="mb-4" src="https://image.flaticon.com/icons/svg/1974/1974098.svg" alt="" width="72"
@@ -56,7 +56,6 @@
         </form>
     </div>
     <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
-</center>
-
+</div>
 </body>
 </html>

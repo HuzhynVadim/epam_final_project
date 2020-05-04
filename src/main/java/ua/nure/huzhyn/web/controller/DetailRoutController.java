@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -42,6 +43,8 @@ public class DetailRoutController extends HttpServlet {
         request.setAttribute("routs_id", routsId);
         List<MappingInfoDto> AllRoutToStationMappingListById = routMappingService.getAllRoutToStationMappingListById(routsId);
         request.setAttribute("rout_m_list", AllRoutToStationMappingListById);
+        HttpSession session = request.getSession();
+        request.setAttribute("language", session.getAttribute(AppContextConstant.LOCALE));
         request.getRequestDispatcher("WEB-INF/jsp/detailRout.jsp").forward(request, response);
     }
 

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Locale;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
@@ -32,6 +33,7 @@ public class LoginController extends HttpServlet {
             User user = userService.isValidUser(login, password);
             HttpSession session = request.getSession();
             if (user != (null)) {
+                session.setAttribute(AppContextConstant.LOCALE, AppContextConstant.LOCALE_RU);
                 session.setAttribute(AppContextConstant.SESSION_USER, user);
                 response.sendRedirect("home");
             }

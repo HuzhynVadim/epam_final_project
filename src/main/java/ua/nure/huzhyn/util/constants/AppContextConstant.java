@@ -16,4 +16,5 @@ public class AppContextConstant {
     public static final String LOCALE_EN = "en";
     public static final String LOCALE_RU = "ru";
 
+    public static final String LOCALE = "locale";
 }

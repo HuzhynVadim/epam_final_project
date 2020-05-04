@@ -42,7 +42,6 @@
             <input name="departure_date" type="datetime-local" class="form-control" id="exampleInputRoutWhen">
         </div>
         <div>
-            <input type="hidden" name="locale" value="${locale}">
             <input type="hidden" name="user_id" value="${user.userId}">
             <input class="btn btn-primary btn-block text-down" type="submit" name="route_search"
                    value="<fmt:message key="rout.search"/>">

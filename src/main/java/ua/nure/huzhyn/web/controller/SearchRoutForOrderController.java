@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -49,6 +50,8 @@ public class SearchRoutForOrderController extends HttpServlet {
         request.setAttribute("departure_station", departureStation);
         request.setAttribute("arrival_station", arrivalStation);
         request.setAttribute("departure_date", departureDate);
+        HttpSession session = request.getSession();
+        request.setAttribute("language", session.getAttribute(AppContextConstant.LOCALE));
         request.getRequestDispatcher("WEB-INF/jsp/searchRoutForOrder.jsp").forward(request, response);
     }
 

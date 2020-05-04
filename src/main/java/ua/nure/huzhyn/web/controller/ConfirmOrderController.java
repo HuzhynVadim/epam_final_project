@@ -30,6 +30,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.DateTimeException;
@@ -68,12 +69,21 @@ public class ConfirmOrderController extends HttpServlet {
         Station arrivalStation = stationService.getStationById(stationIdD);
         MappingInfoDto arrivalMapping = routMappingService.getMappingInfo(routsId, arrivalStation.getStationId());
         MappingInfoDto dispatchMapping = routMappingService.getMappingInfo(routsId, dispatchStation.getStationId());
+        HttpSession session = request.getSession();
+        Object locale = session.getAttribute(AppContextConstant.LOCALE);
         try {
             order.setCarType(CarType.valueOf(request.getParameter("car_type")));
             order.setCountOfSeats(Integer.parseInt(request.getParameter("count_of_seats")));
-            Duration duration = Duration.between(arrivalMapping.getStationDispatchData(), dispatchMapping.getStationArrivalDate());
-            order.setTravelTime(String.format("Days: %s Hours: %s Minutes: %s", duration.toDays(),
-                    duration.toHours() % 24, duration.toMinutes() % 60));
+            if (locale == AppContextConstant.LOCALE_EN) {
+                Duration duration = Duration.between(arrivalMapping.getStationDispatchData(), dispatchMapping.getStationArrivalDate());
+                order.setTravelTime(String.format("Days: %s Hours: %s Minutes: %s", duration.toDays(),
+                        duration.toHours() % 24, duration.toMinutes() % 60));
+            }
+            if (locale == AppContextConstant.LOCALE_RU) {
+                Duration duration = Duration.between(arrivalMapping.getStationDispatchData(), dispatchMapping.getStationArrivalDate());
+                order.setTravelTime(String.format("Дней: %s Часов: %s Минут: %s", duration.toDays(),
+                        duration.toHours() % 24, duration.toMinutes() % 60));
+            }
         } catch (IllegalArgumentException | ArithmeticException | DateTimeException e) {
             LOGGER.error(e);
             throw new IncorrectDataException("Incorrect data entered", e);
