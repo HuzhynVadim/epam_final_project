@@ -52,6 +52,7 @@ public class DetailRoutController extends HttpServlet {
     public void init(ServletConfig config) {
 
         routMappingService = (RoutMappingService) config.getServletContext().getAttribute((AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE));
+        LOGGER.trace("detail_rout Servlet init");
 
     }
 }

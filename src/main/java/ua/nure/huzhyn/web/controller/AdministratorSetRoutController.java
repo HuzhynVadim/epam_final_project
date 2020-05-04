@@ -83,6 +83,7 @@ public class AdministratorSetRoutController extends HttpServlet {
 
         stationService = (StationService) config.getServletContext().getAttribute((AppContextConstant.STATION_SERVICE));
         routMappingService = (RoutMappingService) config.getServletContext().getAttribute((AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE));
+        LOGGER.trace("administrator_set_rout_mapping Servlet init");
 
     }
 }

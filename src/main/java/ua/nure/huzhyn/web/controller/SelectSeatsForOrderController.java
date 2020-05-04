@@ -21,7 +21,7 @@ import java.util.List;
 @WebServlet("/select_seats_for_order")
 public class SelectSeatsForOrderController extends HttpServlet {
 
-    private static final Logger LOGGER = Logger.getLogger(SelectStationAndCarTypeForOrderController.class);
+    private static final Logger LOGGER = Logger.getLogger(SelectSeatsForOrderController.class);
     private SeatService seatService;
 
 
@@ -69,5 +69,6 @@ public class SelectSeatsForOrderController extends HttpServlet {
 
     public void init(ServletConfig config) {
         seatService = (SeatService) config.getServletContext().getAttribute((AppContextConstant.SEAT_SERVICE));
+        LOGGER.trace("select_seats_for_order Servlet init");
     }
 }

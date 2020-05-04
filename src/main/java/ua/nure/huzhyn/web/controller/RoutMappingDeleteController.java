@@ -1,5 +1,6 @@
 package ua.nure.huzhyn.web.controller;
 
+import org.apache.log4j.Logger;
 import ua.nure.huzhyn.services.RoutMappingService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 
@@ -12,6 +13,7 @@ import java.io.IOException;
 
 @WebServlet("/remove_rout_mapping")
 public class RoutMappingDeleteController extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(RoutMappingDeleteController.class);
 
     private RoutMappingService routMappingService;
 
@@ -26,6 +28,6 @@ public class RoutMappingDeleteController extends HttpServlet {
     @Override
     public void init(ServletConfig config) {
         routMappingService = (RoutMappingService) config.getServletContext().getAttribute(AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE);
-
+        LOGGER.trace("remove_rout_mapping Servlet init");
     }
 }

@@ -1,6 +1,7 @@
 package ua.nure.huzhyn.web.controller;
 
 
+import org.apache.log4j.Logger;
 import ua.nure.huzhyn.model.entity.Station;
 import ua.nure.huzhyn.services.StationService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
@@ -16,6 +17,8 @@ import java.io.IOException;
 
 @WebServlet("/administrator_edit_info_station")
 public class AdministratorEditInfoStationController extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(AdministratorEditInfoStationController.class);
+
     private StationService stationService;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -39,6 +42,7 @@ public class AdministratorEditInfoStationController extends HttpServlet {
     @Override
     public void init(ServletConfig config) {
         stationService = (StationService) config.getServletContext().getAttribute(AppContextConstant.STATION_SERVICE);
+        LOGGER.trace("administrator_edit_info_station Servlet init");
 
     }
 }

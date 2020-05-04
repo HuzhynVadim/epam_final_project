@@ -1,6 +1,7 @@
 package ua.nure.huzhyn.web.controller;
 
 
+import org.apache.log4j.Logger;
 import ua.nure.huzhyn.services.UserService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 
@@ -13,6 +14,7 @@ import java.io.IOException;
 
 @WebServlet("/user_block")
 public class UserBlockController extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(UserBlockController.class);
 
     private UserService userService;
 
@@ -26,5 +28,6 @@ public class UserBlockController extends HttpServlet {
     @Override
     public void init(ServletConfig config) {
         userService = (UserService) config.getServletContext().getAttribute(AppContextConstant.USER_SERVICE);
+        LOGGER.trace("user_block Servlet init");
     }
 }

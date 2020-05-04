@@ -28,12 +28,12 @@ public class AdministratorAddCarController extends HttpServlet {
     private CarService carService;
     private TrainService trainService;
 
-    public static boolean contains(final List<Car> array, final String v) {
+    public static boolean containsCarWithCarNumber(final List<Car> array, final String carNumber) {
 
         boolean result = false;
 
-        for (Car i : array) {
-            if (i.getCarNumber().equals(v)) {
+        for (Car car : array) {
+            if (car.getCarNumber().equals(carNumber)) {
                 result = true;
                 break;
             }
@@ -51,7 +51,7 @@ public class AdministratorAddCarController extends HttpServlet {
         List<Car> carByTrainId = carService.getCarByTrainId(train.getTrainId());
         String carNumber = request.getParameter("car_number");
 
-        if (!contains(carByTrainId, carNumber) || trainId.equals(trainNotSelected)) {
+        if (train.getTrainId() == null || !containsCarWithCarNumber(carByTrainId, carNumber) && trainId.equals(train.getTrainId())) {
             carDto.setCarNumber(carNumber);
         } else {
             LOGGER.error("Incorrect data entered");
@@ -81,6 +81,8 @@ public class AdministratorAddCarController extends HttpServlet {
     public void init(ServletConfig config) {
         trainService = (TrainService) config.getServletContext().getAttribute(AppContextConstant.TRAIN_SERVICE);
         carService = (CarService) config.getServletContext().getAttribute(AppContextConstant.CARS_SERVICE);
+        LOGGER.trace("administrator_add_car Servlet init");
+
     }
 }
 

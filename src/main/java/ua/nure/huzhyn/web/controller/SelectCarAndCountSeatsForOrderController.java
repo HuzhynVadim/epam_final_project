@@ -21,7 +21,7 @@ import java.util.List;
 @WebServlet("/select_cars_and_seats_for_order")
 public class SelectCarAndCountSeatsForOrderController extends HttpServlet {
 
-    private static final Logger LOGGER = Logger.getLogger(SelectStationAndCarTypeForOrderController.class);
+    private static final Logger LOGGER = Logger.getLogger(SelectCarAndCountSeatsForOrderController.class);
     private RoutService routService;
     private CarService carService;
 
@@ -67,5 +67,6 @@ public class SelectCarAndCountSeatsForOrderController extends HttpServlet {
     public void init(ServletConfig config) {
         routService = (RoutService) config.getServletContext().getAttribute((AppContextConstant.ROUT_SERVICE));
         carService = (CarService) config.getServletContext().getAttribute((AppContextConstant.CARS_SERVICE));
+        LOGGER.trace("select_cars_and_seats_for_order Servlet init");
     }
 }

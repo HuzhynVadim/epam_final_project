@@ -1,5 +1,6 @@
 package ua.nure.huzhyn.web.controller;
 
+import org.apache.log4j.Logger;
 import ua.nure.huzhyn.services.CarService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 
@@ -12,6 +13,7 @@ import java.io.IOException;
 
 @WebServlet("/car_delete")
 public class CarDeleteController extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(CarDeleteController.class);
 
     private CarService carService;
 
@@ -24,6 +26,7 @@ public class CarDeleteController extends HttpServlet {
     @Override
     public void init(ServletConfig config) {
         carService = (CarService) config.getServletContext().getAttribute(AppContextConstant.CARS_SERVICE);
+        LOGGER.trace("car_delete Servlet init");
 
     }
 }

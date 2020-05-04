@@ -43,17 +43,33 @@ public class AdministratorEditInfoCarController extends HttpServlet {
         return result;
     }
 
+    public static boolean containsCarWithCarId(final List<Car> array, final String carId) {
+
+        boolean result = false;
+
+        for (Car car : array) {
+            if (car.getCarId().equals(carId)) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         CarValidator carValidator = new CarValidator();
         CarDto carDto = new CarDto();
-        carDto.setCarId(request.getParameter("car_id"));
+        String carId = request.getParameter("car_id");
+        carDto.setCarId(carId);
         String carNumber = request.getParameter("car_number");
         String trainId = request.getParameter("train_id");
         String trainNotSelected = trainId.equals("TRAIN_NOT_SELECTED") ? null : trainId;
         carDto.setTrainId(trainNotSelected);
         Train train = trainService.getTrainById(trainId);
         List<Car> carByTrainId = carService.getCarByTrainId(train.getTrainId());
-        if (train.getTrainId() == null || !containsCarWithCarNumber(carByTrainId, carNumber) && trainId.equals(train.getTrainId())) {
+        if (train.getTrainId() == null || !containsCarWithCarNumber(carByTrainId, carNumber) &&
+                trainId.equals(train.getTrainId()) || (containsCarWithCarId(carByTrainId, carId) &&
+                containsCarWithCarNumber(carByTrainId, carNumber) && trainId.equals(train.getTrainId()))) {
             carDto.setCarNumber(carNumber);
         } else {
             LOGGER.error("Incorrect data entered");
@@ -91,6 +107,7 @@ public class AdministratorEditInfoCarController extends HttpServlet {
         trainService = (TrainService) config.getServletContext().getAttribute(AppContextConstant.TRAIN_SERVICE);
         carService = (CarService) config.getServletContext().getAttribute(AppContextConstant.CARS_SERVICE);
         seatService = (SeatService) config.getServletContext().getAttribute(AppContextConstant.SEAT_SERVICE);
+        LOGGER.trace("administrator_edit_info_car Servlet init");
 
     }
 }

@@ -1,5 +1,6 @@
 package ua.nure.huzhyn.web.controller;
 
+import org.apache.log4j.Logger;
 import ua.nure.huzhyn.services.OrderService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 
@@ -13,6 +14,8 @@ import java.io.IOException;
 
 @WebServlet("/cancel_order")
 public class CancelOrderController extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(CancelOrderController.class);
+
     private OrderService orderService;
 
     @Override
@@ -32,5 +35,7 @@ public class CancelOrderController extends HttpServlet {
     @Override
     public void init(ServletConfig config) {
         orderService = (OrderService) config.getServletContext().getAttribute(AppContextConstant.ORDER_SERVICE);
+        LOGGER.trace("cancel_order Servlet init");
+
     }
 }

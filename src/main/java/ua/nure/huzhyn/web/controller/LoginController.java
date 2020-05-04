@@ -51,5 +51,7 @@ public class LoginController extends HttpServlet {
     @Override
     public void init(ServletConfig config) {
         userService = (UserService) config.getServletContext().getAttribute(AppContextConstant.USER_SERVICE);
+        LOGGER.trace("login Servlet init");
+
     }
 }

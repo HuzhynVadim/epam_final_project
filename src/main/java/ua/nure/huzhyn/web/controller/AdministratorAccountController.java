@@ -1,5 +1,6 @@
 package ua.nure.huzhyn.web.controller;
 
+import org.apache.log4j.Logger;
 import ua.nure.huzhyn.db.dao.dto.CarDto;
 import ua.nure.huzhyn.db.dao.dto.RoutInfoDto;
 import ua.nure.huzhyn.model.entity.*;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @WebServlet("/administrator_account")
 public class AdministratorAccountController extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(AdministratorAccountController.class);
 
     private OrderService orderService;
     private UserService userService;
@@ -60,5 +62,6 @@ public class AdministratorAccountController extends HttpServlet {
         routMappingService = (RoutMappingService) config.getServletContext().getAttribute((AppContextConstant.ROUT_TO_STATION_MAPPING_SERVICE));
         trainService = (TrainService) config.getServletContext().getAttribute((AppContextConstant.TRAIN_SERVICE));
         carService = (CarService) config.getServletContext().getAttribute((AppContextConstant.CARS_SERVICE));
+        LOGGER.trace("administrator_account Servlet init");
     }
 }

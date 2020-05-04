@@ -1,5 +1,6 @@
 package ua.nure.huzhyn.web.controller;
 
+import org.apache.log4j.Logger;
 import ua.nure.huzhyn.db.dao.dto.RoutInfoDto;
 import ua.nure.huzhyn.model.entity.Order;
 import ua.nure.huzhyn.services.OrderService;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @WebServlet("/user_account")
 public class UserAccountController extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(UserAccountController.class);
 
     private OrderService orderService;
     private RoutService routService;
@@ -39,7 +41,7 @@ public class UserAccountController extends HttpServlet {
     public void init(ServletConfig config) {
         orderService = (OrderService) config.getServletContext().getAttribute(AppContextConstant.ORDER_SERVICE);
         routService = (RoutService) config.getServletContext().getAttribute(AppContextConstant.ROUT_SERVICE);
-
+        LOGGER.trace("user_account Servlet init");
 
     }
 }

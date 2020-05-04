@@ -1,5 +1,6 @@
 package ua.nure.huzhyn.web.controller;
 
+import org.apache.log4j.Logger;
 import ua.nure.huzhyn.services.RoutService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 
@@ -12,6 +13,7 @@ import java.io.IOException;
 
 @WebServlet("/rout_delete")
 public class RoutDeleteController extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(RoutDeleteController.class);
 
     private RoutService routService;
 
@@ -24,6 +26,6 @@ public class RoutDeleteController extends HttpServlet {
     @Override
     public void init(ServletConfig config) {
         routService = (RoutService) config.getServletContext().getAttribute(AppContextConstant.ROUT_SERVICE);
-
+        LOGGER.trace("rout_delete Servlet init");
     }
 }

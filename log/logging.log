@@ -4,3 +4,53 @@ Incorrect format password enteredEntered data:&nbsp;;<br/>
 2020-05-04 20:53:31 ERROR LoginValidator:35 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format email enteredEntered data:&nbsp;;<br/>
 Incorrect format password enteredEntered data:&nbsp;;<br/>
 
+2020-05-04 23:31:39 ERROR RoutValidator:33 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format, type something like "Odessa" or "Odessa speed"Entered data:&nbsp;123;<br/>
+Incorrect format, type something like "1-23 or 1/23 or 123"Entered data:&nbsp;йцу;<br/>
+
+2020-05-04 23:31:57 ERROR RoutMappingValidator:67 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format, "time should be different"Entered data:&nbsp;2020-05-06T11:11 = 2020-05-06T11:11;<br/>
+
+2020-05-04 23:32:01 ERROR RoutMappingValidator:67 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format, "time should be different"Entered data:&nbsp;2020-05-06T11:22 > 2020-05-06T11:11;<br/>
+
+2020-05-04 23:32:18 ERROR AdministratorSetRoutController:58 - Incorrect data entered
+2020-05-04 23:32:25 ERROR AdministratorSetRoutController:58 - Incorrect data entered
+2020-05-04 23:32:39 ERROR StationValidator:31 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format, type something like "Odessa"Entered data:&nbsp;123123;<br/>
+
+2020-05-04 23:32:43 ERROR StationValidator:31 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format, type something like "Odessa"Entered data:&nbsp;-;<br/>
+
+2020-05-04 23:35:24 ERROR AdministratorAddCarController:57 - Incorrect data entered
+2020-05-04 23:39:46 ERROR AdministratorAddCarController:57 - Incorrect data entered
+2020-05-04 23:39:50 ERROR CarValidator:36 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format, type something like "123"Entered data:&nbsp;-8;<br/>
+
+2020-05-04 23:40:12 ERROR AdministratorEditInfoCarController:59 - Incorrect data entered
+2020-05-04 23:46:09 ERROR AdministratorEditInfoCarController:59 - Incorrect data entered
+2020-05-04 23:46:58 ERROR AdministratorEditInfoCarController:60 - Incorrect data entered
+2020-05-04 23:50:31 ERROR AdministratorEditInfoCarController:61 - Incorrect data entered
+2020-05-04 23:51:06 ERROR AdministratorEditInfoCarController:61 - Incorrect data entered
+2020-05-04 23:53:19 ERROR AdministratorEditInfoCarController:61 - Incorrect data entered
+2020-05-04 23:53:25 ERROR AdministratorEditInfoCarController:61 - Incorrect data entered
+2020-05-04 23:56:15 ERROR AdministratorEditInfoCarController:62 - Incorrect data entered
+2020-05-04 23:56:23 ERROR AdministratorEditInfoCarController:62 - Incorrect data entered
+2020-05-05 00:01:04 ERROR AdministratorEditInfoCarController:62 - Incorrect data entered
+2020-05-05 00:03:42 ERROR AdministratorAddCarController:57 - Incorrect data entered
+2020-05-05 00:12:39 ERROR AdministratorEditInfoCarController:75 - Incorrect data entered
+2020-05-05 00:12:45 ERROR AdministratorEditInfoCarController:75 - Incorrect data entered
+2020-05-05 00:16:42 ERROR AdministratorEditInfoCarController:75 - Incorrect data entered
+2020-05-05 00:19:03 ERROR TrainValidator:31 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format, type something like "123"Entered data:&nbsp;qweq;<br/>
+
+2020-05-05 00:19:43 ERROR SeatValidator:64 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format, choose different placesEntered data:&nbsp;-3;<br/>
+
+2020-05-05 00:19:49 ERROR SeatValidator:42 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format, choose different placesEntered data:&nbsp;2;<br/>
+
+2020-05-05 00:20:45 ERROR OrderRepositoryImpl:61 - org.postgresql.util.PSQLException: ОШИБКА: значение не умещается в тип character varying(128)
+2020-05-05 00:22:30 ERROR OrderRepositoryImpl:61 - org.postgresql.util.PSQLException: ОШИБКА: значение не умещается в тип character varying(128)
+2020-05-05 00:41:00 TRACE LoginController:54 - login Servlet init
+2020-05-05 00:41:00 TRACE HomePageController:31 - home Servlet init
+2020-05-05 00:41:09 TRACE UserAccountController:44 - user_account Servlet init
+2020-05-05 00:41:17 TRACE SearchRoutForOrderController:60 - search_rout_for_order Servlet init
+2020-05-05 00:41:19 TRACE DetailRoutController:55 - detail_rout Servlet init
+2020-05-05 00:41:21 TRACE SelectStationAndCarTypeForOrderController:73 - select_station_and_car_type_for_order Servlet init
+2020-05-05 00:41:37 TRACE SelectCarAndCountSeatsForOrderController:70 - select_cars_and_seats_for_order Servlet init
+2020-05-05 00:41:39 TRACE SelectSeatsForOrderController:72 - select_seats_for_order Servlet init
+2020-05-05 00:41:46 TRACE ConfirmOrderController:198 - confirm_order Servlet init
+2020-05-05 00:41:55 TRACE AdministratorAccountController:65 - administrator_account Servlet init
+2020-05-05 00:41:59 TRACE AdministratorEditInfoOrderController:56 - administrator_edit_info_order Servlet init

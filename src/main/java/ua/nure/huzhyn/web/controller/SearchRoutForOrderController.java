@@ -57,5 +57,6 @@ public class SearchRoutForOrderController extends HttpServlet {
 
     public void init(ServletConfig config) {
         routService = (RoutService) config.getServletContext().getAttribute((AppContextConstant.ROUT_SERVICE));
+        LOGGER.trace("search_rout_for_order Servlet init");
     }
 }

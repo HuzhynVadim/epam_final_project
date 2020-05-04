@@ -1,5 +1,6 @@
 package ua.nure.huzhyn.web.controller;
 
+import org.apache.log4j.Logger;
 import ua.nure.huzhyn.model.entity.Train;
 import ua.nure.huzhyn.services.TrainService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
@@ -15,6 +16,7 @@ import java.io.IOException;
 
 @WebServlet("/administrator_edit_info_train")
 public class AdministratorEditInfoTrainController extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(AdministratorEditInfoTrainController.class);
 
     private TrainService trainService;
 
@@ -39,6 +41,8 @@ public class AdministratorEditInfoTrainController extends HttpServlet {
     @Override
     public void init(ServletConfig config) {
         trainService = (TrainService) config.getServletContext().getAttribute(AppContextConstant.TRAIN_SERVICE);
+        LOGGER.trace("administrator_edit_info_train Servlet init");
+
     }
 }
 

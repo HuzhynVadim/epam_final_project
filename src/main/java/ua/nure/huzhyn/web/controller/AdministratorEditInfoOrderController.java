@@ -53,5 +53,7 @@ public class AdministratorEditInfoOrderController extends HttpServlet {
     @Override
     public void init(ServletConfig config) {
         orderService = (OrderService) config.getServletContext().getAttribute(AppContextConstant.ORDER_SERVICE);
+        LOGGER.trace("administrator_edit_info_order Servlet init");
+
     }
 }

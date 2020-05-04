@@ -12,12 +12,17 @@ import static java.util.stream.Collectors.joining;
 
 public class CarValidator {
     private static final Logger LOGGER = Logger.getLogger(CarValidator.class);
-    private static final String CAR_NUMBER = "[0-9]+$";
+    private static final String CAR_NUMBER = "^(?<![-\\d])(?<!\\d[.,])\\d*[0-9](?![.,]?\\d){1,2}$";
+    private static final String COUNT_OF_SEATS = "^(?<![-\\d])(?<!\\d[.,])\\d*[0-9](?![.,]?\\d){1,2}$";
 
     public void isValidCar(CarDto carDto) {
         Map<String, String> errors = new HashMap<>();
         if (StringUtils.isBlank(carDto.getCarNumber()) || !ValidatorUtils.isMatch(CAR_NUMBER, carDto.getCarNumber())) {
             errors.put("Incorrect format, type something like \"123\"", carDto.getCarNumber());
+        }
+
+        if (StringUtils.isBlank(String.valueOf(carDto.getSeats())) || !ValidatorUtils.isMatch(COUNT_OF_SEATS, String.valueOf(carDto.getSeats()))) {
+            errors.put("Incorrect format, type something like \"123\"", String.valueOf(carDto.getSeats()));
         }
         if (!errors.isEmpty()) {
             StringBuilder builder = new StringBuilder();

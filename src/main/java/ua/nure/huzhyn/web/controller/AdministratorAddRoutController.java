@@ -1,6 +1,7 @@
 package ua.nure.huzhyn.web.controller;
 
 
+import org.apache.log4j.Logger;
 import ua.nure.huzhyn.model.entity.Rout;
 import ua.nure.huzhyn.model.entity.Train;
 import ua.nure.huzhyn.services.RoutService;
@@ -19,6 +20,8 @@ import java.util.List;
 
 @WebServlet("/administrator_add_rout")
 public class AdministratorAddRoutController extends HttpServlet {
+
+    private static final Logger LOGGER = Logger.getLogger(AdministratorAddRoutController.class);
     private RoutService routService;
     private TrainService trainService;
 
@@ -42,6 +45,7 @@ public class AdministratorAddRoutController extends HttpServlet {
     public void init(ServletConfig config) {
         routService = (RoutService) config.getServletContext().getAttribute(AppContextConstant.ROUT_SERVICE);
         trainService = (TrainService) config.getServletContext().getAttribute(AppContextConstant.TRAIN_SERVICE);
+        LOGGER.trace("administrator_add_rout Servlet init");
 
     }
 }
