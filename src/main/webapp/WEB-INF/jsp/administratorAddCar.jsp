@@ -65,7 +65,7 @@
         <tbody>
         <tr>
             <td><select class="btn btn-info dropdown-toggle" name="train_id">
-                <option value="TRAIN_NOT_SELECTED">In the depot</option>
+                <option value="TRAIN_NOT_SELECTED"><fmt:message key="in.the.depot"/></option>
                 <c:forEach items="${trainList}" var="trainList">
                     <option value="${trainList.trainId}"><c:out value="${trainList.trainNumber}"/></option>
                 </c:forEach>

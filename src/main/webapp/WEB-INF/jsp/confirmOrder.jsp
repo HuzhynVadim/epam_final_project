@@ -76,6 +76,7 @@
     <tbody>
     <tr>
         <td>${first_name} ${last_name}</td>
+        <td>${rout_name}</td>
         <td>${train_number}</td>
         <td>${car_type}</td>
         <td>${car_number}</td>

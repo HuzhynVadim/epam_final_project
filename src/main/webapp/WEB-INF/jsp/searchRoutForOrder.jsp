@@ -80,7 +80,7 @@
                 <th><fmt:message key="common.count"/></th>
                 <th><fmt:message key="price.common"/></th>
                 <th><fmt:message key="details"/></th>
-                <th><fmt:message key="order"/></th>
+                <th><fmt:message key="order.make.order"/></th>
             </tr>
             </thead>
             <tbody class="text-center">

@@ -2,11 +2,24 @@ package ua.nure.huzhyn.web.controller;
 
 import org.apache.log4j.Logger;
 import ua.nure.huzhyn.db.dao.dto.MappingInfoDto;
+import ua.nure.huzhyn.db.dao.dto.RoutInfoDto;
 import ua.nure.huzhyn.exception.IncorrectDataException;
-import ua.nure.huzhyn.model.entity.*;
+import ua.nure.huzhyn.model.entity.Car;
+import ua.nure.huzhyn.model.entity.Order;
+import ua.nure.huzhyn.model.entity.Seat;
+import ua.nure.huzhyn.model.entity.Station;
+import ua.nure.huzhyn.model.entity.Train;
+import ua.nure.huzhyn.model.entity.User;
 import ua.nure.huzhyn.model.entity.enums.CarType;
 import ua.nure.huzhyn.model.entity.enums.OrderStatus;
-import ua.nure.huzhyn.services.*;
+import ua.nure.huzhyn.services.CarService;
+import ua.nure.huzhyn.services.OrderService;
+import ua.nure.huzhyn.services.RoutMappingService;
+import ua.nure.huzhyn.services.RoutService;
+import ua.nure.huzhyn.services.SeatService;
+import ua.nure.huzhyn.services.StationService;
+import ua.nure.huzhyn.services.TrainService;
+import ua.nure.huzhyn.services.UserService;
 import ua.nure.huzhyn.util.constants.AppContextConstant;
 import ua.nure.huzhyn.validator.OrderValidator;
 import ua.nure.huzhyn.validator.SeatValidator;
@@ -38,6 +51,7 @@ public class ConfirmOrderController extends HttpServlet {
     private CarService carService;
     private UserService userService;
     private SeatService seatService;
+    private RoutService routService;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         OrderValidator orderValidator = new OrderValidator();
@@ -124,10 +138,13 @@ public class ConfirmOrderController extends HttpServlet {
         String[] numbers = request.getParameterValues("seats_number");
         List<String> seatsNumber = Arrays.asList(request.getParameterValues("seats_number"));
         String routsId = request.getParameter("routs_id");
+        RoutInfoDto routById = routService.getRoutById(routsId);
+        String routName = routById.getRoutName();
         Car car = carService.getCarById(carId);
         String carNumber = car.getCarNumber();
         BigDecimal price = orderService.getPrice(carType, countOfSeats);
         request.setAttribute("price", price);
+        request.setAttribute("rout_name", routName);
         request.setAttribute("car_number", carNumber);
         request.setAttribute("departure_station", departureStation);
         request.setAttribute("arrival_station", arrivalStation);
@@ -159,7 +176,6 @@ public class ConfirmOrderController extends HttpServlet {
     }
 
 
-
     public void init(ServletConfig config) {
         orderService = (OrderService) config.getServletContext().getAttribute(AppContextConstant.ORDER_SERVICE);
         stationService = (StationService) config.getServletContext().getAttribute((AppContextConstant.STATION_SERVICE));
@@ -168,5 +184,6 @@ public class ConfirmOrderController extends HttpServlet {
         carService = (CarService) config.getServletContext().getAttribute((AppContextConstant.CARS_SERVICE));
         userService = (UserService) config.getServletContext().getAttribute((AppContextConstant.USER_SERVICE));
         seatService = (SeatService) config.getServletContext().getAttribute((AppContextConstant.SEAT_SERVICE));
+        routService = (RoutService) config.getServletContext().getAttribute((AppContextConstant.ROUT_SERVICE));
     }
 }
