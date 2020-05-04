@@ -43,7 +43,7 @@ public class RoutMappingRepositoryImpl implements RoutMappingRepository {
     }
 
     @Override
-    public RoutToStationMapping read(String id) { //todo
+    public RoutToStationMapping read(String id) {
         Connection connection = ConnectionManager.getConnection();
         RoutToStationMapping routToStationMapping;
         try (PreparedStatement preparedStatement = connection.prepareStatement(GET_ROUT_MAPPING_BY_ID)) {

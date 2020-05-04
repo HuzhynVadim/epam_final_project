@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface SeatRepository extends CRUD<Seat, String> {
 
+    boolean deleteAllSeatsByCarId(String carId);
+
     int getCountSeat(String carId);
 
     int getCountSeatBusy(String carId);
@@ -20,5 +22,5 @@ public interface SeatRepository extends CRUD<Seat, String> {
 
     void takeTheSeat(String seatId);
 
-    void updateBusySeat(String seatId);
+    void freeSeat(String seatId);
 }

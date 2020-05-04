@@ -88,19 +88,19 @@ public class ConfirmOrderController extends HttpServlet {
         order.setOrderStatus(OrderStatus.ORDER_PROCESSING);
         order.setArrivalStation(dispatchStation.getStation());
         order.setDispatchStation(arrivalStation.getStation());
-        String seat_id = Arrays.toString(request.getParameterValues("seat_id"));
-        ArrayList<String> seatIdList = seatService.getSeatsId(seat_id);
+        String seatId = Arrays.toString(request.getParameterValues("seat_id"));
+        ArrayList<String> seatIdList = seatService.getSeatsId(seatId);
         List<Seat> seats = seatService.getSeatsByIdBatch(seatIdList);
         StringBuilder sb = new StringBuilder();
         String number = "";
         for (int i = 0; i <= seats.size() - 1; i++) {
-            number = String.valueOf(sb.append(seats.get(i).getSeatNumber()).append(" "));
+            number = sb.append(seats.get(i).getSeatNumber()).append(" ").toString();
         }
         order.setSeatNumber(number);
-        StringBuilder sb1 = new StringBuilder();
+        sb = new StringBuilder();
         String id = "";
         for (int i = 0; i <= seats.size() - 1; i++) {
-            id = String.valueOf(sb1.append(seats.get(i).getSeatId()).append(" "));
+            id = sb.append(seats.get(i).getSeatId()).append(" ").toString();
         }
         order.setSeatId(id);
         orderValidator.isValidOrder(order);

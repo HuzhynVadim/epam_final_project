@@ -3,9 +3,9 @@ package ua.nure.huzhyn.db.dao.dto;
 import ua.nure.huzhyn.model.entity.enums.CarType;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class CarDto {
-
     private String carId;
     private CarType carType;
     private String carNumber;
@@ -13,6 +13,25 @@ public class CarDto {
     private Integer seats;
     private BigDecimal price;
     private String trainNumber;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CarDto carDto = (CarDto) o;
+        return Objects.equals(carId, carDto.carId) &&
+                carType == carDto.carType &&
+                Objects.equals(carNumber, carDto.carNumber) &&
+                Objects.equals(trainId, carDto.trainId) &&
+                Objects.equals(seats, carDto.seats) &&
+                Objects.equals(price, carDto.price) &&
+                Objects.equals(trainNumber, carDto.trainNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(carId, carType, carNumber, trainId, seats, price, trainNumber);
+    }
 
     public String getCarId() {
         return carId;

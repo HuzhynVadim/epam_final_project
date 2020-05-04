@@ -20,10 +20,14 @@ public class TrainValidator {
             errors.put("Incorrect format, type something like \"123\"", train.getTrainNumber());
         }
         if (!errors.isEmpty()) {
-            String message = errors.entrySet().stream()
-                    .map(entry -> entry.getKey() + ". Entered data:&nbsp;" + entry.getValue() + ";")
-                    .collect(joining("<br/>\n"));
-            IncorrectDataException e = new IncorrectDataException(message);
+            StringBuilder builder = new StringBuilder();
+            for (Map.Entry<String, String> entry : errors.entrySet()) {
+                builder.append(entry.getKey())
+                        .append("Entered data:&nbsp;")
+                        .append(entry.getValue())
+                        .append(";<br/>\n");
+            }
+            IncorrectDataException e = new IncorrectDataException(builder.toString());
             LOGGER.error(e);
             throw e;
         }

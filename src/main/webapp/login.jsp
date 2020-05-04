@@ -2,8 +2,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="lang"/>
+
 <html>
 <head>
     <title><fmt:message key="signIn"/></title>
@@ -55,5 +57,6 @@
     </div>
     <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
 </center>
+
 </body>
 </html>

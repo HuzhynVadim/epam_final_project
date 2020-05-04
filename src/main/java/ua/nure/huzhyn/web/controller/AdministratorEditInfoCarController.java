@@ -30,12 +30,12 @@ public class AdministratorEditInfoCarController extends HttpServlet {
     private TrainService trainService;
     private SeatService seatService;
 
-    public static boolean contains(final List<Car> array, final String v) {
+    public static boolean containsCarWithCarNumber(final List<Car> array, final String carNumber) {
 
         boolean result = false;
 
-        for (Car i : array) {
-            if (i.getCarNumber().equals(v)) {
+        for (Car car : array) {
+            if (car.getCarNumber().equals(carNumber)) {
                 result = true;
                 break;
             }
@@ -53,7 +53,7 @@ public class AdministratorEditInfoCarController extends HttpServlet {
         carDto.setTrainId(trainNotSelected);
         Train train = trainService.getTrainById(trainId);
         List<Car> carByTrainId = carService.getCarByTrainId(train.getTrainId());
-        if (!contains(carByTrainId, carNumber) || trainId.equals(trainNotSelected)) {
+        if (train.getTrainId() == null || !containsCarWithCarNumber(carByTrainId, carNumber) && trainId.equals(train.getTrainId())) {
             carDto.setCarNumber(carNumber);
         } else {
             LOGGER.error("Incorrect data entered");

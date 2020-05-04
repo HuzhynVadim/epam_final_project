@@ -6,6 +6,7 @@ import ua.nure.huzhyn.model.entity.enums.OrderStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Order {
 
@@ -21,6 +22,36 @@ public class Order {
     private int countOfSeats;
     private String arrivalStation;
     private String dispatchStation;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return countOfSeats == order.countOfSeats &&
+                Objects.equals(orderId, order.orderId) &&
+                Objects.equals(trainNumber, order.trainNumber) &&
+                carType == order.carType &&
+                Objects.equals(price, order.price) &&
+                Objects.equals(arrivalDate, order.arrivalDate) &&
+                Objects.equals(dispatchDate, order.dispatchDate) &&
+                Objects.equals(user, order.user) &&
+                Objects.equals(orderDate, order.orderDate) &&
+                orderStatus == order.orderStatus &&
+                Objects.equals(arrivalStation, order.arrivalStation) &&
+                Objects.equals(dispatchStation, order.dispatchStation) &&
+                Objects.equals(travelTime, order.travelTime) &&
+                Objects.equals(routsId, order.routsId) &&
+                Objects.equals(carNumber, order.carNumber) &&
+                Objects.equals(seatNumber, order.seatNumber) &&
+                Objects.equals(seatId, order.seatId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(orderId, trainNumber, carType, price, arrivalDate, dispatchDate, user, orderDate, orderStatus, countOfSeats, arrivalStation, dispatchStation, travelTime, routsId, carNumber, seatNumber, seatId);
+    }
+
     private String travelTime;
     private String routsId;
     private String carNumber;

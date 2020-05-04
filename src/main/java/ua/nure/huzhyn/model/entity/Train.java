@@ -1,6 +1,8 @@
 package ua.nure.huzhyn.model.entity;
 
 
+import java.util.Objects;
+
 public class Train {
 
     private String trainId;
@@ -20,5 +22,19 @@ public class Train {
 
     public void setTrainNumber(String trainNumber) {
         this.trainNumber = trainNumber;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Train train = (Train) o;
+        return Objects.equals(trainId, train.trainId) &&
+                Objects.equals(trainNumber, train.trainNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(trainId, trainNumber);
     }
 }

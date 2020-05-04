@@ -3,6 +3,7 @@ package ua.nure.huzhyn.model.entity;
 import ua.nure.huzhyn.model.entity.enums.UserRole;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class User {
 
@@ -30,6 +31,27 @@ public class User {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return blocked == user.blocked &&
+                Objects.equals(userId, user.userId) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(phone, user.phone) &&
+                Objects.equals(birthDate, user.birthDate) &&
+                role == user.role;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, email, password, firstName, lastName, phone, birthDate, role, blocked);
     }
 
     public String getEmail() {

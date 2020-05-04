@@ -22,7 +22,8 @@ public class SeatRepositoryImpl implements SeatRepository {
     private static final Logger LOGGER = Logger.getLogger(SeatRepositoryImpl.class);
     private static final String ADD_SEAT = "INSERT INTO final_project.railway_system.seat (seat_id, car_id, seat_number, busy) VALUES (?,?,?,?)";
     private static final String GET_SEATS_BY_ID = "SELECT * FROM final_project.railway_system.seat WHERE seat_id = ?";
-    private static final String DELETE_SEAT = "DELETE FROM final_project.railway_system.seat WHERE car_id = ?";
+    private static final String DELETE_SEAT = "DELETE FROM final_project.railway_system.seat WHERE seat_id = ?";
+    private static final String DELETE_ALL_SEAT_BY_CAR_ID = "DELETE FROM final_project.railway_system.seat WHERE car_id = ?";
     private static final String UPDATE_SEAT = "UPDATE final_project.railway_system.seat SET car_id = ?, seat_number = ?, busy = ? WHERE seat_id = ?";
     private static final String GET_COUNT_SEATS = "SELECT COUNT(*) FROM final_project.railway_system.seat WHERE car_id = ?";
     private static final String GET_COUNT_SEATS_BUSY = "SELECT COUNT(*) FROM final_project.railway_system.seat WHERE car_id = ? AND busy = true";
@@ -123,6 +124,22 @@ public class SeatRepositoryImpl implements SeatRepository {
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new DataBaseException("Can`t delete car. ID = " + id, e);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean deleteAllSeatsByCarId(String carId) {
+        boolean result = false;
+        Connection connection = ConnectionManager.getConnection();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ALL_SEAT_BY_CAR_ID)) {
+            preparedStatement.setString(1, carId);
+            if (preparedStatement.executeUpdate() > 0) {
+                result = true;
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DataBaseException("Can`t delete seats. Car ID = " + carId, e);
         }
         return result;
     }
@@ -233,7 +250,7 @@ public class SeatRepositoryImpl implements SeatRepository {
     }
 
     @Override
-    public void updateBusySeat(String seatId) {
+    public void freeSeat(String seatId) {
         Connection connection = ConnectionManager.getConnection();
         try (PreparedStatement ps = connection.prepareStatement(UPDATE_SEAT_BUSY_CANCEL)) {
             ps.setString(1, seatId);

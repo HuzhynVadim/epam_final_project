@@ -6,8 +6,10 @@ import ua.nure.huzhyn.exception.IncorrectDataException;
 import ua.nure.huzhyn.model.entity.Seat;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static java.util.stream.Collectors.joining;
 
@@ -16,17 +18,8 @@ public class SeatValidator {
     private static final String SEAT = "(?<![-\\d])(?<!\\d[.,])\\d*[0-9](?![.,]?\\d){1,2}";
 
     public static boolean hasDuplicates(List<Seat> seats) {
-        for (int i = 0; i < seats.size(); i++) {
-            Seat firstPlaceCell = seats.get(i);
-            for (int j = i + 1; j < seats.size(); j++) {
-                Seat secondPlaceCell = seats.get(j);
-                if (firstPlaceCell.getSeatNumber() == secondPlaceCell.getSeatNumber()
-                        && firstPlaceCell.getSeatNumber() == secondPlaceCell.getSeatNumber()) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        Set<Seat> distinctSeatNumbers = new HashSet<>(seats);
+        return distinctSeatNumbers.size() != seats.size();
     }
 
 
@@ -38,10 +31,14 @@ public class SeatValidator {
         }
 
         if (!errors.isEmpty()) {
-            String message = errors.entrySet().stream()
-                    .map(entry -> entry.getKey() + ". Entered data:&nbsp;" + entry.getValue() + ";")
-                    .collect(joining("<br/>\n"));
-            IncorrectDataException e = new IncorrectDataException(message);
+            StringBuilder builder = new StringBuilder();
+            for (Map.Entry<String, String> entry : errors.entrySet()) {
+                builder.append(entry.getKey())
+                        .append("Entered data:&nbsp;")
+                        .append(entry.getValue())
+                        .append(";<br/>\n");
+            }
+            IncorrectDataException e = new IncorrectDataException(builder.toString());
             LOGGER.error(e);
             throw e;
         }
@@ -56,10 +53,14 @@ public class SeatValidator {
         }
 
         if (!errors.isEmpty()) {
-            String message = errors.entrySet().stream()
-                    .map(entry -> entry.getKey() + ". Entered data:&nbsp;" + entry.getValue() + ";")
-                    .collect(joining("<br/>\n"));
-            IncorrectDataException e = new IncorrectDataException(message);
+            StringBuilder builder = new StringBuilder();
+            for (Map.Entry<String, String> entry : errors.entrySet()) {
+                builder.append(entry.getKey())
+                        .append("Entered data:&nbsp;")
+                        .append(entry.getValue())
+                        .append(";<br/>\n");
+            }
+            IncorrectDataException e = new IncorrectDataException(builder.toString());
             LOGGER.error(e);
             throw e;
         }

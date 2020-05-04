@@ -22,7 +22,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     private static final Logger LOGGER = Logger.getLogger(OrderRepositoryImpl.class);
     private static final String ADD_ORDER = "INSERT INTO final_project.railway_system.order (order_id, train_number, car_type, price, arrival_date, dispatch_date, user_id, order_date, order_status, count_of_seats, arrival_station, dispatch_station, travel_time, routs_id, car_number, seat_number, seats_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String GET_ORDER_BY_ID = "SELECT * FROM final_project.railway_system.order as o JOIN final_project.railway_system.user as u on o.user_id = u.user_id WHERE order_id = ?";
-    private static final String UPDATE_ORDER = "UPDATE final_project.railway_system.order as o SET order_status = ? FROM final_project.railway_system.user as u WHERE o.user_id = u.user_id AND order_id = ?";
+    private static final String UPDATE_ORDER_STATUS = "UPDATE final_project.railway_system.order as o SET order_status = ? WHERE order_id = ?";
     private static final String GET_ALL_ORDER = "SELECT * FROM final_project.railway_system.order as o JOIN final_project.railway_system.user as u on o.user_id = u.user_id";
     private static final String GET_ORDER_BY_USER_ID = "SELECT * FROM final_project.railway_system.order as o JOIN final_project.railway_system.user as u on o.user_id = u.user_id WHERE o.user_id = ?";
 
@@ -88,7 +88,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     public boolean updateOrderStatus(String orderId, OrderStatus status) {
         Connection connection = ConnectionManager.getConnection();
         boolean result = false;
-        try (PreparedStatement ps = connection.prepareStatement(UPDATE_ORDER)) {
+        try (PreparedStatement ps = connection.prepareStatement(UPDATE_ORDER_STATUS)) {
             ps.setString(1, status.toString());
             ps.setString(2, orderId);
             if (ps.executeUpdate() > 0) {

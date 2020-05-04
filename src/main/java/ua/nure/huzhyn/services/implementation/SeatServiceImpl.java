@@ -44,9 +44,9 @@ public class SeatServiceImpl implements SeatService {
     }
 
     @Override
-    public ArrayList<String> getSeatsId(String seat_id) {
+    public ArrayList<String> getSeatsId(String seatId) {
         ArrayList<String> seatIdList = new ArrayList<>();
-        Matcher m = Pattern.compile(UUID).matcher(seat_id);
+        Matcher m = Pattern.compile(UUID).matcher(seatId);
         while (m.find()) {
             seatIdList.add(m.group(1));
         }

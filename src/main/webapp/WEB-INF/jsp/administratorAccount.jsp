@@ -158,7 +158,7 @@
     <c:forEach items="${car_list}" var="car">
         <tr>
             <td>${car.trainNumber}</td>
-            <td>${car.carType}</td>
+            <td><fmt:message key="${car.carType}"/></td>
             <td>${car.carNumber}</td>
             <td>${car.seats}</td>
             <td>${car.price}</td>
@@ -243,7 +243,7 @@
             <td>${user.lastName}</td>
             <td>${user.birthDate}</td>
             <td>${user.phone}</td>
-            <td>${user.blocked}</td>
+            <td><fmt:message key="${user.blocked}"/></td>
             <td>
                 <c:choose>
                     <c:when test="${user.blocked == false}">
@@ -298,7 +298,7 @@
                 <td>${order.user.firstName} ${order.user.lastName}</td>
                 <td>${order.trainNumber}</td>
                 <td>${order.routsId}</td>
-                <td>${order.carType}</td>
+                <td><fmt:message key="${order.carType}"/></td>
                 <td>${order.carNumber}</td>
                 <td>${order.countOfSeats}</td>
                 <td>${order.seatNumber}</td>
@@ -309,7 +309,7 @@
                 <td>${order.arrivalStation}</td>
                 <td>${order.dispatchDate}</td>
                 <td>${order.orderDate}</td>
-                <td>${order.orderStatus}</td>
+                <td><fmt:message key="${order.orderStatus}"/></td>
                 <td>
                     <form action="administrator_edit_info_order" method="GET">
                         <input type="hidden" name="order_id" value="${order.orderId}">

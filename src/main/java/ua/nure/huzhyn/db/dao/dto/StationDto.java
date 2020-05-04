@@ -1,6 +1,7 @@
 package ua.nure.huzhyn.db.dao.dto;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class StationDto {
 
@@ -15,6 +16,27 @@ public class StationDto {
     private String trainId;
     private String trainNumber;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StationDto that = (StationDto) o;
+        return order == that.order &&
+                Objects.equals(stationId, that.stationId) &&
+                Objects.equals(station, that.station) &&
+                Objects.equals(stationArrivalDate, that.stationArrivalDate) &&
+                Objects.equals(stationDispatchData, that.stationDispatchData) &&
+                Objects.equals(routName, that.routName) &&
+                Objects.equals(routNumber, that.routNumber) &&
+                Objects.equals(routsId, that.routsId) &&
+                Objects.equals(trainId, that.trainId) &&
+                Objects.equals(trainNumber, that.trainNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(stationId, station, order, stationArrivalDate, stationDispatchData, routName, routNumber, routsId, trainId, trainNumber);
+    }
 
     public String getTrainId() {
         return trainId;

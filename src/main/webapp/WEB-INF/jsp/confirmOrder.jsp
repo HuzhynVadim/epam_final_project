@@ -78,7 +78,7 @@
         <td>${first_name} ${last_name}</td>
         <td>${rout_name}</td>
         <td>${train_number}</td>
-        <td>${car_type}</td>
+        <td><fmt:message key="${car_type}"/></td>
         <td>${car_number}</td>
         <td>${count_of_seats}</td>
         <td><c:forEach items="${seats}" var="seat">${seat.seatNumber} </c:forEach></td>

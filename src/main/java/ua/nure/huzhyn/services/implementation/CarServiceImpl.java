@@ -17,7 +17,6 @@ public class CarServiceImpl implements CarService {
 
     private static final Logger LOGGER = Logger.getLogger(CarServiceImpl.class);
 
-    @SuppressWarnings("FieldMayBeFinal")
     private CarRepository carRepository;
     private SeatRepository seatRepository;
     private TransactionManager transactionManager;
@@ -37,7 +36,7 @@ public class CarServiceImpl implements CarService {
             int countSeat = seatRepository.getCountSeat(carDto.getCarId());
             if (countSeatBusy == 0) {
                 if (countSeat > carDto.getSeats()) {
-                    seatRepository.delete(carDto.getCarId());
+                    seatRepository.deleteAllSeatsByCarId(carDto.getCarId());
                     for (int i = 1; i <= carDto.getSeats(); i++) {
                         Seat seat = getSeatFromCarDto(carDto, i);
                         seatRepository.create(seat);
@@ -90,7 +89,7 @@ public class CarServiceImpl implements CarService {
     @Override
     public void removeCar(String carId) {
         transactionManager.execute(() -> {
-            seatRepository.delete(carId);
+            seatRepository.deleteAllSeatsByCarId(carId);
             carRepository.delete(carId);
             return null;
         });

@@ -23,7 +23,7 @@ public class UserRepositoryImpl implements UserRepository {
     private static final String DELETE_USER = "DELETE FROM final_project.railway_system.user WHERE user_id = ?";
     private static final String UPDATE_USER = "UPDATE final_project.railway_system.user SET email = ?, password = ?, first_name = ?, last_name = ?, phone = ?, birth_date = ?, role = ?, blocked = ? WHERE user_id = ?";
     private static final String GET_USER_FULL_INFO = "SELECT * FROM final_project.railway_system.user WHERE role = ? ORDER BY email";
-    private static final String UPDATE_USER_BLOCKED = "UPDATE final_project.railway_system.user SET blocked = ? WHERE user_id = ?";
+    private static final String BLOCK_USER = "UPDATE final_project.railway_system.user SET blocked = ? WHERE user_id = ?";
 
 
     @Override
@@ -160,7 +160,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public void updateBlocked(String idUser, boolean blockStatus) {
         Connection connection = ConnectionManager.getConnection();
-        try (PreparedStatement ps = connection.prepareStatement(UPDATE_USER_BLOCKED)) {
+        try (PreparedStatement ps = connection.prepareStatement(BLOCK_USER)) {
             ps.setBoolean(1, blockStatus);
             ps.setString(2, idUser);
             ps.executeUpdate();

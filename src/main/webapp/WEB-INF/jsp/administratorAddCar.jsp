@@ -72,7 +72,7 @@
             </select></td>
             <td><select class="btn btn-info dropdown-toggle" name="car_type">
                 <c:forEach items="${carTypeList}" var="car_type">
-                    <option value="${car_type}"><c:out value="${car_type}"/></option>
+                    <option value="${car_type}"><fmt:message key="${car_type}"/></option>
                 </c:forEach>
             </select></td>
             <td><input class="form-control" name="car_number"></td>

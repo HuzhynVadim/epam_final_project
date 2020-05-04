@@ -83,7 +83,7 @@
         <tr>
             <td>${order.trainNumber}</td>
             <td>${order.routsId}</td>
-            <td>${order.carType}</td>
+            <td><fmt:message key="${order.carType}"/></td>
             <td>${order.carNumber}</td>
             <td>${order.countOfSeats}</td>
             <td>${order.seatNumber}</td>
@@ -94,7 +94,7 @@
             <td>${order.arrivalStation}</td>
             <td>${order.dispatchDate}</td>
             <td>${order.orderDate}</td>
-            <td>${order.orderStatus}</td>
+            <td><fmt:message key="${order.orderStatus}"/></td>
             <td>
                 <form action="cancel_order" method="POST">
                     <input type="hidden" name="order_id" value="${order.orderId}">

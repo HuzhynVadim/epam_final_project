@@ -1,6 +1,8 @@
 package ua.nure.huzhyn.model.entity;
 
 
+import java.util.Objects;
+
 public class Seat {
 
   private String seatId;
@@ -38,5 +40,21 @@ public class Seat {
 
   public void setSeatNumber(int seatNumber) {
     this.seatNumber = seatNumber;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Seat seat = (Seat) o;
+    return seatNumber == seat.seatNumber &&
+            busy == seat.busy &&
+            Objects.equals(seatId, seat.seatId) &&
+            Objects.equals(carId, seat.carId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(seatId, carId, seatNumber, busy);
   }
 }

@@ -1,5 +1,7 @@
 package ua.nure.huzhyn.db.dao.dto;
 
+import java.util.Objects;
+
 public class RoutInfoDto {
     private String routsId;
     private String trainId;
@@ -7,6 +9,22 @@ public class RoutInfoDto {
     private String routName;
     private String routNumber;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RoutInfoDto that = (RoutInfoDto) o;
+        return Objects.equals(routsId, that.routsId) &&
+                Objects.equals(trainId, that.trainId) &&
+                Objects.equals(trainNumber, that.trainNumber) &&
+                Objects.equals(routName, that.routName) &&
+                Objects.equals(routNumber, that.routNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(routsId, trainId, trainNumber, routName, routNumber);
+    }
 
     public String getRoutsId() {
         return routsId;

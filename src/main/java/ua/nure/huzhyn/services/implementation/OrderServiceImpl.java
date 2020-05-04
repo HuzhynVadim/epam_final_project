@@ -52,12 +52,12 @@ public class OrderServiceImpl implements OrderService {
         LocalDateTime now = LocalDateTime.now();
         order.setOrderStatus(OrderStatus.ORDER_CANCELED);
         validateDate(order, now);
-        String seatNumber = order.getSeatId();
+        String seatId = order.getSeatId();
         transactionManager.execute(() -> {
-            List<String> seatsId = seatService.getSeatsId(seatNumber);
+            List<String> seatsId = seatService.getSeatsId(seatId);
             List<Seat> seatsByIdBatch = seatRepository.getSeatsByIdBatch(seatsId);
             for (int i = 0; i <= seatsByIdBatch.size() - 1; i++) {
-                seatRepository.updateBusySeat(seatsByIdBatch.get(i).getSeatId());
+                seatRepository.freeSeat(seatsByIdBatch.get(i).getSeatId());
             }
             orderRepository.updateOrderStatus(order.getOrderId(), order.getOrderStatus());
             return null;
@@ -87,7 +87,7 @@ public class OrderServiceImpl implements OrderService {
                 ArrayList<String> seatsId = seatService.getSeatsId(seatId);
                 List<Seat> seatsByIdBatch = seatRepository.getSeatsByIdBatch(seatsId);
                 for (int i = 0; i <= seatsByIdBatch.size() - 1; i++) {
-                    seatRepository.updateBusySeat(seatsByIdBatch.get(i).getSeatId());
+                    seatRepository.freeSeat(seatsByIdBatch.get(i).getSeatId());
                 }
             }
             return orderRepository.updateOrderStatus(orderId, status);
@@ -101,11 +101,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getAllOrderList() {
-        List<Order> result = transactionManager.execute(() -> orderRepository.getAllOrderList());
-        for (Order order : result) {
-            order.setPrice(order.getCarType().getPrice());
-        }
-        return result;
+        return transactionManager.execute(() -> orderRepository.getAllOrderList());
+
     }
 
     @Override

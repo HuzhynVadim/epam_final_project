@@ -28,12 +28,12 @@ public class AdministratorSetRoutController extends HttpServlet {
     private StationService stationService;
     private RoutMappingService routMappingService;
 
-    public static boolean contains(final List<MappingInfoDto> array, final int v) {
+    public static boolean contains(final List<MappingInfoDto> array, final int order) {
 
         boolean result = false;
 
-        for (MappingInfoDto i : array) {
-            if (i.getOrder() == v) {
+        for (MappingInfoDto mappingInfoDto : array) {
+            if (mappingInfoDto.getOrder() == order) {
                 result = true;
                 break;
             }

@@ -1,6 +1,7 @@
 package ua.nure.huzhyn.db.dao.dto;
 
 import java.util.List;
+import java.util.Objects;
 
 public class RoutsOrderDto {
 
@@ -13,6 +14,27 @@ public class RoutsOrderDto {
     private int commonFreeSeatsCount;
     private int compartmentFreeSeatsCount;
     private int reservedFreeSeatsCount;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RoutsOrderDto that = (RoutsOrderDto) o;
+        return commonFreeSeatsCount == that.commonFreeSeatsCount &&
+                compartmentFreeSeatsCount == that.compartmentFreeSeatsCount &&
+                reservedFreeSeatsCount == that.reservedFreeSeatsCount &&
+                Objects.equals(routsId, that.routsId) &&
+                Objects.equals(trainId, that.trainId) &&
+                Objects.equals(trainNumber, that.trainNumber) &&
+                Objects.equals(stations, that.stations) &&
+                Objects.equals(routName, that.routName) &&
+                Objects.equals(routNumber, that.routNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(routsId, trainId, trainNumber, stations, routName, routNumber, commonFreeSeatsCount, compartmentFreeSeatsCount, reservedFreeSeatsCount);
+    }
 
     public int getCommonFreeSeatsCount() {
         return commonFreeSeatsCount;

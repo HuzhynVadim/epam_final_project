@@ -8,8 +8,6 @@ import ua.nure.huzhyn.model.entity.Rout;
 import java.util.HashMap;
 import java.util.Map;
 
-import static java.util.stream.Collectors.joining;
-
 public class RoutValidator {
     private static final Logger LOGGER = Logger.getLogger(RoutValidator.class);
     private static final String ROUT_NAME = "[a-zA-Zа-яА-яёЁ]*([ \\-_][a-zA-Zа-яА-яёЁ]+)*";
@@ -24,10 +22,14 @@ public class RoutValidator {
             errors.put("Incorrect format, type something like \"1-23 or 1/23 or 123\"", rout.getRoutNumber());
         }
         if (!errors.isEmpty()) {
-            String message = errors.entrySet().stream()
-                    .map(entry -> entry.getKey() + ". Entered data:&nbsp;" + entry.getValue() + ";")
-                    .collect(joining("<br/>\n"));
-            IncorrectDataException e = new IncorrectDataException(message);
+            StringBuilder builder = new StringBuilder();
+            for (Map.Entry<String, String> entry : errors.entrySet()) {
+                builder.append(entry.getKey())
+                        .append("Entered data:&nbsp;")
+                        .append(entry.getValue())
+                        .append(";<br/>\n");
+            }
+            IncorrectDataException e = new IncorrectDataException(builder.toString());
             LOGGER.error(e);
             throw e;
         }

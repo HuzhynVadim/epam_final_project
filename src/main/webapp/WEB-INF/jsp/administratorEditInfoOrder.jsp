@@ -71,7 +71,7 @@
                                     selected
                                 </c:when>
                             </c:choose>
-                            value="${status}"><c:out value="${status}"/>
+                            value="${status}"><fmt:message key="${status}"/>
                     </option>
                 </c:forEach>
             </select></td>

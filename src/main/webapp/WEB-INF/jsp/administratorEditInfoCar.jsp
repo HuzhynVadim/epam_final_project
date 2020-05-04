@@ -66,6 +66,7 @@
         <form action="administrator_edit_info_car" method="POST">
             <input type="hidden" name="car_id" value="${current_car.carId}">
             <td><select class="btn btn-info dropdown-toggle" name="train_id">
+                <option value="TRAIN_NOT_SELECTED"><fmt:message key="in.the.depot"/></option>
                 <c:set var="train_id" value="${current_car.trainId}"/>
                 <c:forEach items="${trainList}" var="train">
                     <option
@@ -88,7 +89,7 @@
                                     selected
                                 </c:when>
                             </c:choose>
-                            value="${car_type}"><c:out value="${car_type}"/>
+                            value="${car_type}"><fmt:message key="${car_type}"/>
                     </option>
                 </c:forEach>
             </select>

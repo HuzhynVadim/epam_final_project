@@ -2,6 +2,7 @@ package ua.nure.huzhyn.model.entity;
 
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class RoutToStationMapping {
 
@@ -29,6 +30,22 @@ public class RoutToStationMapping {
         this.routsId = routsId;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RoutToStationMapping that = (RoutToStationMapping) o;
+        return order == that.order &&
+                Objects.equals(stationId, that.stationId) &&
+                Objects.equals(routsId, that.routsId) &&
+                Objects.equals(stationArrivalDate, that.stationArrivalDate) &&
+                Objects.equals(stationDispatchData, that.stationDispatchData);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(stationId, routsId, stationArrivalDate, stationDispatchData, order);
+    }
 
     public LocalDateTime getStationArrivalDate() {
         return stationArrivalDate;
