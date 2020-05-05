@@ -159,3 +159,11 @@ Incorrect format, type something like "1-23 or 1/23 or 123"Entered data:&nbsp;qw
 2020-05-05 14:01:37 TRACE HomePageController:31 - home Servlet init
 2020-05-05 14:01:46 ERROR UserServiceImpl:36 - ua.nure.huzhyn.exception.UnauthorizedException: You are not registered or you are blocked
 2020-05-05 14:02:13 TRACE RegistrationController:58 - registration Servlet init
+2020-05-05 15:46:51 TRACE LoginController:54 - login Servlet init
+2020-05-05 15:46:54 TRACE HomePageController:31 - home Servlet init
+2020-05-05 15:46:58 TRACE AdministratorAccountController:65 - administrator_account Servlet init
+2020-05-05 15:47:03 TRACE RoutDeleteController:29 - rout_delete Servlet init
+2020-05-05 15:47:11 TRACE CarDeleteController:29 - car_delete Servlet init
+2020-05-05 15:47:15 TRACE UserBlockController:31 - user_block Servlet init
+2020-05-05 15:47:21 TRACE ChangeLanguageController:38 - change_language Servlet init
+2020-05-05 15:47:23 TRACE LogoutController:30 - logout Servlet init
