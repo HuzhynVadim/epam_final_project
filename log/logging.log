@@ -54,3 +54,6 @@ Incorrect format, type something like "1-23 or 1/23 or 123"Entered data:&nbsp;יצ
 2020-05-05 00:41:46 TRACE ConfirmOrderController:198 - confirm_order Servlet init
 2020-05-05 00:41:55 TRACE AdministratorAccountController:65 - administrator_account Servlet init
 2020-05-05 00:41:59 TRACE AdministratorEditInfoOrderController:56 - administrator_edit_info_order Servlet init
+2020-05-05 10:22:46 TRACE LoginController:54 - login Servlet init
+2020-05-05 10:22:47 TRACE HomePageController:31 - home Servlet init
+2020-05-05 10:22:50 TRACE LogoutController:30 - logout Servlet init
