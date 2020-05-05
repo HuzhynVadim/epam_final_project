@@ -20,7 +20,7 @@ SET row_security = off;
 -- Name: final_project; Type: DATABASE; Schema: -; Owner: postgres
 --
 
-CREATE DATABASE final_project WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'Russian_Ukraine.1251' LC_CTYPE = 'Russian_Ukraine.1251';
+CREATE DATABASE final_project WITH ENCODING = 'UTF8' LC_COLLATE = 'Russian_Ukraine.1251' LC_CTYPE = 'Russian_Ukraine.1251';
 
 
 ALTER DATABASE final_project OWNER TO postgres;
