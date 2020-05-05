@@ -17,28 +17,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: final_project; Type: DATABASE; Schema: -; Owner: postgres
---
-
-CREATE DATABASE final_project WITH ENCODING = 'UTF8' LC_COLLATE = 'Russian_Ukraine.1251' LC_CTYPE = 'Russian_Ukraine.1251';
-
-
-ALTER DATABASE final_project OWNER TO postgres;
-
-\connect final_project
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET xmloption = content;
-SET client_min_messages = warning;
-SET row_security = off;
-
---
 -- Name: railway_system; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -212,7 +190,7 @@ SET default_table_access_method = heap;
 CREATE TABLE railway_system.car (
                                     car_id character varying(64) NOT NULL,
                                     car_type character varying(64) NOT NULL,
-                                    car_number character varying(64),
+                                    car_number character varying(64) NOT NULL,
                                     train_id character varying(64)
 );
 
@@ -323,7 +301,7 @@ ALTER TABLE railway_system.rout_to_station_mapping OWNER TO postgres;
 
 CREATE TABLE railway_system.seat (
                                      seat_id character varying(64) NOT NULL,
-                                     car_id character varying(64),
+                                     car_id character varying(64) NOT NULL,
                                      seat_number integer NOT NULL,
                                      busy boolean DEFAULT false NOT NULL
 );
@@ -381,6 +359,8 @@ ALTER TABLE railway_system."user" OWNER TO postgres;
 INSERT INTO railway_system.car (car_id, car_type, car_number, train_id) VALUES ('a9449e26-0162-49a7-9c55-cf42b416e3f1', 'COMPARTMENT', '2', '49c1d109-8331-48e8-b31c-cc623037e1a7');
 INSERT INTO railway_system.car (car_id, car_type, car_number, train_id) VALUES ('84b99a5e-ecda-4412-a268-545f24874c2f', 'COMMON', '3', '49c1d109-8331-48e8-b31c-cc623037e1a7');
 INSERT INTO railway_system.car (car_id, car_type, car_number, train_id) VALUES ('a450ae6d-8eb4-4d3a-8101-31036aa72322', 'COMMON', '3', '0c58aef6-d1a6-42f4-99f5-a877c032ea94');
+INSERT INTO railway_system.car (car_id, car_type, car_number, train_id) VALUES ('b22eb56b-101d-4107-be56-0165b695ccaa', 'RESERVED_SEAT', '1', '547407d4-e38e-4b5f-8a21-e0e219a9e6f2');
+INSERT INTO railway_system.car (car_id, car_type, car_number, train_id) VALUES ('f815afc8-dce7-4270-9706-8505b951924b', 'COMPARTMENT', '0', '547407d4-e38e-4b5f-8a21-e0e219a9e6f2');
 INSERT INTO railway_system.car (car_id, car_type, car_number, train_id) VALUES ('96107c6d-7334-4d99-adda-ffc74638aec5', 'COMPARTMENT', '1', '49c1d109-8331-48e8-b31c-cc623037e1a7');
 INSERT INTO railway_system.car (car_id, car_type, car_number, train_id) VALUES ('25d6d80a-8e62-456a-8f66-3a0353480639', 'RESERVED_SEAT', '1', '0c58aef6-d1a6-42f4-99f5-a877c032ea94');
 INSERT INTO railway_system.car (car_id, car_type, car_number, train_id) VALUES ('0e3d424a-b216-418b-93fb-1d3340f802b8', 'RESERVED_SEAT', '2', '0c58aef6-d1a6-42f4-99f5-a877c032ea94');
@@ -390,9 +370,6 @@ INSERT INTO railway_system.car (car_id, car_type, car_number, train_id) VALUES (
 -- Data for Name: order; Type: TABLE DATA; Schema: railway_system; Owner: postgres
 --
 
-INSERT INTO railway_system."order" (order_id, train_number, car_type, price, arrival_date, dispatch_date, user_id, order_date, order_status, count_of_seats, arrival_station, dispatch_station, travel_time, routs_id, car_number, seat_number, seats_id) VALUES ('33543fdd-a477-4ea8-b805-9213c34c2377', '1', 'COMPARTMENT', 600, '2020-05-06 12:22:00', '2020-05-06 18:18:00', '57e8f74f-14f5-4e5b-a5c4-242548108e9b', '2020-05-05 00:19:59.313', 'ORDER_ACCEPTED', 2, 'Odessa', 'Kharkov', 'Дней: 0 Часов: 5 Минут: 56', 'e4b0e61f-e5b1-4b0a-a8f3-6dc67fb7ce5d', '2', '1 2 ', '2d4ce3d3-b5e3-47d7-9a6f-be029199e19a 0956391c-0ad7-46bb-a470-7bd58fc2b6ad ');
-INSERT INTO railway_system."order" (order_id, train_number, car_type, price, arrival_date, dispatch_date, user_id, order_date, order_status, count_of_seats, arrival_station, dispatch_station, travel_time, routs_id, car_number, seat_number, seats_id) VALUES ('24c7635e-3149-4a54-84a6-8f4b9d0743eb', '1', 'COMMON', 400, '2020-05-06 12:22:00', '2020-05-06 18:18:00', '0a56842d-d949-42e3-99d1-2da0f7bfc9d1', '2020-05-05 00:23:06.416', 'ORDER_CANCELED', 4, 'Odessa', 'Kharkov', 'Дней: 0 Часов: 5 Минут: 56', 'e4b0e61f-e5b1-4b0a-a8f3-6dc67fb7ce5d', '3', '5 2 1 4 ', '10446bee-0489-4b1e-a394-262508757245 cb42ca39-42a1-430f-a4b5-0ab54b4b6f80 375677b0-fcd4-4050-8d92-8e5390cfb599 b152a15c-6dd9-4a96-8ab8-47c5a6ba208d ');
-INSERT INTO railway_system."order" (order_id, train_number, car_type, price, arrival_date, dispatch_date, user_id, order_date, order_status, count_of_seats, arrival_station, dispatch_station, travel_time, routs_id, car_number, seat_number, seats_id) VALUES ('0999eda6-024c-4b74-86b1-c66a2ac76188', '1', 'COMMON', 600, '2020-05-06 12:22:00', '2020-05-06 18:18:00', '57e8f74f-14f5-4e5b-a5c4-242548108e9b', '2020-05-05 00:41:51.966', 'ORDER_DECLINED', 6, 'Odessa', 'Kharkov', 'Дней: 0 Часов: 5 Минут: 56', 'e4b0e61f-e5b1-4b0a-a8f3-6dc67fb7ce5d', '3', '3 6 5 2 1 4 ', '2f540a6c-3724-44e7-b4ee-c3e7dc85891f 1821d72b-b127-4276-92ac-69e9f9ed518c 10446bee-0489-4b1e-a394-262508757245 cb42ca39-42a1-430f-a4b5-0ab54b4b6f80 375677b0-fcd4-4050-8d92-8e5390cfb599 b152a15c-6dd9-4a96-8ab8-47c5a6ba208d ');
 
 
 --
@@ -401,6 +378,7 @@ INSERT INTO railway_system."order" (order_id, train_number, car_type, price, arr
 
 INSERT INTO railway_system.rout (routs_id, train_id, rout_name, rout_number) VALUES ('e4b0e61f-e5b1-4b0a-a8f3-6dc67fb7ce5d', '49c1d109-8331-48e8-b31c-cc623037e1a7', 'Speed Kyiv', '1');
 INSERT INTO railway_system.rout (routs_id, train_id, rout_name, rout_number) VALUES ('58713365-0e81-464b-ae99-98f63f02789d', '0c58aef6-d1a6-42f4-99f5-a877c032ea94', 'Travel Ukraine', '2');
+INSERT INTO railway_system.rout (routs_id, train_id, rout_name, rout_number) VALUES ('9de7944d-ee7d-4626-b111-d4dd8f34f736', '547407d4-e38e-4b5f-8a21-e0e219a9e6f2', 'Minsk Kiev', '123');
 
 
 --
@@ -411,6 +389,8 @@ INSERT INTO railway_system.rout_to_station_mapping (station_id, routs_id, statio
 INSERT INTO railway_system.rout_to_station_mapping (station_id, routs_id, station_arrival_date, station_dispatch_data, "order") VALUES ('e7e71469-a996-4580-b3f9-d09aea62ba53', 'e4b0e61f-e5b1-4b0a-a8f3-6dc67fb7ce5d', '2020-05-06 18:18:00', '2020-05-06 18:55:00', '4');
 INSERT INTO railway_system.rout_to_station_mapping (station_id, routs_id, station_arrival_date, station_dispatch_data, "order") VALUES ('cc3347cc-b731-4736-8803-8ea0e8dc1ce4', '58713365-0e81-464b-ae99-98f63f02789d', '2020-05-06 16:16:00', '2020-05-06 16:55:00', '1');
 INSERT INTO railway_system.rout_to_station_mapping (station_id, routs_id, station_arrival_date, station_dispatch_data, "order") VALUES ('e7e71469-a996-4580-b3f9-d09aea62ba53', '58713365-0e81-464b-ae99-98f63f02789d', '2020-05-06 22:22:00', '2020-05-06 22:55:00', '2');
+INSERT INTO railway_system.rout_to_station_mapping (station_id, routs_id, station_arrival_date, station_dispatch_data, "order") VALUES ('a2480605-7f2c-4248-80ce-89c32279c7cc', '9de7944d-ee7d-4626-b111-d4dd8f34f736', '2020-05-06 10:00:00', '2020-05-06 10:22:00', '1');
+INSERT INTO railway_system.rout_to_station_mapping (station_id, routs_id, station_arrival_date, station_dispatch_data, "order") VALUES ('cc3347cc-b731-4736-8803-8ea0e8dc1ce4', '9de7944d-ee7d-4626-b111-d4dd8f34f736', '2020-05-06 18:11:00', '2020-05-06 22:22:00', '3');
 INSERT INTO railway_system.rout_to_station_mapping (station_id, routs_id, station_arrival_date, station_dispatch_data, "order") VALUES ('2953e5e0-7682-4482-b48b-2dc1aa6d4f82', 'e4b0e61f-e5b1-4b0a-a8f3-6dc67fb7ce5d', '2020-05-06 12:00:00', '2020-05-06 12:22:00', '1');
 INSERT INTO railway_system.rout_to_station_mapping (station_id, routs_id, station_arrival_date, station_dispatch_data, "order") VALUES ('cc3347cc-b731-4736-8803-8ea0e8dc1ce4', 'e4b0e61f-e5b1-4b0a-a8f3-6dc67fb7ce5d', '2020-05-06 13:02:00', '2020-05-06 13:17:00', '2');
 
@@ -419,10 +399,11 @@ INSERT INTO railway_system.rout_to_station_mapping (station_id, routs_id, statio
 -- Data for Name: seat; Type: TABLE DATA; Schema: railway_system; Owner: postgres
 --
 
-INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('284c7d36-86ac-43b5-a628-2e9b8ef63ded', '96107c6d-7334-4d99-adda-ffc74638aec5', 2, false);
-INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('8c01b476-e920-4ca2-98b3-c078ea06f8b4', '96107c6d-7334-4d99-adda-ffc74638aec5', 1, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('9001994d-a05b-469e-b4b8-2f914765a86d', '96107c6d-7334-4d99-adda-ffc74638aec5', 4, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('284c7d36-86ac-43b5-a628-2e9b8ef63ded', '96107c6d-7334-4d99-adda-ffc74638aec5', 2, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('a410604e-abfa-4339-8f51-ec3b81dda12a', '96107c6d-7334-4d99-adda-ffc74638aec5', 5, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('6c2108e0-8b09-4bb1-b107-6dba55cf0340', '96107c6d-7334-4d99-adda-ffc74638aec5', 3, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('8c01b476-e920-4ca2-98b3-c078ea06f8b4', '96107c6d-7334-4d99-adda-ffc74638aec5', 1, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('375677b0-fcd4-4050-8d92-8e5390cfb599', '84b99a5e-ecda-4412-a268-545f24874c2f', 1, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('b152a15c-6dd9-4a96-8ab8-47c5a6ba208d', '84b99a5e-ecda-4412-a268-545f24874c2f', 4, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('c4354afd-11c0-445b-9308-e1824b8825a0', '84b99a5e-ecda-4412-a268-545f24874c2f', 7, false);
@@ -449,7 +430,6 @@ INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('f2
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('b0c2f0b9-9244-4082-ab43-3a9e0c1ce9e2', '84b99a5e-ecda-4412-a268-545f24874c2f', 28, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('a675bdc8-14e9-47ab-af93-3c5d6e40b407', '84b99a5e-ecda-4412-a268-545f24874c2f', 29, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('d9888761-f06f-4db6-b5c2-1c93905158a3', '84b99a5e-ecda-4412-a268-545f24874c2f', 30, false);
-INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('a410604e-abfa-4339-8f51-ec3b81dda12a', '96107c6d-7334-4d99-adda-ffc74638aec5', 5, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('45785d29-ff9c-46be-94f0-348bf1b92325', '96107c6d-7334-4d99-adda-ffc74638aec5', 6, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('19d2f55a-b2e9-499a-9e1f-3107020a19aa', '96107c6d-7334-4d99-adda-ffc74638aec5', 7, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('578aad4e-2a6b-43af-b8ba-68fecd986fff', '96107c6d-7334-4d99-adda-ffc74638aec5', 8, false);
@@ -496,6 +476,27 @@ INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('b4
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('45247c5a-e11d-43e3-8021-e78b7492367a', '0e3d424a-b216-418b-93fb-1d3340f802b8', 28, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('d8660db6-a716-42f3-81d8-c0b16f416f53', '0e3d424a-b216-418b-93fb-1d3340f802b8', 29, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('8b894b61-9863-41b4-95b7-6a80bf40d773', '0e3d424a-b216-418b-93fb-1d3340f802b8', 30, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('dd40f573-3096-4c39-ab6d-bc8c94b39e88', 'b22eb56b-101d-4107-be56-0165b695ccaa', 1, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('1244fb1d-c5e5-4a67-8bd0-8ff98b561ff0', 'b22eb56b-101d-4107-be56-0165b695ccaa', 2, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('23bd1262-498b-4390-b0e4-35025a626708', 'b22eb56b-101d-4107-be56-0165b695ccaa', 3, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('405959d1-cd37-435d-b39b-d49e0a862a74', 'b22eb56b-101d-4107-be56-0165b695ccaa', 4, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('8543fecb-363e-4612-9e27-393e91c9bb96', 'b22eb56b-101d-4107-be56-0165b695ccaa', 5, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('c018651c-80b8-4ebc-9025-4f6dd8a1af49', 'b22eb56b-101d-4107-be56-0165b695ccaa', 6, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('f0066ed4-29f9-4748-86eb-5516ecea48e6', 'b22eb56b-101d-4107-be56-0165b695ccaa', 7, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('a0e2ed95-0386-4622-b10f-19862b375bad', 'b22eb56b-101d-4107-be56-0165b695ccaa', 8, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('dc134a75-9046-4ffc-9cee-b6b2a44dc87e', 'b22eb56b-101d-4107-be56-0165b695ccaa', 9, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('2b584a92-9e52-4f53-8e6b-d573080451ef', 'b22eb56b-101d-4107-be56-0165b695ccaa', 10, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('6ac410aa-a1b3-44d8-a060-b8fca0cc3369', 'b22eb56b-101d-4107-be56-0165b695ccaa', 11, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('3ac408b4-f930-4dd1-ae2c-19915e218a83', 'b22eb56b-101d-4107-be56-0165b695ccaa', 12, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('91fcb635-fd69-4a26-a9e1-7bf2e0019836', 'b22eb56b-101d-4107-be56-0165b695ccaa', 13, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('e06820cb-dc32-404e-9962-9a2b6115261c', 'b22eb56b-101d-4107-be56-0165b695ccaa', 14, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('5ded909c-8559-445a-8815-c4f09ca4de77', 'b22eb56b-101d-4107-be56-0165b695ccaa', 15, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('59f7eb81-82a8-46c5-bfe7-d943fa478472', 'b22eb56b-101d-4107-be56-0165b695ccaa', 16, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('48424295-eb9d-4d8d-8a55-de0e1e1ca318', 'b22eb56b-101d-4107-be56-0165b695ccaa', 17, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('8261b927-177f-4229-8885-91268d5362b4', 'b22eb56b-101d-4107-be56-0165b695ccaa', 18, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('329a2702-d8d7-43ae-9722-e3b149d7d19e', 'b22eb56b-101d-4107-be56-0165b695ccaa', 19, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('0cf51d71-c520-4c0d-b57f-1e2df99d78c6', 'b22eb56b-101d-4107-be56-0165b695ccaa', 20, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('a22afe14-1aa7-4f5d-a9c0-51d7585cd16a', 'b22eb56b-101d-4107-be56-0165b695ccaa', 21, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('1c7c5e98-a0f9-4737-af89-326429211177', '0e3d424a-b216-418b-93fb-1d3340f802b8', 3, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('92c16d22-4665-44ca-b99b-9147dcd5ac9d', '0e3d424a-b216-418b-93fb-1d3340f802b8', 2, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('aaf1b355-ebdd-429d-af4c-2562051ddbab', '25d6d80a-8e62-456a-8f66-3a0353480639', 5, false);
@@ -555,6 +556,7 @@ INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('f8
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('92cb533a-0656-4c17-b726-c2b6235883a5', 'a450ae6d-8eb4-4d3a-8101-31036aa72322', 14, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('eeaa8278-9d31-4eb1-8375-adc43e20d573', 'a450ae6d-8eb4-4d3a-8101-31036aa72322', 15, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('ee7d4330-d97c-4b81-ae7b-d975c0327666', 'a450ae6d-8eb4-4d3a-8101-31036aa72322', 16, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('8b1f6637-a36d-4d67-a539-d3a3cf041d95', 'f815afc8-dce7-4270-9706-8505b951924b', 2, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('ca71191d-0140-4321-9b1d-c759a16fdf5d', 'a450ae6d-8eb4-4d3a-8101-31036aa72322', 17, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('0064d5b7-915d-490a-ae17-3cf0ac6e8b91', 'a450ae6d-8eb4-4d3a-8101-31036aa72322', 18, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('bc91408e-7c01-40fa-82e2-336de916c9ed', 'a450ae6d-8eb4-4d3a-8101-31036aa72322', 19, false);
@@ -579,8 +581,18 @@ INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('75
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('e640885a-1f6d-4011-9f85-df4a29f1bfb1', 'a450ae6d-8eb4-4d3a-8101-31036aa72322', 38, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('4b161edb-544f-4dfd-94a0-ee47060938a8', 'a450ae6d-8eb4-4d3a-8101-31036aa72322', 39, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('7e4ea885-905c-419d-91c3-ec5ada377fa6', 'a450ae6d-8eb4-4d3a-8101-31036aa72322', 40, false);
-INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('2d4ce3d3-b5e3-47d7-9a6f-be029199e19a', 'a9449e26-0162-49a7-9c55-cf42b416e3f1', 1, true);
-INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('0956391c-0ad7-46bb-a470-7bd58fc2b6ad', 'a9449e26-0162-49a7-9c55-cf42b416e3f1', 2, true);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('168e28bd-b177-4655-b260-1cd3a31976f1', 'b22eb56b-101d-4107-be56-0165b695ccaa', 22, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('d2e4917f-a718-4ece-a6b2-86ec4ba573da', 'b22eb56b-101d-4107-be56-0165b695ccaa', 23, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('dc68223a-88be-4383-b4d1-92cd2c274989', 'b22eb56b-101d-4107-be56-0165b695ccaa', 24, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('d2ebfcb3-db92-4e98-8333-fcb6aeb53ab2', 'b22eb56b-101d-4107-be56-0165b695ccaa', 25, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('07624da7-7a9b-4c4b-b9e1-88369d0065d6', 'b22eb56b-101d-4107-be56-0165b695ccaa', 26, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('239192f9-42af-4be1-ad80-01e8a703742d', 'b22eb56b-101d-4107-be56-0165b695ccaa', 27, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('d900a722-5e48-42c1-8fa7-f3cbd263452b', 'b22eb56b-101d-4107-be56-0165b695ccaa', 28, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('0a2d63d0-af1a-4dba-851d-662455ece3d0', 'b22eb56b-101d-4107-be56-0165b695ccaa', 29, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('8690f6a2-f84c-4483-9721-3e9ccb863f7b', 'b22eb56b-101d-4107-be56-0165b695ccaa', 30, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('476f1297-068d-4809-a844-7a004061bbc2', 'f815afc8-dce7-4270-9706-8505b951924b', 1, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('0956391c-0ad7-46bb-a470-7bd58fc2b6ad', 'a9449e26-0162-49a7-9c55-cf42b416e3f1', 2, false);
+INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('2d4ce3d3-b5e3-47d7-9a6f-be029199e19a', 'a9449e26-0162-49a7-9c55-cf42b416e3f1', 1, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('28ff033d-e6ef-420b-9c0d-6974e3bb76db', 'a9449e26-0162-49a7-9c55-cf42b416e3f1', 3, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('83417d32-21be-4ce9-aa01-19da86154c7a', 'a9449e26-0162-49a7-9c55-cf42b416e3f1', 4, false);
 INSERT INTO railway_system.seat (seat_id, car_id, seat_number, busy) VALUES ('4adce9af-61d4-4c92-b218-41aa05848cd5', 'a9449e26-0162-49a7-9c55-cf42b416e3f1', 5, false);
@@ -610,6 +622,7 @@ INSERT INTO railway_system.station (station_id, station) VALUES ('cc3347cc-b731-
 INSERT INTO railway_system.station (station_id, station) VALUES ('d5eada62-cd50-4d72-a2f5-64ed7869e10f', 'Poltava');
 INSERT INTO railway_system.station (station_id, station) VALUES ('6b97e96b-2257-4eb0-977b-bc0f596b7a3b', 'Lvov');
 INSERT INTO railway_system.station (station_id, station) VALUES ('e7e71469-a996-4580-b3f9-d09aea62ba53', 'Odessa');
+INSERT INTO railway_system.station (station_id, station) VALUES ('a2480605-7f2c-4248-80ce-89c32279c7cc', 'Minsk');
 
 
 --
@@ -618,15 +631,16 @@ INSERT INTO railway_system.station (station_id, station) VALUES ('e7e71469-a996-
 
 INSERT INTO railway_system.train (train_id, train_number) VALUES ('49c1d109-8331-48e8-b31c-cc623037e1a7', '1');
 INSERT INTO railway_system.train (train_id, train_number) VALUES ('0c58aef6-d1a6-42f4-99f5-a877c032ea94', '2');
+INSERT INTO railway_system.train (train_id, train_number) VALUES ('547407d4-e38e-4b5f-8a21-e0e219a9e6f2', '3');
 
 
 --
 -- Data for Name: user; Type: TABLE DATA; Schema: railway_system; Owner: postgres
 --
 
-INSERT INTO railway_system."user" (user_id, email, password, first_name, last_name, phone, birth_date, role, blocked) VALUES ('f4722cb5-131b-4a92-aae4-bfa9b2fd7b9a', 'user2@mail.com', 'user', 'Userios', 'Userios', '+380965467832', '1966-11-13', 'USER', false);
-INSERT INTO railway_system."user" (user_id, email, password, first_name, last_name, phone, birth_date, role, blocked) VALUES ('0a56842d-d949-42e3-99d1-2da0f7bfc9d1', 'user@mail.com', 'user', 'User', 'User', '+380969528581', '1970-12-12', 'USER', false);
 INSERT INTO railway_system."user" (user_id, email, password, first_name, last_name, phone, birth_date, role, blocked) VALUES ('57e8f74f-14f5-4e5b-a5c4-242548108e9b', 'admin@mail.com', 'admin', 'Admin', 'Admin', '+380969528583', '1988-12-12', 'ADMIN', false);
+INSERT INTO railway_system."user" (user_id, email, password, first_name, last_name, phone, birth_date, role, blocked) VALUES ('0a56842d-d949-42e3-99d1-2da0f7bfc9d1', 'user@mail.com', 'user', 'User', 'User', '+380969528581', '1970-12-12', 'USER', true);
+INSERT INTO railway_system."user" (user_id, email, password, first_name, last_name, phone, birth_date, role, blocked) VALUES ('f4722cb5-131b-4a92-aae4-bfa9b2fd7b9a', 'user2@mail.com', 'user', 'Userios', 'Userios', '+380965467832', '1966-11-13', 'USER', true);
 
 
 --

@@ -12,8 +12,8 @@ import static java.util.stream.Collectors.joining;
 
 public class CarValidator {
     private static final Logger LOGGER = Logger.getLogger(CarValidator.class);
-    private static final String CAR_NUMBER = "^(?<![-\\d])(?<!\\d[.,])\\d*[0-9](?![.,]?\\d){1,2}$";
-    private static final String COUNT_OF_SEATS = "^(?<![-\\d])(?<!\\d[.,])\\d*[0-9](?![.,]?\\d){1,2}$";
+    private static final String CAR_NUMBER = "^(?<![-\\d])(?<!\\d[.,])\\d*[1-9](?![.,]?\\d){1,2}$";
+    private static final String COUNT_OF_SEATS = "^(?<![-\\d])(?<!\\d[.,])\\d*[1-9](?![.,]?\\d){1,2}$";
 
     public void isValidCar(CarDto carDto) {
         Map<String, String> errors = new HashMap<>();
