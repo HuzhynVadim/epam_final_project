@@ -111,4 +111,9 @@ public class OrderServiceImpl implements OrderService {
     public BigDecimal getPrice(String carType, String countOfSeats) {
         return CarType.valueOf(carType).getPrice().multiply(new BigDecimal(countOfSeats));
     }
+
+    @Override
+    public BigDecimal getPriceOfSuccessfulOrders(String userId) {
+        return transactionManager.execute(() -> orderRepository.getPriceOfSuccessfulOrders(userId));
+    }
 }

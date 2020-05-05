@@ -71,4 +71,6 @@ public interface OrderService {
      * @return price for the indicated count of seats
      */
     BigDecimal getPrice(String carType, String countOfSeats);
+
+    BigDecimal getPriceOfSuccessfulOrders(String userId);
 }

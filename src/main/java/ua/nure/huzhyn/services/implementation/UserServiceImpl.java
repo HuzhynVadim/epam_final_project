@@ -27,12 +27,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User isValidUser(String email, String password) {
         User user = transactionManager.execute(() -> userRepository.getByEmail(email));
-        if (user.getEmail() != null) {
+        if (user.getEmail() != null && !user.isBlocked()) {
             if (user.getPassword().equals(password)) {
                 return user;
             }
         } else {
-            UnauthorizedException e = new UnauthorizedException("You are not registered");
+            UnauthorizedException e = new UnauthorizedException("You are not registered or you are blocked");
             LOGGER.error(e);
             throw e;
         }

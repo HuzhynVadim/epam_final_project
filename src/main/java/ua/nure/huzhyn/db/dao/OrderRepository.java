@@ -3,6 +3,7 @@ package ua.nure.huzhyn.db.dao;
 import ua.nure.huzhyn.model.entity.Order;
 import ua.nure.huzhyn.model.entity.enums.OrderStatus;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -46,4 +47,6 @@ public interface OrderRepository extends CRUD<Order, String> {
      * @return list of {@link Order}
      */
     List<Order> getOrderByUserId(String userId);
+
+    BigDecimal getPriceOfSuccessfulOrders(String userId);
 }

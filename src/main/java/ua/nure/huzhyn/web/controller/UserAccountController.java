@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 @WebServlet("/user_account")
@@ -33,6 +34,9 @@ public class UserAccountController extends HttpServlet {
             orderList.get(i).setRoutsId(routInfoDto.getRoutName());
         }
         request.setAttribute("order_list", orderList);
+        BigDecimal priceOfSuccessfulOrders = orderService.getPriceOfSuccessfulOrders(userId);
+        request.setAttribute("sum", priceOfSuccessfulOrders);
+
 
         request.getRequestDispatcher("WEB-INF/jsp/userAccount.jsp").forward(request, response);
     }

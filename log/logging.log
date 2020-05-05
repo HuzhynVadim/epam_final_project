@@ -57,3 +57,105 @@ Incorrect format, type something like "1-23 or 1/23 or 123"Entered data:&nbsp;йц
 2020-05-05 10:22:46 TRACE LoginController:54 - login Servlet init
 2020-05-05 10:22:47 TRACE HomePageController:31 - home Servlet init
 2020-05-05 10:22:50 TRACE LogoutController:30 - logout Servlet init
+2020-05-05 10:34:29 TRACE RegistrationController:58 - registration Servlet init
+2020-05-05 10:34:29 ERROR RegistrationValidator:56 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format, type something like "Petrov or Петров"Entered data:&nbsp;2;<br/>
+Incorrect format, type something like "+380965467832"Entered data:&nbsp;sadfasd;<br/>
+Incorrect format, type something like "Alexandr or Александр"Entered data:&nbsp;2;<br/>
+
+2020-05-05 10:36:24 TRACE RegistrationController:58 - registration Servlet init
+2020-05-05 10:37:32 TRACE LoginController:54 - login Servlet init
+2020-05-05 10:37:32 TRACE HomePageController:31 - home Servlet init
+2020-05-05 10:38:18 TRACE ChangeLanguageController:38 - change_language Servlet init
+2020-05-05 10:38:24 TRACE AdministratorAccountController:65 - administrator_account Servlet init
+2020-05-05 10:38:45 TRACE AdministratorAddTrainController:38 - administrator_add_train Servlet init
+2020-05-05 10:39:00 ERROR TrainValidator:31 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format, type something like "123"Entered data:&nbsp;-3;<br/>
+
+2020-05-05 10:39:10 ERROR TrainValidator:31 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format, type something like "123"Entered data:&nbsp;a;<br/>
+
+2020-05-05 10:39:54 TRACE AdministratorAddStationController:38 - administrator_add_station Servlet init
+2020-05-05 10:40:09 TRACE AdministratorAddRoutController:48 - administrator_add_rout Servlet init
+2020-05-05 10:40:34 ERROR RoutValidator:33 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format, type something like "Odessa" or "Odessa speed"Entered data:&nbsp;123;<br/>
+Incorrect format, type something like "1-23 or 1/23 or 123"Entered data:&nbsp;qwe;<br/>
+
+2020-05-05 10:41:15 TRACE AdministratorDetailsSetRoutController:37 - administrator_details_set_rout Servlet init
+2020-05-05 10:41:35 TRACE AdministratorSetRoutController:86 - administrator_set_rout_mapping Servlet init
+2020-05-05 10:44:16 ERROR RoutsRepositoryImpl:49 - org.postgresql.util.PSQLException: ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "rout_to_station_mapping_pk"
+  Подробности: Ключ "(station_id, routs_id)=(a2480605-7f2c-4248-80ce-89c32279c7cc, 9de7944d-ee7d-4626-b111-d4dd8f34f736)" уже существует.
+2020-05-05 10:45:13 TRACE RoutMappingDeleteController:31 - remove_rout_mapping Servlet init
+2020-05-05 10:45:43 TRACE AdministratorEditInfoDetailsSetRoutController:69 - administrator_edit_info_details_set_rout Servlet init
+2020-05-05 10:46:49 TRACE AdministratorAddCarController:84 - administrator_add_car Servlet init
+2020-05-05 10:48:15 ERROR CarValidator:36 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format, type something like "123"Entered data:&nbsp;-40;<br/>
+
+2020-05-05 10:48:27 ERROR CarValidator:36 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format, type something like "123"Entered data:&nbsp;-40;<br/>
+
+2020-05-05 10:48:43 TRACE AdministratorEditInfoCarController:110 - administrator_edit_info_car Servlet init
+2020-05-05 10:50:50 TRACE AdministratorEditInfoOrderController:56 - administrator_edit_info_order Servlet init
+2020-05-05 10:51:05 TRACE AdministratorEditInfoTrainController:44 - administrator_edit_info_train Servlet init
+2020-05-05 10:52:51 TRACE SearchRoutForOrderController:60 - search_rout_for_order Servlet init
+2020-05-05 10:54:30 TRACE DetailRoutController:55 - detail_rout Servlet init
+2020-05-05 10:55:12 TRACE SelectStationAndCarTypeForOrderController:73 - select_station_and_car_type_for_order Servlet init
+2020-05-05 10:55:26 TRACE SelectCarAndCountSeatsForOrderController:70 - select_cars_and_seats_for_order Servlet init
+2020-05-05 10:56:15 TRACE SelectSeatsForOrderController:72 - select_seats_for_order Servlet init
+2020-05-05 10:56:32 TRACE ConfirmOrderController:198 - confirm_order Servlet init
+2020-05-05 10:57:13 TRACE UserAccountController:44 - user_account Servlet init
+2020-05-05 11:00:12 TRACE LogoutController:30 - logout Servlet init
+2020-05-05 11:00:27 ERROR SecurityFilter:118 - Invalid access rights, access denied
+2020-05-05 11:10:05 TRACE UserBlockController:31 - user_block Servlet init
+2020-05-05 11:11:28 ERROR LoginValidator:35 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format password enteredEntered data:&nbsp;;<br/>
+
+2020-05-05 11:11:32 ERROR UserServiceImpl:36 - ua.nure.huzhyn.exception.UnauthorizedException: You are not registered
+2020-05-05 11:39:29 ERROR SecurityFilter:108 - You are not authorized. Please register to enter the site.
+2020-05-05 11:39:39 ERROR SecurityFilter:108 - You are not authorized. Please register to enter the site.
+2020-05-05 12:08:26 TRACE LoginController:54 - login Servlet init
+2020-05-05 12:08:26 TRACE HomePageController:31 - home Servlet init
+2020-05-05 12:08:32 TRACE UserAccountController:44 - user_account Servlet init
+2020-05-05 12:08:42 TRACE AdministratorAccountController:65 - administrator_account Servlet init
+2020-05-05 12:08:42 ERROR SecurityFilter:118 - Invalid access rights, access denied
+2020-05-05 12:09:07 TRACE LogoutController:30 - logout Servlet init
+2020-05-05 12:09:29 TRACE AdministratorAccountController:65 - administrator_account Servlet init
+2020-05-05 12:09:55 TRACE AdministratorAccountController:65 - administrator_account Servlet init
+2020-05-05 12:10:26 TRACE AdministratorAccountController:65 - administrator_account Servlet init
+2020-05-05 12:10:26 ERROR SecurityFilter:108 - You are not authorized. Please register to enter the site.
+2020-05-05 12:13:05 TRACE LoginController:54 - login Servlet init
+2020-05-05 12:13:06 TRACE HomePageController:31 - home Servlet init
+2020-05-05 12:13:08 TRACE AdministratorAccountController:65 - administrator_account Servlet init
+2020-05-05 12:15:06 TRACE UserAccountController:44 - user_account Servlet init
+2020-05-05 12:44:15 TRACE LogoutController:30 - logout Servlet init
+2020-05-05 12:44:15 ERROR SecurityFilter:108 - You are not authorized. Please register to enter the site.
+2020-05-05 12:44:29 TRACE LoginController:54 - login Servlet init
+2020-05-05 12:44:29 TRACE HomePageController:31 - home Servlet init
+2020-05-05 12:44:30 TRACE UserAccountController:48 - user_account Servlet init
+2020-05-05 12:48:44 TRACE LogoutController:30 - logout Servlet init
+2020-05-05 12:48:44 ERROR SecurityFilter:108 - You are not authorized. Please register to enter the site.
+2020-05-05 12:48:49 TRACE LoginController:54 - login Servlet init
+2020-05-05 12:48:49 TRACE HomePageController:31 - home Servlet init
+2020-05-05 12:48:50 TRACE UserAccountController:48 - user_account Servlet init
+2020-05-05 12:57:22 TRACE LogoutController:30 - logout Servlet init
+2020-05-05 12:57:22 ERROR SecurityFilter:108 - You are not authorized. Please register to enter the site.
+2020-05-05 12:57:28 TRACE LoginController:54 - login Servlet init
+2020-05-05 12:57:28 TRACE HomePageController:31 - home Servlet init
+2020-05-05 12:57:30 TRACE UserAccountController:48 - user_account Servlet init
+2020-05-05 12:57:59 TRACE SearchRoutForOrderController:60 - search_rout_for_order Servlet init
+2020-05-05 12:58:01 TRACE SelectStationAndCarTypeForOrderController:73 - select_station_and_car_type_for_order Servlet init
+2020-05-05 12:58:03 TRACE SelectCarAndCountSeatsForOrderController:70 - select_cars_and_seats_for_order Servlet init
+2020-05-05 12:58:06 TRACE SelectSeatsForOrderController:72 - select_seats_for_order Servlet init
+2020-05-05 12:58:09 TRACE ConfirmOrderController:198 - confirm_order Servlet init
+2020-05-05 12:58:16 TRACE AdministratorAccountController:65 - administrator_account Servlet init
+2020-05-05 12:58:21 TRACE AdministratorEditInfoOrderController:56 - administrator_edit_info_order Servlet init
+2020-05-05 12:58:39 TRACE CancelOrderController:38 - cancel_order Servlet init
+2020-05-05 13:49:59 TRACE RegistrationController:58 - registration Servlet init
+2020-05-05 13:50:07 ERROR RegistrationValidator:56 - ua.nure.huzhyn.exception.IncorrectDataException: Incorrect format, type something like "passw0r$4"Entered data:&nbsp;qweqwe;<br/>
+
+2020-05-05 13:50:33 TRACE HomePageController:31 - home Servlet init
+2020-05-05 13:50:40 TRACE LogoutController:30 - logout Servlet init
+2020-05-05 13:53:05 TRACE LoginController:54 - login Servlet init
+2020-05-05 13:58:54 TRACE LoginController:54 - login Servlet init
+2020-05-05 13:59:02 TRACE HomePageController:31 - home Servlet init
+2020-05-05 13:59:06 TRACE UserAccountController:48 - user_account Servlet init
+2020-05-05 13:59:39 TRACE LogoutController:30 - logout Servlet init
+2020-05-05 14:01:28 TRACE LogoutController:30 - logout Servlet init
+2020-05-05 14:01:28 ERROR SecurityFilter:108 - You are not authorized. Please register to enter the site.
+2020-05-05 14:01:34 TRACE LoginController:54 - login Servlet init
+2020-05-05 14:01:37 TRACE HomePageController:31 - home Servlet init
+2020-05-05 14:01:46 ERROR UserServiceImpl:36 - ua.nure.huzhyn.exception.UnauthorizedException: You are not registered or you are blocked
+2020-05-05 14:02:13 TRACE RegistrationController:58 - registration Servlet init

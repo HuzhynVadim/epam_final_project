@@ -107,6 +107,7 @@
     </c:forEach>
     </tbody>
 </table>
+<div class="h4"><fmt:message key="total"/> ${sum}</div>
 <form action="home" method="GET">
     <input type="submit" class="btn btn-primary" value="<fmt:message key="back"/>">
 </form>

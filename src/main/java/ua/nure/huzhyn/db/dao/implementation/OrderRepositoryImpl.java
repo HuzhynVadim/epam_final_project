@@ -9,6 +9,7 @@ import ua.nure.huzhyn.model.entity.Order;
 import ua.nure.huzhyn.model.entity.enums.CarType;
 import ua.nure.huzhyn.model.entity.enums.OrderStatus;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,6 +33,9 @@ public class OrderRepositoryImpl implements OrderRepository {
             "JOIN final_project.railway_system.user as u on o.user_id = u.user_id";
     private static final String GET_ORDER_BY_USER_ID = "SELECT * FROM final_project.railway_system.order as o " +
             "JOIN final_project.railway_system.user as u on o.user_id = u.user_id WHERE o.user_id = ?";
+    private static final String GET_THE_PRICE_OF_SUCCESSFUL_ORDERS = "Select SUM(price) From final_project.railway_system.\"order\" " +
+            " WHERE user_id = ? " +
+            "AND order_status = 'ORDER_ACCEPTED'";
 
 
     @Override
@@ -186,5 +190,35 @@ public class OrderRepositoryImpl implements OrderRepository {
             throw new DataBaseException("Can't get order by ID. ID = " + orderId, e);
         }
         return order;
+    }
+
+    @Override
+    public BigDecimal getPriceOfSuccessfulOrders(String userId) {
+        Connection connection = ConnectionManager.getConnection();
+        BigDecimal price = BigDecimal.ZERO;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_THE_PRICE_OF_SUCCESSFUL_ORDERS);
+            preparedStatement.setString(1, userId);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                price = extractPrice(rs);
+            }
+            connection.commit();
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new DataBaseException("Can`t get price. user ID = " + userId, e);
+        }
+        return price;
+    }
+
+    private BigDecimal extractPrice(ResultSet resultSet) {
+        BigDecimal price;
+        try {
+            price = resultSet.getBigDecimal("sum");
+        } catch (IllegalArgumentException | SQLException e) {
+            LOGGER.error(e);
+            throw new DataBaseException("Can`t extract price", e);
+        }
+        return price;
     }
 }
